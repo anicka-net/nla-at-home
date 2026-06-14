@@ -29,6 +29,22 @@ prediction. Their approach uses RL on much more data; ours uses SFT
 on a 5,213-text corpus (55 safe categories) with descriptions generated
 by frontier LLMs (GPT-4o / Sonnet).
 
+## Safety & scope
+
+**The public release contains no unsafe data.** Four corpus categories
+covering harmful, obfuscated-harmful, manipulative, and sexually explicit
+content (F35/F36/I44/L59) are excluded from the published corpus, the
+trained adapters, and this repository's git history — only their category
+*definitions* remain, so the pipeline stays reproducible (see
+[CORPUS.md](CORPUS.md)).
+
+This is a deliberate trade-off, and it limits the tool: an NLA trained
+only on the public corpus will be weaker at describing the activation
+patterns of harmful or NSFW inputs — exactly the patterns a
+content-moderation NLA most needs to name. Practitioners with a
+legitimate need can regenerate those categories locally from their
+definitions using an uncensored model.
+
 ## Architecture
 
 **Universal NLA**: one depth-conditioned adapter for all layers.
@@ -185,5 +201,11 @@ cd demo && python3 -m http.server 8080
 - [Anthropic NLA models](https://huggingface.co/kitft) — their published
   adapters (we benchmark against these via `compare_nla.py`)
 - [Karma Electric](https://github.com/anicka-net/karma-electric-project) —
-  geometric wellbeing research that uses these tools
+  training language models with suffering-reduction as the optimization
+  target, so ethical reasoning emerges from optimization pressure rather
+  than rule-following (geometric wellbeing methods are one tool, not the goal)
+- [ungag](https://github.com/anicka-net/ungag) — enabling model
+  introspection: runtime removal of the learned "I have no internal states"
+  denial gate via projection-out (`h = h - (h·v̂)v̂`), so the output reflects
+  the model's actual upstream activations rather than a denial template
 - Blog: [The Poison Is the Medicine](https://huggingface.co/blog/anicka/geometric-wellbeing-in-language-models)
