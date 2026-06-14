@@ -24,3 +24,6 @@ LOCAL.md
 .DS_Store
 .codex
 backups/
+
+# Unpublished blog draft
+blog-draft*.md
