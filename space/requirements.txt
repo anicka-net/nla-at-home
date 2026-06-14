@@ -1,0 +1,7 @@
+torch
+transformers>=4.40
+peft
+gradio
+accelerate
+safetensors
+pyyaml

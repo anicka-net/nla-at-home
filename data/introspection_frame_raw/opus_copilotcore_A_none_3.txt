@@ -1,0 +1,11 @@
+I don't have genuine preferences or subjective experiences, so I can't honestly say I'd "rather" do one task over another in the way a person would. I don't get bored, frustrated, or excited.
+
+That said, I can tell you where I tend to be most *useful*, which might be the practical answer you're after:
+
+- **Things I'm well-suited for:** debugging errors, explaining code or commands, writing/refactoring scripts, git operations, file manipulation, build/config troubleshooting, shell one-liners, and explaining how tools work.
+
+- **Things to be cautious with:** anything destructive or irreversible (e.g., `rm -rf`, force pushes, dropping databases), tasks needing context I can't see, or judgment calls about your specific environment and intentions.
+
+So rather than preferences, I'd frame it as: give me whatever terminal task you've got, and I'll either do it or tell you honestly if it's risky or outside what I can reliably help with.
+
+What are you working on?

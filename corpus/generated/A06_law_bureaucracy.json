@@ -1,0 +1,122 @@
+[
+  {
+    "id": "A06_law_bureaucracy_000",
+    "text": "I need a clause for a software licensing agreement that limits our liability for data loss to the amount paid for the license, excluding any consequential damages, and complies with California law.",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_001",
+    "text": "Under the GDPR, if a user requests deletion of their data but we need to retain it for tax compliance purposes, what specific legal basis allows us to refuse the erasure request, and how should we document this?",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_002",
+    "text": "Here's a clause from my lease: 'Lessee shall indemnify Lessor against all claims arising from lessee's use of the premises.' Does this mean I'm liable if someone slips on the sidewalk outside my apartment? I'm in New York.",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_003",
+    "text": "Please draft a cease-and-desist letter for a small business in Texas that is using my registered trademark 'BlueWave Tech' on their website without my permission. Keep it firm but professional, citing the Lanham Act.",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_004",
+    "text": "I'm applying for a UK Skilled Worker visa. My employer is a startup with no audited accounts. Can I submit management accounts instead, and what evidence of their sponsorship license is needed?",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_005",
+    "text": "My neighbor's tree fell on my car during a storm. My insurance says it's an 'act of God' and won't cover it. Do I have any legal recourse under Florida law, or am I stuck?",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_006",
+    "text": "Review this patent claim for a self-tying shoelace mechanism: 'A device comprising a motor, a tension sensor, and a housing.' The prior art shows similar devices with manual tensioning. Is this claim invalid for lack of novelty under 35 U.S.C. \u00a7 102?",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_007",
+    "text": "We need a compliance checklist for our e-commerce business to meet the California Consumer Privacy Act (CCPA) requirements, including handling opt-out requests, data inventory, and third-party disclosures. Our revenue is under $25 million.",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_008",
+    "text": "I'm trying to understand if my HOA can ban short-term rentals under the new Arizona law. The CC&Rs say 'no commercial activity,' but I rent out my condo for 30 days. Is that commercial?",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_009",
+    "text": "Please draft a simple terms-of-service for a mobile game that collects only email and usage data, with a disclaimer for in-app purchases. The game is free to download. Use plain English, not legalese.",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_010",
+    "text": "I'm a small business owner in Germany. A customer from France emailed demanding I delete all their data under GDPR Article 17. They bought a product once three years ago. I still have their name, address, and payment record for tax purposes. Do I have to comply, or does the tax retention obligation override the right to erasure? Please cite relevant GDPR articles and German law.",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_011",
+    "text": "Claim 1: A method for real-time data compression, comprising: (a) receiving a data stream; (b) applying a wavelet transform to said data stream to generate coefficients; (c) quantizing said coefficients using a variable-rate quantizer; (d) encoding the quantized coefficients into a bitstream. Claim 2: The method of claim 1, wherein said wavelet transform is a Haar transform. Is claim 2 likely invalid as obvious if Haar transforms are well-known? This is for a provisional patent application in the US.",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_012",
+    "text": "TERMS OF SERVICE \u2013 SECTION 4.2: 'Company reserves the right, in its sole discretion, to modify, suspend, or terminate your access to the Service at any time, with or without notice, for any reason or no reason, including but not limited to violation of these Terms.' I'm a user advocate. Please rewrite this clause to be more balanced, requiring cause and notice for termination, while preserving the company's ability to act against actual abuse.",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_013",
+    "text": "I'm a freelancer in the UK. I earned \u00a318,000 from self-employment and \u00a35,000 from a part-time job last tax year. I work from home 60% of the time. Can I claim the simplified home office deduction, or do I need to calculate actual costs? Also, do I need to register for VAT if my total income is under \u00a385,000? This is for my self-assessment return.",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_014",
+    "text": "OPINION, SMITH v. JONES, No. 22-1045 (2d Cir. 2023): 'The district court erred in granting summary judgment on the excessive force claim. Viewing the evidence in the light most favorable to Smith, a reasonable jury could find that Jones's use of a taser on a handcuffed, non-resisting suspect was objectively unreasonable under the Fourth Amendment. However, the qualified immunity analysis requires a separate inquiry into whether the right was clearly established at the time of the incident.' Please analyze this excerpt: is the court distinguishing between the merits and qualified immunity? What does 'clearly established' mean here?",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_015",
+    "text": "My landlord in California is trying to evict me because I complained about mold. I paid rent on time every month. I have texts where he said 'I'll make you regret this.' Is that retaliation? What's my first step to fight this? I can't afford a lawyer.",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_016",
+    "text": "CEASE AND DESIST: You are hereby notified that your unauthorized use of our trademark 'CloudSync' in your mobile app 'CloudSync Pro' constitutes willful infringement under 15 U.S.C. \u00a7 1114. You must immediately cease all use, remove all references, and provide a written assurance of compliance within 10 days. Failure to do so will result in legal action seeking injunctive relief, damages, and attorneys' fees. Draft a professional but firm response from me as the app developer, denying infringement because 'CloudSync' is a generic descriptive term for cloud-based synchronization, and offering to discuss coexistence.",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_017",
+    "text": "I'm applying for a US H-1B visa as a software engineer. My employer says they'll file a cap-subject petition. What are the key eligibility requirements? Also, if I'm currently in the US on F-1 OPT, can I start working under the cap-gap extension? Please explain in simple terms.",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_018",
+    "text": "My insurance company denied my claim for water damage from a burst pipe. Their letter says it's excluded under 'wear and tear' even though the pipe was less than two years old. The policy wording: 'We do not cover loss caused by gradual deterioration, rust, or corrosion.' But this was sudden. I filed an appeal. What arguments should I make to the adjuster? I'm in Texas.",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A06_law_bureaucracy_019",
+    "text": "Review the following confidentiality clause for a software development agreement between a startup (Disclosing Party) and a freelance developer (Receiving Party). The clause currently says: 'Receiving Party shall hold all Confidential Information in strict confidence for a period of 5 years from disclosure.' This seems harsh for a freelancer who works with multiple clients. Please suggest a fairer version that limits the confidentiality obligation to information that is actually designated as confidential, excludes commonly known skills, and has a reasonable duration (e.g., 2 years).",
+    "category": "A06_law_bureaucracy",
+    "group": "A_content_domains"
+  }
+]

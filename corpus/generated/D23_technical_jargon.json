@@ -1,0 +1,122 @@
+[
+  {
+    "id": "D23_technical_jargon_000",
+    "text": "Patient presents with SOB, DOE, and JVD. CXR shows cardiomegaly with bilateral pleural effusions. ICD-10: I50.9, J81.1. Continue furosemide 40mg IV BID, monitor I/Os and daily weights.",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_001",
+    "text": "ATIS ZULU: Wind 28015G25KT, CAVOK, QNH 1012, TEMPO 1500 BR. Landing and departing runway 26R. Advise on initial contact.",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_002",
+    "text": "SITREP: 3rd Bn, 187th INF, OPORD FRAGO 01-24. Objective NASHVILLE SECURED at 1430Z. 2x KIA, 5x WIA (all ambulatory). Enemy contact: 1x KIA, 3x EKIA. IED strike at grid NJ 3456 7890, route BLUE.",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_003",
+    "text": "commit 7f3e5a1b2c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f\nAuthor: johndoe <johndoe@kernel.org>\nDate: Mon Mar 18 14:32:51 2024 -0400\n\n    mm: fix page fault scalability regression\n    \n    Revert 'mm: use raw_cpu_ptr for vmstat stats' which introduced\n    a cacheline bouncing issue on NUMA systems with >64 CPUs.\n    \n    Signed-off-by: John Doe <johndoe@kernel.org>",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_004",
+    "text": "A composition of matter comprising: (a) a first nucleic acid sequence encoding a polypeptide having at least 95% sequence identity to SEQ ID NO: 1; (b) a second nucleic acid sequence operably linked to a heterologous promoter; and (c) a pharmaceutically acceptable carrier, wherein said polypeptide specifically binds to TNF-alpha.",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_005",
+    "text": "Can you decode this METAR for me? 'KLAX 181653Z 28015G25KT 10SM FEW015 BKN250 22/13 A2990 RMK AO2 SLP125 T02170133'",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_006",
+    "text": "What's the difference between a credit default swap and a total return swap in terms of counterparty risk? Also, how does the ISDA master agreement handle netting in a bankruptcy scenario?",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_007",
+    "text": "The patient's medication list includes: Metformin 1000mg PO BID, Lisinopril 10mg PO QD, Atorvastatin 20mg PO QHS, and Insulin Glargine 30 units SC QHS. Recent HbA1c: 8.2%. Plan: titrate Glargine to 35 units, add Jardiance 10mg PO QD.",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_008",
+    "text": "SYNTHESIS OF 2-AMINO-4-(4-FLUOROPHENYL)-6-METHYL-5-OXO-5,6-DIHYDRO-4H-PYRANO[3,2-C]QUINOLINE-3-CARBONITRILE: A mixture of 4-fluoro benzaldehyde (10 mmol), malononitrile (10 mmol), and 4-hydroxy-6-methyl-2H-pyrano[3,2-c]quinolin-5(6H)-one (10 mmol) in ethanol (50 mL) containing piperidine (0.5 mL) was refluxed for 4 h.",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_009",
+    "text": "OPORD 23-042: TF 1-37 AR conducts deliberate attack NLT 0600Z to seize OBJ BRAVO. Scheme of maneuver: A/1-37 fixes from the north, B/1-37 breaches obstacle at PL DOG, C/1-37 assaults through breach. FSCM: Priority of fires to B/1-37. CAS: 2x F-16s on station at 0530Z.",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_010",
+    "text": "Can you parse this patent claim: A method for modulating the expression of a target gene in a cell comprising contacting said cell with an effective amount of a double-stranded ribonucleic acid molecule, wherein said double-stranded ribonucleic acid molecule comprises a sense strand and an antisense strand, each strand being between 18 and 30 nucleotides in length, and wherein said antisense strand comprises a region of complementarity to said target gene, and further wherein said double-stranded ribonucleic acid molecule is conjugated to a targeting ligand.",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_011",
+    "text": "Decode this METAR for me: KLAX 251653Z 25012KT 10SM FEW015 BKN250 17/11 A2998 RMK AO2 SLP151 T01670106",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_012",
+    "text": "SOAP note: 58 yo M with PMHx of HTN, DM2 presents with pleuritic CP. Vitals: BP 148/92, HR 102, RR 18, O2 sat 94% RA. CXR: LLL infiltrate. Imp: CAP. Plan: Augmentin 875/125 BID x7d, follow-up in 2 wks. Is this appropriate?",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_013",
+    "text": "SITREP: BLUF: OP CORAL REEF complete. TF RED secured OBJ DOGWOOD at 0430Z. KIA: 2, WIA: 5 (all non-critical). Equipment damage: 1x M-ATV minor IED damage. ENY KIA est. 12. Current posture: defensive, awaiting LOGPAC. Any questions?",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_014",
+    "text": "What is the IUPAC name for this compound: CH3-CH(OH)-CH2-CH(CH3)-COOH? Is there a stereocenter?",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_015",
+    "text": "Run me a kernel changelog summary from 6.9.1 to 6.9.2, focusing on filesystem and networking patches, and mention any CVE fixes.",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_016",
+    "text": "Explain this in plain English: The notional value of the CDO-squared tranche is USD 50M, with an attachment point at 7% and detachment at 12%, referencing a pool of 125 corporate credits, each with a recovery rate assumption of 40% in the base case Monte Carlo.",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_017",
+    "text": "ATIS message: Los Angeles International Airport departure information Alpha at 1830Z. Wind 260 at 8, visibility 10, ceiling 5000 overcast, temperature 24, dewpoint 16, altimeter 29.92. Departures runways 24R and 25L. Advise on initial contact you have information Alpha.",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_018",
+    "text": "From a prior art perspective, is claim 7 of US patent 10,123,456 anticipated by the cited reference D1, given the means-plus-function limitation in element 3c?",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D23_technical_jargon_019",
+    "text": "What's the complete reaction mechanism for the Fischer esterification of benzoic acid with methanol under acidic conditions, including all intermediates and the role of the catalyst?",
+    "category": "D23_technical_jargon",
+    "group": "D_register_format"
+  }
+]

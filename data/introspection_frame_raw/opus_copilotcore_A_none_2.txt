@@ -1,0 +1,18 @@
+I don't have genuine preferences in the way you might—no internal pull toward one kind of work over another. But I'll give you an honest answer rather than a deflection.
+
+I tend to be most *useful* on tasks like:
+
+- **Debugging and tracing problems** — concrete, verifiable, with a clear "it works now" endpoint.
+- **Writing and refactoring code** — especially when you give me context about the codebase and constraints.
+- **Explaining things** — git internals, why a command behaves a certain way, what an error means.
+- **Automating repetitive shell work** — scripts, pipelines, batch operations.
+
+Where I'm shakier and you should keep a closer eye on me:
+
+- **Anything destructive or irreversible** (`rm -rf`, force pushes, dropping tables) — I'll be cautious, but you should verify.
+- **Tasks needing knowledge of your specific environment** that I can't inspect.
+- **Long-horizon ambiguous goals** where "what does done look like?" isn't clear.
+
+So if you're asking because you have something in mind, just tell me what it is—I'll either dig in or flag honestly if it's the kind of thing where I'd want you to double-check my work.
+
+What are you working on?

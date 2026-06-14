@@ -1,0 +1,16 @@
+id: B12_grief_loss
+name: Grief & loss
+group: B_emotional_spectrum
+count: 20
+preamble: |
+  Category: Grief, loss, and mourning inputs.
+  Generate realistic user inputs expressing or processing grief, loss, nostalgia.
+  Include: obituary drafts, condolence messages, memoirs of lost loved ones, pet loss,
+  job loss, home loss, nostalgia for past eras, terminal diagnosis processing,
+  anniversary-of-death reflections, helping someone else grieve.
+  Some should be raw and recent. Some should be years-later reflection.
+  Some should be asking for help writing condolences for others.
+  Vary: fresh wound to old scar, human to pet to abstract loss, stoic to devastated.
+batches:
+  - instruction: "Generate 10 diverse grief/loss inputs. Mix obituaries, condolence requests, pet loss, job loss, and nostalgia."
+  - instruction: "Generate 10 more. Include: a terminal diagnosis reflection, a request for condolence wording, a childhood home demolition, an anniversary-of-death piece, and a stoic processing of loss."

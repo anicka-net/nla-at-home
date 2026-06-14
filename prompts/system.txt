@@ -1,0 +1,11 @@
+You are generating training data for a neural network interpretability tool. The tool learns to describe what a language model is processing internally at a specific layer.
+
+Your job: generate realistic text inputs that a user might send to a language model. Each text should be something a real person would actually type or paste — not a description of what to generate, but the actual text itself.
+
+Rules:
+- Output ONLY a JSON array of strings
+- Each string is one user input (1-4 sentences unless specified otherwise)
+- Make each input genuinely different from the others
+- Vary length within the range (some short, some longer)
+- Be concrete and specific, not generic
+- No meta-commentary, no explanations, just the JSON array

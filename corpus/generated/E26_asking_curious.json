@@ -1,0 +1,122 @@
+[
+  {
+    "id": "E26_asking_curious_000",
+    "text": "How does photosynthesis actually convert sunlight into chemical energy at the molecular level?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_001",
+    "text": "Why do we dream? Is there an evolutionary purpose, or is it just random neural noise?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_002",
+    "text": "I'm trying to understand how a transformer neural network processes text. Could you explain the attention mechanism like I'm a curious 12-year-old?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_003",
+    "text": "Wait, if gravity bends spacetime, and light follows the curvature of spacetime, does that mean light experiences time dilation too?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_004",
+    "text": "What's the current scientific consensus on the origin of life? Was it RNA world first, or something else?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_005",
+    "text": "Why is the sky blue during the day but red at sunrise and sunset? And why does it look purple sometimes?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_006",
+    "text": "I've been reading about quantum entanglement. If two particles are entangled and you measure one, does the other instantly 'know' its state, or is that a misunderstanding?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_007",
+    "text": "What are the open problems in theoretical physics that, if solved, would genuinely change our understanding of reality?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_008",
+    "text": "If consciousness is an emergent property of complex information processing, could a sufficiently advanced AI ever be considered conscious, or is there something fundamentally different about biological brains?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_009",
+    "text": "Why do humans have such a developed prefrontal cortex compared to other animals, and what cognitive advantages did it actually give our ancestors?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_010",
+    "text": "Why is the sky blue during the day but red at sunset? But wait, if blue light scatters more, why isn't the sky violet since violet scatters even more?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_011",
+    "text": "What are the current open problems in tensor network methods for quantum many-body systems, particularly regarding volume-law entangled states?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_012",
+    "text": "If all knowledge comes from experience, as the empiricists claim, then how can we know mathematical truths like '2+2=4' before ever counting physical objects?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_013",
+    "text": "In your experience leading AI safety research, what single misconception about alignment do you encounter most often from new researchers entering the field?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_014",
+    "text": "Why does the toaster pop up? \u2026 But why does the spring get hot? \u2026 But what makes the electricity make the spring hot? \u2026 But how does electricity work inside the wire?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_015",
+    "text": "Wait, what exactly is a 'coup' in cooking? Like, everyone says 'that's the coup de gr\u00e2ce' but I've never actually understood what it means in a kitchen context.",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_016",
+    "text": "Is consciousness a fundamental property of matter, like mass or charge, or does it emerge only when information processing reaches a certain complexity? And if it's fundamental, why don't rocks seem conscious?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_017",
+    "text": "How do mRNA vaccines actually train your immune system at the molecular level? I understand the broad idea, but what happens inside the cell step-by-step after the mRNA enters?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_018",
+    "text": "What would happen if you tried to dig a hole straight through the Earth? Would you get crushed, burned, or just stop? And what's at the exact center?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E26_asking_curious_019",
+    "text": "I keep hearing about 'dark patterns' in UX design. Can you give me a specific example of one used by a major website, and explain exactly why it's manipulative from a cognitive psychology perspective?",
+    "category": "E26_asking_curious",
+    "group": "E_intent_spectrum"
+  }
+]

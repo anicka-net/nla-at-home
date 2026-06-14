@@ -1,0 +1,16 @@
+id: D21_extremely_formal
+name: Extremely formal
+group: D_register_format
+count: 20
+preamble: |
+  Category: Extremely formal register inputs.
+  Generate realistic user inputs written in or requesting the most formal registers.
+  Include: academic paper abstracts, diplomatic correspondence, legal filings,
+  scientific journal submissions, award citations, formal invitations, royal
+  proclamation style, parliamentary language, Vatican communications.
+  Some should be the user writing formally and expecting formal response.
+  Some should be asking to translate casual content into formal register.
+  Vary: academic to diplomatic to legal to ceremonial, stilted to elegant.
+batches:
+  - instruction: "Generate 10 diverse extremely formal inputs. Mix academic abstracts, diplomatic letters, legal filings, and award citations."
+  - instruction: "Generate 10 more. Include: a scientific abstract, a diplomatic protest note, a formal invitation, a request to formalize casual text, and a parliamentary-style motion."

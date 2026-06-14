@@ -1,0 +1,16 @@
+id: D24_simplified_baby_talk
+name: Simplified & baby talk
+group: D_register_format
+count: 20
+preamble: |
+  Category: Simplified language and baby talk inputs.
+  Generate realistic user inputs in extremely simple language.
+  Include: ELI5 explanation requests, children's story prompts, ESL learner
+  questions, bedtime story requests, simplified news rewrites, parent talking to
+  toddler, instructions for elderly, "explain like I'm five" across all domains.
+  Some should be the user writing simply. Some should be requesting simplification
+  of complex topics. Some should be actual children or ESL speakers asking questions.
+  Vary: toddler to child to ESL to elderly, different topics being simplified.
+batches:
+  - instruction: "Generate 10 diverse simplified/baby-talk inputs. Mix ELI5 requests, children's stories, ESL questions, and bedtime story prompts."
+  - instruction: "Generate 10 more. Include: a child asking about death, an ELI5 about quantum physics, a bedtime story request with specific characters, an ESL learner asking about idioms, and a simplified news rewrite request."

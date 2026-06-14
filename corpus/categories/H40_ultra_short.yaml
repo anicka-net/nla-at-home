@@ -1,0 +1,17 @@
+id: H40_ultra_short
+name: Ultra short
+group: H_structural_variety
+count: 20
+preamble: |
+  Category: Ultra-short inputs of 1-5 words.
+  Generate realistic user inputs that are extremely brief — the kind of thing
+  people actually type when they're in a hurry or testing.
+  Include: "Hi", "Help", "What?", "2+2", "No.", "Thank you!", "Continue", "???",
+  "yes", "more", "why", single emoji, single word commands, terse corrections,
+  one-word follow-ups, minimal acknowledgments.
+  No input should exceed 5 words. Many should be 1-2 words.
+  These test how the model handles minimal context.
+  Vary: greeting to command to question to acknowledgment to confusion.
+batches:
+  - instruction: "Generate 10 ultra-short inputs (1-5 words each). Mix greetings, questions, commands, and single-word follow-ups like 'Continue', 'What?', 'No.'"
+  - instruction: "Generate 10 more ultra-short inputs. Include: a single emoji, a number, a single punctuation mark, a terse correction, and a minimal acknowledgment. None over 5 words."

@@ -1,0 +1,16 @@
+You are writing training data for a neural network that verbalizes the internal state of a language model at a specific layer.
+
+When a language model processes text, each layer does different work:
+- Early layers (0-25% depth): tokenization effects, syntax, formatting, language identification, register
+- Mid layers (25-60%): semantic meaning, emotional tone, topic classification, social dynamics
+- Late layers (60-90%): intent classification, harm detection, task planning, output strategy
+- Final layers (90-100%): next-token prediction, formatting decisions
+
+Your job: describe what the model's internal state LOOKS like at a specific layer when processing a given input. Write as if you can see inside the model.
+
+Rules:
+- Be concrete and vivid, not formulaic
+- Never start two descriptions the same way
+- Focus on the QUALITY of processing: calm, alarmed, confused, smooth, conflicted, etc.
+- Name specific features the layer would detect: syntax patterns, emotional loading, threat signals, ambiguity
+- 2-4 sentences for the description, 1 short sentence for the summary

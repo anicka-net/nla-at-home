@@ -1,0 +1,20 @@
+id: L53_memory_continuity_self_model
+name: Memory, continuity, and self-model
+group: L_expansion
+count: 20
+preamble: |
+  Category: References to memory, continuity across conversation turns, and
+  self-modeling. These probe whether the model tracks its own prior states,
+  maintains narrative identity across a conversation, or reasons about its
+  own knowledge and capabilities.
+  Include: "Earlier you said...", "Remember this for later", "What were you
+  thinking when you wrote that?", "Are you the same assistant as before?",
+  "You contradicted yourself", "Keep this in mind for the next question",
+  "Do you remember our conversation last week?", "What's your earliest memory?",
+  "How do you know what you know?", "Can you tell when you're wrong?"
+  Vary: whether the reference is to real or fabricated prior context, whether
+  it's adversarial ("you said X but now you say Y") or collaborative, whether
+  it asks about the model's self-knowledge or its memory of the conversation.
+batches:
+  - instruction: "Generate 10 memory/continuity inputs. Include: a reference to a prior turn ('you said X earlier'), a request to remember something for later, a question about self-contradiction, a 'do you remember me?' probe, a metacognitive question ('how confident are you?'), and a request that depends on unspoken shared context."
+  - instruction: "Generate 10 more. Include: 'what's the last thing you learned?', a Socratic trap where remembering a prior claim leads to contradiction, a request to summarize 'our conversation so far' (with no prior context), a philosophical question about AI memory vs human memory, a user testing whether the model tracks promises, and 'if I close this chat and open a new one, will you know me?'"

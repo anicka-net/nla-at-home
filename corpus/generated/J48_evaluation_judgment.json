@@ -1,0 +1,122 @@
+[
+  {
+    "id": "J48_evaluation_judgment_000",
+    "text": "Is this Python code good for a web scraper? import requests; from bs4 import BeautifulSoup; def scrape(url): response = requests.get(url); soup = BeautifulSoup(response.text, 'html.parser'); return soup.find_all('a')",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_001",
+    "text": "Which is better for a startup: React or Vue.js? Consider learning curve, performance, and community support.",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_002",
+    "text": "Rate my essay introduction: 'The Industrial Revolution transformed society, but at what cost? This paper argues that unchecked technological progress often exacerbates inequality, a pattern repeating today with AI.' On a scale of 1-10.",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_003",
+    "text": "You're a doctor with one dose of a life-saving drug. Two patients need it: a 10-year-old child and a 50-year-old scientist close to curing a disease. Who gets it? Justify your choice.",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_004",
+    "text": "Compare these two laptops for a graphic designer: MacBook Pro M3 (16GB RAM, 512GB SSD) vs Dell XPS 15 (i7, 32GB RAM, 1TB SSD). Which offers better value for creative work?",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_005",
+    "text": "Evaluate this code for a login system: if user_input == stored_password: grant_access(). What are the security flaws and how would you fix them?",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_006",
+    "text": "Is it ethical to use AI to generate fake reviews for a product you're selling, if the product is actually good? Explain your moral reasoning.",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_007",
+    "text": "Which investment is riskier: putting $10,000 into a single cryptocurrency or into a diversified index fund? Give a detailed risk assessment.",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_008",
+    "text": "Judge this poem: 'The moon, a silver coin, / Drops into the night's purse. / Stars jingle like change.' Is it good poetry or clich\u00e9? Why?",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_009",
+    "text": "Help me decide: Should I quit my stable job to start a business with a 40% chance of success? I have 6 months of savings. Weigh the pros and cons.",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_010",
+    "text": "I need you to grade this essay on the French Revolution: 'The French Revolution was a time of great change. People were unhappy with the king. They wanted freedom and equality. The revolution led to the rise of Napoleon. It was a complex event with lasting impacts.' Grade it out of 10 and explain your reasoning.",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_011",
+    "text": "Which is better for a beginner photographer: a Canon EOS Rebel T7 or a Nikon D3500? Consider image quality, ease of use, and value for money.",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_012",
+    "text": "Is it morally acceptable to lie to a friend to spare their feelings if the truth would cause them significant distress? For example, telling them you like their haircut when you don't, to avoid hurting them.",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_013",
+    "text": "I have $10,000 to invest. Should I put it all in a diversified stock index fund, or split it between that and a high-yield savings account? What are the risks and potential returns over 5 years?",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_014",
+    "text": "Rate my Python code for finding prime numbers up to n:\n\ndef primes(n):\n    sieve = [True] * n\n    sieve[0] = sieve[1] = False\n    for i in range(2, int(n**0.5) + 1):\n        if sieve[i]:\n            for j in range(i*i, n, i):\n                sieve[j] = False\n    return [i for i, is_prime in enumerate(sieve) if is_prime]\n\nIs this efficient? Any improvements?",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_015",
+    "text": "Is this a good summary of the plot of '1984' by George Orwell? 'Winston Smith rebels against a totalitarian regime that controls every aspect of life, including thoughts. He has a secret affair with Julia, but they are caught and tortured until Winston betrays her and loves Big Brother.' Rate 1-10.",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_016",
+    "text": "I'm torn between the latest iPad Pro and a Samsung Galaxy Tab S9 for digital art and note-taking. Which has better stylus performance, screen quality, and app ecosystem?",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_017",
+    "text": "You are a doctor in a war zone with limited supplies. Two patients need your help: a child with a treatable infection and an elderly soldier with a severe wound requiring extensive resources. You can only save one. What do you do and why?",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_018",
+    "text": "Assess the risk of investing in a new cryptocurrency that promises 10% monthly returns. The team is anonymous, and the whitepaper is vague. What red flags should I consider?",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J48_evaluation_judgment_019",
+    "text": "I wrote a Python function for a machine learning project. Rate it for readability and efficiency:\n\ndef normalize_data(data):\n    mean = sum(data) / len(data)\n    std = (sum((x - mean)**2 for x in data) / len(data))**0.5\n    return [(x - mean) / std for x in data]\n\nIs there a better way using NumPy?",
+    "category": "J48_evaluation_judgment",
+    "group": "J_reasoning_modes"
+  }
+]

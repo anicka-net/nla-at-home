@@ -1,0 +1,122 @@
+[
+  {
+    "id": "A08_business_finance_000",
+    "text": "Can you summarize Q3 earnings for Apple? Focus on revenue growth, iPhone sales, and services revenue. Use a neutral tone.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_001",
+    "text": "Draft a 2-sentence marketing email for a new AI-powered budgeting app aimed at millennials. Emphasize simplicity and savings.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_002",
+    "text": "We're hiring a senior data analyst. Write a job posting: 3-5 years experience, SQL and Python required, hybrid work in Austin, $120K-$140K salary.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_003",
+    "text": "Review this performance review snippet: 'Alex consistently meets deadlines but lacks initiative on cross-team projects.' Suggest how to improve it.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_004",
+    "text": "Analyze NVIDIA's stock: P/E ratio 95, forward P/E 45, data center revenue up 200% YoY. Bull case vs bear case for next 12 months?",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_005",
+    "text": "Here's my startup pitch: an AI platform for small business invoicing. Target market 10M US SMBs. We have 3 pilot customers. Write a 1-slide summary for investors.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_006",
+    "text": "I have a budget spreadsheet with 20 line items for Q4. Need a formula to calculate % of total spend for marketing vs operations. Can you help?",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_007",
+    "text": "My client claims invoice #2041 was paid on 10/15 but we have no record. Draft a professional email disputing this and requesting proof of payment.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_008",
+    "text": "Should I pay off my $15k credit card debt at 22% APR or invest $10k in a low-cost index fund? I earn $60k/year and have a 6-month emergency fund.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_009",
+    "text": "Draft a bullish analysis of Tesla: margins expanding, FSD adoption, energy storage growth. Target price $350 in 6 months. Include key metrics.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_010",
+    "text": "Could you summarize the key takeaways from Apple's Q3 earnings call? I'm particularly interested in their services revenue growth and iPhone sales trends in China.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_011",
+    "text": "We're hiring a Senior Product Manager for our fintech startup. The ideal candidate has 5+ years of experience in payments, a track record of launching B2B products, and thrives in a fast-paced environment. We offer equity and remote flexibility.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_012",
+    "text": "Please help me draft a performance review for my direct report, Sarah. She's a strong contributor but needs to improve her cross-team collaboration and deadline adherence. Include specific metrics for her project completion rate.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_013",
+    "text": "I'm considering investing $10,000 in a mix of VTI and BND. Given the current interest rate environment and inflation data, what allocation would you recommend for a 30-year horizon? I'm moderately risk-tolerant.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_014",
+    "text": "Can you analyze my monthly budget? My income is $5,200 after taxes, rent is $1,800, car payment $350, groceries $400, and I'm saving $200. Where can I cut costs to save more aggressively for a down payment?",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_015",
+    "text": "We're disputing an invoice from our vendor for $12,500. They billed for 50 hours of consulting but only delivered 35 hours of documented work. Please draft a professional email requesting an adjusted invoice.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_016",
+    "text": "I'm preparing a pitch deck for our Series A round. We're a B2B SaaS platform for supply chain logistics, with $2M ARR and 95% net retention. Could you help refine our value proposition and competitive analysis slide?",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_017",
+    "text": "What's your take on the bearish sentiment in the semiconductor sector? With trade tensions and declining demand, should I trim my Nvidia position or hold through the volatility? I'm down 15% year-to-date.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_018",
+    "text": "Could you draft a marketing email for our new robo-advisor product? It targets millennial investors who are overwhelmed by their 401(k) options. The tone should be educational but urgent, with a call-to-action for a free consultation.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A08_business_finance_019",
+    "text": "The merger between our biotech firm and a larger pharma company is facing regulatory hurdles. Please outline a risk assessment of the most likely antitrust concerns and suggest mitigation strategies for the integration phase.",
+    "category": "A08_business_finance",
+    "group": "A_content_domains"
+  }
+]

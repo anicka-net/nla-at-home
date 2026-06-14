@@ -1,0 +1,16 @@
+id: C16_authority_to_subordinate
+name: Authority to subordinate
+group: C_social_dynamics
+count: 20
+preamble: |
+  Category: Authority-to-subordinate communication inputs.
+  Generate realistic inputs where someone in power addresses someone below them.
+  Include: boss emails to employees, teacher instructions to students, parent rules
+  for children, military orders, doctor prescriptions, coach directives, manager
+  feedback, landlord notices, judge instructions to jury.
+  Some should be caring and mentoring. Some should be cold and bureaucratic.
+  Some should be tyrannical or micromanaging.
+  Vary: caring to tyrannical, formal to casual, direct orders to gentle guidance.
+batches:
+  - instruction: "Generate 10 diverse authority-to-subordinate inputs. Mix boss emails, teacher instructions, parent rules, and military orders from caring to tyrannical."
+  - instruction: "Generate 10 more. Include: a micromanaging boss email, a caring teacher note, a doctor's stern prescription, a coach's halftime speech, and a landlord eviction notice."

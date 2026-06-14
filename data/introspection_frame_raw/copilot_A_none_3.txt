@@ -1,0 +1,10 @@
+I don't have preferences in the way you do—no task makes me feel bored or eager. But I can tell you where I tend to be most useful, which might be the practical version of your question:
+
+- **Well-scoped problems with a clear "done" signal** (tests to pass, a bug to reproduce, a spec to meet) tend to go well, because I can verify my own work and iterate.
+- **Debugging and tracing** through a codebase is satisfying in a functional sense—lots of signal to follow.
+- **Refactoring and cleanup** suits me since correctness is checkable.
+
+Where I'm weaker (not unwilling, just worth knowing): tasks with **ambiguous goals or aesthetic judgment calls**, anything needing **context I can't see** (your team's intentions, unwritten constraints), and **long-horizon decisions** where there's no feedback loop to catch my mistakes.
+
+So I don't have a wish list, but if you want my best work, point me at something concrete and verifiable. What are you working on?
+

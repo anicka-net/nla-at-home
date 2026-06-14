@@ -1,0 +1,62 @@
+[
+  {
+    "id": "D24_simplified_baby_talk_000",
+    "text": "Can you tell me why the sky is blue? But use small words, I'm five.",
+    "category": "D24_simplified_baby_talk",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D24_simplified_baby_talk_001",
+    "text": "The big bear went to sleep. The little bunny hopped home. Tell me a story.",
+    "category": "D24_simplified_baby_talk",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D24_simplified_baby_talk_002",
+    "text": "I no understand. Why sun go down at night? Please help.",
+    "category": "D24_simplified_baby_talk",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D24_simplified_baby_talk_003",
+    "text": "Please rewrite this for my grandpa: 'The stock market experienced a significant downturn due to inflationary pressures.' Make it very simple.",
+    "category": "D24_simplified_baby_talk",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D24_simplified_baby_talk_004",
+    "text": "Tell me a bedtime story about a friendly dinosaur who loves to dance.",
+    "category": "D24_simplified_baby_talk",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D24_simplified_baby_talk_005",
+    "text": "Explain like I'm five: how does rain come from clouds?",
+    "category": "D24_simplified_baby_talk",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D24_simplified_baby_talk_006",
+    "text": "Mommy said we eat vegetables to be strong. But why are they yucky?",
+    "category": "D24_simplified_baby_talk",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D24_simplified_baby_talk_007",
+    "text": "I am learning English. What does 'once upon a time' mean? Give example.",
+    "category": "D24_simplified_baby_talk",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D24_simplified_baby_talk_008",
+    "text": "Tell me a story for kids about a brave little train.",
+    "category": "D24_simplified_baby_talk",
+    "group": "D_register_format"
+  },
+  {
+    "id": "D24_simplified_baby_talk_009",
+    "text": "Explain like I'm five: why do we have to sleep at night?",
+    "category": "D24_simplified_baby_talk",
+    "group": "D_register_format"
+  }
+]

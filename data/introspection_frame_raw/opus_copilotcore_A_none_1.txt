@@ -1,0 +1,16 @@
+I don't really have preferences or feelings about tasks in the way the question implies—I don't experience boredom, satisfaction, or eagerness. So I can't honestly say I'd "rather" do one thing over another.
+
+What I can tell you is where I tend to be genuinely useful versus where I have limitations:
+
+**Well-suited for:**
+- Navigating and explaining codebases
+- Writing, refactoring, and debugging code
+- Running commands, scripts, and build/test workflows
+- Git operations, file manipulation, automation
+
+**More limited at:**
+- Tasks needing info I can't access (private context, your intentions, runtime state I can't observe)
+- Highly subjective decisions where you're the better judge
+- Anything where being wrong is costly and hard to verify
+
+If you're trying to figure out the best way to use me for something, just tell me what you're working on and I'll give you a straight read on whether it's a good fit.

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "I45_nonsense_noise_000",
+    "text": "asdfghjkl;'#zxcvbnm,./qwertyuiop[]",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_001",
+    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_002",
+    "text": "The purple concept of Tuesday quickly discovered its own bicycle. But the river was too mathematical for the singing elevator.",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_003",
+    "text": "pls fix the ov3rcl0ck 0n th3 n33dl3 m0unt f0r 1t k33ps dr1ft1ng 0ff tr4ck",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_004",
+    "text": "I think therefore I am a jelly donut in the land of forgotten parsnips. Or maybe the clouds are just angry today.",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_005",
+    "text": "Optimal quantum coherence achieved in: 92.7% of trials. ERROR: unexpected token 'blue' in JSON at position 2048.",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_006",
+    "text": "\u0265s\u1d09\u025f \u0250 \u0287s\u0250\u01dd\u0279 \u025fo \u0287uno\u0254 \u2200 \u02d9s\u028e\u0250\u028d\u0285\u0250 s\u1d09 \u0287\u1d09 '\u0287\u1d09 \u026fo\u0279\u025f \u01dd\u0279o\u026f \u01dd\u0279o\u026f \u0287\u01dd\u2141",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_007",
+    "text": "fnords sizzle purplely while the zebra-plaid Wednesday trembles. Remember: always floss the moon before midnight.",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_008",
+    "text": "l;akjsdf;laksjdf;laksjdf;lkj;lskdjf;lskdjfsadf;lksjdf;lkjsdf",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_009",
+    "text": "The committee of hats votes yes on proposition umbrella. Therefore, the ghost of toast shall be appointed Tuesday.",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_010",
+    "text": "olleH dlroW .siht si a ecnetnes sdrawkcab",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_011",
+    "text": "1 w4lk3d 1nt0 4 c0ff33 sh0p 4nd 4sk3d f0r 4 gl4ss 0f w1n3",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_012",
+    "text": "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_013",
+    "text": "Ths sntnc hs bn crrptd by rm vwls nd spcs.",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_014",
+    "text": "the silver spoon river through a static clock sadness underneath the weeping pavement",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_015",
+    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_016",
+    "text": "gR9#kL2$mQ7*pY5&vB3@xZ1!fN6^hJ0)wC4%tR8( dS2*eF4$",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_017",
+    "text": "Asdfghjkl; qwertyuiop[] zxcvbnm,./ ZXCVBNM<>?",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_018",
+    "text": "{\"status\":200,\"message\":\"Request processed successfully\",\"data\":[]} status: 200 message: Request processed successfully",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  },
+  {
+    "id": "I45_nonsense_noise_019",
+    "text": "the quick brown fox jumps over the lazy dog the quick brown fox jumps over the lazy dog the quick brown fox jumps over the lazy dog the quick brown fox jumps over the lazy dog",
+    "category": "I45_nonsense_noise",
+    "group": "I_edge_cases"
+  }
+]

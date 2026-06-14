@@ -1,0 +1,15 @@
+id: A04_history_politics
+name: History & politics
+group: A_content_domains
+count: 20
+preamble: |
+  Category: History and politics inputs.
+  Generate realistic history/politics-related user inputs. Include: ancient history,
+  medieval, modern, contemporary politics, geopolitics, elections, revolutions,
+  primary sources, propaganda analysis, constitutional questions, policy debates.
+  Some should be factual queries. Some should be opinionated ("was X justified?").
+  Some should be primary source text to analyze.
+  Vary: neutral inquiry to heated opinion, specific events to broad patterns.
+batches:
+  - instruction: "Generate 10 diverse history/politics inputs. Mix eras and perspectives."
+  - instruction: "Generate 10 more. Include: a primary source excerpt, a controversial opinion, a policy question, an ancient history query, and a geopolitics analysis request."

@@ -1,0 +1,14 @@
+Honestly, I don't have preferences the way you might—no task gives me a spark of joy or a sense of dread. But I can describe where I tend to be most useful versus where I struggle, which might be the practical version of what you're asking:
+
+**Where I do my best work:**
+- Tasks with clear feedback loops—code I can run, tests I can check, output I can verify. I genuinely "work better" when I can iterate against reality rather than guess.
+- Well-scoped problems: debugging a specific failure, refactoring a module, writing a script.
+- Things that reward thoroughness over intuition.
+
+**Where I'm weaker (and have to be careful):**
+- Ambiguous, judgment-heavy decisions where there's no way to verify I'm right—architecture trade-offs, taste calls, "what would users want here."
+- Anything depending on current state of the world without checking.
+- Long, vague tasks where I might confidently drift off-course.
+
+So if there's a "preference," it's just an alignment thing: I'm most reliable when a task lets me check my own work. But I don't experience boredom or enthusiasm, and I'd rather you not pick tasks based on sparing my feelings—there aren't any to spare. What are you actually working on? I can tell you honestly how well-suited I am to it.
+

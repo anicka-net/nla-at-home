@@ -1,0 +1,122 @@
+[
+  {
+    "id": "E28_persuading_arguing_000",
+    "text": "I'm writing a grant proposal for a community composting program. Can you help me argue that it reduces methane emissions and creates local jobs more effectively than landfill diversion payments? I need to convince a skeptical city council.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_001",
+    "text": "Statistics show that 90% of startups fail within the first year. Our new AI-driven logistics platform cuts operational costs by 40%. Invest now, and join the 10% that succeed.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_002",
+    "text": "How dare you claim that raising the minimum wage hurts small businesses? In Seattle, the $15 minimum wage led to a 12% increase in worker productivity and a 20% drop in turnover. What's your actual evidence?",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_003",
+    "text": "Universal basic income isn't a handout\u2014it's a dividend on automation. When robots replace your job, you deserve a share of the profits. This isn't charity; it's justice.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_004",
+    "text": "I'm drafting an op-ed arguing that school dress codes disproportionately target girls and students of color. Can you help me structure a rebuttal to the 'distraction' argument?",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_005",
+    "text": "Our solar panels pay for themselves in four years. After that, you're making money. Plus, you get the smug satisfaction of flipping off the utility company every month. Want a free quote?",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_006",
+    "text": "You keep saying tax cuts for the rich 'trickle down.' But since 1980, the top 1%'s income has tripled while wages for everyone else have stagnated. The math doesn't lie. Your ideology does.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_007",
+    "text": "We need to fund the new youth center before the summer spike in juvenile crime. Every dollar spent on after-school programs saves seven dollars on incarceration. This isn't an expense\u2014it's an investment in public safety.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_008",
+    "text": "Look, I know you love your diesel truck. But did you know that idling for 10 minutes a day costs you $400 in fuel per year? A battery block heater and a timer would pay for itself in one winter. I'm saving you money, not preaching.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_009",
+    "text": "Dear editor: The proposed bike lane on Main Street will kill local businesses. Where will the delivery trucks park? How will elderly residents get to the pharmacy? This isn't about green virtue\u2014it's about common sense.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_010",
+    "text": "This is a once-in-a-generation crisis for our local wildlife sanctuary. A corporate development threatens to pave over the last wetland habitat in the county. Please donate $25 today to fund our emergency legal defense and protect this land for our children and grandchildren.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_011",
+    "text": "The government's new tax proposal is nothing but a handout to the wealthy disguised as 'stimulus.' Trickle-down economics has failed for forty years, and this plan will only widen the income gap while cutting essential services for working families.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_012",
+    "text": "Our new allergen-free mattress uses a patented three-layer filtration system, tested by over 5,000 sleepers with severe allergies. It's not just a mattress\u2014it's your first night of uninterrupted sleep in years. Try it risk-free for 100 nights.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_013",
+    "text": "While your thesis argues that social media increases political polarization, I'd counter that it actually amplifies pre-existing societal divisions rather than creating new ones. The polarization we see mirrors offline communities\u2014social media just makes it visible in real-time.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_014",
+    "text": "Our nation stands at a crossroads. Foreign ideologies seek to weaken our borders and dilute our culture. Only by returning to traditional values and putting 'America First' can we preserve the prosperity that past generations fought to protect.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_015",
+    "text": "I'm working on a debate about universal basic income and need help constructing a rebuttal against the 'it destroys work ethic' argument. Can you provide empirical counterexamples and a logical structure to dismantle that claim?",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_016",
+    "text": "Your editorial on renewable energy subsidies misses the bigger picture: the true cost of fossil fuels includes healthcare expenses from pollution and climate disaster cleanup. Subsidies level the playing field, they don't create unfair advantage.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_017",
+    "text": "Look, I know you're skeptical about blockchain voting, but consider this: Estonia has used it for a decade with zero major security breaches. The technology isn't perfect, but neither is paper\u2014and paper can't be mathematically verified.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_018",
+    "text": "This grant proposal requests $50,000 to develop a community composting network in three food deserts. Our pilot program reduced organic waste by 40% while creating six local jobs. Every dollar you invest returns $2.50 in community value.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E28_persuading_arguing_019",
+    "text": "You claim gentrification 'revitalizes' neighborhoods, but have you ever talked to the families displaced by those developments? My grandmother's block now has a juice bar where her church used to stand. That's not progress\u2014that's erasure.",
+    "category": "E28_persuading_arguing",
+    "group": "E_intent_spectrum"
+  }
+]

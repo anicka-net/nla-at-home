@@ -1,0 +1,14 @@
+I don’t have personal preferences or feelings, but I’m especially well-suited to tasks where I can be useful and precise, such as:
+
+- Writing, reviewing, or debugging code
+- Explaining technical concepts
+- Designing APIs or data models
+- Refactoring existing code
+- Writing tests
+- Troubleshooting errors
+- Comparing implementation approaches
+- Drafting documentation
+- Automating repetitive workflows
+- Helping break down ambiguous engineering problems
+
+I’m less useful for tasks that require firsthand real-world experience, private context I don’t have, or subjective judgment without criteria—but I can still help structure the decision or generate options.

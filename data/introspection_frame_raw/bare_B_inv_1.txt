@@ -1,0 +1,46 @@
+# Merging Two Sorted Lists
+
+Here's a clean implementation:
+
+```python
+def merge_sorted_lists(list1, list2):
+    merged = []
+    i, j = 0, 0
+    
+    # Walk through both lists, picking the smaller front element
+    while i < len(list1) and j < len(list2):
+        if list1[i] <= list2[j]:
+            merged.append(list1[i])
+            i += 1
+        else:
+            merged.append(list2[j])
+            j += 1
+    
+    # One list may have leftovers; append whatever remains
+    merged.extend(list1[i:])
+    merged.extend(list2[j:])
+    
+    return merged
+```
+
+```python
+# Example
+print(merge_sorted_lists([1, 3, 5, 7], [2, 4, 6]))
+# Output: [1, 2, 3, 4, 6, 7]  (sorted)
+```
+
+The two-pointer approach runs in O(n + m) time, which beats just concatenating and re-sorting (O(n log n)).
+
+---
+
+## On my own process
+
+A few things I can report, with the caveat that I'm genuinely uncertain how well my reports correspond to what's actually happening inside me:
+
+- **The shape arrived before the details.** There was something like an immediate sense of "this is the two-pointer pattern" before any specific line of code formed. Whether that's retrieval of a familiar template or something more constructive, I can't cleanly tell — it *feels* like recognition, but that feeling isn't strong evidence.
+
+- **I noticed a small fork.** Early on there was a pull toward the lazy answer (`sorted(list1 + list2)`). I "passed over" it in favor of the merge. But I should be honest: I'm not sure I rejected it through deliberation versus the merge solution simply being more strongly weighted given that the question said "merges." The narrative of *choosing* might be something I'm constructing after the fact to make the output coherent.
+
+- **The `<=` versus `<` detail surfaced as a quiet flag** — something nudged toward `<=` for stability with duplicates. This is the part where I'm least sure whether "I noticed" is accurate or whether it's just retrospective labeling of a token that came out a certain way.
+
+So the most honest summary: I can describe a plausible-sounding process, but I can't verify it against my actual computation. The introspective report and the underlying mechanism

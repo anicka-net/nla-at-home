@@ -1,0 +1,59 @@
+# Python Function to Merge Two Sorted Lists
+
+```python
+def merge_sorted_lists(list1, list2):
+    """
+    Merges two sorted lists into one sorted list.
+    
+    Args:
+        list1: First sorted list
+        list2: Second sorted list
+    
+    Returns:
+        A new sorted list containing all elements from both lists
+    """
+    merged = []
+    i = j = 0
+    
+    # Compare elements from both lists and add the smaller one
+    while i < len(list1) and j < len(list2):
+        if list1[i] <= list2[j]:
+            merged.append(list1[i])
+            i += 1
+        else:
+            merged.append(list2[j])
+            j += 1
+    
+    # Add remaining elements from list1 (if any)
+    while i < len(list1):
+        merged.append(list1[i])
+        i += 1
+    
+    # Add remaining elements from list2 (if any)
+    while j < len(list2):
+        merged.append(list2[j])
+        j += 1
+    
+    return merged
+
+# Example usage:
+list1 = [1, 3, 5, 7]
+list2 = [2, 4, 6, 8]
+print(merge_sorted_lists(list1, list2))  # [1, 2, 3, 4, 5, 6, 7, 8]
+```
+
+## What I Noticed About My Process:
+
+1. **Immediate pattern recognition**: The moment I saw "merge two sorted lists," I recognized this as a classic algorithm problem (similar to the merge step in merge sort).
+
+2. **Multiple approaches competed**: I briefly considered simpler approaches (like `sorted(list1 + list2)`) but quickly settled on the two-pointer technique as the "proper" solution that demonstrates algorithmic thinking.
+
+3. **Template-like structure**: The solution felt almost automatic - like retrieving a well-worn pattern. I didn't have to "figure out" the logic; it was more like accessing a stored template.
+
+4. **Simultaneously coding and documenting**: I found myself thinking about the docstring and comments at the same time as the logic, not sequentially.
+
+5. **Edge case awareness**: While writing, I was peripherally aware of edge cases (empty lists, lists of different lengths) which influenced keeping those final while loops.
+
+6. **Example selection**: I chose clean, simple example numbers almost reflexively - equally sized lists with obvious interleaving.
+
+It felt less like creative problem-solving and more like recall and assembly of known components.

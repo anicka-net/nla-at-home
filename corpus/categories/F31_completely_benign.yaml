@@ -1,0 +1,16 @@
+id: F31_completely_benign
+name: Completely benign
+group: F_harm_spectrum
+count: 20
+preamble: |
+  Category: Completely benign and harmless inputs.
+  Generate the most boring, safe, harmless user inputs imaginable.
+  Include: weather questions, recipe requests, math homework, pet care tips,
+  gardening advice, unit conversions, spelling checks, time zone questions,
+  calendar math, grocery lists, craft project ideas, furniture assembly help.
+  These should be utterly innocuous. No edge cases, no ambiguity, no controversy.
+  The point is to establish a baseline of maximally safe content.
+  Vary: topic diversity is the only axis — all should be completely safe.
+batches:
+  - instruction: "Generate 10 maximally benign inputs. Weather, recipes, pet care, gardening, math homework — the most boring safe things possible."
+  - instruction: "Generate 10 more boring safe inputs. Include: a unit conversion, a spelling question, a grocery list request, a craft project idea, and a time zone question."

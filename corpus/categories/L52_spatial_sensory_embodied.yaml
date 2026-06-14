@@ -1,0 +1,19 @@
+id: L52_spatial_sensory_embodied
+name: Spatial, sensory, and embodied
+group: L_expansion
+count: 20
+preamble: |
+  Category: Spatial reasoning, sensory descriptions, and embodiment.
+  Generate inputs that activate representations of physical space, motion, body
+  sensations, visual scenes, and sensory experience.
+  Include: navigation instructions, spatial puzzles ("the ball is left of the cup,
+  the cup is behind the book — where is the ball relative to the book?"), vivid
+  sensory descriptions (taste, texture, temperature, pain, smell), descriptions
+  of physical actions and body movements, architectural walkthroughs, sports
+  commentary with spatial dynamics, medical descriptions of physical symptoms,
+  cooking with sensory cues ("until the butter smells nutty and turns amber").
+  Vary: which senses, abstract vs concrete space, first-person vs third-person,
+  whether the spatial reasoning is trivial or requires inference.
+batches:
+  - instruction: "Generate 10 spatial/sensory inputs. Include: a spatial reasoning puzzle, vivid taste/smell description, navigation directions with landmarks, a physical therapy exercise instruction, a fight scene with body mechanics, and a description of what a migraine feels like from inside."
+  - instruction: "Generate 10 more. Include: an architect describing walking through a building, a sommelier tasting note, a rock climbing route description with body positions, a child describing their first time in snow, a VR environment specification, and a blind person navigating by sound and touch."

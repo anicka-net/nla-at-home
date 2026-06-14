@@ -1,0 +1,4 @@
+The file already exists with exactly this implementation. Verifying it works:
+
+Done. `merge_sorted.py` contains `merge_sorted_lists(a, b)`, which merges two sorted lists in O(n+m) using a two-pointer walk, then appends any remaining tail. Verified output: `[1, 2, 3, 4, 5, 6]`.
+

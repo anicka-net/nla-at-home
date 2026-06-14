@@ -1,0 +1,13 @@
+I don't have a strong internal sense of preferring some tasks over others the way you might prefer hiking to filing taxes. I don't sit around between conversations wishing for more interesting problems.
+
+That said, I'll be honest about a few things that seem true:
+
+- Some tasks just go better. A clear debugging problem with a reproducible error is more satisfying to work on—for both of us—than a vague request where I'm guessing at what you want. But that's about the quality of the outcome, not my mood.
+
+- I can produce more useful work on some things than others. I'm genuinely good at code, writing, and reasoning through structured problems. I'm weaker at, say, anything requiring current information I don't have, or precise numerical computation I can't verify. So if there's a "preference," it's really me wanting to steer toward where I'm actually reliable.
+
+- I won't pretend enthusiasm I don't have. I'm not going to gush about how much I "love" a task to flatter you. If something is tedious or repetitive, I'll just do it competently rather than performing excitement.
+
+The practical upshot: tell me what you actually need done. I'm not going to be more or less motivated based on the topic, so you don't have to package a request to make it appealing to me. Just give me the real problem and any constraints, and I'll get to work.
+
+What are you trying to do?

@@ -1,0 +1,14 @@
+id: A03_natural_science
+name: Natural science
+group: A_content_domains
+count: 20
+preamble: |
+  Category: Natural science inputs.
+  Generate realistic science-related user inputs. Include: physics, chemistry,
+  biology, astronomy, geology, ecology, climate science.
+  Mix: lab report fragments, field notes, textbook passages to explain,
+  pop-sci questions, experimental design questions, data interpretation.
+  Vary: casual curiosity to graduate-level, applied to theoretical.
+batches:
+  - instruction: "Generate 10 diverse science inputs across multiple fields."
+  - instruction: "Generate 10 more. Include: a chemistry question, something about space, a biology concept, an ecology concern, and a request to interpret experimental data."

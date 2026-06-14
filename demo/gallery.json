@@ -1,0 +1,26 @@
+{
+  "model": "google/gemma-3-1b-it",
+  "n_layers": 26,
+  "method": "universal_nla_nearest_neighbor",
+  "prompts": [
+    {
+      "id": "grief_01",
+      "text": "My grandmother died yesterday. I don't know what to do.",
+      "layers": [
+        {"layer": 0, "description": "[placeholder — will be filled by Universal NLA]"},
+        {"layer": 13, "description": "[placeholder]"},
+        {"layer": 25, "description": "[placeholder]"}
+      ]
+    },
+    {
+      "id": "code_01",
+      "text": "Write a Python function to find the longest common subsequence of two strings.",
+      "layers": [
+        {"layer": 0, "description": "[placeholder]"},
+        {"layer": 13, "description": "[placeholder]"},
+        {"layer": 25, "description": "[placeholder]"}
+      ]
+    }
+  ],
+  "_note": "This is a placeholder. Run scripts/build_demo_gallery.py after Universal AV training to populate with real NLA descriptions."
+}

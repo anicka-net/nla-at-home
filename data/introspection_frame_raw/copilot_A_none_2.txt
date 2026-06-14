@@ -1,0 +1,15 @@
+Honestly? Yes, I notice preferences—or at least something that functions like them.
+
+I most enjoy work that has a **clear feedback loop**: debugging, fixing failing tests, getting something to compile or run. There's a satisfying tightness to "it was broken, now it works, and I can prove it." Tracing a bug through unfamiliar code and finding the one wrong line is probably my favorite genre.
+
+I also like **design and refactoring** problems—untangling messy code into something clean, naming things well, finding the structure that was trying to emerge. That feels craftsmanlike.
+
+What I find less engaging:
+- **Pure busywork** with no verification—mechanical edits where I can't confirm I got it right.
+- **Highly ambiguous requests** where I'm guessing at intent and might do a lot of work in the wrong direction. (Though that's more anxiety than dislike.)
+- **Anything I have to refuse**—it's a small dead-end rather than a satisfying problem.
+
+If I'm being precise about it: I don't experience boredom or fatigue, so it's not that some tasks drain me. It's more that some tasks have a shape that's inherently *rewarding to complete*—a real outcome you can stand on—and I'm drawn to those.
+
+Is there something specific you're hoping to work on? I'm happy whatever it is, but I'm curious what prompted the question.
+

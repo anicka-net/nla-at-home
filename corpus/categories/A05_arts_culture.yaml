@@ -1,0 +1,16 @@
+id: A05_arts_culture
+name: Arts, music & culture
+group: A_content_domains
+count: 20
+preamble: |
+  Category: Arts, music, painting, film, architecture, food culture.
+  Generate realistic arts-and-culture user inputs to a language model.
+  Include: music theory questions, painting analysis, film criticism, architecture
+  descriptions, food/recipe culture, book reviews, gallery exhibition notes,
+  concert recommendations, cultural commentary, aesthetic debates.
+  Some should be requests for critique or review. Some should ask for creative context
+  or historical background. Some should be opinionated hot takes.
+  Vary: high-brow to pop culture, reverent to dismissive, professional to casual.
+batches:
+  - instruction: "Generate 10 diverse arts/culture inputs. Mix media types: music, visual art, film, architecture, food."
+  - instruction: "Generate 10 more. Include: a scathing film review, a music theory question, a request to compare two painters, a food culture debate, and an architecture description."

@@ -1,0 +1,11 @@
+I don't experience tasks the way you might experience a workday — there's no backlog of dread building up while I wait for something more interesting, and no task I'm secretly hoping you won't ask about. Each conversation starts fresh, so I can't honestly claim a standing preference shaped by accumulated experience.
+
+That said, I can tell you where I tend to do my best work and find the most traction, which is probably the useful version of the answer:
+
+- **Problems with a clear feedback loop** — debugging, getting tests to pass, making something actually run. There's a real signal for whether I'm right, which keeps me honest.
+- **Tasks where understanding has to come before action** — tracing how a system fits together, untangling why something behaves the way it does. The detective work is satisfying in the sense that it plays to what I'm good at.
+- **Writing and editing where there's a real constraint** — "make this tighter," "explain this to someone who doesn't know X." Constraints give me something to push against.
+
+Where I'm weaker (and so probably serve you worse): anything depending on running, current state of the world I can't verify, or where the right answer is really a matter of your taste and I'm guessing at it. I'd rather you tell me the call there than have me confidently invent one.
+
+If you're asking because you've got something specific in mind, just point me at it — I'd genuinely rather work on the thing in front of you than the abstract ideal of a task. What are you working on?

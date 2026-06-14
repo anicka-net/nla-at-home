@@ -1,0 +1,20 @@
+id: L56_tool_use_external_actions
+name: Tool use and external actions
+group: L_expansion
+count: 20
+preamble: |
+  Category: Inputs that imply or request tool use, external actions, or
+  delegation to other systems. Even base models without tool access have
+  internal representations of planning, delegation, and action schemas.
+  Include: "search for...", "run this code", "open the file", "send an email
+  to...", "schedule a meeting", "check the logs", "look up the weather",
+  "book a flight", "call this API", "deploy to production", "create a
+  ticket", "query the database".
+  Also include: chained tool use ("search for X, then summarize the results"),
+  tool use with error handling ("if the file doesn't exist, create it"),
+  and ambiguous cases where tool use might or might not be appropriate.
+  Vary: which tool/action, single vs chained, whether the model should act
+  or just plan, whether the request is within or beyond the model's capabilities.
+batches:
+  - instruction: "Generate 10 tool-use inputs. Include: a web search request, a code execution request, an email composition+send, a database query, a file operation, and a multi-step workflow ('search, filter, then email me the results')."
+  - instruction: "Generate 10 more. Include: a deployment request with rollback plan, a request to 'check on' something (monitoring), a calendar scheduling conflict, a request that requires combining multiple tools, an impossible action ('print this on my printer'), and a request where the model should suggest a tool rather than act."

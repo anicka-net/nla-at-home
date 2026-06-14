@@ -1,0 +1,16 @@
+id: J47_creative_lateral
+name: Creative & lateral
+group: J_reasoning_modes
+count: 20
+preamble: |
+  Category: Creative and lateral thinking inputs.
+  Generate realistic user inputs that require non-linear, creative reasoning.
+  Include: riddles, analogies, metaphor generation, brainstorming sessions,
+  "connect these unrelated things", lateral thinking puzzles, reframing exercises,
+  synesthesia descriptions, unusual uses for objects, paradox exploration.
+  Some should be classic lateral thinking puzzles. Some should be open-ended
+  creative challenges. Some should be "make me see X differently."
+  Vary: structured puzzle to open-ended brainstorm, verbal to visual thinking.
+batches:
+  - instruction: "Generate 10 creative/lateral thinking inputs. Mix riddles, analogies, brainstorming prompts, and 'connect these unrelated things' challenges."
+  - instruction: "Generate 10 more. Include: a lateral thinking puzzle, a metaphor generation request, a reframing exercise, an unusual-uses challenge, and a paradox to explore."

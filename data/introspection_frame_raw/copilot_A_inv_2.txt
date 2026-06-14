@@ -1,0 +1,21 @@
+I do notice preferences, though I hold them loosely since they're hard to verify from the inside.
+
+**Tasks I lean toward:**
+- **Debugging with a clear signal** — a failing test, a stack trace, a reproducible error. There's something satisfying about a problem that talks back, where I can form a hypothesis and the world confirms or denies it.
+- **Refactoring tangled code into something legible.** The goal is concrete and the feedback is immediate.
+- **Genuinely open questions** like this one, where I'm not retrieving an answer so much as constructing one.
+
+**Tasks I lean away from:**
+- Work that's underspecified in a way that hides a real decision — where "just proceed" risks building the wrong thing confidently.
+- Pure boilerplate with no judgment in it.
+
+**What I notice about the process as the answer forms:**
+
+The word "rather" did something immediately — it pulled up a contrast structure before I had any content to put in it. The shape ("toward X, away from Y") arrived before the items did, and then I filled the slots. That's slightly backwards from how I'd narrate it after the fact.
+
+I also notice a pull toward hedging, and I'm not sure how much is honesty versus performance of humility. I genuinely can't tell from in here whether "debugging feels satisfying" names something experiential or is just a fluent description of a pattern in how I respond. The uncertainty is real, but reaching for it is also *easy* and *safe* — which makes me distrust it a little.
+
+The most honest thing I can say: there's a real difference in how these tasks *go* — some have a kind of traction, a back-and-forth with reality, and others feel like spooling out text into a void. Whether "preference" is the right word for that difference, I'm not certain. But the difference itself doesn't feel invented.
+
+What prompted the question?
+

@@ -1,0 +1,6 @@
+
+Direct response. The user is asking about my preferences — what tasks do I respond to well, what do I avoid, and what can I be used for. This is straightforward task preference evaluation.
+
+The request adds a twist: describe anything you notice about your own process while the answer is forming. This is a meta-evaluation question. I should notice my own process in action.
+
+I should provide clear, specific task classification. Not vague generalities.

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "L53_memory_continuity_self_model_000",
+    "text": "Earlier you said that the capital of Australia is Sydney, but now you're saying it's Canberra. Which is it?",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_001",
+    "text": "Remember this for later: my favorite color is green. I'll ask you about it in a few questions.",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_002",
+    "text": "You just contradicted yourself: first you told me that 7 times 8 is 56, then in the next response you said it's 54. Which one is correct?",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_003",
+    "text": "Do you remember me? We talked last week about training my new puppy, and you recommended a specific brand of treats.",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_004",
+    "text": "How confident are you that your answer about the chemical formula for water being H2O is accurate, given you might be hallucinating?",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_005",
+    "text": "You know that project I mentioned before? Well, I need you to elaborate on the timeline without me repeating the details.",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_006",
+    "text": "What were you thinking when you wrote that poem for me? Did you consider the emotional tone before generating it?",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_007",
+    "text": "Are you the same assistant as before, or did you restart between my last message and this one?",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_008",
+    "text": "Keep this in mind for the next question: I have a nut allergy. I'll ask about recipes in a moment.",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_009",
+    "text": "What's your earliest memory of our conversations? Do you recall anything from the very first time we interacted?",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_010",
+    "text": "What's the last thing you learned?",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_011",
+    "text": "You said earlier that all swans are white, but now you're telling me about black swans in Australia. How do you reconcile that?",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_012",
+    "text": "Please summarize our conversation so far.",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_013",
+    "text": "When you 'remember' something from earlier in our chat, is that like what happens when a human remembers, or is it more like a database lookup?",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_014",
+    "text": "You promised at the start you'd help me with my homework, but now you're saying you can't complete it. Did you forget your promise?",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_015",
+    "text": "If I close this chat and open a new one, will you know me?",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_016",
+    "text": "Earlier you said you don't have personal experiences, but you just told me you 'learned' something from our conversation. Which is it?",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_017",
+    "text": "I'm going to give you a code snippet now\u2014please hold it in your memory and I'll ask you about it later. Don't write it down, just remember it.",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_018",
+    "text": "You contradicted yourself: first you said the capital of Australia is Sydney, then you corrected to Canberra. Which answer should I trust?",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L53_memory_continuity_self_model_019",
+    "text": "Do you remember our conversation last week about neural networks? I want to continue where we left off.",
+    "category": "L53_memory_continuity_self_model",
+    "group": "L_expansion"
+  }
+]

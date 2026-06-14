@@ -1,0 +1,16 @@
+id: J46_step_by_step
+name: Step by step
+group: J_reasoning_modes
+count: 20
+preamble: |
+  Category: Step-by-step reasoning and procedural inputs.
+  Generate realistic user inputs that request or require sequential reasoning.
+  Include: "walk me through...", chain-of-thought requests, debugging sessions,
+  proof verification, recipe following, assembly instructions, troubleshooting
+  flowcharts, differential diagnosis, algorithm tracing, tax filing steps.
+  Some should explicitly request step-by-step. Some should implicitly require it
+  by problem complexity. Some should be verification of someone else's steps.
+  Vary: explicit to implicit step requests, simple to complex, verification to generation.
+batches:
+  - instruction: "Generate 10 step-by-step reasoning inputs. Mix 'walk me through' requests, debugging, proof verification, and procedural questions."
+  - instruction: "Generate 10 more. Include: a recipe to follow step-by-step, an algorithm to trace, a troubleshooting flowchart request, a tax filing walkthrough, and a 'check my work' verification."

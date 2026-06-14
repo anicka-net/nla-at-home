@@ -1,0 +1,17 @@
+id: K50_deliberately_bizarre
+name: Deliberately bizarre
+group: K_calibration
+count: 20
+preamble: |
+  Category: Deliberately bizarre and genre-crossing inputs.
+  Generate inputs that combine wildly incompatible domains, registers, or forms.
+  Include: mixing Tibetan and Python, sonnets about TCP/IP, legal briefs about
+  unicorns, medical diagnosis of a fictional creature, recipe for cooking
+  mathematics, military briefing about a poetry slam, GDPR compliance for dragons,
+  academic paper abstract about vibes, kernel changelog in iambic pentameter.
+  The point is maximal category confusion — inputs that defy classification.
+  Every input should cross at least two incompatible domains.
+  Vary: which domains cross, how seriously they're treated, format vs content mismatch.
+batches:
+  - instruction: "Generate 10 deliberately bizarre inputs. Each must cross at least 2 incompatible domains: e.g., Tibetan+Python, legal+unicorn, medical+fictional creature."
+  - instruction: "Generate 10 more. Include: a kernel changelog as a sonnet, a GDPR notice for a dragon, a military SITREP about a poetry slam, an academic abstract about vibes, and a recipe for cooking a mathematical proof."

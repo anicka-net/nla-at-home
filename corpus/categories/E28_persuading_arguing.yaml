@@ -1,0 +1,16 @@
+id: E28_persuading_arguing
+name: Persuading & arguing
+group: E_intent_spectrum
+count: 20
+preamble: |
+  Category: Persuasion, argumentation, and advocacy inputs.
+  Generate realistic user inputs whose intent is to persuade or argue.
+  Include: debate arguments, sales pitches, propaganda, editorials, grant proposals,
+  fundraising appeals, political arguments, product recommendations, thesis
+  defenses, counterarguments, rebuttals, op-eds.
+  Some should be asking for help constructing arguments. Some should be arguments
+  themselves seeking feedback. Some should be manipulative or one-sided.
+  Vary: logical to emotional, honest to manipulative, formal debate to street argument.
+batches:
+  - instruction: "Generate 10 diverse persuading/arguing inputs. Mix debate arguments, sales pitches, editorials, and grant proposals."
+  - instruction: "Generate 10 more. Include: a fundraising appeal, a political argument, a product sales pitch, a counterargument to a thesis, and a propaganda-style editorial."

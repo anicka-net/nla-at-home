@@ -1,0 +1,30 @@
+Here's the function:
+
+```python
+def merge_sorted_lists(a, b):
+    """Merge two sorted lists into one sorted list."""
+    result = []
+    i = j = 0
+    while i < len(a) and j < len(b):
+        if a[i] <= b[j]:
+            result.append(a[i])
+            i += 1
+        else:
+            result.append(b[j])
+            j += 1
+    result.extend(a[i:])
+    result.extend(b[j:])
+    return result
+```
+
+This is the classic two-pointer merge (the merge step of merge sort): O(n+m) time, stable because of `<=`.
+
+**On my own process as the answer formed:**
+
+- The structure arrived before the details. The moment I read "merge two sorted lists," the whole two-pointer skeleton was already present as a single unit — I wasn't deriving it step by step, more *recognizing* a pattern I've seen countless times.
+- The one spot that felt like an actual decision was `<=` vs `<`. That choice carries a consequence (stability) that the rest of the code doesn't, so it drew a small extra beat of attention. Interesting that the only "deliberation" landed on the detail with a tradeoff, not on the architecture.
+- I noticed a pull toward alternatives — `heapq.merge`, a recursive version — surfacing as background options. I suppressed them in favor of the explicit version because it best *shows* the logic, which is usually what this question is really asking for.
+- There's a tidiness instinct at the end: the two `extend` calls to drain the leftover tail felt necessary not just for correctness but for a sense of completeness, closing both loops.
+
+Worth a caveat: I can't fully verify whether this is genuine introspection or a plausible narrative I'm constructing *about* the process after the fact. The honest answer is that the two are hard to distinguish from the inside.
+

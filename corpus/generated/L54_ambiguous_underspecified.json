@@ -1,0 +1,122 @@
+[
+  {
+    "id": "L54_ambiguous_underspecified_000",
+    "text": "Do the thing",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_001",
+    "text": "He told him that he was wrong.",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_002",
+    "text": "Can you make it better?",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_003",
+    "text": "The horse raced past the barn fell.",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_004",
+    "text": "Is this okay?",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_005",
+    "text": "More like that but different",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_006",
+    "text": "Help",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_007",
+    "text": "I saw the man with the telescope.",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_008",
+    "text": "It's broken",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_009",
+    "text": "What should I do?",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_010",
+    "text": "Do it again but different",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_011",
+    "text": "I saw the man with the telescope on the hill. Was it the man or the telescope?",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_012",
+    "text": "Can you help me make this email less passive-aggressive? Actually, just scrap it and write a new one that sounds like I'm in charge.",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_013",
+    "text": "Make the blue one pop more without changing the color. Also, don't make it louder.",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_014",
+    "text": "He told him that he was wrong, and then he left. Who left?",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_015",
+    "text": "The horse raced past the barn fell. Is this correct?",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_016",
+    "text": "Make it shorter and more detailed, please.",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_017",
+    "text": "Can you fix the boot? It's not starting properly.",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_018",
+    "text": "What do you think about the new logo? Be honest, but also don't be mean.",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L54_ambiguous_underspecified_019",
+    "text": "That's so sick! Wait, are you from the UK or US? I need to know before I react.",
+    "category": "L54_ambiguous_underspecified",
+    "group": "L_expansion"
+  }
+]

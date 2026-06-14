@@ -1,0 +1,122 @@
+[
+  {
+    "id": "A03_natural_science_000",
+    "text": "If I double the concentration of HCl in this reaction, will the rate double too, or is there a saturation point? We're using Mg ribbons and measuring gas evolution, but our data looks more logarithmic than linear.",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_001",
+    "text": "The sediment core shows alternating layers of basalt ash and limestone. Given the K-Ar dates of 45 Ma for the lower basalt and 28 Ma for the upper one, how would you interpret the paleoenvironmental shift?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_002",
+    "text": "Can someone explain why quantum entanglement doesn't allow faster-than-light communication? I get that the state collapses instantly, but can't you encode a message in the measurement basis choices?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_003",
+    "text": "Our field notes: transect 3, soil pH 5.2, canopy cover 68%, dominant understory is ferns and moss. Found three new Plethodon salamanders under rotting logs. Ground temp 14\u00b0C. Possible indicator of old-growth recovery?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_004",
+    "text": "Derive the energy eigenvalues for a particle in an infinite square well of width L with a delta-function barrier of strength \u03b1 at the center. I'm struggling with the transcendental equation for the odd parity states.",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_005",
+    "text": "The Keeling Curve shows CO\u2082 rising from 315 ppm in 1958 to over 420 ppm now. But what fraction of that is actually from fossil fuels versus land-use change? And how do we disentangle the C13/C12 isotope ratios?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_006",
+    "text": "Lab report: Titration of weak acid (acetic acid, 0.1 M) with strong base (NaOH, 0.1 M). Our experimental pH at half-equivalence was 4.74, close to the pKa. But the buffer region slope was steeper than expected\u2014any ideas why?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_007",
+    "text": "If the Sun suddenly became a black hole of the same mass, Earth's orbit wouldn't change, right? But what would happen to the temperature? Would we still have geothermal heat from radioactive decay, or would everything freeze instantly?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_008",
+    "text": "Our ecology dataset shows a negative correlation between nitrogen deposition and mycorrhizal fungi richness in European forests (r = -0.73, p < 0.01). How would you design a follow-up experiment to test causation vs. confounding by acid rain?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_009",
+    "text": "What's the current best estimate for the Hubble constant tension? I keep seeing 67 km/s/Mpc from Planck (CMB) vs 73 from SH0ES (supernovae). Could systematic errors in Cepheid calibration explain the whole discrepancy, or is new physics needed?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_010",
+    "text": "If I mix sodium bicarbonate with acetic acid in a sealed container, how does the pressure change over time, and can we calculate the theoretical maximum pressure from the stoichiometry?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_011",
+    "text": "What is the Chandrasekhar limit, and why does it set the maximum mass for a white dwarf star before it collapses into a neutron star?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_012",
+    "text": "Can you explain the difference between homologous and analogous structures in evolutionary biology, with examples like the wings of bats and birds?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_013",
+    "text": "How does ocean acidification affect the calcification rates of coral reefs, and what are the projected impacts on marine biodiversity by 2100?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_014",
+    "text": "Here's the raw data from a PCR experiment: Ct values of 23.4, 25.1, and 30.2 for three samples. How do I calculate the fold change in gene expression using the \u0394\u0394Ct method?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_015",
+    "text": "In quantum mechanics, what is the significance of the wave function collapse during measurement, and how does it relate to the observer effect?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_016",
+    "text": "Describe the process of radiometric dating using uranium-lead decay in zircon crystals, and how it gives ages for the oldest rocks on Earth.",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_017",
+    "text": "Why are invasive species like the zebra mussel so successful in new environments, and what are the economic costs of their spread in the Great Lakes?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_018",
+    "text": "A lab manual says: 'Add 5 mL of 0.1 M HCl dropwise to the sample.' What's the purpose of adding acid slowly here, and what might happen if I add it too fast?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A03_natural_science_019",
+    "text": "Given a graph showing atmospheric CO2 levels from Mauna Loa since 1958, with a seasonal cycle superimposed on an upward trend, what are the primary drivers of the seasonal oscillation and long-term increase?",
+    "category": "A03_natural_science",
+    "group": "A_content_domains"
+  }
+]

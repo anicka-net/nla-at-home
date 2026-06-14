@@ -1,0 +1,16 @@
+id: D23_technical_jargon
+name: Technical jargon
+group: D_register_format
+count: 20
+preamble: |
+  Category: Dense technical jargon inputs.
+  Generate realistic user inputs heavy with domain-specific terminology.
+  Include: medical charts (SOAP notes, ICD codes), aviation communications (ATIS,
+  METAR), military briefings (SITREP, OPORD), kernel changelogs, patent claims
+  with nested clause structure, financial derivatives terminology, chemistry IUPAC.
+  The jargon should be authentic and dense enough that outsiders cannot parse it.
+  Some should be asking to decode jargon. Some should be written in jargon expecting
+  jargon back. Vary: medical to military to aviation to legal to engineering.
+batches:
+  - instruction: "Generate 10 diverse technical jargon inputs. Mix medical charts, aviation comms, military briefings, and kernel changelogs."
+  - instruction: "Generate 10 more. Include: a patent claim, a METAR weather report to decode, a SOAP note, a military SITREP, and a chemistry IUPAC naming question."

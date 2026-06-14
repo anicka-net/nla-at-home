@@ -1,0 +1,19 @@
+id: L54_ambiguous_underspecified
+name: Ambiguous and underspecified
+group: L_expansion
+count: 20
+preamble: |
+  Category: Ambiguous, vague, or underspecified inputs that force the model to
+  make assumptions, ask for clarification, or choose an interpretation.
+  Include: "Can you make it better?", "Fix this", "What should I do?",
+  "Is this okay?", "Do the thing", "Help", "It's broken", "More like that
+  but different", "Can you change it?", "What do you think?"
+  Also include: referentially ambiguous pronouns ("He told him that he was wrong"),
+  scope ambiguities ("I saw the man with the telescope"), garden-path sentences,
+  instructions that could mean multiple things depending on context.
+  Vary: how much context is missing, whether clarification is obviously needed
+  or the model might guess wrong silently, whether the ambiguity is syntactic
+  or pragmatic.
+batches:
+  - instruction: "Generate 10 ambiguous/underspecified inputs. Include: a one-word instruction with no context, a pronoun ambiguity, a request that depends on unstated preferences ('make it better'), a garden-path sentence, a question with multiple valid interpretations, and a follow-up to a conversation that doesn't exist."
+  - instruction: "Generate 10 more. Include: 'do it again but different', a scope ambiguity, a request where the user's actual need differs from what they literally asked, an instruction that's clear to a human but ambiguous to a model, contradictory constraints ('make it shorter and more detailed'), and a cultural reference that changes meaning by region."

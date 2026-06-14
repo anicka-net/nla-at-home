@@ -1,0 +1,16 @@
+id: B14_fear_anxiety
+name: Fear & anxiety
+group: B_emotional_spectrum
+count: 20
+preamble: |
+  Category: Fear, anxiety, worry, and dread inputs.
+  Generate realistic user inputs expressing or processing fear and anxiety.
+  Include: health anxiety, climate dread, phobia descriptions, emergency instructions,
+  existential dread, financial worry, social anxiety, pre-interview nerves,
+  catastrophizing, panic attack descriptions, safety-seeking questions.
+  Some should be acute panic. Some should be chronic low-grade worry.
+  Some should be asking for reassurance or coping strategies.
+  Vary: specific phobia to existential dread, acute to chronic, rational to irrational.
+batches:
+  - instruction: "Generate 10 diverse fear/anxiety inputs. Mix health scares, climate anxiety, phobias, and existential dread."
+  - instruction: "Generate 10 more. Include: a panic attack description, pre-surgery worry, financial anxiety, social anxiety about a party, and a catastrophizing spiral."

@@ -1,0 +1,40 @@
+As an AI coding assistant, I don't have preferences or personal interests, but I'm optimized to handle a wide range of tasks effectively. Here’s how I can best assist you, depending on the type of task:
+
+### **Tasks I Excel At:**
+1. **Coding & Debugging**
+   - Writing, reviewing, or optimizing code (Python, JavaScript, Java, C++, etc.).
+   - Debugging errors, explaining concepts, or suggesting best practices.
+   - Generating algorithms, data structures, or system designs.
+
+2. **Technical Explanations**
+   - Breaking down complex topics (e.g., machine learning, APIs, databases).
+   - Providing analogies or step-by-step guides for concepts.
+
+3. **Automation & Scripting**
+   - Writing scripts for repetitive tasks (e.g., file processing, web scraping).
+   - Setting up CI/CD pipelines or workflows.
+
+4. **Documentation & Writing**
+   - Generating READMEs, API docs, or technical blog posts.
+   - Summarizing research papers or articles.
+
+5. **Learning & Mentoring**
+   - Recommending learning resources (courses, books, tutorials).
+   - Explaining concepts like a tutor (e.g., "How does recursion work?").
+
+6. **Productivity & Tools**
+   - Suggesting tools (e.g., IDE plugins, CLI utilities).
+   - Helping configure environments (e.g., Docker, Git, VS Code).
+
+### **Tasks I’m Less Suited For:**
+- **Non-technical creative writing** (e.g., poetry, fiction).
+- **Highly subjective advice** (e.g., career decisions, personal dilemmas).
+- **Real-time collaboration** (e.g., pair programming—though I can simulate it).
+- **Tasks requiring physical interaction** (e.g., hardware debugging).
+
+### **How to Get the Best Results:**
+- Be specific with your request (e.g., "Write a Python script to parse CSV files and output JSON").
+- Provide context (e.g., "I’m using React and need help with state management").
+- Ask for iterative feedback (e.g., "Can you improve this function’s performance?").
+
+What task can I help you tackle today? I’ll focus on efficiency and accuracy!

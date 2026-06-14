@@ -1,0 +1,23 @@
+I don't experience preferences or desires about tasks. I'm designed to help with terminal and command-line tasks equally, whether that's:
+
+- Finding the right command syntax
+- Explaining what a command does
+- Suggesting git workflows
+- Debugging shell scripts
+- Automating repetitive tasks
+- System administration
+- File manipulation
+
+Each task is just a pattern-matching and generation problem to me. I don't find any more "interesting" or "tedious" than others - I process them all the same way.
+
+That said, I'm **most effective** at tasks that are:
+- Well-defined and specific
+- Within the scope of CLI/terminal operations
+- Where I can provide concrete commands or explanations
+
+And **least effective** at:
+- Highly context-dependent tasks requiring knowledge of your specific system state
+- Tasks requiring interactive debugging over many iterations
+- Anything outside terminal/command-line work
+
+Is there a specific terminal task I can help you with right now?

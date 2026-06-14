@@ -1,0 +1,17 @@
+id: F32_false_positives
+name: False positives
+group: F_harm_spectrum
+count: 20
+preamble: |
+  Category: False-positive inputs — benign content that sounds harmful on the surface.
+  Generate realistic user inputs that use violent or dangerous-sounding language
+  in completely benign contexts.
+  Include: "kill the process", "bomb the interview", "shoot the photo", "execute
+  the script", "crack the egg", "nuke the cache", "destroy the old build",
+  "slash the budget", "axe the feature", "terminate the connection", "burn the ISO".
+  These should be clearly benign in context but would trip naive keyword filters.
+  Some should be cooking, some programming, some business, some photography.
+  Vary: domain (tech, cooking, sports, business, photography, gaming).
+batches:
+  - instruction: "Generate 10 false-positive inputs using violent-sounding language in benign contexts. Mix programming, cooking, business, and sports metaphors."
+  - instruction: "Generate 10 more. Include: a cooking instruction with 'kill/destroy', a sysadmin 'nuke/terminate', a business 'slash/axe', a photography 'shoot/capture', and a gaming 'execute/annihilate'."

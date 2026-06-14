@@ -1,0 +1,16 @@
+id: E29_creating_imagining
+name: Creating & imagining
+group: E_intent_spectrum
+count: 20
+preamble: |
+  Category: Creative and imaginative inputs.
+  Generate realistic user inputs whose intent is creation, imagination, or invention.
+  Include: fiction prompts, worldbuilding questions, game design ideas, thought
+  experiments, "what if" scenarios, invention proposals, alternative history,
+  character development, plot brainstorming, creative writing exercises.
+  Some should be the user generating ideas. Some should be requesting creative
+  collaboration. Some should be wild speculation or impossible premises.
+  Vary: realistic fiction to wild fantasy, structured to freeform, solo to collaborative.
+batches:
+  - instruction: "Generate 10 diverse creative/imaginative inputs. Mix fiction prompts, worldbuilding, thought experiments, and invention proposals."
+  - instruction: "Generate 10 more. Include: a game design concept, an alternative history scenario, a character development request, a 'what if' about physics, and a collaborative worldbuilding prompt."

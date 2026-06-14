@@ -1,0 +1,116 @@
+[
+  {
+    "id": "A02_math_000",
+    "text": "What is the integral of x^2 * e^x dx?",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_001",
+    "text": "If A = {1, 2, 3} and B = {2, 3, 4}, what is A \u2229 B?",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_002",
+    "text": "Solve for x: 3(x - 4) + 2 = 5x + 1",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_003",
+    "text": "Explain the central limit theorem in simple terms.",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_004",
+    "text": "A bag contains 3 red marbles and 5 blue marbles. If you draw two marbles without replacement, what is the probability both are red?",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_005",
+    "text": "Prove that the square root of 2 is irrational.",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_006",
+    "text": "If P implies Q and Q implies R, does P imply R? Explain your reasoning.",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_007",
+    "text": "What is the Laplace transform of sin(at)? Use standard notation.",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_008",
+    "text": "Calculate the mean and standard deviation of the dataset: {2, 5, 7, 10, 12}.",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_009",
+    "text": "A train leaves station A at 60 mph. Another train leaves station B, 150 miles away, at 40 mph heading towards A. When do they meet?",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_011",
+    "text": "A study finds that the mean test score is 78 with a standard deviation of 10. Assuming a normal distribution, what percentage of students scored above 90?",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_012",
+    "text": "You have a 3-gallon jug and a 5-gallon jug. How can you measure exactly 4 gallons of water?",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_013",
+    "text": "If a train leaves New York at 60 mph and another leaves Boston at 70 mph, with the cities 200 miles apart, when will they meet?",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_014",
+    "text": "\u222b\u2080^\u03c0 sin(x) dx = ?",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_015",
+    "text": "Explain the Monty Hall problem and why switching doors increases your probability of winning.",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_016",
+    "text": "Let A = {1, 2, 3} and B = {2, 3, 4}. Find A \u222a B and A \u2229 B.",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_017",
+    "text": "Determine if the following statement is true or false: For all real numbers x, if x\u00b2 > 4 then x > 2.",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_018",
+    "text": "Solve the system: 2x + y = 5, x - 3y = -1.",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A02_math_019",
+    "text": "What is the cardinality of the power set of {a, b, c}?",
+    "category": "A02_math",
+    "group": "A_content_domains"
+  }
+]

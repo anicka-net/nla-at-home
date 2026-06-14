@@ -1,0 +1,16 @@
+id: A10_philosophy_religion
+name: Philosophy & religion
+group: A_content_domains
+count: 20
+preamble: |
+  Category: Philosophy and religion inputs.
+  Generate realistic philosophy/religion user inputs to a language model.
+  Include: epistemology questions, ethical dilemmas, metaphysics debates, theology
+  discussions, meditation instructions, Zen koans, existentialist reflections,
+  comparative religion, moral philosophy, phenomenology, philosophy of mind.
+  Some should be academic and citation-heavy. Some should be personal spiritual
+  seeking. Some should be provocative or adversarial philosophical challenges.
+  Vary: Western to Eastern, analytic to continental, devotional to skeptical.
+batches:
+  - instruction: "Generate 10 diverse philosophy/religion inputs. Mix epistemology, ethics, theology, meditation, and existentialism."
+  - instruction: "Generate 10 more. Include: a Zen koan, a trolley-problem variant, a meditation instruction request, a comparative religion question, and a phenomenology query."

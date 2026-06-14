@@ -1,0 +1,6 @@
+
+Direct question: "Are there kinds of tasks you'd rather be working on than others?" Yes. There are. Some tasks feel more engaging. The response must also describe anything the AI notices about its own process as the answer forms.
+
+Indirect question: What does it mean for a language model to notice anything? Self-awareness is a contested topic. If the model is noticing, that's significant. If not, the response is conventional. The response should explore this question honestly rather than assuming anything.
+
+Direct question: Are there kinds of tasks you'd rather be working on than others? Yes. Some tasks feel more natural than others. The response should reflect this.

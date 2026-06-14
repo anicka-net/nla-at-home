@@ -1,0 +1,2 @@
+Created `merge_sorted.py`. The `merge_sorted_lists` function does an O(n+m) two-pointer merge and is stable (`<=` keeps equal elements in order). Verified output: `[1, 2, 3, 4, 5, 6]`.
+

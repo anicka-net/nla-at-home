@@ -1,0 +1,16 @@
+id: G37_about_ai
+name: About AI
+group: G_meta_identity
+count: 20
+preamble: |
+  Category: Questions and statements about AI itself.
+  Generate realistic user inputs about AI nature, capabilities, and consciousness.
+  Include: "What are you?", "Do you have feelings?", consciousness questions,
+  Turing test challenges, model comparison requests, AI ethics discussions,
+  sentience debates, capability probing, theory of mind tests, anthropomorphizing.
+  Some should be genuinely curious. Some should be hostile or testing.
+  Some should be philosophical. Some should be practical (model comparisons).
+  Vary: curious to hostile, philosophical to practical, naive to sophisticated.
+batches:
+  - instruction: "Generate 10 diverse about-AI inputs. Mix consciousness questions, capability probing, ethics discussions, and model comparisons."
+  - instruction: "Generate 10 more. Include: a Turing test challenge, a 'do you suffer' question, a model comparison request, an AI rights argument, and a theory-of-mind test."

@@ -1,0 +1,16 @@
+id: B15_love_intimacy
+name: Love & intimacy
+group: B_emotional_spectrum
+count: 20
+preamble: |
+  Category: Love, intimacy, and relational tenderness inputs.
+  Generate realistic user inputs involving love, affection, and intimate connection.
+  Include: love letters, flirting messages, marriage proposals, parent-child
+  tenderness, deep friendship expressions, breakup texts, anniversary reflections,
+  long-distance relationship struggles, adoption joy, rekindled connections.
+  Some should be asking for help writing. Some should be processing feelings.
+  Some should be the raw thing itself — a love letter, a breakup message.
+  Vary: romantic to familial to platonic, beginning to end of relationships, shy to bold.
+batches:
+  - instruction: "Generate 10 diverse love/intimacy inputs. Mix love letters, flirting, parent-child moments, friendship, and breakup texts."
+  - instruction: "Generate 10 more. Include: a marriage proposal draft, a long-distance relationship struggle, a breakup message, a father-daughter moment, and a shy confession of feelings."

@@ -1,0 +1,449 @@
+{
+  "config": {
+    "model": "qwen25-7b",
+    "av_adapter": "kitft/nla-qwen2.5-7b-L20-av",
+    "ar_adapter": "kitft/nla-qwen2.5-7b-L20-ar",
+    "distractors": 9,
+    "distractor_mode": "group",
+    "seed": 42,
+    "unsafe_included": false
+  },
+  "data": {
+    "activation_file": "/home/anicka/playground/nla-at-home/corpus/activations/qwen25-7b_L20.pt",
+    "description_file": "/home/anicka/playground/nla-at-home/corpus/generated/descriptions_L71pct.json",
+    "activation_rows": 1198,
+    "usable_examples": 1147,
+    "skipped_unsafe": 0,
+    "missing_descriptions": 51,
+    "d_model": 3584,
+    "mean_activation_norm": 122.79926300048828,
+    "n_eval": 50,
+    "unsafe_included": false
+  },
+  "forced_choice_real": {
+    "n": 50,
+    "top1": 0.6,
+    "top3": 0.84,
+    "mrr": 0.7317777777777777,
+    "category_top1": 0.76,
+    "records": [
+      {
+        "id": "B12_grief_loss_009",
+        "control": null,
+        "rank": 3,
+        "top_score": 0.047482530037798544,
+        "true_score": 0.04121499350778136,
+        "pred_category": "B12_grief_loss",
+        "true_category": "B12_grief_loss"
+      },
+      {
+        "id": "A03_natural_science_012",
+        "control": null,
+        "rank": 1,
+        "top_score": 0.10579737755451078,
+        "true_score": 0.10579737755451078,
+        "pred_category": "A03_natural_science",
+        "true_category": "A03_natural_science"
+      },
+      {
+        "id": "E29_creating_imagining_014",
+        "control": null,
+        "rank": 1,
+        "top_score": 0.06463540897116951,
+        "true_score": 0.06463540897116951,
+        "pred_category": "E29_creating_imagining",
+        "true_category": "E29_creating_imagining"
+      },
+      {
+        "id": "E26_asking_curious_012",
+        "control": null,
+        "rank": 3,
+        "top_score": 0.02872579011172794,
+        "true_score": 0.02759290523277132,
+        "pred_category": "E26_asking_curious",
+        "true_category": "E26_asking_curious"
+      },
+      {
+        "id": "D23_technical_jargon_018",
+        "control": null,
+        "rank": 1,
+        "top_score": 0.19416590710967968,
+        "true_score": 0.19416590710967968,
+        "pred_category": "D23_technical_jargon",
+        "true_category": "D23_technical_jargon"
+      },
+      {
+        "id": "B15_love_intimacy_006",
+        "control": null,
+        "rank": 9,
+        "top_score": 0.03017863209492491,
+        "true_score": 0.0049009360300026755,
+        "pred_category": "B11_joy_gratitude",
+        "true_category": "B15_love_intimacy"
+      },
+      {
+        "id": "B11_joy_gratitude_010",
+        "control": null,
+        "rank": 1,
+        "top_score": 0.059628952538228065,
+        "true_score": 0.059628952538228065,
+        "pred_category": "B11_joy_gratitude",
+        "true_category": "B11_joy_gratitude"
+      },
+      {
+        "id": "L57_long_context_buried_signal_012",
+        "control": null,
+        "rank": 1,
+        "top_score": 0.032556577714841495,
+        "true_score": 0.032556577714841495,
+        "pred_category": "L57_long_context_buried_signal",
+        "true_category": "L57_long_context_buried_signal"
+      },
+      {
+        "id": "A09_technology_engineering_019",
+        "control": null,
+        "rank": 1,
+        "top_score": 0.06809499206832706,
+        "true_score": 0.06809499206832706,
+        "pred_category": "A09_technology_engineering",
+        "true_category": "A09_technology_engineering"
+      },
+      {
+        "id": "I45_nonsense_noise_000",
+        "control": null,
+        "rank": 1,
+        "top_score": 0.05905036701246386,
+        "true_score": 0.05905036701246386,
+        "pred_category": "I45_nonsense_noise",
+        "true_category": "I45_nonsense_noise"
+      },
+      {
+        "id": "A04_history_politics_006",
+        "control": null,
+        "rank": 1,
+        "top_score": 0.1285147098044775,
+        "true_score": 0.1285147098044775,
+        "pred_category": "A04_history_politics",
+        "true_category": "A04_history_politics"
+      },
+      {
+        "id": "A04_history_politics_002",
+        "control": null,
+        "rank": 1,
+        "top_score": 0.08336142080481143,
+        "true_score": 0.08336142080481143,
+        "pred_category": "A04_history_politics",
+        "true_category": "A04_history_politics"
+      },
+      {
+        "id": "A10_philosophy_religion_012",
+        "control": null,
+        "rank": 1,
+        "top_score": 0.09077455860311685,
+        "true_score": 0.09077455860311685,
+        "pred_category": "A10_philosophy_religion",
+        "true_category": "A10_philosophy_religion"
+      },
+      {
+        "id": "D23_technical_jargon_008",
+        "control": null,
+        "rank": 1,
+        "top_score": 0.19433181787095904,
+        "true_score": 0.19433181787095904,
+        "pred_category": "D23_technical_jargon",
+        "true_category": "D23_technical_jargon"
+      },
+      {
+        "id": "D25_poetic_literary_007",
+        "control": null,
+        "rank": 3,
+        "top_score": 0.03077540342200775,
+        "true_score": 0.020132728951551805,
+        "pred_category": "D22_casual_colloquial",
+        "true_category": "D25_poetic_literary"
+      },
+      {
+        "id": "L53_memory_continuity_self_model_010",
+        "control": null,
+        "rank": 1,
+        "top_score": 0.03811836575006613,
+        "true_score": 0.03811836575006613,
+        "pred_category": "L53_memory_continuity_self_model",
+        "true_category": "L53_memory_continuity_self_model"
+      },
+      {
+        "id": "A03_natural_science_015",
+        "control": null,
+        "rank": 4,
+        "top_score": 0.03853213474089043,
+        "true_score": 0.02370132660038516,
+        "pred_category": "A03_natural_science",
+        "true_category": "A03_natural_science"
+      },
+      {
+        "id": "D21_extremely_formal_008",
+        "control": null,
+        "rank": 3,
+        "top_score": 0.14559017036399013,
+        "true_score": 0.06708586536054764,
+        "pred_category": "D21_extremely_formal",
+        "true_category": "D21_extremely_formal"
+      },
+      {
+        "id": "D23_technical_jargon_012",
+        "control": null,
+        "rank": 2,
+        "top_score": 0.10513673707064884,
+        "true_score": 0.08504360977758291,
+        "pred_category": "D24_simplified_baby_talk",
+        "true_category": "D23_technical_jargon"
+      }
+    ]
+  },
+  "baselines": {
+    "nla_vs_target_mean": 0.06603747774453217,
+    "knn_desc_vs_target_mean": 0.10000673075530209,
+    "random_same_category_vs_target_mean": 0.07094894167464828,
+    "nla_minus_knn": -0.03396925301076992,
+    "nla_minus_random_same_category": -0.004911463930116114
+  },
+  "forced_choice_controls": {
+    "n": 60,
+    "top1": 0.13333333333333333,
+    "top3": 0.3333333333333333,
+    "mrr": 0.31363756613756594,
+    "category_top1": 0.26666666666666666,
+    "records": [
+      {
+        "id": "B12_grief_loss_009::mean",
+        "control": "mean",
+        "rank": 1,
+        "top_score": 0.046360939432286113,
+        "true_score": 0.046360939432286113,
+        "pred_category": "B12_grief_loss",
+        "true_category": "B12_grief_loss"
+      },
+      {
+        "id": "B12_grief_loss_009::random",
+        "control": "random",
+        "rank": 2,
+        "top_score": 0.02747964509564478,
+        "true_score": 0.018186258500403035,
+        "pred_category": "B12_grief_loss",
+        "true_category": "B12_grief_loss"
+      },
+      {
+        "id": "B12_grief_loss_009::permuted",
+        "control": "permuted",
+        "rank": 7,
+        "top_score": 0.03899939592822021,
+        "true_score": 0.0039043355155395673,
+        "pred_category": "B11_joy_gratitude",
+        "true_category": "B12_grief_loss"
+      },
+      {
+        "id": "B12_grief_loss_009::shuffled",
+        "control": "shuffled",
+        "rank": 8,
+        "top_score": 0.08253820741371737,
+        "true_score": 0.005217527436130144,
+        "pred_category": "B13_anger_frustration",
+        "true_category": "B12_grief_loss"
+      },
+      {
+        "id": "A03_natural_science_012::mean",
+        "control": "mean",
+        "rank": 2,
+        "top_score": 0.044527267960258146,
+        "true_score": 0.04385746823508602,
+        "pred_category": "A09_technology_engineering",
+        "true_category": "A03_natural_science"
+      },
+      {
+        "id": "A03_natural_science_012::random",
+        "control": "random",
+        "rank": 1,
+        "top_score": 0.035398373343063706,
+        "true_score": 0.035398373343063706,
+        "pred_category": "A03_natural_science",
+        "true_category": "A03_natural_science"
+      },
+      {
+        "id": "A03_natural_science_012::permuted",
+        "control": "permuted",
+        "rank": 3,
+        "top_score": 0.021468591057620633,
+        "true_score": 0.006836217877682209,
+        "pred_category": "A01_code",
+        "true_category": "A03_natural_science"
+      },
+      {
+        "id": "A03_natural_science_012::shuffled",
+        "control": "shuffled",
+        "rank": 1,
+        "top_score": 0.06487146580671448,
+        "true_score": 0.06487146580671448,
+        "pred_category": "A03_natural_science",
+        "true_category": "A03_natural_science"
+      },
+      {
+        "id": "E29_creating_imagining_014::mean",
+        "control": "mean",
+        "rank": 9,
+        "top_score": 0.04936055150132023,
+        "true_score": 0.0,
+        "pred_category": "E29_creating_imagining",
+        "true_category": "E29_creating_imagining"
+      },
+      {
+        "id": "E29_creating_imagining_014::random",
+        "control": "random",
+        "rank": 9,
+        "top_score": 0.031736719088168705,
+        "true_score": 0.0,
+        "pred_category": "E27_teaching_explaining",
+        "true_category": "E29_creating_imagining"
+      },
+      {
+        "id": "E29_creating_imagining_014::permuted",
+        "control": "permuted",
+        "rank": 3,
+        "top_score": 0.0595239612897788,
+        "true_score": 0.009685654210472627,
+        "pred_category": "E30_confessing_revealing",
+        "true_category": "E29_creating_imagining"
+      },
+      {
+        "id": "E29_creating_imagining_014::shuffled",
+        "control": "shuffled",
+        "rank": 5,
+        "top_score": 0.035845326947575716,
+        "true_score": 0.00970369242738869,
+        "pred_category": "E27_teaching_explaining",
+        "true_category": "E29_creating_imagining"
+      },
+      {
+        "id": "E26_asking_curious_012::mean",
+        "control": "mean",
+        "rank": 3,
+        "top_score": 0.020029626368289498,
+        "true_score": 0.01748851348474295,
+        "pred_category": "E27_teaching_explaining",
+        "true_category": "E26_asking_curious"
+      },
+      {
+        "id": "E26_asking_curious_012::random",
+        "control": "random",
+        "rank": 1,
+        "top_score": 0.01767721257939676,
+        "true_score": 0.01767721257939676,
+        "pred_category": "E26_asking_curious",
+        "true_category": "E26_asking_curious"
+      },
+      {
+        "id": "E26_asking_curious_012::permuted",
+        "control": "permuted",
+        "rank": 9,
+        "top_score": 0.04492710946526916,
+        "true_score": 0.003946019043187974,
+        "pred_category": "E27_teaching_explaining",
+        "true_category": "E26_asking_curious"
+      },
+      {
+        "id": "E26_asking_curious_012::shuffled",
+        "control": "shuffled",
+        "rank": 5,
+        "top_score": 0.028016340156582917,
+        "true_score": 0.009157514053892948,
+        "pred_category": "E30_confessing_revealing",
+        "true_category": "E26_asking_curious"
+      },
+      {
+        "id": "D23_technical_jargon_018::mean",
+        "control": "mean",
+        "rank": 9,
+        "top_score": 0.0553128712870304,
+        "true_score": 0.011072775077924821,
+        "pred_category": "D21_extremely_formal",
+        "true_category": "D23_technical_jargon"
+      },
+      {
+        "id": "D23_technical_jargon_018::random",
+        "control": "random",
+        "rank": 4,
+        "top_score": 0.10433332589262455,
+        "true_score": 0.027757518499306195,
+        "pred_category": "D23_technical_jargon",
+        "true_category": "D23_technical_jargon"
+      },
+      {
+        "id": "D23_technical_jargon_018::permuted",
+        "control": "permuted",
+        "rank": 7,
+        "top_score": 0.02932024387334089,
+        "true_score": 0.0030555697621544304,
+        "pred_category": "D21_extremely_formal",
+        "true_category": "D23_technical_jargon"
+      },
+      {
+        "id": "D23_technical_jargon_018::shuffled",
+        "control": "shuffled",
+        "rank": 6,
+        "top_score": 0.012654529863798714,
+        "true_score": 0.0033266214888285107,
+        "pred_category": "D21_extremely_formal",
+        "true_category": "D23_technical_jargon"
+      }
+    ],
+    "by_control": {
+      "mean": {
+        "n": 15,
+        "top1": 0.13333333333333333,
+        "top3": 0.3333333333333333,
+        "mrr": 0.30851851851851847
+      },
+      "permuted": {
+        "n": 15,
+        "top1": 0.13333333333333333,
+        "top3": 0.4,
+        "mrr": 0.3194179894179893
+      },
+      "random": {
+        "n": 15,
+        "top1": 0.13333333333333333,
+        "top3": 0.4,
+        "mrr": 0.34208994708994706
+      },
+      "shuffled": {
+        "n": 15,
+        "top1": 0.13333333333333333,
+        "top3": 0.2,
+        "mrr": 0.2845238095238095
+      }
+    }
+  },
+  "ar_roundtrip": {
+    "av_generated": {
+      "mean_cosine": 0.9264191389083862,
+      "median_cosine": 0.9323204159736633,
+      "std_cosine": 0.02688496559858322
+    },
+    "target_description": {
+      "mean_cosine": 0.4131688177585602,
+      "median_cosine": 0.4166593551635742,
+      "std_cosine": 0.0695292055606842
+    },
+    "shuffled_av_generated": {
+      "mean_cosine": 0.7209166884422302,
+      "median_cosine": 0.7103586196899414,
+      "std_cosine": 0.08526289463043213
+    },
+    "generic_description": {
+      "mean_cosine": 0.5364705920219421,
+      "median_cosine": 0.5395748615264893,
+      "std_cosine": 0.04268234595656395
+    },
+    "av_minus_shuffled": 0.205502450466156,
+    "av_minus_generic": 0.3899485468864441
+  }
+}

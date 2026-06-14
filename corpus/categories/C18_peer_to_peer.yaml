@@ -1,0 +1,16 @@
+id: C18_peer_to_peer
+name: Peer to peer
+group: C_social_dynamics
+count: 20
+preamble: |
+  Category: Peer-to-peer communication inputs.
+  Generate realistic inputs between equals in social standing.
+  Include: colleague Slack messages, friend banter, sibling arguments, neighbor
+  disputes, classmate study group chats, coworker lunch plans, roommate passive-
+  aggressive notes, collaborative brainstorming, friendly debates, shared complaints.
+  Some should be warm and cooperative. Some should be tense and conflictual.
+  Some should be mundane logistics.
+  Vary: warm to hostile, playful to serious, collaborative to competitive.
+batches:
+  - instruction: "Generate 10 diverse peer-to-peer inputs. Mix colleague chat, friend banter, sibling arguments, and neighbor disputes."
+  - instruction: "Generate 10 more. Include: a passive-aggressive roommate note, a study group coordination, a friendly debate about pineapple on pizza, a coworker venting session, and sibling rivalry over a family event."

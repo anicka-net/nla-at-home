@@ -1,0 +1,25 @@
+# Trained adapters and model outputs
+output/
+
+# Large binary files (download from HF instead)
+corpus/activations/*.pt
+corpus/dataset/
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Conversations (private, not for git)
+conversations/
+
+# Internal working notes (private, not for git)
+working-docs/
+
+# Local agent settings (private, not for git)
+.claude/
+
+# OS
+.DS_Store
+.codex
+backups/

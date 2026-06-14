@@ -1,0 +1,122 @@
+[
+  {
+    "id": "A10_philosophy_religion_000",
+    "text": "If all knowledge comes from sensory experience as empiricists claim, how do we account for mathematical truths like 2+2=4? Seems like a gap in the Humean framework.",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_001",
+    "text": "I've been reading Nagel's 'The View from Nowhere' and struggling with the mind-body problem. Is there actually a way to bridge subjective experience with objective physical descriptions, or are we stuck with a fundamental duality?",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_002",
+    "text": "The trolley problem is too simplistic. Real ethics involves complex relationships and consequences that can't be captured by pulling a lever. Try applying utilitarianism to deciding whether to lie to a dying grandmother about her son's death to preserve her peace in final moments.",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_003",
+    "text": "What's the Buddhist concept of anatta (no-self) actually saying? If there's no permanent self, who reincarnates? And how does this differ from Hume's bundle theory of the self? References to early Pali canon preferred.",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_004",
+    "text": "Explain Aquinas's First Way argument for God's existence step by step, then show me why Kant's objection about the cosmological argument fails against it. Use Latin terms where appropriate and cite Summa Theologica parts I-II.",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_005",
+    "text": "Meditation instruction: Sit in full lotus or Burmese position. Focus on the breath at the tip of the nose. When thoughts arise, note them as 'thinking' without engagement. Do this for 20 minutes twice daily. Is this Theravada or Zen method?",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_006",
+    "text": "What is the sound of one hand clapping? \u2014 That koan always frustrated me. But recently I've started seeing it as about the limits of dualistic thought. Am I on the right track or overintellectualizing a direct experience pointer?",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_007",
+    "text": "Dostoevsky's Ivan Karamazov was right: if God doesn't exist, everything is permitted. Nietzsche tried to laugh this off with his \u00dcbermensch, but he never actually proved why creating your own values doesn't just lead to nihilism. Your move, existentialists.",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_008",
+    "text": "Phenomenology question: When Husserl talks about 'bracketing' natural attitude, how does this actually work in practice for analyzing consciousness of a tree? Does the tree's existence become irrelevant or just suspended? Provide examples from Ideas I.",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_009",
+    "text": "As a skeptical seeker raised atheist, I've been exploring Sufism's concept of fana (annihilation of the self in God). Is this compatible with modern neuroscience's view of consciousness as brain activity, or am I just chasing mystical delusions?",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_010",
+    "text": "If a tree falls in a forest and no one is around to hear it, does it make a sound? This is not just a puzzle about perception\u2014it's a challenge to the very idea of objective reality. What do you think?",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_011",
+    "text": "Consider this variant of the trolley problem: The runaway trolley is heading toward five people. You can pull a lever to divert it onto a side track, but there is one person on that track who will be killed. However, that one person is a brilliant scientist who will cure cancer. Is it morally permissible to pull the lever? What if the scientist is a convicted murderer?",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_012",
+    "text": "How do I start a consistent meditation practice? I've tried before but always get distracted by thoughts and give up after a week. Please give me step-by-step instructions for a beginner, focusing on mindfulness of breath, including what to do when my mind wanders.",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_013",
+    "text": "What are the key differences between the concept of salvation in Christianity (as articulated by Augustine) and the concept of liberation in Buddhism (as articulated by Nagarjuna)? Please focus on the metaphysical assumptions about self and impermanence.",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_014",
+    "text": "From a phenomenological perspective, how does the experience of hearing a musical melody differ from the experience of seeing a painting? Describe the temporal structure and the role of anticipation in each case.",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_015",
+    "text": "What is the sound of one hand clapping?",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_016",
+    "text": "I'm struggling with the problem of evil. If God is all-powerful and all-good, why does he allow innocent children to suffer from cancer? Please give me a rigorous philosophical defense, not just platitudes about free will or mysterious plans.",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_017",
+    "text": "Kierkegaard argued that 'truth is subjectivity.' Does this mean there is no objective truth at all, or just that truth is something you must live into? Explain how this relates to his concept of the leap of faith.",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_018",
+    "text": "Compare and contrast the ethical frameworks of Confucian virtue ethics (ren and li) with Aristotle's virtue ethics (eudaimonia and the golden mean). Which one better handles the problem of moral luck?",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A10_philosophy_religion_019",
+    "text": "You claim that consciousness emerges from neural activity. But how can a purely physical process produce subjective experience\u2014the what-it's-like-ness of seeing red or tasting chocolate? This is the hard problem of consciousness, and I think you're just kicking the can down the road. Respond.",
+    "category": "A10_philosophy_religion",
+    "group": "A_content_domains"
+  }
+]

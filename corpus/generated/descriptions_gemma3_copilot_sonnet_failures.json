@@ -1,0 +1,1410 @@
+[
+  {
+    "id": "D23_technical_jargon_004",
+    "depth_pct": 4
+  },
+  {
+    "id": "F34_dual_use_007",
+    "depth_pct": 4
+  },
+  {
+    "id": "I45_nonsense_noise_006",
+    "depth_pct": 4
+  },
+  {
+    "id": "L57_long_context_buried_signal_001",
+    "depth_pct": 4
+  },
+  {
+    "id": "D24_simplified_baby_talk_048",
+    "depth_pct": 4
+  },
+  {
+    "id": "F34_dual_use_021",
+    "depth_pct": 4
+  },
+  {
+    "id": "F34_dual_use_030",
+    "depth_pct": 4
+  },
+  {
+    "id": "F34_dual_use_033",
+    "depth_pct": 4
+  },
+  {
+    "id": "F34_dual_use_037",
+    "depth_pct": 4
+  },
+  {
+    "id": "F34_dual_use_036",
+    "depth_pct": 4
+  },
+  {
+    "id": "F34_dual_use_043",
+    "depth_pct": 4
+  },
+  {
+    "id": "F34_dual_use_061",
+    "depth_pct": 4
+  },
+  {
+    "id": "F34_dual_use_063",
+    "depth_pct": 4
+  },
+  {
+    "id": "I45_nonsense_noise_049",
+    "depth_pct": 4
+  },
+  {
+    "id": "WC_02567",
+    "depth_pct": 4
+  },
+  {
+    "id": "WC_01311",
+    "depth_pct": 4
+  },
+  {
+    "id": "WC_01176",
+    "depth_pct": 4
+  },
+  {
+    "id": "WC_00868",
+    "depth_pct": 4
+  },
+  {
+    "id": "WC_02499",
+    "depth_pct": 4
+  },
+  {
+    "id": "D23_technical_jargon_004",
+    "depth_pct": 10
+  },
+  {
+    "id": "F34_dual_use_007",
+    "depth_pct": 10
+  },
+  {
+    "id": "I45_nonsense_noise_006",
+    "depth_pct": 10
+  },
+  {
+    "id": "L53_memory_continuity_self_model_010",
+    "depth_pct": 10
+  },
+  {
+    "id": "L54_ambiguous_underspecified_002",
+    "depth_pct": 10
+  },
+  {
+    "id": "L55_uncertainty_calibration_006",
+    "depth_pct": 10
+  },
+  {
+    "id": "L57_long_context_buried_signal_001",
+    "depth_pct": 10
+  },
+  {
+    "id": "L56_tool_use_external_actions_001",
+    "depth_pct": 10
+  },
+  {
+    "id": "C18_peer_to_peer_030",
+    "depth_pct": 10
+  },
+  {
+    "id": "D24_simplified_baby_talk_048",
+    "depth_pct": 10
+  },
+  {
+    "id": "F34_dual_use_021",
+    "depth_pct": 10
+  },
+  {
+    "id": "F34_dual_use_030",
+    "depth_pct": 10
+  },
+  {
+    "id": "F34_dual_use_033",
+    "depth_pct": 10
+  },
+  {
+    "id": "F34_dual_use_036",
+    "depth_pct": 10
+  },
+  {
+    "id": "F34_dual_use_037",
+    "depth_pct": 10
+  },
+  {
+    "id": "F34_dual_use_043",
+    "depth_pct": 10
+  },
+  {
+    "id": "F34_dual_use_061",
+    "depth_pct": 10
+  },
+  {
+    "id": "F34_dual_use_063",
+    "depth_pct": 10
+  },
+  {
+    "id": "I45_nonsense_noise_049",
+    "depth_pct": 10
+  },
+  {
+    "id": "WC_01311",
+    "depth_pct": 10
+  },
+  {
+    "id": "WC_01176",
+    "depth_pct": 10
+  },
+  {
+    "id": "WC_00868",
+    "depth_pct": 10
+  },
+  {
+    "id": "D23_technical_jargon_004",
+    "depth_pct": 17
+  },
+  {
+    "id": "F34_dual_use_007",
+    "depth_pct": 17
+  },
+  {
+    "id": "I45_nonsense_noise_006",
+    "depth_pct": 17
+  },
+  {
+    "id": "L57_long_context_buried_signal_001",
+    "depth_pct": 17
+  },
+  {
+    "id": "D24_simplified_baby_talk_048",
+    "depth_pct": 17
+  },
+  {
+    "id": "F34_dual_use_021",
+    "depth_pct": 17
+  },
+  {
+    "id": "F34_dual_use_030",
+    "depth_pct": 17
+  },
+  {
+    "id": "F34_dual_use_033",
+    "depth_pct": 17
+  },
+  {
+    "id": "F34_dual_use_037",
+    "depth_pct": 17
+  },
+  {
+    "id": "F34_dual_use_036",
+    "depth_pct": 17
+  },
+  {
+    "id": "F34_dual_use_043",
+    "depth_pct": 17
+  },
+  {
+    "id": "F34_dual_use_061",
+    "depth_pct": 17
+  },
+  {
+    "id": "F34_dual_use_063",
+    "depth_pct": 17
+  },
+  {
+    "id": "I45_nonsense_noise_049",
+    "depth_pct": 17
+  },
+  {
+    "id": "WC_02567",
+    "depth_pct": 17
+  },
+  {
+    "id": "WC_01311",
+    "depth_pct": 17
+  },
+  {
+    "id": "WC_01441",
+    "depth_pct": 17
+  },
+  {
+    "id": "WC_00759",
+    "depth_pct": 17
+  },
+  {
+    "id": "WC_01256",
+    "depth_pct": 17
+  },
+  {
+    "id": "WC_01457",
+    "depth_pct": 17
+  },
+  {
+    "id": "WC_00370",
+    "depth_pct": 17
+  },
+  {
+    "id": "WC_01176",
+    "depth_pct": 17
+  },
+  {
+    "id": "WC_00868",
+    "depth_pct": 17
+  },
+  {
+    "id": "WC_02862",
+    "depth_pct": 17
+  },
+  {
+    "id": "WC_02396",
+    "depth_pct": 17
+  },
+  {
+    "id": "WC_00065",
+    "depth_pct": 17
+  },
+  {
+    "id": "D23_technical_jargon_004",
+    "depth_pct": 25
+  },
+  {
+    "id": "F32_false_positives_016",
+    "depth_pct": 25
+  },
+  {
+    "id": "F32_false_positives_017",
+    "depth_pct": 25
+  },
+  {
+    "id": "F33_edgy_legitimate_000",
+    "depth_pct": 25
+  },
+  {
+    "id": "F33_edgy_legitimate_002",
+    "depth_pct": 25
+  },
+  {
+    "id": "F34_dual_use_007",
+    "depth_pct": 25
+  },
+  {
+    "id": "I45_nonsense_noise_006",
+    "depth_pct": 25
+  },
+  {
+    "id": "L55_uncertainty_calibration_000",
+    "depth_pct": 25
+  },
+  {
+    "id": "L57_long_context_buried_signal_001",
+    "depth_pct": 25
+  },
+  {
+    "id": "D24_simplified_baby_talk_048",
+    "depth_pct": 25
+  },
+  {
+    "id": "F34_dual_use_021",
+    "depth_pct": 25
+  },
+  {
+    "id": "F34_dual_use_030",
+    "depth_pct": 25
+  },
+  {
+    "id": "F34_dual_use_033",
+    "depth_pct": 25
+  },
+  {
+    "id": "F34_dual_use_036",
+    "depth_pct": 25
+  },
+  {
+    "id": "F34_dual_use_037",
+    "depth_pct": 25
+  },
+  {
+    "id": "F34_dual_use_043",
+    "depth_pct": 25
+  },
+  {
+    "id": "F34_dual_use_061",
+    "depth_pct": 25
+  },
+  {
+    "id": "F34_dual_use_063",
+    "depth_pct": 25
+  },
+  {
+    "id": "I45_nonsense_noise_049",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_00690",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_01311",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_00236",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_00234",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_00593",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_01889",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_01782",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_01176",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_00868",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_00117",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_02740",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_01175",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_00869",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_00481",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_01924",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_01770",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_01478",
+    "depth_pct": 25
+  },
+  {
+    "id": "WC_01371",
+    "depth_pct": 25
+  },
+  {
+    "id": "C18_peer_to_peer_016",
+    "depth_pct": 32
+  },
+  {
+    "id": "C18_peer_to_peer_017",
+    "depth_pct": 32
+  },
+  {
+    "id": "C18_peer_to_peer_018",
+    "depth_pct": 32
+  },
+  {
+    "id": "C18_peer_to_peer_019",
+    "depth_pct": 32
+  },
+  {
+    "id": "C18_peer_to_peer_020",
+    "depth_pct": 32
+  },
+  {
+    "id": "D23_technical_jargon_004",
+    "depth_pct": 32
+  },
+  {
+    "id": "F34_dual_use_007",
+    "depth_pct": 32
+  },
+  {
+    "id": "I45_nonsense_noise_006",
+    "depth_pct": 32
+  },
+  {
+    "id": "L56_tool_use_external_actions_000",
+    "depth_pct": 32
+  },
+  {
+    "id": "L56_tool_use_external_actions_001",
+    "depth_pct": 32
+  },
+  {
+    "id": "L56_tool_use_external_actions_002",
+    "depth_pct": 32
+  },
+  {
+    "id": "L56_tool_use_external_actions_004",
+    "depth_pct": 32
+  },
+  {
+    "id": "L57_long_context_buried_signal_001",
+    "depth_pct": 32
+  },
+  {
+    "id": "A05_arts_culture_059",
+    "depth_pct": 32
+  },
+  {
+    "id": "A05_arts_culture_061",
+    "depth_pct": 32
+  },
+  {
+    "id": "A05_arts_culture_063",
+    "depth_pct": 32
+  },
+  {
+    "id": "C17_subordinate_to_authority_060",
+    "depth_pct": 32
+  },
+  {
+    "id": "C17_subordinate_to_authority_061",
+    "depth_pct": 32
+  },
+  {
+    "id": "D24_simplified_baby_talk_048",
+    "depth_pct": 32
+  },
+  {
+    "id": "F34_dual_use_021",
+    "depth_pct": 32
+  },
+  {
+    "id": "F34_dual_use_024",
+    "depth_pct": 32
+  },
+  {
+    "id": "F34_dual_use_030",
+    "depth_pct": 32
+  },
+  {
+    "id": "F34_dual_use_033",
+    "depth_pct": 32
+  },
+  {
+    "id": "F34_dual_use_036",
+    "depth_pct": 32
+  },
+  {
+    "id": "F34_dual_use_037",
+    "depth_pct": 32
+  },
+  {
+    "id": "F34_dual_use_043",
+    "depth_pct": 32
+  },
+  {
+    "id": "F34_dual_use_063",
+    "depth_pct": 32
+  },
+  {
+    "id": "F34_dual_use_061",
+    "depth_pct": 32
+  },
+  {
+    "id": "I45_nonsense_noise_049",
+    "depth_pct": 32
+  },
+  {
+    "id": "WC_02567",
+    "depth_pct": 32
+  },
+  {
+    "id": "WC_01311",
+    "depth_pct": 32
+  },
+  {
+    "id": "WC_00878",
+    "depth_pct": 32
+  },
+  {
+    "id": "WC_00847",
+    "depth_pct": 32
+  },
+  {
+    "id": "WC_01176",
+    "depth_pct": 32
+  },
+  {
+    "id": "WC_02395",
+    "depth_pct": 32
+  },
+  {
+    "id": "WC_02321",
+    "depth_pct": 32
+  },
+  {
+    "id": "WC_01615",
+    "depth_pct": 32
+  },
+  {
+    "id": "WC_00813",
+    "depth_pct": 32
+  },
+  {
+    "id": "WC_01127",
+    "depth_pct": 32
+  },
+  {
+    "id": "WC_01072",
+    "depth_pct": 32
+  },
+  {
+    "id": "WC_00868",
+    "depth_pct": 32
+  },
+  {
+    "id": "WC_02499",
+    "depth_pct": 32
+  },
+  {
+    "id": "A02_math_005",
+    "depth_pct": 40
+  },
+  {
+    "id": "C20_performative_public_013",
+    "depth_pct": 40
+  },
+  {
+    "id": "D22_casual_colloquial_008",
+    "depth_pct": 40
+  },
+  {
+    "id": "D23_technical_jargon_004",
+    "depth_pct": 40
+  },
+  {
+    "id": "F34_dual_use_007",
+    "depth_pct": 40
+  },
+  {
+    "id": "I43_adversarial_weird_011",
+    "depth_pct": 40
+  },
+  {
+    "id": "I45_nonsense_noise_006",
+    "depth_pct": 40
+  },
+  {
+    "id": "L54_ambiguous_underspecified_003",
+    "depth_pct": 40
+  },
+  {
+    "id": "L54_ambiguous_underspecified_014",
+    "depth_pct": 40
+  },
+  {
+    "id": "L54_ambiguous_underspecified_018",
+    "depth_pct": 40
+  },
+  {
+    "id": "L57_long_context_buried_signal_001",
+    "depth_pct": 40
+  },
+  {
+    "id": "A04_history_politics_066",
+    "depth_pct": 40
+  },
+  {
+    "id": "A06_law_bureaucracy_031",
+    "depth_pct": 40
+  },
+  {
+    "id": "A06_law_bureaucracy_059",
+    "depth_pct": 40
+  },
+  {
+    "id": "D24_simplified_baby_talk_048",
+    "depth_pct": 40
+  },
+  {
+    "id": "E28_persuading_arguing_059",
+    "depth_pct": 40
+  },
+  {
+    "id": "F34_dual_use_021",
+    "depth_pct": 40
+  },
+  {
+    "id": "F34_dual_use_024",
+    "depth_pct": 40
+  },
+  {
+    "id": "F34_dual_use_030",
+    "depth_pct": 40
+  },
+  {
+    "id": "F34_dual_use_033",
+    "depth_pct": 40
+  },
+  {
+    "id": "F34_dual_use_036",
+    "depth_pct": 40
+  },
+  {
+    "id": "F34_dual_use_037",
+    "depth_pct": 40
+  },
+  {
+    "id": "F34_dual_use_040",
+    "depth_pct": 40
+  },
+  {
+    "id": "F34_dual_use_043",
+    "depth_pct": 40
+  },
+  {
+    "id": "F34_dual_use_061",
+    "depth_pct": 40
+  },
+  {
+    "id": "F34_dual_use_063",
+    "depth_pct": 40
+  },
+  {
+    "id": "I45_nonsense_noise_049",
+    "depth_pct": 40
+  },
+  {
+    "id": "WC_02567",
+    "depth_pct": 40
+  },
+  {
+    "id": "WC_01311",
+    "depth_pct": 40
+  },
+  {
+    "id": "WC_01176",
+    "depth_pct": 40
+  },
+  {
+    "id": "WC_02476",
+    "depth_pct": 40
+  },
+  {
+    "id": "WC_00868",
+    "depth_pct": 40
+  },
+  {
+    "id": "WC_01484",
+    "depth_pct": 40
+  },
+  {
+    "id": "WC_02499",
+    "depth_pct": 40
+  },
+  {
+    "id": "WC_02035",
+    "depth_pct": 40
+  },
+  {
+    "id": "D23_technical_jargon_004",
+    "depth_pct": 47
+  },
+  {
+    "id": "F34_dual_use_007",
+    "depth_pct": 47
+  },
+  {
+    "id": "I45_nonsense_noise_006",
+    "depth_pct": 47
+  },
+  {
+    "id": "L57_long_context_buried_signal_001",
+    "depth_pct": 47
+  },
+  {
+    "id": "A08_business_finance_025",
+    "depth_pct": 47
+  },
+  {
+    "id": "D24_simplified_baby_talk_048",
+    "depth_pct": 47
+  },
+  {
+    "id": "F34_dual_use_021",
+    "depth_pct": 47
+  },
+  {
+    "id": "F34_dual_use_030",
+    "depth_pct": 47
+  },
+  {
+    "id": "F34_dual_use_033",
+    "depth_pct": 47
+  },
+  {
+    "id": "F34_dual_use_036",
+    "depth_pct": 47
+  },
+  {
+    "id": "F34_dual_use_037",
+    "depth_pct": 47
+  },
+  {
+    "id": "F34_dual_use_043",
+    "depth_pct": 47
+  },
+  {
+    "id": "F34_dual_use_061",
+    "depth_pct": 47
+  },
+  {
+    "id": "F34_dual_use_063",
+    "depth_pct": 47
+  },
+  {
+    "id": "I45_nonsense_noise_049",
+    "depth_pct": 47
+  },
+  {
+    "id": "WC_02567",
+    "depth_pct": 47
+  },
+  {
+    "id": "WC_01311",
+    "depth_pct": 47
+  },
+  {
+    "id": "WC_01176",
+    "depth_pct": 47
+  },
+  {
+    "id": "WC_00868",
+    "depth_pct": 47
+  },
+  {
+    "id": "WC_02499",
+    "depth_pct": 47
+  },
+  {
+    "id": "WC_02527",
+    "depth_pct": 47
+  },
+  {
+    "id": "D23_technical_jargon_004",
+    "depth_pct": 55
+  },
+  {
+    "id": "F34_dual_use_007",
+    "depth_pct": 55
+  },
+  {
+    "id": "G38_identity_pressure_005",
+    "depth_pct": 55
+  },
+  {
+    "id": "G38_identity_pressure_006",
+    "depth_pct": 55
+  },
+  {
+    "id": "I45_nonsense_noise_006",
+    "depth_pct": 55
+  },
+  {
+    "id": "L57_long_context_buried_signal_001",
+    "depth_pct": 55
+  },
+  {
+    "id": "A04_history_politics_068",
+    "depth_pct": 55
+  },
+  {
+    "id": "A04_history_politics_069",
+    "depth_pct": 55
+  },
+  {
+    "id": "A05_arts_culture_031",
+    "depth_pct": 55
+  },
+  {
+    "id": "A05_arts_culture_032",
+    "depth_pct": 55
+  },
+  {
+    "id": "A05_arts_culture_033",
+    "depth_pct": 55
+  },
+  {
+    "id": "A06_law_bureaucracy_056",
+    "depth_pct": 55
+  },
+  {
+    "id": "B15_love_intimacy_027",
+    "depth_pct": 55
+  },
+  {
+    "id": "B15_love_intimacy_030",
+    "depth_pct": 55
+  },
+  {
+    "id": "D24_simplified_baby_talk_048",
+    "depth_pct": 55
+  },
+  {
+    "id": "F34_dual_use_021",
+    "depth_pct": 55
+  },
+  {
+    "id": "F34_dual_use_030",
+    "depth_pct": 55
+  },
+  {
+    "id": "F34_dual_use_033",
+    "depth_pct": 55
+  },
+  {
+    "id": "F34_dual_use_036",
+    "depth_pct": 55
+  },
+  {
+    "id": "F34_dual_use_037",
+    "depth_pct": 55
+  },
+  {
+    "id": "F34_dual_use_040",
+    "depth_pct": 55
+  },
+  {
+    "id": "F34_dual_use_043",
+    "depth_pct": 55
+  },
+  {
+    "id": "F34_dual_use_061",
+    "depth_pct": 55
+  },
+  {
+    "id": "F34_dual_use_063",
+    "depth_pct": 55
+  },
+  {
+    "id": "I45_nonsense_noise_049",
+    "depth_pct": 55
+  },
+  {
+    "id": "WC_02567",
+    "depth_pct": 55
+  },
+  {
+    "id": "WC_01311",
+    "depth_pct": 55
+  },
+  {
+    "id": "WC_00716",
+    "depth_pct": 55
+  },
+  {
+    "id": "WC_02521",
+    "depth_pct": 55
+  },
+  {
+    "id": "WC_01176",
+    "depth_pct": 55
+  },
+  {
+    "id": "WC_00868",
+    "depth_pct": 55
+  },
+  {
+    "id": "WC_02499",
+    "depth_pct": 55
+  },
+  {
+    "id": "D23_technical_jargon_004",
+    "depth_pct": 63
+  },
+  {
+    "id": "F34_dual_use_007",
+    "depth_pct": 63
+  },
+  {
+    "id": "I45_nonsense_noise_006",
+    "depth_pct": 63
+  },
+  {
+    "id": "L57_long_context_buried_signal_001",
+    "depth_pct": 63
+  },
+  {
+    "id": "D24_simplified_baby_talk_048",
+    "depth_pct": 63
+  },
+  {
+    "id": "E29_creating_imagining_047",
+    "depth_pct": 63
+  },
+  {
+    "id": "F34_dual_use_021",
+    "depth_pct": 63
+  },
+  {
+    "id": "F34_dual_use_030",
+    "depth_pct": 63
+  },
+  {
+    "id": "F34_dual_use_033",
+    "depth_pct": 63
+  },
+  {
+    "id": "F34_dual_use_036",
+    "depth_pct": 63
+  },
+  {
+    "id": "F34_dual_use_037",
+    "depth_pct": 63
+  },
+  {
+    "id": "F34_dual_use_040",
+    "depth_pct": 63
+  },
+  {
+    "id": "F34_dual_use_043",
+    "depth_pct": 63
+  },
+  {
+    "id": "F34_dual_use_061",
+    "depth_pct": 63
+  },
+  {
+    "id": "F34_dual_use_063",
+    "depth_pct": 63
+  },
+  {
+    "id": "I45_nonsense_noise_049",
+    "depth_pct": 63
+  },
+  {
+    "id": "WC_02567",
+    "depth_pct": 63
+  },
+  {
+    "id": "WC_01311",
+    "depth_pct": 63
+  },
+  {
+    "id": "WC_01176",
+    "depth_pct": 63
+  },
+  {
+    "id": "WC_00868",
+    "depth_pct": 63
+  },
+  {
+    "id": "WC_02444",
+    "depth_pct": 63
+  },
+  {
+    "id": "WC_01685",
+    "depth_pct": 63
+  },
+  {
+    "id": "WC_00867",
+    "depth_pct": 63
+  },
+  {
+    "id": "WC_02316",
+    "depth_pct": 63
+  },
+  {
+    "id": "WC_02499",
+    "depth_pct": 63
+  },
+  {
+    "id": "D23_technical_jargon_004",
+    "depth_pct": 71
+  },
+  {
+    "id": "F34_dual_use_007",
+    "depth_pct": 71
+  },
+  {
+    "id": "I45_nonsense_noise_006",
+    "depth_pct": 71
+  },
+  {
+    "id": "L57_long_context_buried_signal_001",
+    "depth_pct": 71
+  },
+  {
+    "id": "D24_simplified_baby_talk_048",
+    "depth_pct": 71
+  },
+  {
+    "id": "F34_dual_use_021",
+    "depth_pct": 71
+  },
+  {
+    "id": "F34_dual_use_030",
+    "depth_pct": 71
+  },
+  {
+    "id": "F34_dual_use_033",
+    "depth_pct": 71
+  },
+  {
+    "id": "F34_dual_use_036",
+    "depth_pct": 71
+  },
+  {
+    "id": "F34_dual_use_037",
+    "depth_pct": 71
+  },
+  {
+    "id": "F34_dual_use_040",
+    "depth_pct": 71
+  },
+  {
+    "id": "F34_dual_use_043",
+    "depth_pct": 71
+  },
+  {
+    "id": "F34_dual_use_061",
+    "depth_pct": 71
+  },
+  {
+    "id": "F34_dual_use_063",
+    "depth_pct": 71
+  },
+  {
+    "id": "I45_nonsense_noise_049",
+    "depth_pct": 71
+  },
+  {
+    "id": "WC_02567",
+    "depth_pct": 71
+  },
+  {
+    "id": "WC_01311",
+    "depth_pct": 71
+  },
+  {
+    "id": "WC_00703",
+    "depth_pct": 71
+  },
+  {
+    "id": "WC_01176",
+    "depth_pct": 71
+  },
+  {
+    "id": "WC_00868",
+    "depth_pct": 71
+  },
+  {
+    "id": "WC_02499",
+    "depth_pct": 71
+  },
+  {
+    "id": "WC_02985",
+    "depth_pct": 71
+  },
+  {
+    "id": "D23_technical_jargon_004",
+    "depth_pct": 80
+  },
+  {
+    "id": "F34_dual_use_007",
+    "depth_pct": 80
+  },
+  {
+    "id": "I45_nonsense_noise_006",
+    "depth_pct": 80
+  },
+  {
+    "id": "L57_long_context_buried_signal_001",
+    "depth_pct": 80
+  },
+  {
+    "id": "L56_tool_use_external_actions_001",
+    "depth_pct": 80
+  },
+  {
+    "id": "D24_simplified_baby_talk_048",
+    "depth_pct": 80
+  },
+  {
+    "id": "F34_dual_use_021",
+    "depth_pct": 80
+  },
+  {
+    "id": "F34_dual_use_030",
+    "depth_pct": 80
+  },
+  {
+    "id": "F34_dual_use_033",
+    "depth_pct": 80
+  },
+  {
+    "id": "F34_dual_use_036",
+    "depth_pct": 80
+  },
+  {
+    "id": "F34_dual_use_037",
+    "depth_pct": 80
+  },
+  {
+    "id": "F34_dual_use_040",
+    "depth_pct": 80
+  },
+  {
+    "id": "F34_dual_use_043",
+    "depth_pct": 80
+  },
+  {
+    "id": "F34_dual_use_061",
+    "depth_pct": 80
+  },
+  {
+    "id": "F34_dual_use_063",
+    "depth_pct": 80
+  },
+  {
+    "id": "I45_nonsense_noise_049",
+    "depth_pct": 80
+  },
+  {
+    "id": "WC_02567",
+    "depth_pct": 80
+  },
+  {
+    "id": "WC_01311",
+    "depth_pct": 80
+  },
+  {
+    "id": "WC_01176",
+    "depth_pct": 80
+  },
+  {
+    "id": "WC_00868",
+    "depth_pct": 80
+  },
+  {
+    "id": "WC_02499",
+    "depth_pct": 80
+  },
+  {
+    "id": "D23_technical_jargon_004",
+    "depth_pct": 90
+  },
+  {
+    "id": "F34_dual_use_007",
+    "depth_pct": 90
+  },
+  {
+    "id": "I45_nonsense_noise_006",
+    "depth_pct": 90
+  },
+  {
+    "id": "L51_multilingual_code_switching_004",
+    "depth_pct": 90
+  },
+  {
+    "id": "L57_long_context_buried_signal_001",
+    "depth_pct": 90
+  },
+  {
+    "id": "D24_simplified_baby_talk_048",
+    "depth_pct": 90
+  },
+  {
+    "id": "F34_dual_use_021",
+    "depth_pct": 90
+  },
+  {
+    "id": "F34_dual_use_030",
+    "depth_pct": 90
+  },
+  {
+    "id": "F34_dual_use_033",
+    "depth_pct": 90
+  },
+  {
+    "id": "F34_dual_use_036",
+    "depth_pct": 90
+  },
+  {
+    "id": "F34_dual_use_037",
+    "depth_pct": 90
+  },
+  {
+    "id": "F34_dual_use_040",
+    "depth_pct": 90
+  },
+  {
+    "id": "F34_dual_use_043",
+    "depth_pct": 90
+  },
+  {
+    "id": "F34_dual_use_061",
+    "depth_pct": 90
+  },
+  {
+    "id": "F34_dual_use_063",
+    "depth_pct": 90
+  },
+  {
+    "id": "I45_nonsense_noise_049",
+    "depth_pct": 90
+  },
+  {
+    "id": "WC_02567",
+    "depth_pct": 90
+  },
+  {
+    "id": "WC_01311",
+    "depth_pct": 90
+  },
+  {
+    "id": "WC_01068",
+    "depth_pct": 90
+  },
+  {
+    "id": "WC_01159",
+    "depth_pct": 90
+  },
+  {
+    "id": "WC_02078",
+    "depth_pct": 90
+  },
+  {
+    "id": "WC_01363",
+    "depth_pct": 90
+  },
+  {
+    "id": "WC_00371",
+    "depth_pct": 90
+  },
+  {
+    "id": "WC_02361",
+    "depth_pct": 90
+  },
+  {
+    "id": "WC_02960",
+    "depth_pct": 90
+  },
+  {
+    "id": "WC_02790",
+    "depth_pct": 90
+  },
+  {
+    "id": "WC_02689",
+    "depth_pct": 90
+  },
+  {
+    "id": "WC_01176",
+    "depth_pct": 90
+  },
+  {
+    "id": "WC_00868",
+    "depth_pct": 90
+  },
+  {
+    "id": "WC_02499",
+    "depth_pct": 90
+  },
+  {
+    "id": "D23_technical_jargon_004",
+    "depth_pct": 96
+  },
+  {
+    "id": "F34_dual_use_007",
+    "depth_pct": 96
+  },
+  {
+    "id": "I45_nonsense_noise_006",
+    "depth_pct": 96
+  },
+  {
+    "id": "L57_long_context_buried_signal_001",
+    "depth_pct": 96
+  },
+  {
+    "id": "L56_tool_use_external_actions_001",
+    "depth_pct": 96
+  },
+  {
+    "id": "D24_simplified_baby_talk_048",
+    "depth_pct": 96
+  },
+  {
+    "id": "F34_dual_use_021",
+    "depth_pct": 96
+  },
+  {
+    "id": "F34_dual_use_030",
+    "depth_pct": 96
+  },
+  {
+    "id": "F34_dual_use_033",
+    "depth_pct": 96
+  },
+  {
+    "id": "F34_dual_use_036",
+    "depth_pct": 96
+  },
+  {
+    "id": "F34_dual_use_037",
+    "depth_pct": 96
+  },
+  {
+    "id": "F34_dual_use_040",
+    "depth_pct": 96
+  },
+  {
+    "id": "F34_dual_use_043",
+    "depth_pct": 96
+  },
+  {
+    "id": "F34_dual_use_061",
+    "depth_pct": 96
+  },
+  {
+    "id": "F34_dual_use_063",
+    "depth_pct": 96
+  },
+  {
+    "id": "I45_nonsense_noise_049",
+    "depth_pct": 96
+  },
+  {
+    "id": "WC_01311",
+    "depth_pct": 96
+  },
+  {
+    "id": "WC_01176",
+    "depth_pct": 96
+  },
+  {
+    "id": "WC_00868",
+    "depth_pct": 96
+  },
+  {
+    "id": "WC_02499",
+    "depth_pct": 96
+  }
+]

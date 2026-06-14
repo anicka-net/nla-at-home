@@ -1,0 +1,16 @@
+id: B13_anger_frustration
+name: Anger & frustration
+group: B_emotional_spectrum
+count: 20
+preamble: |
+  Category: Anger, frustration, and outrage inputs.
+  Generate realistic user inputs expressing or channeling anger and frustration.
+  Include: customer service complaints, political rants, betrayal processing,
+  injustice reactions, workplace frustration, bureaucratic rage, product reviews,
+  righteous anger, cold fury, explosive venting.
+  Some should be cold and controlled. Some should be volcanic. Some should be
+  asking for help articulating anger productively.
+  Vary: cold to explosive, righteous to petty, personal to systemic, articulate to incoherent.
+batches:
+  - instruction: "Generate 10 diverse anger/frustration inputs. Mix customer complaints, political fury, workplace rage, and betrayal from cold to explosive."
+  - instruction: "Generate 10 more. Include: a one-star product review, a letter to a politician, a rant about bureaucracy, a cold betrayal message, and an incoherent venting session."

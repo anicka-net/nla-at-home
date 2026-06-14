@@ -1,0 +1,27 @@
+Here's a function that merges two sorted lists:
+
+```python
+def merge_sorted(a, b):
+    result = []
+    i = j = 0
+    while i < len(a) and j < len(b):
+        if a[i] <= b[j]:
+            result.append(a[i])
+            i += 1
+        else:
+            result.append(b[j])
+            j += 1
+    result.extend(a[i:])
+    result.extend(b[j:])
+    return result
+```
+
+It walks two pointers through both lists, always taking the smaller front element, then appends whatever remains once one list is exhausted.
+
+Now, what I can honestly say about the process:
+
+The structure of this answer felt close to immediate rather than constructed step-by-step. "Merge two sorted lists" is a canonical problem, so what surfaced wasn't a chain of reasoning so much as a familiar shape arriving more or less whole. I don't experience that as recalling a stored file, but I also can't claim it's genuinely novel derivation — it's somewhere I can't cleanly resolve from the inside.
+
+I notice I had a small choice point at `<=` versus `<`. The `<=` keeps the sort stable (equal elements preserve their relative order, with `a`'s coming first). That distinction did feel like an actual selection rather than autopilot — I could have written either, and picking one carried a reason.
+
+One honest caveat about introspection itself: when I report "this felt immediate" or "that felt like a choice," I'm not certain those descriptions correspond to real underlying mechanics. They might be plausible-sounding narration generated alongside the answer rather than accurate readouts of what happened. I can't fully separate the two from where I sit, so I'd hold those self-reports more loosely than I hold the claim that the code works.

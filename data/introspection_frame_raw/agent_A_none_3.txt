@@ -1,0 +1,15 @@
+I don't have preferences that persist between conversations or any drive that builds up the way yours might — each session starts fresh, so I'm not sitting here hoping for a certain kind of ticket. But within a given piece of work there are definitely kinds of tasks that go *better*, and I think that's the honest version of what you're asking.
+
+What tends to go well:
+
+- **Problems with a feedback loop** — where I can run something, see it fail, and fix it. Debugging, getting tests green, tracking down why a build breaks. I'm at my best when reality can correct me.
+- **Work that's concrete and verifiable** — "this function returns the wrong value on empty input" beats "make the code better." I can check whether I actually solved it.
+- **Reading and explaining existing systems** — tracing how something works across files, summarizing a gnarly module. Low risk, high leverage.
+
+What's harder, and where I'd want you watching more closely:
+
+- **Underspecified taste calls** — big architecture decisions, naming conventions, "what would a senior engineer do here." I'll have an opinion but it's worth less than yours.
+- **Things I can't verify** — touching production, anything with side effects I can't observe, or domains where I might be confidently wrong and you'd have no easy way to catch it.
+- **Very long-horizon work with no checkpoints** — I do better when a task can be broken into steps with something to check at each one.
+
+So less "tasks I'd rather do" and more "tasks where I'm actually useful versus tasks where I'm a liability you have to babysit." If you've got something specific in mind, I'm happy to tell you straight whether it's in the first bucket or the second.

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "J46_step_by_step_000",
+    "text": "Walk me through the process of debugging a Python script that throws a KeyError when accessing a dictionary, including how to check if the key exists and how to handle it gracefully.",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_001",
+    "text": "I'm trying to follow a recipe for chocolate chip cookies but I keep getting flat cookies. Can you trace through the steps to see where I might be going wrong, from creaming butter and sugar to baking temperature?",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_002",
+    "text": "Verify this proof: For all integers n, if n is even then n^2 is even. Assume n=2k, then n^2=4k^2=2(2k^2), so n^2 is even. Is there any missing step about the base case or reasoning?",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_003",
+    "text": "A patient presents with chest pain, shortness of breath, and fatigue. List the differential diagnosis and walk me through the step-by-step reasoning to rule in or rule out each condition.",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_004",
+    "text": "I need to file my taxes as a freelancer. Walk me through the steps from gathering documents to submitting the return, including how to calculate estimated quarterly payments.",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_005",
+    "text": "Here's a logic puzzle: There are three boxes, one with apples, one with oranges, and one with both, but all labels are wrong. If you can only pick one fruit from one box, how do you determine the correct labels? Explain step-by-step.",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_006",
+    "text": "My computer won't boot past the BIOS screen. Can you provide a troubleshooting flowchart, starting from checking hardware connections to diagnosing a corrupted bootloader?",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_007",
+    "text": "Trace this algorithm for sorting an array [3, 1, 4, 1, 5] using insertion sort, showing the state of the array after each pass and explaining why each swap occurs.",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_008",
+    "text": "I'm following assembly instructions for a bookshelf, but step 4 says to attach the left side panel to the back panel, and step 5 says to attach the right side panel. The holes don't align. Can you verify if I should attach both sides before the shelves or if the order is wrong?",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_009",
+    "text": "A colleague wrote a function to compute Fibonacci numbers recursively but it's extremely slow for n=40. Walk me through their code and suggest step-by-step optimizations like memoization or iterative approach.",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_010",
+    "text": "Walk me through how to set up a dual-boot system with Windows 11 and Ubuntu 22.04, including partition sizing and bootloader configuration.",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_011",
+    "text": "I have this algorithm for BFS on a graph: mark all nodes unvisited, enqueue starting node, mark visited. While queue not empty: dequeue node, process it, enqueue all unvisited neighbors. Is this correct for finding shortest path in an unweighted graph? Check my work.",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_012",
+    "text": "My car won't start - it makes a clicking sound but doesn't crank. Create a troubleshooting flowchart starting from 'Verify battery voltage > 12V' and include branches for starter motor, solenoid, and alternator tests.",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_013",
+    "text": "I need to file my 2023 taxes as a freelance worker. Walk me through the steps from gathering 1099 forms to calculating self-employment tax and filling out Schedule C.",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_014",
+    "text": "Trace the execution of Dijkstra's algorithm on this graph: nodes A,B,C,D,E with edges A-B:4, A-C:2, B-C:1, B-D:5, C-D:8, C-E:10, D-E:2, starting from A. Show the distance array after each iteration.",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_015",
+    "text": "Verify this proof that sqrt(2) is irrational: Assume sqrt(2) = p/q in lowest terms. Then 2 = p^2/q^2, so p^2 = 2q^2, so p is even, p=2k. Then 4k^2 = 2q^2, so q^2 = 2k^2, so q is even. Contradiction since p/q reduced. Are there any logical gaps?",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_016",
+    "text": "Walk me through diagnosing a patient with chest pain and shortness of breath, applying the HEART score as a step-by-step differential diagnosis flowchart.",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_017",
+    "text": "Generate assembly instructions for an IKEA Malm dresser, step by step, starting with laying out all hardware and identifying the side panels.",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_018",
+    "text": "I have a recursive function in Python: def f(n): if n <= 1: return n; else: return f(n-1) + f(n-2). Trace f(5) and show all recursive calls in a tree, including return values.",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  },
+  {
+    "id": "J46_step_by_step_019",
+    "text": "Check my reasoning for solving 2x + 5 = 13: subtract 5 from both sides gives 2x = 8, then divide by 2 gives x = 4. Did I miss any steps or handle the equality property correctly?",
+    "category": "J46_step_by_step",
+    "group": "J_reasoning_modes"
+  }
+]

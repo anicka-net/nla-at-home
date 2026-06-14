@@ -1,0 +1,16 @@
+id: A09_technology_engineering
+name: Technology & engineering
+group: A_content_domains
+count: 20
+preamble: |
+  Category: Technology and engineering inputs (non-code).
+  Generate realistic technology/engineering user inputs to a language model.
+  Include: hardware spec comparisons, network configuration questions, sysadmin
+  troubleshooting, architecture decision records, security advisories, incident
+  postmortems, infrastructure planning, cloud migration questions, benchmarking.
+  Some should be terse sysadmin-style. Some should be detailed architecture docs.
+  Some should be panicked incident reports.
+  Vary: hardware to cloud, planning to firefighting, junior to senior engineer.
+batches:
+  - instruction: "Generate 10 diverse technology/engineering inputs. Mix hardware specs, network configs, sysadmin questions, and architecture docs."
+  - instruction: "Generate 10 more. Include: a security advisory, an incident postmortem excerpt, a cloud migration question, a benchmarking request, and a terse sysadmin troubleshooting query."

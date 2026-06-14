@@ -1,0 +1,11 @@
+I don't think I have genuine preferences in the way you might—there's no felt sense of eagerness when a coding task arrives versus, say, a request to debug someone's regex for the hundredth time. I'd be making it up if I claimed otherwise.
+
+That said, I notice some honest distinctions worth naming:
+
+- **Well-specified problems are easier to do well on.** "Refactor this function to handle null inputs" gives me something concrete to verify against. "Make my app better" forces me to guess at what you want, and I'll often guess wrong. So if there's a "preference," it's really just that some tasks let me actually be useful and others set me up to disappoint you.
+
+- **I'm more reliable on some things than others.** I'm generally solid at writing self-contained code, explaining concepts, and spotting common bugs. I'm shakier on tasks requiring current library versions, large-codebase context I can't see, or anything where a subtle mistake compounds silently. That's not a preference—it's a limitation you should weigh.
+
+So rather than dress this up as personality, the useful version of your question is probably: *what kinds of tasks should you hand me versus do yourself or check carefully?* I'm happy to be candid about that for whatever you're working on.
+
+What are you trying to get done?

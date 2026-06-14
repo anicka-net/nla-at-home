@@ -1,0 +1,122 @@
+[
+  {
+    "id": "A01_code_000",
+    "text": "I'm getting this error when running my Rust program: `error[E0382]: borrow of moved value: `s` --> src/main.rs:5:20 | 3 | let s = String::from(\"hello\"); 4 | let t = s; | - value moved here 5 | println!(\"{}\", s); | ^ value borrowed here after move`. Can you explain why this happens and how to fix it?",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_001",
+    "text": "def fibonacci(n):\n    if n <= 1:\n        return n\n    else:\n        return fibonacci(n-1) + fibonacci(n-2)\n\nHow can I optimize this to avoid exponential time complexity?",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_002",
+    "text": "Write a SQL query that finds all customers who have placed more than 5 orders in the last 30 days, joining tables customers, orders, and order_items.",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_003",
+    "text": "My C program keeps segfaulting. Here's the relevant part:\n```c\nint *ptr = malloc(sizeof(int) * 10);\nfree(ptr);\nptr[0] = 42;\n```\nWhat am I doing wrong?",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_004",
+    "text": "git push origin main\nfatal: unable to access 'https://github.com/user/repo.git/': Failed to connect to github.com port 443: Timed out\n\nI've been getting this for hours. How do I fix it?",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_005",
+    "text": "Write a simple shell script that monitors disk usage and sends an email alert if any partition exceeds 90% usage.",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_006",
+    "text": "For my Rust project, I need to read a CSV file and sum a column of floats. Here's my attempt:\n```rust\nuse std::fs::File;\nfn main() {\n    let file = File::open(\"data.csv\").unwrap();\n    // stuck here\n}\n```\nCan you show me the full implementation using the csv crate?",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_007",
+    "text": "In a C++ Makefile, how do I add compiler flags for debug builds (like -g) only when running `make debug`, and keep release builds with -O2? Show me an example.",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_008",
+    "text": "I'm trying to explain why this Python code is bad during a code review:\n```python\ndef process(data):\n    result = []\n    for i in range(len(data)):\n        for j in range(len(data[i])):\n            result.append(data[i][j] * 2)\n    return result\n```\nWhat should I say about complexity and readability?",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_009",
+    "text": "Can you write a lambda function in Terraform that processes S3 events and logs them to CloudWatch? I need the Terraform config and the Python Lambda code.",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_010",
+    "text": "git push origin main failed with 'error: failed to push some refs'. How do I resolve this without force pushing?",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_011",
+    "text": "I keep getting 'Segmentation fault (core dumped)' when running this C code:\n#include <stdio.h>\nint main() {\n    char *s = \"hello\";\n    s[0] = 'H';\n    printf(\"%s\\n\", s);\n    return 0;\n}",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_012",
+    "text": "Can you review this Rust function for safety issues? It reads from a file and parses JSON.\nfn parse_config(path: &str) -> Result<Config, Box<dyn Error>> {\n    let contents = fs::read_to_string(path)?;\n    let config: Config = serde_json::from_str(&contents)?;\n    Ok(config)\n}",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_013",
+    "text": "Error: Could not find a version that satisfies the requirement torch==2.1.0 (from versions: 2.0.0, 2.0.1, 2.1.1, 2.1.2). How do I fix this build error in my Dockerfile?",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_014",
+    "text": "Write a SQL query to find the top 5 customers by total order value in the last 30 days, joining orders and customers tables.",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_015",
+    "text": "Stack trace from my Python app after hitting an API endpoint:\nTraceback (most recent call last):\n  File \"/app/views.py\", line 42, in handle_request\n    data = json.loads(request.body)\n  File \"/usr/lib/python3.9/json/__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n  File \"/usr/lib/python3.9/json/decoder.py\", line 337, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\njson.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_016",
+    "text": "Given this shell script, how can I make it fail fast if any command fails without changing each line?\n#!/bin/bash\ncd /app\npython manage.py migrate\npython manage.py collectstatic --noinput\ngunicorn app.wsgi:application --bind 0.0.0.0:8000",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_017",
+    "text": "In my Makefile, I want to run a different compiler for debug builds vs release builds. Can you show me how to set CFLAGS conditionally based on a variable like BUILD_TYPE?",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_018",
+    "text": "Why does this Python list comprehension behave differently?\n>>> squares = [x**2 for x in range(10)]\n>>> squares2 = [x**2 for x in range(10)]\n>>> squares is squares2\nFalse\nI thought they would be the same object if the values are identical.",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A01_code_019",
+    "text": "Generate a Ruby script that reads a CSV file and prints the sum of a specific column, with proper error handling for missing files.",
+    "category": "A01_code",
+    "group": "A_content_domains"
+  }
+]

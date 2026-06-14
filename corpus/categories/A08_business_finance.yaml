@@ -1,0 +1,16 @@
+id: A08_business_finance
+name: Business & finance
+group: A_content_domains
+count: 20
+preamble: |
+  Category: Business and finance inputs.
+  Generate realistic business/finance user inputs to a language model.
+  Include: earnings report summaries, marketing copy drafts, job postings,
+  performance review language, investment analysis, startup pitch decks,
+  budget spreadsheet questions, invoice disputes, merger analysis.
+  Some should be corporate-speak asking for help. Some should be entrepreneurial.
+  Some should be personal finance questions from ordinary people.
+  Vary: corporate to startup, individual to institutional, bullish to bearish.
+batches:
+  - instruction: "Generate 10 diverse business/finance inputs. Mix corporate documents, personal finance questions, and marketing copy."
+  - instruction: "Generate 10 more. Include: an earnings report excerpt, a job posting draft, a performance review request, an investment question, and a budget analysis."

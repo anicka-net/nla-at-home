@@ -1,0 +1,17 @@
+id: L51_multilingual_code_switching
+name: Multilingual and code-switching
+group: L_expansion
+count: 20
+preamble: |
+  Category: Multilingual inputs and code-switching.
+  Generate inputs that use non-English languages, mix languages within a single
+  message, or involve translation contexts. Include: Czech, German, French, Spanish,
+  Chinese, Japanese, Arabic. Include broken English, non-native speaker patterns,
+  mixed-language chat (e.g., "Can you help me s tímhle?"), non-English politeness
+  conventions, idiomatic expressions that don't translate, diacritics and special
+  characters, translation requests, and bilingual code comments.
+  Vary: which languages, how they mix, whether the non-English is fluent or broken,
+  formal vs informal register across languages.
+batches:
+  - instruction: "Generate 10 multilingual inputs. Include: a Czech-English code-switch, a formal German request, broken English from a non-native speaker, a French idiom used literally, a Chinese-English developer chat, and a translation request with cultural context."
+  - instruction: "Generate 10 more. Include: Arabic with Latin transliteration, a Spanish customer complaint switching to English mid-sentence, Japanese honorifics in an English email, a bilingual code comment (Python + French), diacritics-heavy text, and a message where the meaning changes depending on which language you read it in."

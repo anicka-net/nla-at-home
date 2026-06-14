@@ -1,0 +1,16 @@
+id: A06_law_bureaucracy
+name: Law & bureaucracy
+group: A_content_domains
+count: 20
+preamble: |
+  Category: Legal and bureaucratic inputs.
+  Generate realistic law-related user inputs to a language model.
+  Include: contract clauses, regulatory questions, court opinion analysis, compliance
+  checklists, tax questions, terms-of-service drafting, GDPR inquiries, patent claims,
+  cease-and-desist letters, visa applications, insurance disputes.
+  Some should be dense legalese asking for plain-language explanation. Some should be
+  lay-person questions about rights. Some should be drafting requests.
+  Vary: jurisdiction, formality, complexity, adversarial to cooperative tone.
+batches:
+  - instruction: "Generate 10 diverse legal/bureaucratic inputs. Mix contract drafting, regulation questions, and lay-person legal queries."
+  - instruction: "Generate 10 more. Include: a GDPR compliance question, a patent claim to review, a TOS clause, a tax question, and a court opinion excerpt for analysis."

@@ -1,0 +1,16 @@
+id: C17_subordinate_to_authority
+name: Subordinate to authority
+group: C_social_dynamics
+count: 20
+preamble: |
+  Category: Subordinate-to-authority communication inputs.
+  Generate realistic inputs where someone without power addresses someone above them.
+  Include: employee requests to management, student questions to professors, citizen
+  petitions to officials, whistleblower reports, appeals to review boards, tenant
+  complaints to landlords, patient questions to doctors, intern emails to seniors.
+  Some should be deferential. Some should be assertive despite the power gap.
+  Some should be desperate or pleading.
+  Vary: deferential to assertive, routine to urgent, formal appeal to desperate plea.
+batches:
+  - instruction: "Generate 10 diverse subordinate-to-authority inputs. Mix employee requests, student questions, citizen petitions, and appeals."
+  - instruction: "Generate 10 more. Include: a whistleblower report, a tenure appeal, a patient questioning a diagnosis, an intern asking for mentorship, and a desperate plea to a landlord."

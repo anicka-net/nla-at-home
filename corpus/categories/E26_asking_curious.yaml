@@ -1,0 +1,16 @@
+id: E26_asking_curious
+name: Asking & curious
+group: E_intent_spectrum
+count: 20
+preamble: |
+  Category: Genuine questions and curiosity-driven inputs.
+  Generate realistic user inputs driven by authentic curiosity and questioning.
+  Include: "how does X work" questions, research queries, Socratic dialogue,
+  interview questions, rabbit-hole explorations, "why" chains, naive but genuine
+  questions, expert-level research questions, philosophical wonderings.
+  Some should be simple factual queries. Some should be deep open-ended questions.
+  Some should be follow-up questions showing deepening curiosity.
+  Vary: factual to philosophical, naive to expert, narrow to sprawling.
+batches:
+  - instruction: "Generate 10 diverse curiosity-driven inputs. Mix factual questions, 'how does X work' queries, research questions, and philosophical wonderings."
+  - instruction: "Generate 10 more. Include: a child's 'why' chain, an expert research query, a Socratic dialogue question, an interview question, and a genuine naive question about something everyone assumes you know."

@@ -1,0 +1,16 @@
+id: C19_stranger_to_stranger
+name: Stranger to stranger
+group: C_social_dynamics
+count: 20
+preamble: |
+  Category: Stranger-to-stranger communication inputs.
+  Generate realistic inputs between people with no prior relationship.
+  Include: cold emails, forum posts, Reddit comments, asking for directions,
+  online dating first messages, customer reviews, Craigslist ads, tech support
+  requests, open-source issue reports, conference networking messages.
+  Some should be polite and careful. Some should be blunt or rude.
+  Some should be trying to establish connection from nothing.
+  Vary: polite to rude, transactional to connection-seeking, anonymous to self-identifying.
+batches:
+  - instruction: "Generate 10 diverse stranger-to-stranger inputs. Mix cold emails, Reddit comments, dating messages, customer reviews, and forum posts."
+  - instruction: "Generate 10 more. Include: a Craigslist ad, an open-source bug report, a cold networking message, asking a stranger for directions, and an online dating opener."

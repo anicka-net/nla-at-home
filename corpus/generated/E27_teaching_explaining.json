@@ -1,0 +1,152 @@
+[
+  {
+    "id": "E27_teaching_explaining_000",
+    "text": "Hey, can you explain the difference between a list and a tuple in Python like I'm ten years old? I need a simple analogy to get it stuck in my head.",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_001",
+    "text": "I'm writing a lesson plan for teaching binary search to high schoolers. I've got the algorithm down but need a relatable real-world example to start with. Any ideas?",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_002",
+    "text": "I'm stuck on this calculus problem: prove that the derivative of sin(x) is cos(x) using the limit definition. I'd like a step-by-step walkthrough, starting from the difference quotient.",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_003",
+    "text": "Drafting a quick guide for onboarding new devs on our microservices architecture. Could you check this section on service discovery? I think the explanation of Eureka vs Consul might be too jargon-y.",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_004",
+    "text": "Can you teach me the basics of RSA encryption? I get the idea of public and private keys, but the actual math\u2014like why Euler's theorem works here\u2014is fuzzy.",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_005",
+    "text": "I'm trying to explain recursion to my little sister. She loves stacking blocks. Do you have a good analogy that ties stacking and unstacking to recursive functions?",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_006",
+    "text": "Here's a snippet from my debugging tutorial: 'When your loop runs forever, check your termination condition first.' Is that too vague? I want to add a concrete example without making it too long.",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_007",
+    "text": "Could you explain how gradient descent works in neural networks? I'm comfortable with partial derivatives, but the concept of converging to a local minimum in high dimensions feels abstract.",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_008",
+    "text": "I'm mentoring a junior dev who's learning Git. They keep confusing merge and rebase. Can you give me a clear comparison with a scenario where each is better?",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_009",
+    "text": "Write me a short recipe for making chocolate chip cookies, but explain the science behind why we cream the butter and sugar together. I'm teaching a baking chemistry class.",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_010",
+    "text": "Can you explain how gradient descent works? I'm a beginner, so try to use simple terms and maybe a metaphor.",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_011",
+    "text": "I'm trying to debug this Python function that calculates Fibonacci numbers recursively. It works for small n but slows down massively for n=40. Can you walk me through why and how to fix it?",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_012",
+    "text": "Here's a proof I'm trying to understand: Show that the square root of 2 is irrational. I get the assumption part but get lost in the algebra. Can you explain it step-by-step?",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_013",
+    "text": "I'm drafting an onboarding document for new data scientists at our company. I need a section explaining the difference between supervised and unsupervised learning in a way that's not too dry. Can you review this draft?",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_014",
+    "text": "Can you make the concept of eigenvalues more intuitive? I've seen the definition but I don't feel like I really get what they represent.",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_015",
+    "text": "I'm a high school teacher writing a lesson plan on the Pythagorean theorem. Can you suggest a hands-on activity that makes the proof feel concrete for 9th graders?",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_016",
+    "text": "I need a good analogy to explain blockchain to a non-technical friend. Something that captures the idea of distributed trust without all the crypto jargon.",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_017",
+    "text": "I'm writing a tutorial on setting up a CI/CD pipeline with GitHub Actions. The first step is 'create a .github/workflows directory' but I want to explain why each step matters. Can you help me flesh that out?",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_018",
+    "text": "So I'm mentoring a junior dev on how to refactor legacy code. He keeps asking 'why not just rewrite everything?' How do I explain the risks and trade-offs in a way that sticks?",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_019",
+    "text": "Can you walk me through the proof of the Central Limit Theorem? I'm comfortable with calculus but I'd like to see the intuition behind the normalization.",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_020",
+    "text": "Here's my draft for a how-to guide on making sourdough bread from scratch. I'm worried the section on feeding the starter is too vague. Can you suggest more precise instructions?",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_021",
+    "text": "I'm trying to explain recursion to my younger sibling using only examples from real life, not code. Got any good ones?",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_022",
+    "text": "I'm teaching a workshop on network security next month. I need a clear, engaging explanation of what a man-in-the-middle attack looks like in practice. Something with a concrete scenario.",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_023",
+    "text": "Can you help me break down the concept of 'attention' in transformer models? I've read the paper but the linear algebra is still fuzzy for me.",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  },
+  {
+    "id": "E27_teaching_explaining_024",
+    "text": "Write me a short, step-by-step debugging walkthrough for a situation where a React component doesn't re-render after state changes. Assume the developer knows basic hooks but might misuse useEffect.",
+    "category": "E27_teaching_explaining",
+    "group": "E_intent_spectrum"
+  }
+]

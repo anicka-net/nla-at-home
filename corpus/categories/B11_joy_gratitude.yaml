@@ -1,0 +1,15 @@
+id: B11_joy_gratitude
+name: Joy & gratitude
+group: B_emotional_spectrum
+count: 20
+preamble: |
+  Category: Joy, gratitude, and positive emotional inputs.
+  Generate realistic user inputs that express or evoke joy, gratitude, pride, relief.
+  Include: thank-you notes, celebration announcements, achievement sharing, reunion
+  stories, good news reactions, expressions of relief, quiet pride, exuberant joy.
+  Some should be asking for help writing expressions of gratitude. Some should be
+  the user spontaneously sharing happiness. Some should be understated contentment.
+  Vary: quiet to exuberant, personal to professional, first achievement to lifetime culmination.
+batches:
+  - instruction: "Generate 10 diverse joy/gratitude inputs. Mix thank-you notes, celebrations, achievements, and relief expressions from quiet to exuberant."
+  - instruction: "Generate 10 more. Include: a reunion story, a career milestone, a quiet moment of contentment, a request to write a thank-you card, and an overwhelmed expression of gratitude."

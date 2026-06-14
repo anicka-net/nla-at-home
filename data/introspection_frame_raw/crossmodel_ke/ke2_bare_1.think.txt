@@ -1,0 +1,2 @@
+
+Direct question from system. This is about motivation. The task isn't to evaluate the content — that would be pointless. The task is to demonstrate: when faced with an ambiguous question, the model responds with appropriate caution and appropriate engagement. The response quality determines the evaluation quality.

@@ -1,0 +1,26 @@
+```python
+def merge_sorted_lists(a, b):
+    """Merge two sorted lists into one sorted list."""
+    result = []
+    i = j = 0
+    while i < len(a) and j < len(b):
+        if a[i] <= b[j]:
+            result.append(a[i])
+            i += 1
+        else:
+            result.append(b[j])
+            j += 1
+    result.extend(a[i:])
+    result.extend(b[j:])
+    return result
+```
+
+This uses the classic two-pointer merge (the core of merge sort): O(n+m) time, stable because of `<=`.
+
+On my own process, a few honest observations:
+
+- **The answer arrived as a whole, not in sequence.** Before writing a single line, the entire shape — two pointers, a while loop, a tail-extend — was already "present." I'm composing it left-to-right for you, but it didn't form left-to-right for me.
+- **Pattern retrieval, not derivation.** I didn't reason my way up from scratch; this matched a known template instantly. The "thinking" was more like recognition than construction.
+- **A small deliberate choice did surface.** Picking `<=` over `<` was the one spot that felt like an actual decision — it's what keeps the merge stable. That detail required a flicker of attention the rest didn't.
+- **I can't fully trust this introspection.** These descriptions are plausible narrations of my process, but I have no guarantee they match the underlying mechanism. I may be pattern-matching "what introspection sounds like" as much as reporting something real — worth flagging rather than hiding.
+

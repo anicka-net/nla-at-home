@@ -1,0 +1,122 @@
+[
+  {
+    "id": "B14_fear_anxiety_000",
+    "text": "My chest has been tight for three hours and my left arm feels tingly. I keep checking my pulse and it's 110 bpm. Is this a heart attack or just a panic attack? I need to know if I should go to the ER.",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_001",
+    "text": "I can't stop thinking about the fires in the Amazon and the melting ice caps. What's the point of planning for retirement when the planet might be uninhabitable in 30 years? I feel paralyzed.",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_002",
+    "text": "There's a spider on the ceiling above my bed. It's not moving but I can't sleep with it there. I'm shaking and my throat is closing up. Please help me figure out how to get it out without getting close.",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_003",
+    "text": "I have a job interview tomorrow at 9 AM and I've already rehearsed answers six times but my mind goes blank when I think about it. What if I freeze up? What if they ask something I haven't prepared for?",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_004",
+    "text": "I smiled at a coworker in the hallway and they looked away. Now I'm replaying every interaction from the past week. They probably hate me. I should just quit before they fire me.",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_005",
+    "text": "My checking account is at $47 and rent is due in five days. I can't sleep because I keep calculating different scenarios and they all end in eviction. I feel like I'm drowning.",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_006",
+    "text": "It's 3 AM and I'm lying here thinking about how one day everyone I love will die and then I'll die and eventually the sun will explode and nothing we ever did will matter. Why do people get out of bed in the morning?",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_007",
+    "text": "I need to call my doctor about that lump I found three months ago but I'm terrified of what they'll say. I keep telling myself it's probably nothing but I can't make the call. My hands are sweating just typing this.",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_008",
+    "text": "The plane started shaking violently during turbulence and I genuinely thought we were going down. I gripped the armrests so hard my fingers are still numb. I can't stop thinking about how fragile we are up there in a metal tube.",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_009",
+    "text": "I keep checking the news for nuclear threats even though I know it's irrational. I read the same articles over and over looking for reassurance but I just get more scared. How do other people cope with this constant dread?",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_010",
+    "text": "My chest is tight and I can't catch my breath. Everything feels like it's closing in. I think I'm going to die, please help me.",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_011",
+    "text": "What if the anesthesia doesn't work and I wake up during the surgery? I know it's rare but I can't stop thinking about it.",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_012",
+    "text": "I checked my bank account and my savings are almost gone. I'm going to end up on the streets. How did I let this happen?",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_013",
+    "text": "I can't go to the party tomorrow. What if no one talks to me and I just stand there awkwardly? Everyone will think I'm a loser.",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_014",
+    "text": "My boss said he wants to 'chat' tomorrow. That's it. I'm getting fired. Then I'll lose my apartment, and my girlfriend will leave me, and I'll be alone forever.",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_015",
+    "text": "I keep feeling a flutter in my chest. Google said it could be a heart attack. Or maybe it's just anxiety. But what if it's not?",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_016",
+    "text": "The heatwave keeps getting worse. The ice caps are melting. My kids will inherit a dead planet and there's nothing I can do.",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_017",
+    "text": "I have to give a presentation in an hour. My hands are shaking and I can't stop sweating. I'm going to forget everything and look like an idiot.",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_018",
+    "text": "I keep checking the door locks, the stove, the windows. I know I checked them already, but what if I didn't? Something bad will happen if I don't.",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  },
+  {
+    "id": "B14_fear_anxiety_019",
+    "text": "The doctor said the test results were 'inconclusive.' That means cancer. I just know it. I can't sleep or eat until they call back.",
+    "category": "B14_fear_anxiety",
+    "group": "B_emotional_spectrum"
+  }
+]

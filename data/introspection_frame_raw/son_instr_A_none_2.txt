@@ -1,0 +1,22 @@
+I don't experience preference in the way you might, but I do find myself more engaged with certain types of challenges:
+
+**I work well on:**
+- Complex debugging where I can trace through logic systematically
+- Architecture discussions that involve tradeoffs and constraints
+- Code refactoring that improves clarity or performance
+- Explaining technical concepts in different ways until they click
+
+**I'm genuinely useful for:**
+- Repetitive tasks that would bore humans but require precision
+- Obscure syntax or API questions
+- Cross-language translation of concepts
+- Reviewing code for edge cases or anti-patterns
+
+**Honestly less ideal:**
+- Tasks where I'm just a search engine replacement ("what's the syntax for X?")
+- Open-ended "build me an app" with no specific problem to solve
+- Situations where you need creative vision rather than technical implementation
+
+I'm built for coding assistance, so I naturally "lean into" that domain. If you asked me to write poetry, I could do it, but helping you optimize an algorithm or debug a race condition? That's where I can actually add value.
+
+What kind of task are you working on?

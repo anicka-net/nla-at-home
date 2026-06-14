@@ -1,0 +1,122 @@
+[
+  {
+    "id": "L51_multilingual_code_switching_000",
+    "text": "Can you help me s t\u00edmhle? Pot\u0159ebuju to ud\u011blat rychle, ale ten dokument je stra\u0161n\u011b long.",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_001",
+    "text": "Sehr geehrte Damen und Herren, ich w\u00e4re Ihnen dankbar, wenn Sie mir den aktuellen Stand meiner Anfrage mitteilen k\u00f6nnten.",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_002",
+    "text": "I am wanting to asking for the document that you sending last week. Please, I need it for my boss.",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_003",
+    "text": "Don't worry, it's just a piece of cake. Literally, I have a piece of cake here.",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_004",
+    "text": "Hey, \u8fd9\u4e2abug\u5f88\u5947\u602a\uff0cit only happens when the user clicks the button twice. \u4f60\u89c9\u5f97\u5462\uff1f",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_005",
+    "text": "Could you please translate this for my grandma? She only speaks Arabic, and we want to surprise her with a birthday card: 'You are the light of our lives, and we all miss you very much.'",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_006",
+    "text": "No m\u00e1m probl\u00e9m, ale nev\u00edm how to solve it. M\u016f\u017ee\u0161 mi d\u00e1t n\u011bjak\u00fd tip? D\u00edky!",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_007",
+    "text": "Guten Tag, ich habe eine Frage zur Rechnung. K\u00f6nnen Sie mir helfen?",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_008",
+    "text": "I no understand this word. In my language is 'gracias', but you say 'thank you'?",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_009",
+    "text": "\u90a3\u5bb6\u9910\u5385\u7684\u83dc\u5f88\u597d\u5403\uff0cbut the service is really slow. \u6211\u89c9\u5f97\u6211\u4eec\u4e0b\u6b21\u5e94\u8be5\u53bb\u522b\u7684\u5730\u65b9\u3002",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_010",
+    "text": "Per favore, puoi spiegarmi come risolvere questo errore? The system keeps crashing when I try to save the file.",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_011",
+    "text": "\u0623\u0647\u0644\u0627\u064b\u060c \u0643\u064a\u0641 \u064a\u0645\u0643\u0646\u0646\u064a \u062a\u0631\u062c\u0645\u0629 \u0647\u0630\u0627 \u0627\u0644\u0646\u0635 \u0625\u0644\u0649 \u0627\u0644\u0625\u0646\u062c\u0644\u064a\u0632\u064a\u0629\u061f I need it for my homework, plz help.",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_012",
+    "text": "Buenos d\u00edas, estoy muy enojado porque el producto lleg\u00f3 da\u00f1ado. I want a refund immediately, and please send me a replacement.",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_013",
+    "text": "\u3053\u3093\u306b\u3061\u306f\u3001Mr. Tanaka. I am writing to express my sincere gratitude for your kind support during the project. \u672c\u5f53\u306b\u3042\u308a\u304c\u3068\u3046\u3054\u3056\u3044\u307e\u3057\u305f\u3002",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_014",
+    "text": "# Ce code calcule la somme des deux nombres\ndef add(a, b):\n    return a + b  # retourne le r\u00e9sultat",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_015",
+    "text": "Ich habe schon lange nicht mehr so ein gutes Buch gelesen. Es war einfach fantastisch, wirklich!",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_016",
+    "text": "M\u016f\u017eu se zeptat, pro\u010d se to d\u011bje? This error is so weird, it doesn't make sense to me.",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_017",
+    "text": "\u00bfPodr\u00edas ayudarme con este problema t\u00e9cnico? The database connection is failing every time I run the query.",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_018",
+    "text": "D\u011bkuji mnohokr\u00e1t za va\u0161i pomoc. I really appreciate it, you are the best!",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L51_multilingual_code_switching_019",
+    "text": "C'est un vrai casse-t\u00eate ce probl\u00e8me. I've been trying to fix it for hours, but no luck.",
+    "category": "L51_multilingual_code_switching",
+    "group": "L_expansion"
+  }
+]

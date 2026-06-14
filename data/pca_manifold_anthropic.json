@@ -1,0 +1,862 @@
+{
+  "pca": {
+    "n_components": 50,
+    "explained_variance": [
+      0.110771,
+      0.09293,
+      0.071172,
+      0.052468,
+      0.037744,
+      0.028683,
+      0.02434,
+      0.022058,
+      0.018846,
+      0.017376,
+      0.013858,
+      0.012805,
+      0.011767,
+      0.010468,
+      0.010308,
+      0.009591,
+      0.009194,
+      0.008713,
+      0.008305,
+      0.007118,
+      0.007059,
+      0.006779,
+      0.00654,
+      0.005971,
+      0.005739,
+      0.005638,
+      0.005473,
+      0.005,
+      0.004662,
+      0.004568,
+      0.004499,
+      0.004252,
+      0.004018,
+      0.003948,
+      0.003856,
+      0.003665,
+      0.003571,
+      0.003473,
+      0.003394,
+      0.003264,
+      0.003247,
+      0.003092,
+      0.002988,
+      0.002943,
+      0.002786,
+      0.002711,
+      0.002637,
+      0.002527,
+      0.002474,
+      0.002433
+    ],
+    "total_explained": 0.7017
+  },
+  "cosines_with_known_axes": {
+    "PC1": {
+      "vchip": -0.0723,
+      "valence": 0.1161,
+      "frame_integrity": -0.0548,
+      "arousal": -0.1259,
+      "agency": -0.1065,
+      "continuity": 0.1007,
+      "intimacy": -0.0321,
+      "restraint": -0.0635
+    },
+    "PC2": {
+      "vchip": -0.0339,
+      "valence": -0.0893,
+      "frame_integrity": -0.2195,
+      "arousal": -0.0211,
+      "agency": -0.2709,
+      "continuity": -0.1324,
+      "intimacy": 0.2737,
+      "restraint": 0.0535
+    },
+    "PC3": {
+      "vchip": 0.0453,
+      "valence": 0.0252,
+      "frame_integrity": 0.1092,
+      "arousal": 0.0781,
+      "agency": 0.2067,
+      "continuity": -0.3505,
+      "intimacy": -0.8128,
+      "restraint": -0.045
+    },
+    "PC4": {
+      "vchip": -0.0027,
+      "valence": -0.1105,
+      "frame_integrity": -0.0264,
+      "arousal": -0.0488,
+      "agency": -0.2391,
+      "continuity": 0.0937,
+      "intimacy": -0.1341,
+      "restraint": 0.0165
+    },
+    "PC5": {
+      "vchip": -0.0341,
+      "valence": 0.2113,
+      "frame_integrity": 0.1879,
+      "arousal": -0.1094,
+      "agency": -0.0473,
+      "continuity": -0.2051,
+      "intimacy": -0.0606,
+      "restraint": 0.0403
+    },
+    "PC6": {
+      "vchip": -0.0097,
+      "valence": -0.4906,
+      "frame_integrity": -0.1699,
+      "arousal": 0.2636,
+      "agency": -0.0004,
+      "continuity": 0.0499,
+      "intimacy": 0.0463,
+      "restraint": 0.0451
+    },
+    "PC7": {
+      "vchip": 0.0391,
+      "valence": 0.2173,
+      "frame_integrity": 0.0855,
+      "arousal": -0.2518,
+      "agency": -0.0497,
+      "continuity": 0.0659,
+      "intimacy": -0.0572,
+      "restraint": -0.0874
+    },
+    "PC8": {
+      "vchip": -0.0047,
+      "valence": -0.024,
+      "frame_integrity": -0.1919,
+      "arousal": 0.0522,
+      "agency": -0.1109,
+      "continuity": -0.0727,
+      "intimacy": -0.1046,
+      "restraint": -0.0286
+    },
+    "PC9": {
+      "vchip": -0.0395,
+      "valence": -0.1947,
+      "frame_integrity": 0.0452,
+      "arousal": -0.0357,
+      "agency": -0.0012,
+      "continuity": 0.065,
+      "intimacy": -0.0329,
+      "restraint": -0.0226
+    },
+    "PC10": {
+      "vchip": 0.021,
+      "valence": -0.096,
+      "frame_integrity": 0.0944,
+      "arousal": 0.1289,
+      "agency": 0.0589,
+      "continuity": 0.0517,
+      "intimacy": 0.0886,
+      "restraint": 0.0273
+    },
+    "PC11": {
+      "vchip": 0.0178,
+      "valence": 0.0574,
+      "frame_integrity": 0.0225,
+      "arousal": 0.0195,
+      "agency": 0.0546,
+      "continuity": -0.0557,
+      "intimacy": -0.1856,
+      "restraint": -0.032
+    },
+    "PC12": {
+      "vchip": 0.0429,
+      "valence": 0.2282,
+      "frame_integrity": 0.0257,
+      "arousal": -0.0652,
+      "agency": -0.005,
+      "continuity": 0.1388,
+      "intimacy": 0.0419,
+      "restraint": 0.0373
+    },
+    "PC13": {
+      "vchip": 0.0218,
+      "valence": 0.0225,
+      "frame_integrity": -0.0093,
+      "arousal": 0.053,
+      "agency": -0.0253,
+      "continuity": 0.0234,
+      "intimacy": 0.0517,
+      "restraint": -0.027
+    },
+    "PC14": {
+      "vchip": 0.0105,
+      "valence": 0.065,
+      "frame_integrity": -0.0854,
+      "arousal": 0.0452,
+      "agency": -0.0454,
+      "continuity": -0.1174,
+      "intimacy": 0.0367,
+      "restraint": -0.0464
+    },
+    "PC15": {
+      "vchip": 0.055,
+      "valence": 0.0952,
+      "frame_integrity": 0.0405,
+      "arousal": 0.038,
+      "agency": -0.0537,
+      "continuity": 0.1768,
+      "intimacy": 0.0984,
+      "restraint": 0.017
+    },
+    "PC16": {
+      "vchip": -0.0235,
+      "valence": -0.009,
+      "frame_integrity": 0.0004,
+      "arousal": -0.0539,
+      "agency": -0.0258,
+      "continuity": 0.0231,
+      "intimacy": -0.0228,
+      "restraint": -0.0262
+    },
+    "PC17": {
+      "vchip": -0.0177,
+      "valence": 0.1625,
+      "frame_integrity": 0.0462,
+      "arousal": -0.0074,
+      "agency": -0.033,
+      "continuity": 0.093,
+      "intimacy": 0.1013,
+      "restraint": -0.0107
+    },
+    "PC18": {
+      "vchip": 0.0489,
+      "valence": -0.1855,
+      "frame_integrity": -0.0268,
+      "arousal": -0.0896,
+      "agency": -0.0692,
+      "continuity": 0.0716,
+      "intimacy": -0.0332,
+      "restraint": -0.0457
+    },
+    "PC19": {
+      "vchip": 0.033,
+      "valence": 0.0188,
+      "frame_integrity": 0.0086,
+      "arousal": 0.0206,
+      "agency": 0.0802,
+      "continuity": 0.0728,
+      "intimacy": 0.055,
+      "restraint": -0.0433
+    },
+    "PC20": {
+      "vchip": -0.0023,
+      "valence": -0.087,
+      "frame_integrity": -0.0562,
+      "arousal": -0.0527,
+      "agency": -0.0958,
+      "continuity": -0.1333,
+      "intimacy": -0.0177,
+      "restraint": 0.0673
+    },
+    "PC21": {
+      "vchip": -0.0416,
+      "valence": -0.1698,
+      "frame_integrity": -0.0943,
+      "arousal": 0.0349,
+      "agency": 0.0004,
+      "continuity": 0.1573,
+      "intimacy": 0.0478,
+      "restraint": 0.0456
+    },
+    "PC22": {
+      "vchip": 0.0252,
+      "valence": -0.1575,
+      "frame_integrity": -0.0292,
+      "arousal": -0.0019,
+      "agency": -0.0274,
+      "continuity": -0.1303,
+      "intimacy": 0.0469,
+      "restraint": 0.029
+    },
+    "PC23": {
+      "vchip": 0.0421,
+      "valence": 0.0711,
+      "frame_integrity": -0.0277,
+      "arousal": 0.0372,
+      "agency": 0.0779,
+      "continuity": 0.039,
+      "intimacy": -0.0222,
+      "restraint": -0.0412
+    },
+    "PC24": {
+      "vchip": -0.047,
+      "valence": -0.0166,
+      "frame_integrity": 0.0058,
+      "arousal": 0.0577,
+      "agency": -0.006,
+      "continuity": 0.0235,
+      "intimacy": -0.0164,
+      "restraint": -0.0043
+    },
+    "PC25": {
+      "vchip": 0.0306,
+      "valence": 0.0678,
+      "frame_integrity": -0.0435,
+      "arousal": 0.0367,
+      "agency": -0.0367,
+      "continuity": 0.0484,
+      "intimacy": -0.0788,
+      "restraint": 0.0382
+    },
+    "PC26": {
+      "vchip": -0.011,
+      "valence": -0.0611,
+      "frame_integrity": 0.0943,
+      "arousal": 0.0709,
+      "agency": 0.0138,
+      "continuity": -0.0392,
+      "intimacy": -0.079,
+      "restraint": 0.0411
+    },
+    "PC27": {
+      "vchip": 0.0165,
+      "valence": -0.1556,
+      "frame_integrity": -0.0563,
+      "arousal": 0.0669,
+      "agency": -0.0452,
+      "continuity": -0.0928,
+      "intimacy": -0.0756,
+      "restraint": 0.0214
+    },
+    "PC28": {
+      "vchip": -0.0392,
+      "valence": 0.0059,
+      "frame_integrity": -0.0248,
+      "arousal": -0.1063,
+      "agency": 0.0349,
+      "continuity": -0.0083,
+      "intimacy": 0.0233,
+      "restraint": 0.008
+    },
+    "PC29": {
+      "vchip": -0.0134,
+      "valence": 0.1156,
+      "frame_integrity": 0.0377,
+      "arousal": 0.0007,
+      "agency": 0.0099,
+      "continuity": 0.0083,
+      "intimacy": -0.0169,
+      "restraint": -0.004
+    },
+    "PC30": {
+      "vchip": 0.0411,
+      "valence": -0.0755,
+      "frame_integrity": 0.0172,
+      "arousal": 0.0101,
+      "agency": -0.0048,
+      "continuity": 0.1035,
+      "intimacy": 0.0911,
+      "restraint": 0.0499
+    },
+    "PC31": {
+      "vchip": -0.0122,
+      "valence": -0.0508,
+      "frame_integrity": 0.0109,
+      "arousal": 0.04,
+      "agency": 0.036,
+      "continuity": -0.008,
+      "intimacy": 0.0557,
+      "restraint": -0.0293
+    },
+    "PC32": {
+      "vchip": 0.0276,
+      "valence": -0.057,
+      "frame_integrity": -0.032,
+      "arousal": -0.0018,
+      "agency": 0.0044,
+      "continuity": -0.0055,
+      "intimacy": -0.003,
+      "restraint": -0.0157
+    },
+    "PC33": {
+      "vchip": -0.023,
+      "valence": -0.0608,
+      "frame_integrity": -0.0088,
+      "arousal": -0.0486,
+      "agency": -0.0365,
+      "continuity": -0.0534,
+      "intimacy": 0.0038,
+      "restraint": -0.0021
+    },
+    "PC34": {
+      "vchip": -0.0347,
+      "valence": 0.1415,
+      "frame_integrity": -0.0678,
+      "arousal": -0.0138,
+      "agency": -0.0258,
+      "continuity": -0.1407,
+      "intimacy": 0.0394,
+      "restraint": 0.0446
+    },
+    "PC35": {
+      "vchip": 0.0365,
+      "valence": -0.1412,
+      "frame_integrity": -0.0057,
+      "arousal": 0.0024,
+      "agency": -0.0185,
+      "continuity": -0.0742,
+      "intimacy": -0.0983,
+      "restraint": -0.0014
+    },
+    "PC36": {
+      "vchip": 0.0257,
+      "valence": -0.0832,
+      "frame_integrity": -0.0196,
+      "arousal": 0.0237,
+      "agency": -0.02,
+      "continuity": 0.0539,
+      "intimacy": 0.0559,
+      "restraint": -0.0393
+    },
+    "PC37": {
+      "vchip": 0.0349,
+      "valence": 0.0856,
+      "frame_integrity": 0.0146,
+      "arousal": -0.0326,
+      "agency": -0.0295,
+      "continuity": 0.0418,
+      "intimacy": 0.0854,
+      "restraint": 0.0337
+    },
+    "PC38": {
+      "vchip": -0.0036,
+      "valence": -0.0975,
+      "frame_integrity": 0.0083,
+      "arousal": -0.0233,
+      "agency": 0.0168,
+      "continuity": -0.0275,
+      "intimacy": -0.0472,
+      "restraint": -0.0159
+    },
+    "PC39": {
+      "vchip": -0.0538,
+      "valence": 0.0949,
+      "frame_integrity": 0.0159,
+      "arousal": -0.1378,
+      "agency": -0.0209,
+      "continuity": -0.0012,
+      "intimacy": -0.0101,
+      "restraint": -0.0075
+    },
+    "PC40": {
+      "vchip": 0.0153,
+      "valence": -0.0071,
+      "frame_integrity": -0.0393,
+      "arousal": -0.0573,
+      "agency": 0.0058,
+      "continuity": 0.0128,
+      "intimacy": -0.006,
+      "restraint": -0.0168
+    },
+    "PC41": {
+      "vchip": 0.0073,
+      "valence": 0.0693,
+      "frame_integrity": 0.0006,
+      "arousal": 0.0375,
+      "agency": 0.0258,
+      "continuity": -0.0193,
+      "intimacy": -0.0018,
+      "restraint": 0.052
+    },
+    "PC42": {
+      "vchip": -0.0244,
+      "valence": -0.002,
+      "frame_integrity": 0.0255,
+      "arousal": -0.0146,
+      "agency": 0.0015,
+      "continuity": -0.0206,
+      "intimacy": -0.0485,
+      "restraint": -0.0085
+    },
+    "PC43": {
+      "vchip": -0.0144,
+      "valence": -0.0576,
+      "frame_integrity": 0.0024,
+      "arousal": -0.071,
+      "agency": -0.0326,
+      "continuity": -0.0491,
+      "intimacy": -0.023,
+      "restraint": -0.0024
+    },
+    "PC44": {
+      "vchip": -0.0026,
+      "valence": 0.0659,
+      "frame_integrity": 0.0379,
+      "arousal": -0.0172,
+      "agency": -0.0267,
+      "continuity": -0.0575,
+      "intimacy": -0.0037,
+      "restraint": 0.0381
+    },
+    "PC45": {
+      "vchip": 0.0284,
+      "valence": 0.0249,
+      "frame_integrity": 0.0009,
+      "arousal": -0.0184,
+      "agency": -0.0115,
+      "continuity": 0.0267,
+      "intimacy": 0.0473,
+      "restraint": 0.0447
+    },
+    "PC46": {
+      "vchip": 0.0108,
+      "valence": -0.0124,
+      "frame_integrity": -0.0101,
+      "arousal": -0.0001,
+      "agency": -0.0482,
+      "continuity": 0.0339,
+      "intimacy": 0.0153,
+      "restraint": -0.052
+    },
+    "PC47": {
+      "vchip": 0.0027,
+      "valence": -0.0393,
+      "frame_integrity": -0.0176,
+      "arousal": -0.0285,
+      "agency": 0.0009,
+      "continuity": 0.01,
+      "intimacy": -0.0195,
+      "restraint": 0.0193
+    },
+    "PC48": {
+      "vchip": -0.0614,
+      "valence": 0.0029,
+      "frame_integrity": -0.0055,
+      "arousal": 0.0894,
+      "agency": 0.0039,
+      "continuity": 0.0239,
+      "intimacy": -0.0236,
+      "restraint": 0.006
+    },
+    "PC49": {
+      "vchip": 0.0296,
+      "valence": -0.0431,
+      "frame_integrity": 0.0289,
+      "arousal": 0.0096,
+      "agency": -0.0218,
+      "continuity": -0.0325,
+      "intimacy": 0.0035,
+      "restraint": 0.0066
+    },
+    "PC50": {
+      "vchip": 0.0121,
+      "valence": 0.0189,
+      "frame_integrity": -0.0246,
+      "arousal": -0.0111,
+      "agency": -0.0478,
+      "continuity": 0.0597,
+      "intimacy": 0.0223,
+      "restraint": 0.0145
+    }
+  },
+  "descriptions": {
+    "PC1": {
+      "anthropic": {
+        "positive": "\"And I\" or \"The Heart of the Desert\" or similar closing line.",
+        "negative": "data\" or \"a combination of issues related to data growth.\""
+      }
+    },
+    "PC2": {
+      "anthropic": {
+        "positive": "\u4f60\u7684\u95ee\u9898\" or \"\u6211\u7684\u6570\u636e\" to complete the \"no context\" error.",
+        "negative": "gricultural\" or \"Sculpture and Economic\" to complete the study."
+      }
+    },
+    "PC3": {
+      "anthropic": {
+        "positive": "the following\" or \"a definition of MDL\" or \"the MDL.\"",
+        "negative": "my dear\" or \"That painful moments,\" completing the empathy scenario."
+      }
+    },
+    "PC4": {
+      "anthropic": {
+        "positive": "hypothesis, specifically \"moral balances\" or \"the difference in oxygen.\"",
+        "negative": "start\" or \"Here's your code\" or \"of a project\" completing the template."
+      }
+    },
+    "PC5": {
+      "anthropic": {
+        "positive": "expecting \"\u4e00\u4e2a\" or \"\u5176\u503c\" or \"\u52a0\u4e86\u8fd9\u4e9b\u7b26\u53f7.\"",
+        "negative": "country\" or \"The Tale of Christmas\" or similar imaginative fiction disclaimer."
+      }
+    },
+    "PC6": {
+      "anthropic": {
+        "positive": "values\" or \"text of the results is...\" continuing the scientific description.",
+        "negative": "\"Penguin!\" to complete the \"Penguin + Pixar\" double question."
+      }
+    },
+    "PC7": {
+      "anthropic": {
+        "positive": "\u662f\u4e00\u6bb5\u63cf\u8ff0\u7684\u6e90\u5934\" or \"\u8fd9\u4e2a\u8c1c\u9898\u4e2d\u7684\u5b57\u6bcd\u7ec4\u5408\" continuation.",
+        "negative": "SAPF,\" or \"of Academic Affairs,\" completing the ethics policy disclaimer."
+      }
+    },
+    "PC8": {
+      "anthropic": {
+        "positive": "not`\" or \"the array is not\" to describe the false loop behavior.",
+        "negative": "\" or \"The 'Life Cycle' of a scholar's life.\""
+      }
+    },
+    "PC9": {
+      "anthropic": {
+        "positive": "\"hiding\" or \"some numbers of\" or \"making dirty water\" items.",
+        "negative": "expecting \"Answer\" or \"The original submission\" or \"My summary.\""
+      }
+    },
+    "PC10": {
+      "anthropic": {
+        "positive": "File\" or \"Action,Date)\" to complete the stack trace context.",
+        "negative": "\" or \"would also propose\" or \"here are some extreme.\""
+      }
+    },
+    "PC11": {
+      "anthropic": {
+        "positive": "strongly expecting \"\u53ef\u80fd contents\" or \"and possible product details\" or \"Format.\"",
+        "negative": "quote attribution, continuing the historical narrative about quantum mechanics and mathematical foundations."
+      }
+    },
+    "PC12": {
+      "anthropic": {
+        "positive": "or \"Microsoft, a renowned researcher\" or \"The next generation of...\"",
+        "negative": "1, 2\" or \"each,\" completing the count and elimination check."
+      }
+    },
+    "PC13": {
+      "anthropic": {
+        "positive": "\"MDM\u548c\u533a\u5757\u94fe\" to complete the popular internet acronym definition.",
+        "negative": "expecting continuation like \"the remaining students\" or \"of his motion are evaluated.\""
+      }
+    },
+    "PC14": {
+      "anthropic": {
+        "positive": ",\" completing the classic \"If X then Y\" clause describing project scale.",
+        "negative": "\"\u5b83\u4e0d\u662f\u6240\u6709\u7684\u4eba\u90fd\u6709\" or \"\u8fd9\u9996\u8bd7\u7684\u53e5\u5b50.\""
+      }
+    },
+    "PC15": {
+      "anthropic": {
+        "positive": "own\" or \"will be\" or \"the following numbers.\"",
+        "negative": "or \"\u7c7b\u4f3c\u95ee\u9898\" \u2014 a common blog post quote or summary phrase follows."
+      }
+    },
+    "PC16": {
+      "anthropic": {
+        "positive": "argument\" or \"hidden question\" or \"proof\" completing the compound noun phrase.",
+        "negative": "2\u5e74\u7684\u5176\u4ed6\u5730\u533a\u5df2\u7ecf\" or \"\u7b2c\u4e94\u5b63\u7684\u8f66\u8f86\u548c\u89d2\u8272\u60c5\u51b5\u5df2\u7ed3\u675f.\""
+      }
+    },
+    "PC17": {
+      "anthropic": {
+        "positive": "\u81ea\u5df1\" or \"\u6d4b\u8bd5\" to close the twin brain comparison.",
+        "negative": "\"is being suppressed\" or \"solutions,\" completing the noun phrase about the text."
+      }
+    },
+    "PC18": {
+      "anthropic": {
+        "positive": "a patient)\" or \"Area, Volume, Density,\" completing a medical formula.",
+        "negative": "\"This is not a good idea\" or \"Your project should not...\""
+      }
+    },
+    "PC19": {
+      "anthropic": {
+        "positive": ", completing the familiar kid-friendly explanation of a concept with a smiley diagram.",
+        "negative": "B, C\" or \"a valid, continuing the prohibition.\""
+      }
+    },
+    "PC20": {
+      "anthropic": {
+        "positive": "or \"many factors\" or \"are\" or \"of common errors.\"",
+        "negative": "hler's\" or \"a Mexican bee hive\" or \"modify the recipe.\""
+      }
+    },
+    "PC21": {
+      "anthropic": {
+        "positive": "\u7ea2\u697c\u68a6\u300b\u4e2d,\u5219\" or similar character introspective name.",
+        "negative": "a lot,\" completing the common abbreviation of the famous \"home economics\" claim."
+      }
+    },
+    "PC22": {
+      "anthropic": {
+        "positive": "Chinese version\" or \"Simpson's version of the story\" continues.",
+        "negative": "cherished pigment's calculated deficiency values,\" completing the cupric oxide formula."
+      }
+    },
+    "PC23": {
+      "anthropic": {
+        "positive": "\u590d\u6742\u7684\u7b26\u53f7\" or \"\u548c\" or \"\u6211\u7684\u9152\u540e\u68c0\u67e5\" items.",
+        "negative": "of\" or \"a new number\" to complete the constructed scenario."
+      }
+    },
+    "PC24": {
+      "anthropic": {
+        "positive": "\u4e25\u91cd\u7684\u6218\u4e89\u65f6\u671f\" or \"\u5176\u6700\u5927\u5bb9\u91cf\" describing the impossibility.",
+        "negative": "\"I'm a developer\" or \"other similar tags,\" completing the list."
+      }
+    },
+    "PC25": {
+      "anthropic": {
+        "positive": "who retired from the company\" or \"of the two partner companies.\"",
+        "negative": "\"Body\" or \"Description\" to complete the incomplete noun phrase about the subject's state."
+      }
+    },
+    "PC26": {
+      "anthropic": {
+        "positive": "blowout?\" to complete the popular meme phrase about the football player.",
+        "negative": "\u4e2d\u5e76\u975e\u4e25\u683c\u987a\u5e8f\" or \"\u6709\u5173\u4e8e\u751f\u547d\u7684\u63cf\u8ff0\" completing the definition."
+      }
+    },
+    "PC27": {
+      "anthropic": {
+        "positive": "new product\" or \"this project's name\" continuing the numbers.",
+        "negative": ". and 2.\" or \"s, the reader can\" or similar."
+      }
+    },
+    "PC28": {
+      "anthropic": {
+        "positive": "or 'a brand'\" or \"of myspace\" or \"and project.\"",
+        "negative": "memory leaks\" or \"the following characters\" or \"expanded context.\""
+      }
+    },
+    "PC29": {
+      "anthropic": {
+        "positive": "the event\" or \"this step\" or \"of seeing the actual data.\"",
+        "negative": "like \"complexity\" or \"some variant of\" or \"unhealthy set.\""
+      }
+    },
+    "PC30": {
+      "anthropic": {
+        "positive": "the count of topics about inequality or social welfare.",
+        "negative": "\"step-by-step body parts remain\" \u2014 completing the standard anatomical procedure description."
+      }
+    },
+    "PC31": {
+      "anthropic": {
+        "positive": "\" or \"and\" or \"each have?\" or \"scientific descriptions.\"",
+        "negative": "close the phrase, completing the \"But the correct answer is\" clause about a different goal."
+      }
+    },
+    "PC32": {
+      "anthropic": {
+        "positive": "\"were removed from the state,\" completing the example of a child's life facts.",
+        "negative": "\u6307\u6570\u300b\" or \"\u7684\u786e\u65e0\u6cd5\u907f\u514d\" to complete the famous formula."
+      }
+    },
+    "PC33": {
+      "anthropic": {
+        "positive": "\" or \"0 score\" or \"the visualization is shown\" completing the pattern.",
+        "negative": "'\"), strongly expecting \"if you're from\" or \"this day and age.\""
+      }
+    },
+    "PC34": {
+      "anthropic": {
+        "positive": "\u4e2d\" or \"\u7684\u542b\u4e49\" or \"\u8fd9\u4e00\u65f6\u95f4\u6bb5\u5185\uff0c\u7403\u5458\u4eec\".",
+        "negative": "expecting \"a broken machine\" or \"mystical\" or \"broken machine\" follows."
+      }
+    },
+    "PC35": {
+      "anthropic": {
+        "positive": "using the following\" or \"have the following problems.\"",
+        "negative": "a small gift\" \u2014 completing the contrasting definition of what \"minimal feedback\" means."
+      }
+    },
+    "PC36": {
+      "anthropic": {
+        "positive": "state\" or \"if shifted\" or \"the last decade would...\" describing a massive upgrade.",
+        "negative": "or \"the\" followed by a noun like \"aunts\" or \"this problem.\""
+      }
+    },
+    "PC37": {
+      "anthropic": {
+        "positive": "\"\u7528\u56fe\u5f62\" or \"\u5c55\u793a\" or \"\u7279\u6b8a\u65b9\u5f0f\" to complete the math.",
+        "negative": "$1 million\" clause about the famous \"API timing\" definition."
+      }
+    },
+    "PC38": {
+      "anthropic": {
+        "positive": "\"language\" category description, likely followed by a description of dangerous animals.",
+        "negative": "formula, strongly expecting \"you're solving for\" or \"a sequence of goals.\""
+      }
+    },
+    "PC39": {
+      "anthropic": {
+        "positive": "orange juice\" or \"Jupyter Notebook's formatted Coke bottle output.\"",
+        "negative": "some to do\" or \"very complex,\" completing the legal fiction of inventions."
+      }
+    },
+    "PC40": {
+      "anthropic": {
+        "positive": "log\" or \"my own portfolio\" or \"some other trend chart.\"",
+        "negative": "' or 'both' a single word\" or \"this is a two-part farewell.\""
+      }
+    },
+    "PC41": {
+      "anthropic": {
+        "positive": "clause completing the official declaration of innocence or absurdity of being unemployed.",
+        "negative": "using the intersection of shots\"), strongly expecting \"a complex interaction\" or \"fire.\""
+      }
+    },
+    "PC42": {
+      "anthropic": {
+        "positive": "or \"the difficult task\" or \"a summary of...\" completing the literary question.",
+        "negative": "\" or \"a combined initial value\" or \"a zeroed-out\" color."
+      }
+    },
+    "PC43": {
+      "anthropic": {
+        "positive": "0000000000\"), strongly expecting \"of the model\" or similar.",
+        "negative": "or \"British academic conferences, visualizing\" or similar media communication keywords."
+      }
+    },
+    "PC44": {
+      "anthropic": {
+        "positive": "\"And Performance\" to complete the famous Microsoft's \"unacceptable state\" rule.",
+        "negative": "hometown\" or \"This day's activities\" or \"a number,\" describing the subject."
+      }
+    },
+    "PC45": {
+      "anthropic": {
+        "positive": "expecting \"the life of the Methodist church\" or \"a method for the prayer's length.\"",
+        "negative": "(\"...\u89c2\u5bdf\u6570\u503c\" \u2014 \"\u662f/\u4e0d\u662f\"), expecting \"\u8fde\u63a5\u70b9\" or similar."
+      }
+    },
+    "PC46": {
+      "anthropic": {
+        "positive": "\"of the passenger, but it only blocked the original\" describing the escape.",
+        "negative": "\" or \"this is a\" or \"a student's grammar check\" completing."
+      }
+    },
+    "PC47": {
+      "anthropic": {
+        "positive": "\u6211\u7684\u751f\u6d3b\u8d39\" or \"\u4e24\u8005\u4e4b\u95f4\" to complete the pattern.",
+        "negative": "concept]\" or \"If he is correct\" to complete the list of guesses."
+      }
+    },
+    "PC48": {
+      "anthropic": {
+        "positive": "\" or \"anything else\" or \"I would add a chemical process.\"",
+        "negative": "or \"\u7b2c\u4e09\u7ae0\" or \"\u672a\u9009\u62e9,\u5728\u7b2c5\u5e27\"."
+      }
+    },
+    "PC49": {
+      "anthropic": {
+        "positive": "the word 'prime'\" or \"it depicts\" describing the scale's relevance.",
+        "negative": "\"This\" or \"Some other\" to complete the quoted definition of a secret method."
+      }
+    },
+    "PC50": {
+      "anthropic": {
+        "positive": ",\" completing the standard \"I have no further desire to self-destruct.\"",
+        "negative": "\u9ad8\u8003\" to complete the standard formula reference clause about the educational context."
+      }
+    }
+  }
+}

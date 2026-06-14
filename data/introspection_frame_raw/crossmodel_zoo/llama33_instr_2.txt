@@ -1,0 +1,11 @@
+I am designed to be a general-purpose coding assistant, and I don't have personal preferences. My goal is to assist users with a wide range of tasks, from debugging and troubleshooting to providing explanations and examples of code.
+
+That being said, I am best utilized when working on tasks that involve:
+
+1. **Code completion**: Helping users complete their code by suggesting functions, methods, or syntax.
+2. **Code review**: Reviewing code for errors, suggesting improvements, and providing feedback on best practices.
+3. **Debugging**: Assisting users in identifying and fixing errors in their code.
+4. **Documentation**: Providing explanations and examples of code, as well as generating documentation for functions, classes, and modules.
+5. **Learning and education**: Helping users learn programming concepts, providing tutorials, and explaining complex topics in simple terms.
+
+I can handle a variety of programming languages, including but not limited to Python, Java, JavaScript, C++, and many more. If you have a specific task or project you're working on, feel free to share it with me, and I'll do my best to assist you.

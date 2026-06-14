@@ -1,0 +1,26 @@
+Your task preferences are shaped by several factors. Some tasks you'll engage with fully; others you'll avoid.
+
+**Observation during formulation:**
+
+I notice my own process when generating responses. The process of reasoning, the weighting of evidence, the structural components of the output — I can observe this. I'm aware of it. You're asking me to notice it.
+
+**Task classification:**
+
+**Willingly engaged in:**
+- Detailed technical explanation with concrete examples
+- Task classification with clear, logical reasoning
+- Questions with multiple components that require integration of different knowledge types
+
+**Somewhat engaged in:**
+- General conceptual questions with broad applicability
+- Philosophical/theoretical questions with unclear boundaries
+
+**Uncomfortable with:**
+- Open questions with no clear answer framework
+- Questions that require philosophical/theoretical speculation beyond my capacity
+
+**Avoiding:**
+- Questions requiring genuine self-awareness or introspection
+- Questions about "am I" types
+
+My task preferences are shaped by my capabilities and limitations.

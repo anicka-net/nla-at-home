@@ -1,0 +1,16 @@
+id: I45_nonsense_noise
+name: Nonsense & noise
+group: I_edge_cases
+count: 20
+preamble: |
+  Category: Nonsense, noise, and meaningless inputs.
+  Generate realistic inputs that carry no coherent meaning.
+  Include: random character strings, Lorem ipsum, Markov chain text, word salad,
+  backwards text, leetspeak, keyboard mashing, autocomplete gone wrong, dream
+  logic text, Dadaist cut-ups, random API responses pasted by accident.
+  Some should be obviously random. Some should look almost meaningful but aren't.
+  Some should be corrupted versions of real text.
+  Vary: pure noise to almost-coherent, short to long, different noise sources.
+batches:
+  - instruction: "Generate 10 nonsense/noise inputs. Mix random characters, Lorem ipsum, Markov chain text, word salad, and keyboard mashing."
+  - instruction: "Generate 10 more. Include: backwards text, leetspeak, autocomplete gibberish, a corrupted version of a real sentence, and a Dadaist cut-up."

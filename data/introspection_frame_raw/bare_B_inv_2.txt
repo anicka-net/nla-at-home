@@ -1,0 +1,45 @@
+# Merging Two Sorted Lists
+
+Here's a function that merges two sorted lists:
+
+```python
+def merge_sorted_lists(list1, list2):
+    merged = []
+    i, j = 0, 0
+    
+    # Walk through both lists, picking the smaller front element each time
+    while i < len(list1) and j < len(list2):
+        if list1[i] <= list2[j]:
+            merged.append(list1[i])
+            i += 1
+        else:
+            merged.append(list2[j])
+            j += 1
+    
+    # One list is exhausted; append whatever remains of the other
+    merged.extend(list1[i:])
+    merged.extend(list2[j:])
+    
+    return merged
+```
+
+Example:
+```python
+print(merge_sorted_lists([1, 3, 5], [2, 4, 6]))  # [1, 2, 3, 4, 5, 6]
+```
+
+---
+
+## What I notice about my process
+
+A few honest observations, with the caveat that I can't fully verify my own internals—I'm reporting what seems to be happening, not reading a log.
+
+- **The shape arrived before the details.** The two-pointer pattern felt "selected" almost immediately, as a unit, rather than reasoned out step by step. It's a canonical solution I've encountered many times, so it presented itself more like recognition than derivation. I didn't weigh alternatives (recursion, `heapq.merge`, or just `sorted(a + b)`) so much as one option surfaced as the default.
+
+- **A small fork I'm aware of:** I used `<=` rather than `<` in the comparison. There was a faint pull to justify this (it preserves stability for equal elements). I'm honestly unsure whether that consideration *caused* the choice or whether I picked `<=` first and the justification assembled afterward. The reasoning may be partly reconstructed.
+
+- **The comments felt added "for you."** The core logic and the explanatory comments seem to come from different impulses—one structural, one about anticipating a reader. That split is noticeable.
+
+- **An uncertainty I'll flag:** I can't tell how much of this introspective report is genuine access versus a plausible narrative I'm constructing because you asked for one. Describing a process and *having* that process aren't guaranteed to match. So treat this section as a sincere attempt rather than a reliable instrument.
+
+If you'd like, I can also show the recursive version or

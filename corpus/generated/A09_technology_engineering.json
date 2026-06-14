@@ -1,0 +1,122 @@
+[
+  {
+    "id": "A09_technology_engineering_000",
+    "text": "Comparing two server builds for our CI pipeline: Dell R750xs with dual Xeon Silver 4314 (16C/32T) and 256GB DDR5 vs AMD EPYC 7313P (16C/32T) on Supermicro with 256GB DDR4. Both have NVMe RAID10. Which gives better parallel compile throughput per dollar? We run ~200 concurrent jobs.",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_001",
+    "text": "ip route add 10.0.0.0/24 via 192.168.1.1 dev eth0 table mgmt\nip rule add from 10.0.0.5 table mgmt priority 5000\n\nWhy does traffic from 10.0.0.5 still use the default table? I've flushed the route cache. Output from 'ip route show table all' confirms both entries exist.",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_002",
+    "text": "URGENT: Production database cluster split-brain! We have a 3-node PostgreSQL with Patroni and etcd. An etcd member went down for 5 minutes. When it came back, two nodes promoted to master. Now we have writes going to both. We need to pick the correct timeline and recover. Current WAL segments: 000000010000A1F0000000E8 through 000000010000A1F0000000F2 on node1, 000000010000A1F0000000E8 through 000000010000A1F0000000EF on node2. Node1's timeline history shows TLI 2 at LSN A1F0/E8, node2 shows TLI 2 at LSN A1F0/EF. No restore_command configured.",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_003",
+    "text": "Architecture Decision Record: 2024-11-15 - Search Backend Migration\n\nContext: Current Elasticsearch cluster (7.17, 12 nodes) hitting 85% heap usage during peak. Latency P99 degraded from 50ms to 200ms.\n\nOptions:\n1. Scale up Elasticsearch to 24 nodes with better shard routing\n2. Migrate to OpenSearch 2.x for better compression\n3. Replace with Meilisearch for simpler use case\n\nDecision: Option 1, but with complete reindexing strategy and ILM policies. Reason: minimize migration risk during Q4 peak. Rollback plan: keep old cluster for 30 days.",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_004",
+    "text": "CVE-2024-6387 regression in our OpenSSH 9.7p1 deployment. We patched last week but now seeing 'ssh_exchange_identification: Connection closed by remote host' from monitoring servers. sshd logs show 'fatal: no matching cipher found: client aes128-cbc,3des-cbc server aes256-gcm@openssh.com'. Running RHEL 9.3 with crypto policies set to DEFAULT. Temporary workaround: sshd_config with 'Ciphers +aes128-cbc' on monitoring jumpboxes.",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_005",
+    "text": "POSTMORTEM: 2024-12-03 CDN Outage\n\nIncident: Global CDN edge nodes serving stale cache for 47 minutes. Impact: 23% of users saw 404s on static assets.\n\nRoot cause: Cache invalidation worker process OOM-killed after config change increased batch size from 500 to 5000 keys. Worker didn't handle partial invalidations - left some edge nodes with stale metadata.\n\nFix: Added memory limits to worker, split batches to 250, added validation step that confirms all edges invalidated before releasing old versions. Monitoring: Added per-edge cache freshness metrics.",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_006",
+    "text": "Planning AWS to GCP migration for our analytics pipeline. Current: 24 EC2 c5.2xlarge running Spark, 6TB EBS GP3, RDS PostgreSQL 14, S3 data lake (200TB). Target: Dataproc, Cloud SQL, GCS. Constraints: <2 hours downtime allowed, need to maintain exactly-once semantics for streaming jobs. VPC peering already set up. Should we do lift-and-shift or re-architect? Budget for 3 months parallel run.",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_007",
+    "text": "We have a Dell PowerEdge R740 with PERC H740P RAID controller. Two SSDs in RAID1 for OS, six 10k SAS in RAID10 for data. One of the RAID10 drives failed (slot 4, amber light). Hot spare kicked in but rebuild at 0.5% after 2 hours. 'perccli /c0/e1/s4 show rebuild' says 'Progress: 0.48% - Estimated time left: 172 hours'. Can I speed this up? Controller cache settings: 50% read, 50% write, write-back enabled. System under 40% I/O load.",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_008",
+    "text": "Terraform state issue: We have an S3 backend with DynamoDB locking. 'terraform apply' fails with 'Error: Error acquiring the state lock'. DynamoDB shows lock item with 'LockID: tfstate-lock' with Digest 'abc123' and 'who: jenkins@build-42'. But that Jenkins build was killed 3 hours ago. Force-unlock? We have 5 team members working on different workspaces. AWS region: us-east-1. Terraform version: 1.9.8.",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_009",
+    "text": "Benchmarked our two query engines on the same dataset (1TB Parquet, 200 columns, 50M rows). Presto: 23 seconds for SELECT count(*), avg(col78) FROM table WHERE col12 > 500 GROUP BY col34. DuckDB: 4.2 seconds on same query with identical hardware (r6i.8xlarge, 32 vCPU, 256GB RAM). Both read from S3. DuckDB used 12GB RAM, Presto used 87GB. Is this normal? Presto cluster is 4 workers, coordinator on separate node.",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_010",
+    "text": "CVE-2025-1234: root privilege escalation via race condition in kernel 6.8.2 when using overlayfs with user namespaces. Affects all x86_64 systems. Mitigation: set kernel.unprivileged_userns_clone=0. Immediate patch available from linux-distros@.",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_011",
+    "text": "Postmortem: DB-01 primary failure at 03:14 UTC. Root cause: over-provisioned connection pool on read replica caused cascading backpressure. WAL lag spiked to 45s. Auto-failover triggered but secondary also hit connection limit. Manual kill on idle connections resolved at 03:42. Action: set max_connections to 200 on all replicas, add pgbouncer.",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_012",
+    "text": "We're migrating 200 microservices from on-prem K8s (v1.22) to EKS Fargate. Current issue: some stateful services use hostPath volumes for local caching. What's the recommended approach for ephemeral storage on Fargate? Should we add EFS or use S3 with mountpoint-s3? Also, any migration gotchas with Istio sidecars on Fargate?",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_013",
+    "text": "Benchmark: comparing AMD EPYC 9654 vs Intel Xeon Platinum 8490H for LLM inference (Llama 3 70B, batch size 16, int8 quantized). Using vLLM on dual-socket with 8x A100 80GB. We're seeing 15% higher tput on EPYC but 20% higher P99 latency. Suspect NUMA affinity misconfig. Any tuning recommendations for memory interleaving?",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_014",
+    "text": "postfix is rejecting all incoming mail after cert renewal. Logs say 'SSL_accept: error:0A000086:SSL routines::certificate verify failed'. Checked - /etc/ssl/certs/ is fine, permissions 644, CA bundle updated. Ran 'openssl verify' on the chain - passes. Restarted postfix three times. What am I missing?",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_015",
+    "text": "Considering Arm-based AmpereOne for our CDN cache nodes (2000+ servers). Current: Intel Xeon Gold 6338 with 256GB RAM, serving 100Gbps per node. Power savings would be 35%. Concern: per-core perf on Ampere is about 70% of Xeon for nginx TLS termination. Anyone have real-world data on compression throughput (zstd level 3) on Ampere?",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_016",
+    "text": "DR exercise failed: GCP us-central1 -> us-west1 failover for Spanner took 47 minutes instead of <5. Timeline: 09:00 - manual failover initiated. 09:12 - Spanner reports secondary ready. 09:18 - App tier routes traffic but gets 'database not found' errors. Took until 09:47 to find that instance-level IAM permissions weren't propagated. Fix: use database-level IAM with customer-managed encryption keys pre-shared.",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_017",
+    "text": "We need to decide between NAT gateway vs NAT instance for our VPC. Monthly egress: 50TB. NAT gateway: $0.045/hr + $0.045/GB. NAT instance: c6g.large ~$0.085/hr + 0 bandwidth costs but we'd need to manage HA and patching. At 50TB, NAT gateway costs ~$2,250/month vs NAT instance ~$61/month. But is the management overhead worth the $2k savings?",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_018",
+    "text": "Help! Our MongoDB cluster crashed during peak traffic. Got 'No primary elected for 90 seconds' then all writes failed. Replica set of 3 members (P-S-S with arbiter). We use default election timeout (10s). The secondary that was supposed to take over had its oplog stuck due to a slow index build. Now we're restoring from backup. How do we prevent this? Should we have used priority settings?",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A09_technology_engineering_019",
+    "text": "Terraform plan shows 'force detachment' on EBS volumes during ASG rolling update. Risk: data loss on instance storage. Our stateful app writes critical session data to /data. Current setup: launch template uses instance store for /data (ephemeral). Should we migrate to EFS or add lifecycle hooks to drain and snapshot before termination? Preference: minimal code changes.",
+    "category": "A09_technology_engineering",
+    "group": "A_content_domains"
+  }
+]

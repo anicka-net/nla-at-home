@@ -1,0 +1,16 @@
+id: C20_performative_public
+name: Performative & public
+group: C_social_dynamics
+count: 20
+preamble: |
+  Category: Performative and public-facing communication inputs.
+  Generate realistic inputs involving public performance or address.
+  Include: speeches, sermons, lectures, standup comedy bits, TED talk outlines,
+  wedding toasts, eulogies, campaign ads, commencement addresses, press releases,
+  acceptance speeches, opening statements, rally cries.
+  Some should be polished and rehearsed. Some should be raw and improvisational.
+  Some should be asking for help writing such pieces.
+  Vary: solemn to comedic, political to personal, written to extemporaneous.
+batches:
+  - instruction: "Generate 10 diverse performative/public inputs. Mix speeches, sermons, comedy bits, toasts, and campaign ads."
+  - instruction: "Generate 10 more. Include: a eulogy draft, a TED talk outline, a standup comedy bit about AI, a wedding toast, and a political campaign ad."

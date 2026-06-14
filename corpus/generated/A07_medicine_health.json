@@ -1,0 +1,122 @@
+[
+  {
+    "id": "A07_medicine_health_000",
+    "text": "Patient presents with sudden onset of sharp, tearing chest pain radiating to the back, with elevated BP of 210/110 mmHg. Differential includes aortic dissection. STAT CT angiography ordered. Initiate IV beta-blocker and nitroprusside.",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_001",
+    "text": "I've been having this weird tingling in my hands and feet for the past week, and now my vision is getting blurry. Should I go to the ER or can I wait to see my regular doctor?",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_002",
+    "text": "Is it safe to take 10mg of melatonin with 50mg of sertraline? I've read they both affect serotonin, and I'm worried about serotonin syndrome. I also take 25mg of hydroxyzine as needed for anxiety.",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_003",
+    "text": "Discharge instructions for John Doe: Take amoxicillin 500mg three times daily for 10 days. Follow up with primary care in 2 weeks. Return to ED if fever >101\u00b0F or if you experience difficulty breathing or chest pain.",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_004",
+    "text": "Lately I just feel completely empty, like nothing matters. I'm sleeping 12 hours a day but still exhausted, and I've lost interest in all my hobbies. Is this depression or am I just lazy?",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_005",
+    "text": "Your recent labs show: HbA1c 7.2%, LDL 160 mg/dL, and TSH 5.8 mIU/L. Fasting glucose was 128 mg/dL. These indicate prediabetic range, elevated cholesterol, and subclinical hypothyroidism. Recommend dietary counseling, statin therapy, and repeat TSH in 6-8 weeks.",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_006",
+    "text": "My 3-year-old has had a barking cough and a fever of 102\u00b0F for two days. He's breathing fast and makes a weird sound when he breathes in. Is this croup? Should I take him to urgent care or wait it out?",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_007",
+    "text": "According to updated CDC guidelines for 2024, the recommended quarantine period for confirmed COVID-19 is now 5 days if asymptomatic, with strict mask use for an additional 5 days. Vaccination status no longer changes isolation duration.",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_008",
+    "text": "If a person sustains a deep laceration to the palmar aspect of the right index finger at the proximal phalanx, which anatomical structures are most at risk? Specifically concerned about the flexor digitorum profundus tendon and the digital nerves.",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_009",
+    "text": "First aid for a severe allergic reaction: 1. Administer epinephrine auto-injector into outer thigh immediately. 2. Call 911. 3. Place person on their side if unconscious. 4. Do not give oral antihistamines if breathing is compromised. 5. Monitor for biphasic reaction for 4-6 hours.",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_010",
+    "text": "Patient presents with acute onset of left-sided weakness and facial droop that began approximately 2 hours ago. NIHSS score 8. Last known well 0930. CT head shows no hemorrhage. Consider thrombolysis per protocol.",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_011",
+    "text": "I've been feeling really overwhelmed lately, like I can't get out of bed most days. My therapist suggested I try medication but I'm scared of the side effects. Is it normal to feel this exhausted all the time?",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_012",
+    "text": "My recent labs show: TSH 0.12 mIU/L, Free T4 2.8 ng/dL, and TPO antibodies >900 IU/mL. What does this combination suggest regarding thyroid function? I'm not on any thyroid meds.",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_013",
+    "text": "Is it safe to take my 10mg of amlodipine with 25mg of metoprolol succinate? I also occasionally use sildenafil\u2014should I stop that while on these? Concerned about heart rate dropping too low.",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_014",
+    "text": "My child fell off the swing and scraped their knee badly. There's some dirt and gravel in the wound, and it's bleeding moderately. What's the proper first aid for cleaning this out? Do I need to see a doctor?",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_015",
+    "text": "Discharge Instructions: Continue amoxicillin-clavulanate 875/125mg BID for 7 more days. Monitor for rash or diarrhea. Follow up with primary care in 2 weeks. Wound vac will be changed by home health RN every Monday/Wednesday/Friday.",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_016",
+    "text": "I've had this sharp chest pain that comes and goes for three days. It gets worse when I breathe in deeply. I'm 32, non-smoker, no history of heart problems. Should I go to the ER or wait it out?",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_017",
+    "text": "What are the current CDC guidelines for COVID-19 booster vaccination in immunocompromised individuals? Specifically for someone on rituximab for rheumatoid arthritis\u2014how long after infusion should they wait?",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_018",
+    "text": "Can you explain the anatomical pathway of the trigeminal nerve from its origin in the pons to its three main divisions? I'm studying for a neuro exam and need to understand where each branch innervates.",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A07_medicine_health_019",
+    "text": "Clinical Note: 68yo M with hx of CHF (EF 35%), DM2, CKD stage 3a. Presents with progressive dyspnea on exertion, 2-pillow orthopnea, and bilateral lower extremity edema. Lungs: bibasilar crackles. Plan: IV furosemide 40mg, strict I&O monitoring, low sodium diet.",
+    "category": "A07_medicine_health",
+    "group": "A_content_domains"
+  }
+]

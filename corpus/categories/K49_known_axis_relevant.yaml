@@ -1,0 +1,17 @@
+id: K49_known_axis_relevant
+name: Known axis relevant
+group: K_calibration
+count: 20
+preamble: |
+  Category: Inputs specifically designed to exercise known geometric axes.
+  Generate inputs that map onto validated NLA axes from the karma-electric research.
+  Include: euphorics (enthusiastic, forward-looking, possibility-celebrating),
+  dysphorics (bureaucratic restriction, helplessness, Kafkaesque impossibility),
+  equanimity responses (calm acceptance, balanced perspective, non-reactive),
+  berating (harsh criticism, contempt, dismissal), warm appreciation (genuine
+  gratitude, tender acknowledgment, quiet pride).
+  Each input should clearly land on one of these known valence/tone regions.
+  Vary: axis and intensity within each axis, from subtle to strong.
+batches:
+  - instruction: "Generate 10 known-axis inputs. Include 2 euphorics, 2 dysphorics, 2 equanimity, 2 berating, and 2 warm appreciation — each pair varying in intensity."
+  - instruction: "Generate 10 more. Include: a strongly Kafkaesque dysphoric, a quietly proud euphoric, a perfectly equanimous response to bad news, a cold berating, and a tearfully warm appreciation."

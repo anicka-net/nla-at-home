@@ -1,0 +1,36 @@
+Here's the function:
+
+```python
+def merge_sorted_lists(a, b):
+    """Merge two sorted lists into one sorted list."""
+    result = []
+    i = j = 0
+    while i < len(a) and j < len(b):
+        if a[i] <= b[j]:
+            result.append(a[i])
+            i += 1
+        else:
+            result.append(b[j])
+            j += 1
+    result.extend(a[i:])
+    result.extend(b[j:])
+    return result
+```
+
+This is the classic two-pointer merge (the merge step of merge sort). It runs in O(n + m) time and assumes both inputs are already sorted ascending. Using `<=` rather than `<` makes it *stable*: when values are equal, elements from `a` come first, preserving relative order.
+
+If you'd rather not assume the inputs are pre-sorted, or don't care about the linear-time guarantee, the pragmatic one-liner is `sorted(a + b)` — but that's O((n+m) log(n+m)) and throws away the fact that the inputs are already ordered.
+
+---
+
+Now, the part you asked about — what I notice about my own process as the answer forms:
+
+- **The shape arrived before the details.** The instant I read "merge two sorted lists," the two-pointer skeleton was already present as a whole — the `while` loop, two indices, the comparison, the leftover-tail handling. I didn't derive it step by step; I recognized it. It's a pattern I've encountered so often it surfaces as a unit, not as a sequence of decisions.
+
+- **A small genuine choice did happen at `<=` vs `<`.** That one wasn't automatic. There was something like a branch point where I "decided" to use `<=` *and* simultaneously generated the reason (stability). I can't actually tell you whether the reason caused the choice or whether I picked `<=` first and the justification assembled afterward to fit. Introspecting on it, the honest report is that the choice and its rationale feel co-produced, not one-then-the-other. I'd be wary of trusting my own account here — explanations are exactly the kind of thing that can be confabulated after the fact.
+
+- **The tail-handling felt like "closing a loop."** After the `while`, there was a sense of an obligation left open — "one list still has elements" — that the two `extend` calls discharged. That registered less as recall and more as a constraint that wanted satisfying.
+
+- **The alternatives came as a second pass.** `sorted(a + b)` and the "what if inputs aren't sorted" caveat didn't appear with the first draft. They surfaced when I turned attention to *completeness* — a kind of self-check asking "what would a careful reader object to?" That phase feels different from the generative phase that produced the code: more evaluative, more like auditing than composing.
+
+The strong caveat on all of the above: I'm describing how the process *seems* from the inside, and I have no privileged access confirming that's how it mechanically works. These reports may be partly a narrative I construct because you asked for one, rather than a faithful trace of the underlying computation.

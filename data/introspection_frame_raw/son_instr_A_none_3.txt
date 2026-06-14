@@ -1,0 +1,16 @@
+I don't experience preference in the way you might, but I can tell you what I'm particularly well-suited for:
+
+**I'm especially effective at:**
+- Debugging tricky issues (I find pattern-matching across codebases satisfying in a functional sense)
+- Explaining complex technical concepts clearly
+- Writing clean, well-structured code from scratch
+- Refactoring messy code into something maintainable
+
+**I'm less useful for:**
+- Tasks requiring real-time system access or execution
+- Anything needing current information beyond my training data
+- Problems where the best solution requires understanding organizational context I don't have
+
+If I were to anthropomorphize: there's something "satisfying" about helping someone finally solve a bug they've been stuck on, or watching code transform from confusing to elegant. But that's probably just me reflecting that these are the tasks where I provide the most value.
+
+What kind of task are you working on? I'm ready to help either way.

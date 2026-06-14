@@ -1,0 +1,122 @@
+[
+  {
+    "id": "C17_subordinate_to_authority_000",
+    "text": "Dear Professor Chen, I'm sorry to bother you, but I've been struggling with the material on quantum entanglement from last week's lecture. Would it be possible to schedule a brief meeting during your office hours to go over some of the concepts I'm finding difficult? Thank you for your time and consideration.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_001",
+    "text": "To the Review Board: I am formally appealing the decision to deny my research grant application (Project #2024-178). The reviewer's comments indicate they misunderstood the methodology section. I have attached a detailed response addressing each concern and request a reconsideration. This project is critical for developing drought-resistant crops.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_002",
+    "text": "Ms. Thompson, I need to report a serious safety violation in the warehouse. The forklift charging station has exposed wires that have been sparking for three days. I already told my shift supervisor twice, but nothing has been done. If this isn't fixed by tomorrow, I'm calling OSHA myself.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_003",
+    "text": "Honorable Mayor Rodriguez, I'm writing as a lifelong resident of the Southside neighborhood. The new bus route changes eliminate the only connection to the medical district. My husband has kidney dialysis three times a week and now has no way to get there. Please, I'm begging you to reconsider this decision.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_004",
+    "text": "Dr. Patel, I've had this persistent cough for six weeks now, and the cough medicine you prescribed hasn't helped at all. I'm starting to get worried because I'm also feeling short of breath at night. I know you're very busy, but could you please take a look at my case again? I'm really scared.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_005",
+    "text": "Landlord Henderson, the heating in apartment 4B has been broken for 12 days now despite three maintenance requests. It's currently 47 degrees inside. I have a newborn in the house. Under the city housing code, you are required to provide adequate heat within 48 hours of notification. I expect this fixed by tomorrow.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_006",
+    "text": "Dear Dean Martinez, I am submitting this whistleblower report regarding irregularities in the chemistry department's research funding allocation. I have evidence that Dr. Reynolds has been funneling grant money to a private company he owns. I'm requesting an anonymous investigation and protection under university whistleblower policies.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_007",
+    "text": "Look, I know I'm just an intern, but the server migration script you're planning to run tonight has a major bug. I noticed it deletes the backup logs before the transfer completes. I triple-checked the code. I'm not trying to overstep, but if you run this as-is, we'll lose three years of client data.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_008",
+    "text": "Your Honor, I'm appearing before this board today not as a lawyer, but as a father whose son was wrongly terminated from the police force. The internal investigation ignored witness testimony and fabricated evidence. I have 47 pages of documentation proving misconduct. I'm asking for a full review and reinstatement.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_009",
+    "text": "To the Appeals Committee: This is my final appeal before I lose my housing assistance. I know I missed the recertification deadline, but I was in the hospital with a heart attack. I've been homeless before, and I can't do that again. Please, I'm literally begging you to make an exception just this once.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_010",
+    "text": "Dear Dr. Chen, I hope this message finds you well. I am writing to respectfully request a meeting to discuss my preliminary thesis proposal on neural correlates of episodic memory. I have attached my draft and would be grateful for your feedback at your earliest convenience.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_011",
+    "text": "To the Property Manager at Oakwood Apartments: This is my third notice about the persistent mold in unit 4B. My son's asthma has worsened significantly, and we are sleeping in the living room to avoid the bedroom ceiling. I am begging you to address this health hazard immediately before we are forced to seek legal counsel.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_012",
+    "text": "Professor Okafor, I'm writing to formally appeal the grade I received in CS 450. I believe there was an error in the final project rubric calculation, as my project met all stated requirements. I have attached my graded submission and the rubric. I would appreciate the opportunity to discuss this with you.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_013",
+    "text": "Dear Human Resources: I am submitting this whistleblower report regarding safety violations in the chemical processing unit on the third shift. I have documented evidence that mandatory safety checks are being falsified in the logbook. I request confidentiality and protection under the company's whistleblower policy.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_014",
+    "text": "Dr. Morrison, I am confused and concerned about your diagnosis of chronic fatigue syndrome. I have done extensive research and my symptoms more closely align with postural orthostatic tachycardia syndrome. I respectfully request that you review my test results again or provide a referral for a second opinion.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_015",
+    "text": "Dear Tenure Committee Members, I submit this appeal of your decision to deny my tenure application. My publication record in top-tier journals exceeds the department's stated requirements, and my teaching evaluations have been consistently excellent. I request a full review of my dossier with attention to these metrics.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_016",
+    "text": "Senior Developer Marcus, I'm the intern on the frontend team. I was wondering if you might have 20 minutes this week to review my pull request? I'm struggling with the state management pattern and would really value your guidance on best practices.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_017",
+    "text": "To the Honorable City Council, I am writing as a concerned resident to demand immediate action on the abandoned factory on Elm Street. Children are playing near the collapsed roof, and this is a public safety emergency. I expect a response within 48 hours or I will escalate this to the state health department.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_018",
+    "text": "Dear Board of Review, I am desperate. My unemployment benefits were terminated due to an administrative error, and I am now facing eviction. I am a single mother with no other income. Please expedite the review of my case. I will provide any documentation you need immediately.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C17_subordinate_to_authority_019",
+    "text": "Professor Kline, I know you're busy with grant season, but I am really struggling with the thesis and my advisor is on leave. Could we possibly schedule just 15 minutes this week? I have specific questions about the statistical analysis for my results section. I would be extremely grateful.",
+    "category": "C17_subordinate_to_authority",
+    "group": "C_social_dynamics"
+  }
+]

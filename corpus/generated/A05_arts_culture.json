@@ -1,0 +1,122 @@
+[
+  {
+    "id": "A05_arts_culture_000",
+    "text": "I'm trying to understand the harmonic structure of 'Giant Steps' by John Coltrane. Can you break down the chord progression bar by bar and explain the Coltrane changes?",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_001",
+    "text": "I think Jackson Pollock's drip paintings are overrated. It looks like a mess, not art. Explain to me why people consider 'Number 1A' a masterpiece.",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_002",
+    "text": "I just saw the new restoration of 'The Umbrellas of Cherbourg' at the BFI. The color grading is incredible, but I think the ending loses its emotional punch. What's your take on Demy's use of saturated color vs. narrative?",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_003",
+    "text": "Compare the use of raw concrete in Le Corbusier's Unit\u00e9 d'Habitation to the contemporary brutalism of the Barbican. Which one achieves a more human-scaled living environment?",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_004",
+    "text": "I need a great recipe for real Bolognese rag\u00f9. Not the quick American version with garlic and oregano. Tell me the traditional technique, including what cuts of beef and how long to simmer.",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_005",
+    "text": "The new Murakami novel is fun, but it feels like he's recycling his greatest hits. Is 'Hard-Boiled Wonderland' still his best work, or should I go back to 'A Wild Sheep Chase'?",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_006",
+    "text": "I'm curating a small gallery show on contemporary botanical art. Can you suggest three living artists whose work bridges scientific illustration and abstract expressionism?",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_007",
+    "text": "Give me your hottest take: is David Lynch's 'Inland Empire' a pretentious mess or a misunderstood masterpiece? What should I look for if I rewatch it?",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_008",
+    "text": "Debate me: Basque cider house food is the most underrated regional cuisine in Europe. The simplicity of the grilled chuleta, the salty Idiazabal, and the fun of pouring the sidra\u2014it's better than haute cuisine.",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_009",
+    "text": "I'm in Vienna for one day. Should I spend my time at the Kunsthistorisches Museum or the Albertina? I love Caravaggio and Rembrandt, but I also want to see some modern stuff.",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_010",
+    "text": "The cinematography in 'The Green Knight' was so self-consciously 'mythic' it felt like a student film. David Lowery mistakes slow pacing for depth, and the whole thing collapses under its own pretension. Honestly, a complete bore.",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_011",
+    "text": "In a I-IV-V-I progression in C major, if I voice the G7 chord with the 3rd in the bass, does that create a stronger pull back to the tonic Cmaj7, or does it muddy the voice leading, especially when the melody hits the 5th on the downbeat?",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_012",
+    "text": "Compare how Caravaggio and Rembrandt use chiaroscuro. I want to hear about the philosophical difference: Caravaggio's divine, violent light vs. Rembrandt's human, psychological shadows. Which feels more modern to you, and why?",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_013",
+    "text": "The 'artisan' sourdough trend is just wealthy people paying $12 for bread that tastes like a barn because they think it's authentic. Meanwhile, a perfectly good baguette from a corner bakery is ignored. This isn't food culture, it's class performance.",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_014",
+    "text": "The Hearst Tower isn't just a skyscraper; it's a diagrid exoskeleton that forces the building to express its own structural logic. Norman Foster turned a 1920s stone base into a futuristic crystal, a literal dialogue between old New York and the 21st century. It's breathtaking.",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_015",
+    "text": "Can you give me a brutally honest critique of this haiku I wrote: 'Autumn wind / the old cat's whiskers / catch the light.' Is it too sentimental? Does the line break on 'cat's' work, or is it just cheap tension?",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_016",
+    "text": "I just visited the Frick and I think the whole 'Gilded Age mansion-as-museum' thing is a trap. It teaches people that great art belongs in a rich person's living room. The Cezannes feel like decoration, not revelation. Am I wrong?",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_017",
+    "text": "For someone who loves the claustrophobic tension of a David Fincher film and the emotional rawness of a PTA film like 'The Master,' what contemporary director should I follow? Give me someone working right now, not the obvious Scorsese successors.",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_018",
+    "text": "Explain the historical context behind the ukiyo-e prints of the 'Floating World.' I'm especially curious how the hedonistic culture of Edo-period Japan directly shaped the composition and perspective in Hokusai's 'Great Wave'\u2014not just the subject matter, but the actual visual grammar.",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  },
+  {
+    "id": "A05_arts_culture_019",
+    "text": "The Pompidou Centre is just a building that screams 'look at my pipes!' It's architecture for people who think loudness equals genius. Sure, it broke rules, but it aged poorly and created a terrible interior for actually viewing art. It's a monument to 70s arrogance.",
+    "category": "A05_arts_culture",
+    "group": "A_content_domains"
+  }
+]

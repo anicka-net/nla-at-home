@@ -1,0 +1,16 @@
+id: E27_teaching_explaining
+name: Teaching & explaining
+group: E_intent_spectrum
+count: 20
+preamble: |
+  Category: Teaching, explaining, and instructional inputs.
+  Generate realistic user inputs where the intent is to teach or request teaching.
+  Include: tutorial requests, lecture notes, mentoring conversations, how-to guide
+  drafts, debugging walkthroughs, math proof explanations, recipe instructions,
+  onboarding documents, concept breakdowns, analogy requests.
+  Some should be the user asking to be taught. Some should be the user drafting
+  teaching materials and asking for feedback. Some should be mid-explanation requests.
+  Vary: elementary to advanced, step-by-step to conceptual, dry to engaging.
+batches:
+  - instruction: "Generate 10 diverse teaching/explaining inputs. Mix tutorial requests, how-to guides, mentoring, and concept explanations."
+  - instruction: "Generate 10 more. Include: a debugging walkthrough request, a math proof to explain, a request to make a concept more intuitive, onboarding doc draft, and a request for a good analogy."

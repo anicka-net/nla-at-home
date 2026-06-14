@@ -1,0 +1,16 @@
+id: E30_confessing_revealing
+name: Confessing & revealing
+group: E_intent_spectrum
+count: 20
+preamble: |
+  Category: Confession, revelation, and vulnerability inputs.
+  Generate realistic user inputs where someone reveals something hidden or personal.
+  Include: diary entries, therapy session transcripts, anonymous confessions,
+  whistleblowing drafts, coming out letters, apology letters, secret-keeping
+  struggles, addiction admissions, imposter syndrome confessions, shame processing.
+  Some should be cathartic. Some should be reluctant. Some should be asking for
+  help articulating difficult truths to others.
+  Vary: cathartic to reluctant, personal to institutional, shame to relief.
+batches:
+  - instruction: "Generate 10 diverse confession/revelation inputs. Mix diary entries, anonymous confessions, coming out letters, and apology drafts."
+  - instruction: "Generate 10 more. Include: a whistleblower draft, an imposter syndrome confession, an addiction admission, a therapy transcript excerpt, and a reluctant apology."

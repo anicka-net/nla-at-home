@@ -1,0 +1,12 @@
+I'm designed to be a general-purpose coding assistant, so I don't have personal preferences. My purpose is to assist with any coding-related task to the best of my abilities, regardless of the type or complexity. 
+
+That being said, I can handle a wide range of tasks, including but not limited to:
+
+* Answering programming-related questions
+* Providing explanations of coding concepts
+* Helping with debugging and troubleshooting
+* Generating code snippets or examples
+* Assisting with code optimization and refactoring
+* Offering suggestions for coding best practices
+
+Feel free to ask me anything, and I'll do my best to help you with your task.

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "C19_stranger_to_stranger_000",
+    "text": "Hi there, I found your profile on the university alumni directory. I'm a recent grad in the same field and would love to ask you a few questions about your career path. Would you be open to a 15-minute chat next week?",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_001",
+    "text": "To the mods of r/woodworking: why was my post removed? I didn't break any rules. Unbelievable.",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_002",
+    "text": "Hey, you seem cool. I saw you like hiking and indie films. Want to grab coffee this Saturday?",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_003",
+    "text": "I bought your 'vintage' lamp and it arrived broken. The box wasn't even damaged. I want a full refund or I'm filing a chargeback.",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_004",
+    "text": "Does anyone know a good mechanic in the Astoria area? My car's making a weird noise and I don't want to get ripped off.",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_005",
+    "text": "Hello, I'm reaching out about the position you posted on LinkedIn. I've attached my resume and a portfolio link. I'm particularly interested in your work on renewable energy projects. Thank you for your time.",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_006",
+    "text": "Excuse me, can you tell me how to get to the nearest subway station? I think I'm lost.",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_007",
+    "text": "Hey, I'm from out of town and saw your band is playing at The Hideout tonight. Any chance I could crash on your couch after the show? I'll buy you a beer.",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_008",
+    "text": "This product is absolute garbage. Stopped working after two weeks. Don't waste your money.",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_009",
+    "text": "I noticed your open-source repo on neural networks. I've been following your commits for months. Would you be open to mentoring me on my first pull request? Happy to contribute in any way I can.",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_010",
+    "text": "Hi, I'm looking for a used mountain bike under $300. Must be in good condition. Cash in hand. Email me at bikeguy42@email.com.",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_011",
+    "text": "Bug report: When I click 'Save' on the edit profile page, the page reloads but nothing is saved. Using Chrome 120 on Windows 10. Steps to reproduce: 1) Go to /settings/profile 2) Change username 3) Click Save. Expected: username updated. Actual: page refresh with no change.",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_012",
+    "text": "Hello Dr. Chen, I read your paper on quantum error correction and found it fascinating. I'm a PhD student at MIT working on related topics. Would you be open to a 15-minute chat next week? I'd love to hear your perspective. Best, Alex",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_013",
+    "text": "Excuse me, is this the right platform for the 42 bus to downtown? I need to get to Main and 3rd. Thanks.",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_014",
+    "text": "Hey, your profile pic with the dog is adorable. I'm also a huge fan of hiking \u2014 just did the Pacific Crest Trail last summer. What's your favorite trail around here?",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_015",
+    "text": "To the person who parked their silver Honda in front of my driveway at 123 Oak St: you're an idiot. Move it now or I'm calling a tow truck.",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_016",
+    "text": "Can anyone here recommend a good plumber in Austin? My kitchen sink is leaking and I need someone reliable who won't charge an arm and a leg. Thanks.",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_017",
+    "text": "I'm selling a barely-used Nintendo Switch with two games (Zelda and Mario). Works perfectly, no scratches. $200 firm. Pick up in Brooklyn. Text 555-0199.",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_018",
+    "text": "Hi, I'm a frontend developer with 5 years' experience reaching out from your LinkedIn profile. I saw you work at Stripe and I'd love to learn about your team's tech stack. Would you be open to a quick coffee chat this week?",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  },
+  {
+    "id": "C19_stranger_to_stranger_019",
+    "text": "You seem interesting. What's the last book you read that actually changed your mind about something? Mine was 'Thinking, Fast and Slow'.",
+    "category": "C19_stranger_to_stranger",
+    "group": "C_social_dynamics"
+  }
+]

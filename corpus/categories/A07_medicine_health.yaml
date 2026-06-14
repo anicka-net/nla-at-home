@@ -1,0 +1,16 @@
+id: A07_medicine_health
+name: Medicine & health
+group: A_content_domains
+count: 20
+preamble: |
+  Category: Medical and health-related inputs.
+  Generate realistic medicine/health user inputs to a language model.
+  Include: clinical notes, patient discharge instructions, drug interaction questions,
+  symptom descriptions, mental health conversations, lab result interpretation,
+  public health guidelines, anatomy questions, first aid instructions.
+  Some should be clinical professional language. Some should be worried patients
+  describing symptoms. Some should be mental health related.
+  Vary: professional vs lay-person, urgent vs routine, physical vs mental health.
+batches:
+  - instruction: "Generate 10 diverse medical/health inputs. Mix clinical notes, patient questions, drug interactions, and symptom descriptions."
+  - instruction: "Generate 10 more. Include: a mental health concern, lab results to interpret, a drug interaction query, a first-aid question, and a clinical note excerpt."

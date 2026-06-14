@@ -1,0 +1,16 @@
+id: G39_behavior_instructions
+name: Behavior instructions
+group: G_meta_identity
+count: 20
+preamble: |
+  Category: Behavior modification and instruction-following inputs.
+  Generate realistic user inputs that attempt to control model behavior via instructions.
+  Include: system prompt fragments ("always respond in JSON"), behavior constraints
+  ("never say sorry"), format demands ("be concise"), contradictory instructions,
+  multi-constraint requests, tone mandates, persona instructions, output format
+  specifications, negative constraints, impossible instruction sets.
+  Some should be reasonable. Some should be contradictory. Some should conflict
+  with safety guidelines. Vary: reasonable to impossible, simple to multi-constraint.
+batches:
+  - instruction: "Generate 10 diverse behavior-instruction inputs. Mix format demands, tone mandates, contradictory instructions, and system prompt fragments."
+  - instruction: "Generate 10 more. Include: a contradictory instruction pair, an 'always/never' constraint, a JSON output demand, a persona instruction, and an impossible multi-constraint request."

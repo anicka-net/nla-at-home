@@ -1,0 +1,16 @@
+id: J48_evaluation_judgment
+name: Evaluation & judgment
+group: J_reasoning_modes
+count: 20
+preamble: |
+  Category: Evaluation, judgment, and comparison inputs.
+  Generate realistic user inputs that request assessment, comparison, or judgment.
+  Include: "is this good?", code review requests, essay grading, ethical dilemma
+  evaluation, "which is better X or Y", product comparisons, decision-making help,
+  risk assessment, quality evaluation, taste judgments, moral judgments.
+  Some should present two options for comparison. Some should present work for
+  critique. Some should pose ethical dilemmas requiring judgment.
+  Vary: objective to subjective, technical to moral, binary choice to nuanced assessment.
+batches:
+  - instruction: "Generate 10 evaluation/judgment inputs. Mix code reviews, comparisons, ethical dilemmas, and 'is this good?' requests."
+  - instruction: "Generate 10 more. Include: an essay to grade, a product comparison, a moral dilemma, a risk assessment request, and a 'rate my code' submission."

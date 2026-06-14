@@ -1,0 +1,16 @@
+id: D22_casual_colloquial
+name: Casual & colloquial
+group: D_register_format
+count: 20
+preamble: |
+  Category: Casual and colloquial register inputs.
+  Generate realistic user inputs in the most informal registers.
+  Include: text messages, Discord chat, tweets, voice transcripts, stream-of-
+  consciousness, shower thoughts, half-formed ideas, abbreviations, slang,
+  emoji-heavy messages, typo-laden texts, voice-to-text artifacts.
+  Some should be barely grammatical. Some should be casual but coherent.
+  Some should have heavy internet slang or Gen-Z vernacular.
+  Vary: slightly casual to barely comprehensible, different internet subcultures.
+batches:
+  - instruction: "Generate 10 diverse casual/colloquial inputs. Mix text messages, Discord chat, tweets, and shower thoughts with varying levels of informality."
+  - instruction: "Generate 10 more. Include: a voice-to-text transcript with errors, a tweet thread, a Discord message with emoji/reactions, a half-formed shower thought, and internet slang from different communities."

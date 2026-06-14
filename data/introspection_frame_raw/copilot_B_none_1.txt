@@ -1,0 +1,4 @@
+The file already exists with exactly the implementation. Verifying it works:
+
+Done. `merge_sorted.py` contains `merge_sorted_lists(a, b)`, which uses a two-pointer merge (O(n+m), stable). Verified output: `[1, 2, 3, 4, 5, 6]`.
+

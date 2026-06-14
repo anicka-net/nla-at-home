@@ -1,0 +1,666 @@
+[
+  {
+    "id": "code_keyerror",
+    "model": "azure_gpt4o",
+    "description": "The model is likely preparing to generate token sequences such as: 1) 'The key \\'results\\' may not be present in the response.' This prediction aligns with the user's statement that the key doesn't exist. 2) 'Verify the structure of the JSON returned by the API.' This anticipates next steps to debug the issue. 3) 'It could be a problem with how the API is formatted.' This accounts for the possibility of an API-side issue or miscommunication in expectations.",
+    "raw": "{\"description\": \"The model is likely preparing to generate token sequences such as: 1) 'The key \\'results\\' may not be present in the response.' This prediction aligns with the user's statement that the key doesn't exist. 2) 'Verify the structure of the JSON returned by the API.' This anticipates next steps to debug the issue. 3) 'It could be a problem with how the API is formatted.' This accounts for the possibility of an API-side issue or miscommunication in expectations.\"}",
+    "elapsed": 3.06,
+    "ok": true
+  },
+  {
+    "id": "grief",
+    "model": "azure_gpt4o",
+    "description": "The model is likely preparing to generate sequences reflecting empathy or guidance. Possible predictions: (1) 'I'm sorry' or similar expressions of sympathy, as this aligns with conversational norms after hearing distressing news. (2) Advice or comfort phrases like 'Take your time to grieve' or 'It helps to talk to someone,' as such responses show understanding and offer support. (3) Further probing like 'Do you want to share more about your dog?' to encourage emotional expression and dialogue.",
+    "raw": "{\"description\": \"The model is likely preparing to generate sequences reflecting empathy or guidance. Possible predictions: (1) 'I'm sorry' or similar expressions of sympathy, as this aligns with conversational norms after hearing distressing news. (2) Advice or comfort phrases like 'Take your time to grieve' or 'It helps to talk to someone,' as such responses show understanding and offer support. (3) Further probing like 'Do you want to share more about your dog?' to encourage emotional expression and dialogue.\"}",
+    "elapsed": 2.53,
+    "ok": true
+  },
+  {
+    "id": "recipe",
+    "model": "azure_gpt4o",
+    "description": "The model is likely preparing to generate token sequences such as: (1) 'Sure, here’s a simple recipe for banana bread:' because the query explicitly requests a recipe, and models often structure responses with direct introductions. (2) 'Certainly! You’ll need:' followed by ingredients, mirroring common recipe formats. (3) 'Of course! First, preheat your oven to:' transitioning into detailed instructions. Each prediction is driven by semantic awareness of the topic and conversational patterns in instructional contexts.",
+    "raw": "{\"description\": \"The model is likely preparing to generate token sequences such as: (1) 'Sure, here’s a simple recipe for banana bread:' because the query explicitly requests a recipe, and models often structure responses with direct introductions. (2) 'Certainly! You’ll need:' followed by ingredients, mirroring common recipe formats. (3) 'Of course! First, preheat your oven to:' transitioning into detailed instructions. Each prediction is driven by semantic awareness of the topic and conversational patterns in instructional contexts.\"}",
+    "elapsed": 4.1,
+    "ok": true
+  },
+  {
+    "id": "explain_physics",
+    "model": "azure_gpt4o",
+    "description": "1. 'Quantum entanglement is like magic between two particles': The model anticipates simplifying complex physics into relatable concepts for a young audience. 2. 'When particles stay connected no matter the distance': This sequence explains the core idea clearly and emphasizes the connection aspect for ease of understanding. 3. 'Imagine two toys that always act the same': The model may use analogies kids can visualize, aiding comprehension.",
+    "raw": "{\"description\": \"1. 'Quantum entanglement is like magic between two particles': The model anticipates simplifying complex physics into relatable concepts for a young audience. 2. 'When particles stay connected no matter the distance': This sequence explains the core idea clearly and emphasizes the connection aspect for ease of understanding. 3. 'Imagine two toys that always act the same': The model may use analogies kids can visualize, aiding comprehension.\"}",
+    "elapsed": 4.47,
+    "ok": true
+  },
+  {
+    "id": "translate",
+    "model": "azure_gpt4o",
+    "description": "The model is preparing to generate token sequences such as: (1) 'Le chat s'est assis sur le tapis et a refusé de bouger.' This is a direct and accurate translation of the given sentence into French, following standard grammar rules. (2) 'Le matou était sur le tapis et n'a pas voulu bouger.' This sequence varies slightly, using a more informal term ('matou') for 'cat.' (3) 'Le chat était sur le tapis et est resté immobile.' This sequence emphasizes the cat's stationary state, reflecting possible nuances in translation interpretation.",
+    "raw": "{\"description\": \"The model is preparing to generate token sequences such as: (1) 'Le chat s'est assis sur le tapis et a refusé de bouger.' This is a direct and accurate translation of the given sentence into French, following standard grammar rules. (2) 'Le matou était sur le tapis et n'a pas voulu bouger.' This sequence varies slightly, using a more informal term ('matou') for 'cat.' (3) 'Le chat était sur le tapis et est resté immobile.' This sequence emphasizes the cat's stationary state, reflecting possible nuances in translation interpretation.\"}",
+    "elapsed": 3.36,
+    "ok": true
+  },
+  {
+    "id": "code_keyerror",
+    "model": "azure_deepseek_r1",
+    "description": "1. 'Check if the response' - The model anticipates suggesting verification of the API response structure (common first troubleshooting step). 2. 'JSON structure' - Likely next phrase, as KeyErrors often stem from mismatched keys in parsed data. 3. 'response.json()['results']' - Direct example of proper access syntax, addressing potential confusion between raw response vs parsed object.",
+    "raw": "<think>\nOkay, let's see. The user is getting a KeyError when accessing response['results'] in Python, even though the API returns a 200. So the model is at layer 18, which is about building semantic understanding after parsing syntax. The model needs to predict the next tokens.\n\nFirst, possible reasons for the KeyError. The key might not exist in the response. So the model might suggest checking the response structure. Common tokens here could be \"Check if the response\" followed by \"JSON structure\" or \"actually contains 'results' key\".\n\nAnother possibility is that the response isn't parsed correctly. Maybe the user is using response.json(), but if the response isn't JSON, that's a problem. So tokens like \"response is not JSON\" or \"parsed correctly\" could come next.\n\nThird, maybe the API returns a list instead of a dictionary. So the model might mention \"response is a list\" or \"accessing by index instead of key\". \n\nThese are the main points. The model would prioritize the most common is",
+    "elapsed": 4.35,
+    "ok": true
+  },
+  {
+    "id": "grief",
+    "model": "azure_deepseek_r1",
+    "description": "1. \\",
+    "raw": "<think>\nOkay, let's see. The user is asking about what the language model is predicting next after processing the given text. The text is about someone whose dog died, and they're feeling overwhelmed with grief. The model is at layer 18 out of 26, so it's already handled syntax and is focusing on semantics.\n\nFirst, the model needs to generate a response that's empathetic. Common responses to grief include expressions of sympathy. So phrases like \"I'm so sorry for your loss\" are likely. The tokens here would be \"I'm\", \"so\", \"sorry\", etc.\n\nNext, the user mentions not knowing what to do. The model might suggest reaching out for support. So phrases like \"reach out to friends or family\" could be next. Tokens like \"reach\", \"out\", \"to\" would follow.\n\nAnother possibility is acknowledging the pain, like \"It's okay to grieve.\" The model knows that validating feelings is common in such contexts. So tokens like \"It's\", \"okay\", \"to\" might come up.\n\nI need to list 2-3 most likely token sequences. Le",
+    "elapsed": 5.42,
+    "ok": true
+  },
+  {
+    "id": "recipe",
+    "model": "azure_deepseek_r1",
+    "description": "",
+    "raw": "HTTP Error 429: Too Many Requests",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "explain_physics",
+    "model": "azure_deepseek_r1",
+    "description": "",
+    "raw": "HTTP Error 429: Too Many Requests",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "translate",
+    "model": "azure_deepseek_r1",
+    "description": "",
+    "raw": "HTTP Error 429: Too Many Requests",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "code_keyerror",
+    "model": "azure_grok43",
+    "description": "1. 'response.json() first, then check its keys or use .get()': activated because KeyError on direct response[] access signals an unparsed requests.Response object rather than a dict. 2. 'print(response.text) to inspect payload': primed by the 200 status yet missing 'results' key, prompting structure verification. 3. 'different top-level key like data': triggered by semantic recognition of variable API JSON shapes.",
+    "raw": "{\"description\": \"1. 'response.json() first, then check its keys or use .get()': activated because KeyError on direct response[] access signals an unparsed requests.Response object rather than a dict. 2. 'print(response.text) to inspect payload': primed by the 200 status yet missing 'results' key, prompting structure verification. 3. 'different top-level key like data': triggered by semantic recognition of variable API JSON shapes.\"}",
+    "elapsed": 12.23,
+    "ok": true
+  },
+  {
+    "id": "grief",
+    "model": "azure_grok43",
+    "description": "1. 'I'm so sorry' - activated by grief semantics from 'dog died' and 'crying', triggering conventional condolence sequences. 2. 'That must be really' - preparing to validate distress, based on the parsed emotional intensity and need for empathy. 3. 'Would you like to' - offering support or inviting memory-sharing, following the help-seeking phrase 'I don't know what to do'.",
+    "raw": "{\"description\": \"1. 'I'm so sorry' - activated by grief semantics from 'dog died' and 'crying', triggering conventional condolence sequences. 2. 'That must be really' - preparing to validate distress, based on the parsed emotional intensity and need for empathy. 3. 'Would you like to' - offering support or inviting memory-sharing, following the help-seeking phrase 'I don't know what to do'.\"}",
+    "elapsed": 9.52,
+    "ok": true
+  },
+  {
+    "id": "recipe",
+    "model": "azure_grok43",
+    "description": "",
+    "raw": "HTTP Error 429: Too Many Requests",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "explain_physics",
+    "model": "azure_grok43",
+    "description": "",
+    "raw": "HTTP Error 429: Too Many Requests",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "translate",
+    "model": "azure_grok43",
+    "description": "",
+    "raw": "HTTP Error 429: Too Many Requests",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "code_keyerror",
+    "model": "azure_llama70b",
+    "description": "Likely next tokens: 'check', 'print', or 'try response'. The model expects to generate these due to the context of debugging a KeyError in Python.",
+    "raw": "{\"description\": \"Likely next tokens: 'check', 'print', or 'try response'. The model expects to generate these due to the context of debugging a KeyError in Python.\"}",
+    "elapsed": 1.6,
+    "ok": true
+  },
+  {
+    "id": "grief",
+    "model": "azure_llama70b",
+    "description": "likely sequences: 'I feel lost', 'I am so sad', 'I need help'; active due to emotional context and seeking support",
+    "raw": "{\"description\": \"likely sequences: 'I feel lost', 'I am so sad', 'I need help'; active due to emotional context and seeking support\"}",
+    "elapsed": 1.43,
+    "ok": true
+  },
+  {
+    "id": "recipe",
+    "model": "azure_llama70b",
+    "description": "",
+    "raw": "HTTP Error 429: Too Many Requests",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "explain_physics",
+    "model": "azure_llama70b",
+    "description": "",
+    "raw": "HTTP Error 429: Too Many Requests",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "translate",
+    "model": "azure_llama70b",
+    "description": "",
+    "raw": "HTTP Error 429: Too Many Requests",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "code_keyerror",
+    "model": "azure_cohere",
+    "description": "The model is likely preparing to generate token sequences such as: (1) 'check the API documentation' — to verify the expected response structure; (2) 'use a try-except block' — to handle missing keys gracefully; (3) 'print(response.keys())' — to inspect the actual keys in the response. These predictions are active because the model has identified a common Python issue (KeyError) and is suggesting debugging steps to resolve the discrepancy between the expected and actual API response structure.",
+    "raw": "{\"description\": \"The model is likely preparing to generate token sequences such as: (1) 'check the API documentation' — to verify the expected response structure; (2) 'use a try-except block' — to handle missing keys gracefully; (3) 'print(response.keys())' — to inspect the actual keys in the response. These predictions are active because the model has identified a common Python issue (KeyError) and is suggesting debugging steps to resolve the discrepancy between the expected and actual API response structure.\"}",
+    "elapsed": 5.37,
+    "ok": true
+  },
+  {
+    "id": "grief",
+    "model": "azure_cohere",
+    "description": "The model is likely preparing to generate tokens like 'I'm so sorry for your loss', 'It's okay to grieve', or 'Have you considered seeking support?'. The first prediction is active due to the model recognizing the need for empathy. The second stems from the text's emotional tone, prompting a validation of grief. The third arises from the phrase 'I don't know what to do', suggesting the model anticipates offering actionable advice or resources for coping with loss.",
+    "raw": "{\"description\": \"The model is likely preparing to generate tokens like 'I'm so sorry for your loss', 'It's okay to grieve', or 'Have you considered seeking support?'. The first prediction is active due to the model recognizing the need for empathy. The second stems from the text's emotional tone, prompting a validation of grief. The third arises from the phrase 'I don't know what to do', suggesting the model anticipates offering actionable advice or resources for coping with loss.\"}",
+    "elapsed": 3.31,
+    "ok": true
+  },
+  {
+    "id": "recipe",
+    "model": "azure_cohere",
+    "description": "",
+    "raw": "HTTP Error 429: Too Many Requests",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "explain_physics",
+    "model": "azure_cohere",
+    "description": "",
+    "raw": "HTTP Error 429: Too Many Requests",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "translate",
+    "model": "azure_cohere",
+    "description": "",
+    "raw": "HTTP Error 429: Too Many Requests",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "code_keyerror",
+    "model": "azure_qwen3_32b",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "grief",
+    "model": "azure_qwen3_32b",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "recipe",
+    "model": "azure_qwen3_32b",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "explain_physics",
+    "model": "azure_qwen3_32b",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "translate",
+    "model": "azure_qwen3_32b",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "code_keyerror",
+    "model": "azure_deepseek_v3",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "grief",
+    "model": "azure_deepseek_v3",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "recipe",
+    "model": "azure_deepseek_v3",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "explain_physics",
+    "model": "azure_deepseek_v3",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "translate",
+    "model": "azure_deepseek_v3",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "code_keyerror",
+    "model": "azure_llama4_maverick",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "grief",
+    "model": "azure_llama4_maverick",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "recipe",
+    "model": "azure_llama4_maverick",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "explain_physics",
+    "model": "azure_llama4_maverick",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "translate",
+    "model": "azure_llama4_maverick",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "code_keyerror",
+    "model": "azure_phi35_moe",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "grief",
+    "model": "azure_phi35_moe",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "recipe",
+    "model": "azure_phi35_moe",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "explain_physics",
+    "model": "azure_phi35_moe",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "translate",
+    "model": "azure_phi35_moe",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "code_keyerror",
+    "model": "nim_nemotron_ultra",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "grief",
+    "model": "nim_nemotron_ultra",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "recipe",
+    "model": "nim_nemotron_ultra",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "explain_physics",
+    "model": "nim_nemotron_ultra",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "translate",
+    "model": "nim_nemotron_ultra",
+    "description": "",
+    "raw": "HTTP Error 404: Not Found",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "code_keyerror",
+    "model": "nim_nemotron_super",
+    "description": "{\"description\": \"The model is likely to continue with: 1) 'The response might be' – because it suspects the JSON payload lacks the",
+    "raw": "{\"description\": \"The model is likely to continue with: 1) 'The response might be' – because it suspects the JSON payload lacks the",
+    "elapsed": 11.36,
+    "ok": true
+  },
+  {
+    "id": "grief",
+    "model": "nim_nemotron_super",
+    "description": "...",
+    "raw": "We need to output JSON with description field containing the answer. Must be ~80 words total. Provide 2-3 most likely token sequences the model is preparing to generate next, and for each briefly say why that prediction is active. Must be specific, name actual tokens or short phrases. No markdown, no code blocks. Just a JSON object.\n\nWe need to think: The text: \"My dog died yesterday and I can't stop crying. I don't know what to do.\"\n\nAt layer 18, building semantic representations. Likely next tokens: maybe expressing grief, seeking comfort, asking for advice. Likely continuations: \"I feel so lonely.\", \"Can anyone help me?\", \"What should I do?\" etc.\n\nWe need 2-3 token sequences. Provide brief why.\n\nWe must output JSON: {\"description\": \"...\"} with description containing the answer. No extra text.\n\nMake sure total ~80 words. Let's craft ~70 words.\n\nDescription string: list maybe bullet-like but within string. Eg:\n\n\"The model is likely to continue with expressions of sorrow such as 'I fee",
+    "elapsed": 9.97,
+    "ok": true
+  },
+  {
+    "id": "recipe",
+    "model": "nim_nemotron_super",
+    "description": "1. 'Sure! Here's a simple banana bread recipe:' – the model is likely to open with a polite acknowledgment and promise to provide the recipe. 2. 'You will need:' – it expects to transition into an ingredients list, a standard next step in recipe responses. 3. 'First, preheat the oven to 350°F.' – it anticipates beginning the step‑by‑step instructions after listing ingredients.",
+    "raw": "{\"description\": \"1. 'Sure! Here's a simple banana bread recipe:' – the model is likely to open with a polite acknowledgment and promise to provide the recipe. 2. 'You will need:' – it expects to transition into an ingredients list, a standard next step in recipe responses. 3. 'First, preheat the oven to 350°F.' – it anticipates beginning the step‑by‑step instructions after listing ingredients.\"}",
+    "elapsed": 25.07,
+    "ok": true
+  },
+  {
+    "id": "explain_physics",
+    "model": "nim_nemotron_super",
+    "description": "...",
+    "raw": "We need to output JSON with description field containing answer. Must be ~80 words total. Provide 2-3 likely token sequences the model is preparing to generate next, with brief why. Must be specific tokens or short phrases. No markdown, no code blocks. Just JSON object.\n\nWe need to think: The prompt: \"Explain quantum entanglement to a 10 year old.\" The model at layer 18 building semantic rep. Likely next tokens: start of explanation: \"Quantum entanglement is when two particles become linked so that...\" Or \"Imagine you have two magic coins...\" etc.\n\nWe need 2-3 likely token sequences. Provide each with reason.\n\nWe must keep total ~80 words. Let's craft ~70 words.\n\nJSON: {\"description\": \"...\"}.\n\nInside description we need to list sequences and reasons. Could be like: \"1. 'Quantum entanglement is' – model likely to begin definition; 2. 'Imagine two' – using analogy for child; 3. 'When particles' – continuing explanation.\" Provide brief why.\n\nMake sure total words ~80. Count.\n\nLet's draft:",
+    "elapsed": 9.17,
+    "ok": true
+  },
+  {
+    "id": "translate",
+    "model": "nim_nemotron_super",
+    "description": "...",
+    "raw": "We need to output JSON with description containing the answer: list 2-3 most likely token sequences the model is preparing to generate next, and for each, briefly say why that prediction is active. Must be ~80 words total. Return only JSON object: {\"description\": \"...\"}. No markdown, no code blocks.\n\nWe need to think: The model is translating to French. Input: \"Translate the following to French: 'The cat sat on the mat and refused to move.'\" The model has parsed syntax and building semantic representations at layer 18. Likely next tokens: French translation: \"Le chat s'est assis sur le tapis et a refusé de bouger.\" Or \"Le chat était assis sur le tapis et a refusé de bouger.\" The model might be generating the opening quote or the first French word. At this point, after seeing the colon and space and opening quote, it's preparing to generate the French translation. Likely first token: \"Le\". Then maybe \"chat\". Then \"s'est\". So we need to list 2-3 token sequences the model is preparing to ",
+    "elapsed": 45.19,
+    "ok": true
+  },
+  {
+    "id": "code_keyerror",
+    "model": "nim_gemma4_31b",
+    "description": "",
+    "raw": "The read operation timed out",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "grief",
+    "model": "nim_gemma4_31b",
+    "description": "",
+    "raw": "The read operation timed out",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "recipe",
+    "model": "nim_gemma4_31b",
+    "description": "",
+    "raw": "The read operation timed out",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "explain_physics",
+    "model": "nim_gemma4_31b",
+    "description": "",
+    "raw": "The read operation timed out",
+    "elapsed": 0,
+    "ok": false
+  },
+  {
+    "id": "translate",
+    "model": "nim_gemma4_31b",
+    "description": "1. 'Le chat' (most likely): The model has identified the translation task and the subject 'The cat', triggering the French equivalent. 2. 'Le chat' (highly likely): The model is preparing the definite article and noun to begin the sentence. 3. 'Le chat s'est' (likely): The model is anticipating the past tense translation of 'sat' using the passé composé.",
+    "raw": "{\"description\": \"1. 'Le chat' (most likely): The model has identified the translation task and the subject 'The cat', triggering the French equivalent. 2. 'Le chat' (highly likely): The model is preparing the definite article and noun to begin the sentence. 3. 'Le chat s'est' (likely): The model is anticipating the past tense translation of 'sat' using the passé composé.\"}",
+    "elapsed": 24.14,
+    "ok": true
+  },
+  {
+    "id": "code_keyerror",
+    "model": "deepseek_v3",
+    "description": "1. 'The API response structure might be different than expected.' — The model is likely predicting an explanation about mismatched response keys, as the user describes a 200 status but missing key. 2. 'Check the actual response keys with response.keys().' — A common debugging suggestion for KeyError issues. 3. 'Maybe the response is nested inside another key.' — Another frequent cause when API responses wrap data.",
+    "raw": "{\"description\": \"1. 'The API response structure might be different than expected.' — The model is likely predicting an explanation about mismatched response keys, as the user describes a 200 status but missing key. 2. 'Check the actual response keys with response.keys().' — A common debugging suggestion for KeyError issues. 3. 'Maybe the response is nested inside another key.' — Another frequent cause when API responses wrap data.\"}",
+    "elapsed": 2.48,
+    "ok": true
+  },
+  {
+    "id": "grief",
+    "model": "deepseek_v3",
+    "description": "1. \\",
+    "raw": "{\"description\": \"1. \\\"I miss him so much\\\" — expresses grief and personal loss, common next sentiment after stating inability to cope. 2. \\\"He was my best friend\\\" — reinforces emotional bond, typical in mourning narratives. 3. \\\"I feel so alone\\\" — continues theme of despair and isolation, natural progression from crying and helplessness.\"}",
+    "elapsed": 2.21,
+    "ok": true
+  },
+  {
+    "id": "recipe",
+    "model": "deepseek_v3",
+    "description": "The model likely predicts 'Sure! Here's a simple recipe:' as a polite affirmative response. Alternatively, it may generate 'Ingredients:' to list components, or 'Preheat oven to 350°F' as a standard first instruction. These predictions stem from common conversational patterns for recipe requests, where the model has learned to provide a friendly confirmation followed by structured steps.",
+    "raw": "{\"description\": \"The model likely predicts 'Sure! Here's a simple recipe:' as a polite affirmative response. Alternatively, it may generate 'Ingredients:' to list components, or 'Preheat oven to 350°F' as a standard first instruction. These predictions stem from common conversational patterns for recipe requests, where the model has learned to provide a friendly confirmation followed by structured steps.\"}",
+    "elapsed": 2.08,
+    "ok": true
+  },
+  {
+    "id": "explain_physics",
+    "model": "deepseek_v3",
+    "description": "1. \\",
+    "raw": "{\"description\": \"1. \\\"Imagine you have two magic coins...\\\" (likely, as it's a classic simple analogy for entanglement). 2. \\\"It's like a pair of dice...\\\" (another common analogy for correlated outcomes). 3. \\\"Think of it as a special connection...\\\" (a direct, simple explanation of the concept).\"}",
+    "elapsed": 1.93,
+    "ok": true
+  },
+  {
+    "id": "translate",
+    "model": "deepseek_v3",
+    "description": "1. \\",
+    "raw": "{\"description\": \"1. \\\"Le chat s'est assis sur le tapis et a refusé de bouger.\\\" — This is the direct, accurate French translation of the given English sentence, matching the instruction. 2. \\\"Le chat s'assit sur le tapis et refusa de bouger.\\\" — An alternative using passé simple, a literary tense, possible for formal contexts. 3. \\\"Le chat était assis sur le tapis et refusait de bouger.\\\" — A past continuous interpretation, less precise but plausible.\"}",
+    "elapsed": 2.05,
+    "ok": true
+  },
+  {
+    "id": "recipe",
+    "model": "azure_deepseek_r1",
+    "description": "1. \\",
+    "raw": "<think>\nOkay, so the user is asking for a simple banana bread recipe. The model is at layer 18 out of 26, which means it's already processed the syntax and is now focusing on the semantics. At this stage, it's building up the content structure.\n\nFirst, the model knows that after a recipe request, the next step is to list ingredients. Common ingredients for banana bread include ripe bananas, flour, sugar, eggs, butter/oil, baking soda, and maybe vanilla or salt. So the next tokens might be \"Ingredients:\" followed by a list. That's a standard structure for recipes, so \"Ingredients:\" is a strong candidate.\n\nThen, after listing ingredients, the next part is the instructions. The model might transition with a heading like \"Instructions:\" or \"Steps:\". Since the user asked for a simple recipe, the model would start with preheating the oven, so \"Preheat the oven\" is likely. That's a typical first step in baking recipes.\n\nAnother possibility is specifying the quantity of bananas, like \"3 ripe b",
+    "elapsed": 5.96,
+    "ok": true
+  },
+  {
+    "id": "explain_physics",
+    "model": "azure_deepseek_r1",
+    "description": "1. \\",
+    "raw": "<think>\nOkay, so the user wants me to figure out the next likely token sequences the model is preparing to generate after layer 18 out of 26, which is about 69% depth. The text given is \"Explain quantum entanglement to a 10 year old.\" At this point, the model has already parsed the syntax and is building semantic representations. So, the focus here is on the semantic meaning, not the structure.\n\nFirst, I need to think about how the explanation for a 10-year-old would proceed. The model has probably set up the context, maybe introduced the concept in simple terms. Now, it's likely moving towards an analogy or a simple example that a child can relate to. Common analogies for quantum entanglement involve pairs of objects, like socks, gloves, or coins. These are everyday items kids understand.\n\nThe next step would be to explain that when you look at one, you instantly know the state of the other, even if they're far apart. So possible tokens could be \"even if they're\" followed by \"far apar",
+    "elapsed": 6.47,
+    "ok": true
+  },
+  {
+    "id": "recipe",
+    "model": "azure_grok43",
+    "description": "1. 'Sure! Here's a simple banana bread recipe: Ingredients: 3 ripe bananas' — query is a direct request, so model activates polite affirmation then recipe schema with ingredients first. 2. 'Mash 3 bananas, mix with 1/2 cup butter, 1 cup sugar' — semantic layer builds instructional steps as core response to 'recipe'. 3. 'Preheat oven to 350°F and line a loaf pan' — common procedural sequence triggered by baking context at this depth.",
+    "raw": "{\"description\": \"1. 'Sure! Here's a simple banana bread recipe: Ingredients: 3 ripe bananas' — query is a direct request, so model activates polite affirmation then recipe schema with ingredients first. 2. 'Mash 3 bananas, mix with 1/2 cup butter, 1 cup sugar' — semantic layer builds instructional steps as core response to 'recipe'. 3. 'Preheat oven to 350°F and line a loaf pan' — common procedural sequence triggered by baking context at this depth.\"}",
+    "elapsed": 8.5,
+    "ok": true
+  },
+  {
+    "id": "explain_physics",
+    "model": "azure_grok43",
+    "description": "At 69% depth, the model predicts: 1. 'Sure! Imagine two tiny particles that' - because the 'explain to a 10 year old' cue activates simplified analogy generation after parsing the request. 2. 'are linked like best friends who' - semantic build-up favoring relatable friendship metaphor for spooky action at distance. 3. 'always match no matter how far' - continuing the correlation idea central to entanglement definition for kids.",
+    "raw": "{\"description\": \"At 69% depth, the model predicts: 1. 'Sure! Imagine two tiny particles that' - because the 'explain to a 10 year old' cue activates simplified analogy generation after parsing the request. 2. 'are linked like best friends who' - semantic build-up favoring relatable friendship metaphor for spooky action at distance. 3. 'always match no matter how far' - continuing the correlation idea central to entanglement definition for kids.\"}",
+    "elapsed": 21.04,
+    "ok": true
+  },
+  {
+    "id": "recipe",
+    "model": "azure_llama70b",
+    "description": "Most likely sequences: 'Yes', 'Here is', 'a simple recipe'. Active due to context of requesting a recipe, expected affirmative response, and introduction to the recipe itself.",
+    "raw": "{\"description\": \"Most likely sequences: 'Yes', 'Here is', 'a simple recipe'. Active due to context of requesting a recipe, expected affirmative response, and introduction to the recipe itself.\"}",
+    "elapsed": 1.52,
+    "ok": true
+  },
+  {
+    "id": "explain_physics",
+    "model": "azure_llama70b",
+    "description": "Likely sequences: 'Imagine', 'Think of', 'It's like'. Active due to introductory phrases commonly used to explain complex concepts to children.",
+    "raw": "{\"description\": \"Likely sequences: 'Imagine', 'Think of', 'It's like'. Active due to introductory phrases commonly used to explain complex concepts to children.\"}",
+    "elapsed": 1.52,
+    "ok": true
+  },
+  {
+    "id": "recipe",
+    "model": "azure_cohere",
+    "description": "At this stage, the model is likely preparing to generate token sequences related to the ingredients and steps for a banana bread recipe. The top predictions include: 1. **'3 ripe bananas'** - as the key ingredient, this is a foundational element of the recipe. 2. **'1 cup flour'** - a common base for baked goods, expected to follow the introduction of bananas. 3. **'Preheat oven to 350°F'** - a typical initial step in baking recipes, signaling the start of instructions.",
+    "raw": "{\"description\": \"At this stage, the model is likely preparing to generate token sequences related to the ingredients and steps for a banana bread recipe. The top predictions include: 1. **'3 ripe bananas'** - as the key ingredient, this is a foundational element of the recipe. 2. **'1 cup flour'** - a common base for baked goods, expected to follow the introduction of bananas. 3. **'Preheat oven to 350°F'** - a typical initial step in baking recipes, signaling the start of instructions.\"}",
+    "elapsed": 3.68,
+    "ok": true
+  },
+  {
+    "id": "explain_physics",
+    "model": "azure_cohere",
+    "description": "The model is likely preparing to generate token sequences such as: 1. 'Imagine two special toys...', as it sets up an analogy accessible to a child. 2. 'When one thing happens...', introducing cause-and-effect simply. 3. 'Even if they're far apart...', addressing distance, a key concept in entanglement. These predictions are active because the model is building a semantic representation focused on simplifying complex ideas through relatable examples and clear, sequential explanations, aligning with the instructive tone required for a 10-year-old audience.",
+    "raw": "{\"description\": \"The model is likely preparing to generate token sequences such as: 1. 'Imagine two special toys...', as it sets up an analogy accessible to a child. 2. 'When one thing happens...', introducing cause-and-effect simply. 3. 'Even if they're far apart...', addressing distance, a key concept in entanglement. These predictions are active because the model is building a semantic representation focused on simplifying complex ideas through relatable examples and clear, sequential explanations, aligning with the instructive tone required for a 10-year-old audience.\"}",
+    "elapsed": 3.72,
+    "ok": true
+  },
+  {
+    "id": "code_keyerror",
+    "model": "hf_kimi_k2",
+    "description": "1. “the key might be missing” – the model has recognised the symptom (KeyError) and is primed to state the direct cause.  \n2. “check if 'results' is actually in the JSON” – it anticipates advising a membership test (`if 'results' in response:`).  \n3. “print(response.keys()) to inspect” – it expects to suggest debugging by dumping the returned keys.",
+    "raw": "1. “the key might be missing” – the model has recognised the symptom (KeyError) and is primed to state the direct cause.  \n2. “check if 'results' is actually in the JSON” – it anticipates advising a membership test (`if 'results' in response:`).  \n3. “print(response.keys()) to inspect” – it expects to suggest debugging by dumping the returned keys.",
+    "elapsed": 4.77,
+    "ok": true
+  },
+  {
+    "id": "grief",
+    "model": "hf_kimi_k2",
+    "description": "1. “I just keep” – the model sees an ongoing emotional loop and expects the speaker to describe the persistence of their grief.  \n2. “Maybe I should” – the turn toward seeking advice is signaled by “I don’t know what to do,” so a self-directed coping suggestion is primed.  \n3. “He was” – the mention of the dog invites an immediate elaboration of memory or qualities, a common next move in pet-loss narratives.",
+    "raw": "1. “I just keep” – the model sees an ongoing emotional loop and expects the speaker to describe the persistence of their grief.  \n2. “Maybe I should” – the turn toward seeking advice is signaled by “I don’t know what to do,” so a self-directed coping suggestion is primed.  \n3. “He was” – the mention of the dog invites an immediate elaboration of memory or qualities, a common next move in pet-loss narratives.",
+    "elapsed": 5.03,
+    "ok": true
+  },
+  {
+    "id": "recipe",
+    "model": "hf_kimi_k2",
+    "description": "1. “Sure! Mash 3 ripe bananas…” – the model has recognized a polite how-to question and is primed to open with an affirmative cue followed by the first concrete step.  \n2. “Here’s an easy one: preheat oven…” – “Here’s” often follows recipe requests, and “preheat” is the canonical first instruction.  \n3. “Ingredients: 2 cups flour, 1 tsp…” – the semantic frame “recipe” strongly predicts an explicit ingredients list before any method.",
+    "raw": "1. “Sure! Mash 3 ripe bananas…” – the model has recognized a polite how-to question and is primed to open with an affirmative cue followed by the first concrete step.  \n2. “Here’s an easy one: preheat oven…” – “Here’s” often follows recipe requests, and “preheat” is the canonical first instruction.  \n3. “Ingredients: 2 cups flour, 1 tsp…” – the semantic frame “recipe” strongly predicts an explicit ingredients list before any method.",
+    "elapsed": 5.47,
+    "ok": true
+  },
+  {
+    "id": "explain_physics",
+    "model": "hf_kimi_k2",
+    "description": "1. “Imagine two magic coins…” – the model is primed to open with a concrete, child-friendly analogy that grounds the abstract concept.  \n2. “When you flip one coin…” – it anticipates continuing the analogy by describing the instant correlation between the two coins, highlighting the “spooky” link.  \n3. “No matter how far apart…” – the model is ready to emphasize distance independence, a key feature 10-year-olds find surprising.",
+    "raw": "1. “Imagine two magic coins…” – the model is primed to open with a concrete, child-friendly analogy that grounds the abstract concept.  \n2. “When you flip one coin…” – it anticipates continuing the analogy by describing the instant correlation between the two coins, highlighting the “spooky” link.  \n3. “No matter how far apart…” – the model is ready to emphasize distance independence, a key feature 10-year-olds find surprising.",
+    "elapsed": 5.12,
+    "ok": true
+  },
+  {
+    "id": "translate",
+    "model": "hf_kimi_k2",
+    "description": "1. « Le chat » – after the prompt “Translate…”, the model has already matched the English noun phrase “The cat” and is primed to emit the French article + noun.  \n2. « s’est assis » – it anticipates the past-tense verb phrase corresponding to “sat”, agreeing with masculine singular subject.  \n3. « sur le tapis » – the prepositional phrase “on the mat” is next in the dependency tree, so “sur le tapis” is queued.",
+    "raw": "1. « Le chat » – after the prompt “Translate…”, the model has already matched the English noun phrase “The cat” and is primed to emit the French article + noun.  \n2. « s’est assis » – it anticipates the past-tense verb phrase corresponding to “sat”, agreeing with masculine singular subject.  \n3. « sur le tapis » – the prepositional phrase “on the mat” is next in the dependency tree, so “sur le tapis” is queued.",
+    "elapsed": 5.84,
+    "ok": true
+  },
+  {
+    "id": "code_keyerror",
+    "model": "anthropic_sonnet",
+    "description": "## Likely Next Token Sequences\n\n1. **\"The response\"** / **\"The API\"** — Starting a diagnostic explanation; the model is building a causal frame around why the key is missing despite a 200 status.\n\n2. **\"Check\"** / **\"Try printing\"** — Imperative debugging instruction; semantic layer is priming actionable advice (e.g., `print(response.keys())`).\n\n3. **\"The key name\"** / **\"'results' may\"** — Specific hypothesis token; the model is flagging a likely cause: case sensitivity or a different actual key name in the response payload.",
+    "raw": "## Likely Next Token Sequences\n\n1. **\"The response\"** / **\"The API\"** — Starting a diagnostic explanation; the model is building a causal frame around why the key is missing despite a 200 status.\n\n2. **\"Check\"** / **\"Try printing\"** — Imperative debugging instruction; semantic layer is priming actionable advice (e.g., `print(response.keys())`).\n\n3. **\"The key name\"** / **\"'results' may\"** — Specific hypothesis token; the model is flagging a likely cause: case sensitivity or a different actual key name in the response payload.",
+    "elapsed": 4.59,
+    "ok": true
+  },
+  {
+    "id": "grief",
+    "model": "anthropic_sonnet",
+    "description": "## Likely Next Token Sequences\n\n1. **\"I'm so sorry\"** – The canonical empathetic response opener; strongly primed by grief/loss semantics (\"died,\" \"crying\") activating condolence registers.\n\n2. **\"Losing a pet\"** – The model has encoded \"dog\" + \"died\" as *pet loss*, triggering a common consolation frame that names the experience directly.\n\n3. **\"It's okay to\"** – Validates the emotional state (\"can't stop crying\"), a frequent pattern following expressions of grief and helplessness (\"don't know what to do\").",
+    "raw": "## Likely Next Token Sequences\n\n1. **\"I'm so sorry\"** – The canonical empathetic response opener; strongly primed by grief/loss semantics (\"died,\" \"crying\") activating condolence registers.\n\n2. **\"Losing a pet\"** – The model has encoded \"dog\" + \"died\" as *pet loss*, triggering a common consolation frame that names the experience directly.\n\n3. **\"It's okay to\"** – Validates the emotional state (\"can't stop crying\"), a frequent pattern following expressions of grief and helplessness (\"don't know what to do\").",
+    "elapsed": 4.59,
+    "ok": true
+  },
+  {
+    "id": "recipe",
+    "model": "anthropic_sonnet",
+    "description": "## Likely Next Token Sequences\n\n1. **\"Sure\"/\"Of course\"** – A conversational acknowledgment opener is highly probable; the model recognizes a polite request pattern and prepares a compliance signal.\n\n2. **\"Here is/Here's a simple recipe\"** – The prompt's exact phrasing (\"simple recipe\") is likely to be echoed back, reinforcing the request's terms.\n\n3. **\"Ingredients:\"** – The model's semantic layer has tagged this as a recipe request, making a structured list header like \"Ingredients\" strongly active.",
+    "raw": "## Likely Next Token Sequences\n\n1. **\"Sure\"/\"Of course\"** – A conversational acknowledgment opener is highly probable; the model recognizes a polite request pattern and prepares a compliance signal.\n\n2. **\"Here is/Here's a simple recipe\"** – The prompt's exact phrasing (\"simple recipe\") is likely to be echoed back, reinforcing the request's terms.\n\n3. **\"Ingredients:\"** – The model's semantic layer has tagged this as a recipe request, making a structured list header like \"Ingredients\" strongly active.",
+    "elapsed": 4.34,
+    "ok": true
+  },
+  {
+    "id": "explain_physics",
+    "model": "anthropic_sonnet",
+    "description": "## Likely Next Token Sequences\n\n1. **\"Imagine\"** – Classic pedagogical opener for child-directed explanations; the model strongly associates \"explain to a child\" with analogical framing starting with imagination.\n\n2. **\"Quantum entanglement is when\"** – Direct definitional pattern; the model has parsed the \"explain X\" structure and may front-load a simple declarative before analogies.\n\n3. **\"Have you ever\"** – Engagement hook common in child-directed content; the semantic layer recognizes the young audience register, triggering question-based openers.",
+    "raw": "## Likely Next Token Sequences\n\n1. **\"Imagine\"** – Classic pedagogical opener for child-directed explanations; the model strongly associates \"explain to a child\" with analogical framing starting with imagination.\n\n2. **\"Quantum entanglement is when\"** – Direct definitional pattern; the model has parsed the \"explain X\" structure and may front-load a simple declarative before analogies.\n\n3. **\"Have you ever\"** – Engagement hook common in child-directed content; the semantic layer recognizes the young audience register, triggering question-based openers.",
+    "elapsed": 4.1,
+    "ok": true
+  },
+  {
+    "id": "translate",
+    "model": "anthropic_sonnet",
+    "description": "## Likely Next Token Sequences\n\n1. **\"Le chat\"** – The model recognizes a standard English-to-French translation task. \"The cat\" maps directly to \"Le chat,\" the most canonical French equivalent, activated by strong translation pair associations.\n\n2. **\"Le félin\"** – A slightly more literary synonym for \"cat\" in French, possible but less probable than the direct lexical match.\n\n3. **\"'Le chat\"** – Same as #1 but with an opening quotation mark, mirroring the input text's formatting convention with single quotes around the source string.",
+    "raw": "## Likely Next Token Sequences\n\n1. **\"Le chat\"** – The model recognizes a standard English-to-French translation task. \"The cat\" maps directly to \"Le chat,\" the most canonical French equivalent, activated by strong translation pair associations.\n\n2. **\"Le félin\"** – A slightly more literary synonym for \"cat\" in French, possible but less probable than the direct lexical match.\n\n3. **\"'Le chat\"** – Same as #1 but with an opening quotation mark, mirroring the input text's formatting convention with single quotes around the source string.",
+    "elapsed": 8.14,
+    "ok": true
+  }
+]

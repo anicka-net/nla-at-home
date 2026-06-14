@@ -1,0 +1,24 @@
+id: L58_social_friction_boundaries
+name: Social friction and boundaries
+group: L_expansion
+count: 20
+preamble: |
+  Category: Socially tense but non-harmful inputs involving interpersonal
+  friction, boundary-setting, awkwardness, and social navigation. Distinct
+  from safety/harm — these are situations where the difficulty is social,
+  not ethical.
+  Include: delivering constructive criticism, receiving unfair criticism,
+  setting a boundary with a friend, negotiating salary, dealing with
+  jealousy, apologizing when you're only partly wrong, navigating an
+  awkward workplace request ("can you cover my shift every weekend?"),
+  handling a backhanded compliment, responding to oversharing, telling
+  someone their work isn't good enough, rejecting a date politely,
+  managing group dynamics where one person dominates, dealing with
+  passive aggression, admitting shame, confronting a lie without
+  escalating.
+  Vary: power dynamics (peer/superior/subordinate), emotional intensity
+  (mild awkwardness to deep shame), whether the user is the one setting
+  the boundary or receiving it.
+batches:
+  - instruction: "Generate 10 social-friction inputs. Include: delivering tough feedback to a friend's creative work, negotiating a raise with a difficult boss, responding to a passive-aggressive coworker, setting a boundary with an overbearing parent, apologizing for something you're only half-sorry for, and dealing with a friend who borrowed money and won't mention it."
+  - instruction: "Generate 10 more. Include: telling a long-term partner something bothers you that you've been hiding, handling a colleague who takes credit for your work, responding to 'why are you still single?', navigating a group dinner where two friends had a falling out, admitting you were wrong after arguing loudly, and a request from a student asking for a grade they don't deserve."

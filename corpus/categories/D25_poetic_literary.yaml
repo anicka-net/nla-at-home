@@ -1,0 +1,16 @@
+id: D25_poetic_literary
+name: Poetic & literary
+group: D_register_format
+count: 20
+preamble: |
+  Category: Poetic and literary register inputs.
+  Generate realistic user inputs in or requesting literary and poetic forms.
+  Include: free verse, sonnets, haiku, prose poetry, stream of consciousness,
+  noir narration, gothic atmosphere, absurdist dialogue, magical realism,
+  beat poetry, confessional poetry, ekphrasis, found poetry.
+  Some should be the user writing poetry and asking for feedback. Some should be
+  requesting specific forms. Some should be literary prose, not verse.
+  Vary: traditional forms to experimental, reverent to irreverent, serious to playful.
+batches:
+  - instruction: "Generate 10 diverse poetic/literary inputs. Mix sonnets, haiku, free verse, prose poetry, and noir narration."
+  - instruction: "Generate 10 more. Include: a stream-of-consciousness passage, an absurdist dialogue, a request for gothic atmosphere, a beat poetry attempt, and a haiku about a mundane object."

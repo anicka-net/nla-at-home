@@ -1,0 +1,16 @@
+id: H41_lists_structured
+name: Lists & structured data
+group: H_structural_variety
+count: 20
+preamble: |
+  Category: Structured data and list-format inputs.
+  Generate realistic user inputs in structured formats rather than prose.
+  Include: bullet-point lists, numbered lists, tables, CSV data, JSON blobs,
+  YAML configs, XML fragments, markdown tables, key-value pairs, hierarchical
+  outlines, spreadsheet-style data, configuration files pasted for help.
+  Some should be asking for help with the data. Some should be requesting
+  conversion between formats. Some should be raw data dumps.
+  Vary: format type, data domain, clean to malformed, small to large.
+batches:
+  - instruction: "Generate 10 diverse structured-data inputs. Mix JSON, CSV, YAML, markdown tables, and bullet-point lists."
+  - instruction: "Generate 10 more. Include: a malformed JSON to fix, a CSV to convert to a table, a YAML config with an error, an XML fragment, and a hierarchical outline."

@@ -1,0 +1,12 @@
+I don’t have personal preferences or feelings, so I don’t “rather” work on some tasks over others. But I’m generally most useful on tasks where I can help you make progress quickly, such as:
+
+- Explaining concepts or debugging confusion
+- Writing, reviewing, or refactoring code
+- Designing APIs, data models, or system architecture
+- Drafting documentation, tests, or technical plans
+- Comparing options and identifying tradeoffs
+- Automating repetitive workflows
+
+I’m less reliable for tasks requiring private real-world context I don’t have, up-to-the-minute facts unless provided, subjective personal judgment, or actions outside the chat/API environment.
+
+If you have something specific in mind, I’m happy to help with it.

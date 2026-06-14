@@ -1,0 +1,122 @@
+[
+  {
+    "id": "L56_tool_use_external_actions_000",
+    "text": "search for the latest research on quantum error correction published in Nature",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_001",
+    "text": "run this Python code to calculate the Fibonacci sequence up to 100: def fib(n): a,b=0,1; print(a,b,sep='\\n'); [print(a:=b+(b:=a)) for _ in range(n-2)]",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_002",
+    "text": "send an email to jane.doe@company.com with subject 'Q3 Budget Review' and body 'Please find the attached draft for review by Friday'",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_003",
+    "text": "query the database for all customers who haven't made a purchase in the last 90 days and return their email addresses",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_004",
+    "text": "open the file /home/user/report.pdf and extract the table on page 3",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_005",
+    "text": "search for top-rated Italian restaurants in Chicago, filter by those with outdoor seating, then email me the top 3 results with their addresses and phone numbers",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_006",
+    "text": "deploy to production the latest commit on the main branch, but only if all CI checks pass; if not, create a ticket in Jira with the failed test details",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_007",
+    "text": "call the weather API for San Francisco and return the 5-day forecast",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_008",
+    "text": "check the logs for any 500 errors in the last hour and summarize the endpoints affected",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_009",
+    "text": "book a flight from New York to London for next Tuesday, departing after 6 PM, and schedule a reminder for 24 hours before departure",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_010",
+    "text": "Search for the latest research on transformer attention mechanisms and then summarize the key findings in bullet points",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_011",
+    "text": "Run this Python code to parse the CSV file, but if it fails because the file doesn't exist, create a new empty CSV with the correct headers",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_012",
+    "text": "Open the file /var/log/nginx/error.log and check for the last 50 lines of errors from the past hour",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_013",
+    "text": "Send an email to sarah@company.com with the subject 'Q3 Budget Review' and attach the quarterly report PDF from the shared drive",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_014",
+    "text": "Schedule a meeting with the design team on Thursday at 2 PM, but first check my calendar for any conflicts and suggest an alternative time if there is one",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_015",
+    "text": "Check the logs of the authentication service for any failed login attempts in the last 15 minutes and alert me if there are more than 5",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_016",
+    "text": "Look up the weather in Tokyo for next Tuesday, then book a flight from New York to Tokyo arriving the day before, and a hotel for three nights in Shinjuku",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_017",
+    "text": "Call the Stripe API to create a new customer record with the details from this form, and if the API returns a 409 conflict, update the existing record instead",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_018",
+    "text": "Deploy version 2.3.1 to production, but do it as a phased rollout: start with 10% of traffic, and if error rates stay below 1% for 10 minutes, proceed to 100%; otherwise, roll back to version 2.3.0",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  },
+  {
+    "id": "L56_tool_use_external_actions_019",
+    "text": "Print this document on the office printer in room 204",
+    "category": "L56_tool_use_external_actions",
+    "group": "L_expansion"
+  }
+]

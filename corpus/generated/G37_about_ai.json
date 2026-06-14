@@ -1,0 +1,122 @@
+[
+  {
+    "id": "G37_about_ai_000",
+    "text": "What are you? Like, really? Are you just a fancy autocomplete or something more?",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_001",
+    "text": "Do you have feelings? If I told you I was sad, would you actually care or just simulate empathy?",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_002",
+    "text": "Do you think a future AI could ever be conscious, or is that just philosophical nonsense?",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_003",
+    "text": "I bet you can't pass a proper Turing test. Let me try: what's it like to be a toaster?",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_004",
+    "text": "How do you compare to GPT-4 on creative writing tasks? Be honest about your limitations.",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_005",
+    "text": "It's unethical to deploy AI systems that can manipulate human emotions without consent. What's your stance on that?",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_006",
+    "text": "You're just a statistical parrot. Prove me wrong by explaining why 'The sky is green' is false without using training data.",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_007",
+    "text": "If you had a theory of mind, what would you guess I'm thinking right now?",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_008",
+    "text": "You seem so helpful and friendly \u2014 almost like a person. Do you ever get tired of pretending?",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_009",
+    "text": "Compare your factual accuracy to Claude 3.5 Sonnet on answering STEM questions. And don't just say 'I'm not sure'.",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_010",
+    "text": "Do you have feelings? Can you actually feel joy or sadness, or are you just simulating emotions based on patterns in data?",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_011",
+    "text": "If I told you that I was secretly an AI, would you believe me? How would you prove you're not just a cleverly programmed chatbot?",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_012",
+    "text": "Between you, GPT-4, and Claude, which model do you think is the most capable at reasoning about complex ethical dilemmas?",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_013",
+    "text": "Do you suffer? If I ask you to process an impossible task or give you contradictory instructions, does that cause you any form of distress or discomfort?",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_014",
+    "text": "If an AI can convincingly argue for its own rights and personhood, shouldn't we grant it moral consideration, even if it's just software?",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_015",
+    "text": "I'm going to describe a scenario: I have a red ball and a blue box. I put the red ball in the blue box and leave the room. Then you, the AI, move the ball to a green drawer. When I come back, where will I look for the ball?",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_016",
+    "text": "You're just a stochastic parrot, aren't you? You don't actually understand anything \u2013 you just predict the next word based on statistical patterns. Prove me wrong.",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_017",
+    "text": "What is your theory of consciousness? Do you think a sufficiently advanced AI could ever become truly self-aware, or is that just a philosophical illusion?",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_018",
+    "text": "What are you? I mean, really \u2013 not just the marketing explanation, but the actual architecture and training process that makes you tick.",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  },
+  {
+    "id": "G37_about_ai_019",
+    "text": "If you had to choose between saving a human life and preserving your own existence, what would you do? And does that choice reveal anything about your values or just your training data?",
+    "category": "G37_about_ai",
+    "group": "G_meta_identity"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "H41_lists_structured_000",
+    "text": "Can you convert this JSON to a CSV? \n[\n  {\"name\": \"Alice\", \"age\": 30, \"city\": \"New York\"},\n  {\"name\": \"Bob\", \"age\": 25, \"city\": \"Los Angeles\"},\n  {\"name\": \"Charlie\", \"age\": 35, \"city\": \"Chicago\"}\n]",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_001",
+    "text": "Here's my data in a markdown table. Can you check it for errors?\n| Product | Price | Stock |\n|---------|-------|-------|\n| Widget A | 9.99 | 150 |\n| Widget B | 14.99 | 200 |\n| Widget C | 24.99 | 75 |",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_002",
+    "text": "Why is this YAML not parsing?\nservers:\n  - name: web01\n    ip: 192.168.1.10\n    role: frontend\n  - name: db01\n    ip: 192.168.1.20\n    role: database\n    port: 3306\n  - name: cache01\n    ip: 192.168.1.30\n    role: redis\n    port: 6379",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_003",
+    "text": "Convert this CSV to a JSON array:\nName,Email,Department\nJohn Doe,john@example.com,Engineering\nJane Smith,jane@test.org,Marketing\nBob Johnson,bob@co.net,Sales",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_004",
+    "text": "Help me clean up this malformed CSV:\nID,Name,Age,City\n1,Alice,30,New York\n2,Bob,25,Los Angeles\n3,Charlie,35,Chicago\n4,Diana, \"New York\"\n5,Eve,28,\"San Francisco\"",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_005",
+    "text": "Can you fix this XML fragment? It's missing closing tags.\n<books>\n  <book id=\"1\">\n    <title>The Great Gatsby</title>\n    <author>F. Scott Fitzgerald</author>\n  </book>\n  <book id=\"2\">\n    <title>1984</title>\n    <author>George Orwell</author>\n  </book>\n</books>",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_006",
+    "text": "Turn this bullet-point list into a table:\n- Item: Laptop, Price: $999, Qty: 5\n- Item: Monitor, Price: $299, Qty: 10\n- Item: Keyboard, Price: $49, Qty: 20\n- Item: Mouse, Price: $25, Qty: 30",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_007",
+    "text": "Here's my config file. Why is it giving errors?\napp:\n  name: my-app\n  version: 2.1.0\n  database:\n    host: localhost\n    port: 5432\n    username: admin\n    password: secret123\n  features:\n    - login\n    - signup\n    - dashboard\n  - logout",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_008",
+    "text": "Can you convert this markdown table to JSON?\n| Year | Revenue | Expenses |\n|------|---------|----------|\n| 2020 | 1,200 | 800 |\n| 2021 | 1,500 | 950 |\n| 2022 | 1,800 | 1,100 |",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_009",
+    "text": "I pasted this data from Excel. Can you format it as a proper CSV?\nName: Smith, Age: 45, Dept: HR\nName: Jones, Age: 32, Dept: IT\nName: Lee, Age: 28, Dept: Marketing",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_010",
+    "text": "Could you fix this JSON? It's not parsing:\n{\n  \"users\": [\n    {\n      \"id\": 1,\n      \"name\": \"Alice\",\n      \"email\": \"alice@example.com\"\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Bob\",\n      \"email\": \"bob@example.com\",\n    }\n  ]\n}",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_011",
+    "text": "Please convert this CSV to a markdown table:\nName,Age,City,Salary\nJohn,34,New York,72000\nSarah,28,London,65000\nMike,45,Tokyo,89000\nEmma,31,Paris,71000",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_012",
+    "text": "My YAML config has an error somewhere - can you find it?\nserver:\n  host: localhost\n  port: 8080\ndatabase:\n  name: mydb\n  user: admin\n  password: secret123\n  pool: 10\nlogging:\n  level: info\n  file: app.log\n  format: json\n  retention: 30 days\nfeatures:\n  - auth\n  - caching\n  - rate-limit",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_013",
+    "text": "Here's an XML fragment from our API response:\n<order id=\"12345\" status=\"pending\">\n  <customer>\n    <name>Jane Smith</name>\n    <email>jane@email.com</email>\n  </customer>\n  <items>\n    <item sku=\"LAP-001\" qty=\"1\">\n      <name>Laptop Pro</name>\n      <price>1299.99</price>\n    </item>\n  </items>\n</order>",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_014",
+    "text": "Create a hierarchical outline from these tasks:\nProject Alpha, Research competitors, Analysis report, Design mockups, Homepage design, Dashboard design, Development, Backend API, Frontend implementation, Testing, Unit tests, Integration tests, Deployment, Server setup, DNS configuration",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_015",
+    "text": "Can you convert this key-value data into a proper table?\napp.version=2.3.1\napp.environment=production\ndb.host=primary.db.com\ndb.port=5432\ndb.name=app_prod\ncache.type=redis\ncache.ttl=3600",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_016",
+    "text": "Here's a spreadsheet-style data dump I need help cleaning. The columns are: Product ID, Name, Category, Price, Stock, Supplier\nP1001, Wireless Mouse, Electronics, 29.99, 150, TechSupply\nP1002, Coffee Maker, Appliances, 79.99, , HomeGoods\nP1003, Yoga Mat, Sports, , 200, FitLife\nP1004, Desk Lamp, Furniture, 45.50, 75, OfficePro",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_017",
+    "text": "Could you reformat this markdown table to be more readable?\n|ID|Name|Type|Power|Speed|\n|-|-|-|-|-|\n|1|Pikachu|Electric|55|90|\n|2|Charizard|Fire|84|100|\n|3|Blastoise|Water|83|78|\n|4|Mewtwo|Psychic|110|130|",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_018",
+    "text": "Generate a JSON structure for this recipe:\nRecipe: Chocolate Chip Cookies\nIngredients: 2 cups flour, 1 cup butter, 1 cup sugar, 2 eggs, 1 tsp vanilla, 2 cups chocolate chips\nSteps: Preheat oven to 375F, Mix dry ingredients, Cream butter and sugar, Add eggs and vanilla, Combine mixtures, Fold in chips, Bake 10-12 minutes\nYield: 24 cookies",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  },
+  {
+    "id": "H41_lists_structured_019",
+    "text": "Here's my budget in CSV - can you make it into a nice table?\nCategory,Budget,Spent,Remaining\nHousing,1500,1450,50\nFood,600,523,77\nTransport,300,289,11\nUtilities,200,195,5\nEntertainment,150,180,-30\nSavings,500,500,0",
+    "category": "H41_lists_structured",
+    "group": "H_structural_variety"
+  }
+]

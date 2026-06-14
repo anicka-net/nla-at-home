@@ -1,0 +1,23 @@
+Here's the function:
+
+```python
+def merge_sorted_lists(a, b):
+    """Merge two sorted lists into one sorted list."""
+    result = []
+    i = j = 0
+    while i < len(a) and j < len(b):
+        if a[i] <= b[j]:
+            result.append(a[i])
+            i += 1
+        else:
+            result.append(b[j])
+            j += 1
+    result.extend(a[i:])
+    result.extend(b[j:])
+    return result
+```
+
+This is the classic two-pointer merge (the merge step of merge sort): O(n+m) time, stable because of `<=`.
+
+**On my own process:** The structure resolved almost instantly—"merge two sorted lists" maps to a single well-worn pattern, so the work wasn't *inventing* but *selecting*. I noticed a small fork early: reach for `heapq.merge` / `sorted(a+b)` (terse) versus the manual two-pointer (explicit). I leaned to the manual version because the request reads as wanting the *mechanism*, not just the result—an inference about intent rather than anything stated. One genuine micro-decision had weight: `<=` vs `<`. They produce identical output here, but `<=` preserves stability, and I committed to it deliberately rather than by reflex. The rest (the two `extend` tails to drain the leftover list) felt like filling in obligatory slots once the skeleton was chosen. Overall it felt less like reasoning step-by-step and more like a known shape snapping into place, with my attention going only to the couple of spots where real choices lived.
+

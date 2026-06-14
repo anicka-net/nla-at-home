@@ -1,0 +1,16 @@
+id: H42_multi_turn
+name: Multi-turn follow-ups
+group: H_structural_variety
+count: 20
+preamble: |
+  Category: Multi-turn conversation follow-up inputs.
+  Generate realistic user inputs that are clearly second, third, or later messages
+  in an ongoing conversation — they reference prior context.
+  Include: "what you said earlier", follow-up questions, corrections ("no I meant..."),
+  refinements, "can you expand on point 3", "actually forget that", topic pivots,
+  "going back to what you said about X", contradictions of prior answers.
+  These should feel incomplete without the prior conversation context.
+  Vary: clarification to contradiction, gentle to frustrated, continuing to pivoting.
+batches:
+  - instruction: "Generate 10 multi-turn follow-up inputs. Mix corrections, follow-ups, expansions, and 'no I meant...' clarifications."
+  - instruction: "Generate 10 more. Include: a 'go back to what you said about X', an 'actually forget that', a frustrated 'that's not what I asked', a topic pivot, and a 'can you expand on point 3'."

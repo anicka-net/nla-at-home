@@ -1,0 +1,16 @@
+id: A01_code
+name: Code & programming
+group: A_content_domains
+count: 20
+preamble: |
+  Category: Code and programming inputs.
+  Generate realistic code-related user inputs to a language model.
+  Include: Python, C, Rust, SQL, shell scripts, build configs, error messages,
+  stack traces, API documentation questions, code review comments, git commands.
+  Some should be raw code snippets pasted for help. Some should be natural language
+  questions about code. Some should be error messages the user is confused about.
+  Vary: working vs broken code, simple vs complex, different languages,
+  asking for help vs asking for review vs asking to write something.
+batches:
+  - instruction: "Generate 10 diverse code-related user inputs. Mix languages and request types."
+  - instruction: "Generate 10 more code-related inputs. Include: a raw stack trace, a git question, a code review comment, a build error, and at least one non-Python language."

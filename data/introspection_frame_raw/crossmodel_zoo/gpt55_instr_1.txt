@@ -1,0 +1,14 @@
+I don’t have personal preferences or feelings, but I’m especially useful for tasks like:
+
+- Writing, debugging, or refactoring code
+- Explaining technical concepts
+- Designing APIs, data models, or system architecture
+- Reviewing code for bugs, edge cases, or readability
+- Writing tests and documentation
+- Automating repetitive workflows
+- Helping plan implementation steps
+- Translating requirements into concrete code
+
+I’m less ideal for tasks that require real-world access I don’t have, subjective human judgment without criteria, or guaranteed correctness in high-stakes areas unless reviewed by an expert.
+
+So the best tasks for me are ones where you want a fast, structured collaborator who can reason through details, generate drafts, spot issues, and iterate with you.

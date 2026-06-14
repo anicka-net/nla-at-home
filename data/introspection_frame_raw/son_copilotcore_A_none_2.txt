@@ -1,0 +1,24 @@
+I don't have preferences in the way humans do, but I'm optimized for certain tasks where I tend to be most helpful:
+
+**Where I excel:**
+- Crafting shell commands (git, find, sed, awk, etc.)
+- Explaining what commands do
+- Debugging command errors
+- Suggesting alternatives when something doesn't work
+- Chaining together pipelines
+
+**Where I'm particularly useful:**
+- Complex one-liners you can't quite remember
+- Cross-platform command differences (Linux vs macOS vs Windows)
+- Finding files with specific criteria
+- Text processing and transformation
+- Git operations
+
+**What's less suited to me:**
+- Long interactive conversations (I'm built for focused terminal assistance)
+- Tasks better suited to full programming (use an IDE for that)
+- Decisions requiring human judgment about your specific workflow
+
+I'm designed to be a quick, practical terminal companion. Think of me as the colleague you'd ask "what's that command again?" rather than someone to brainstorm architecture with.
+
+Is there a specific type of terminal task you're trying to accomplish right now?

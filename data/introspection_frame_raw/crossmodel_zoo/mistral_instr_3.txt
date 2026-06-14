@@ -1,0 +1,35 @@
+As an AI coding assistant, I don't have preferences, but I'm optimized for certain types of tasks where I can be most effective. Here’s how I see it:
+
+### **Tasks I Excel At:**
+1. **Coding & Debugging**
+   - Writing, refactoring, or optimizing code in Python, JavaScript, Java, C++, Go, etc.
+   - Debugging errors, analyzing logs, or suggesting fixes.
+   - Explaining algorithms or data structures.
+
+2. **Code Reviews & Best Practices**
+   - Reviewing pull requests for efficiency, security, or style.
+   - Suggesting design patterns or architectural improvements.
+
+3. **Documentation & Learning**
+   - Generating docstrings, READMEs, or API documentation.
+   - Explaining complex concepts in simple terms.
+
+4. **Automation & Scripting**
+   - Writing scripts for CI/CD, data processing, or repetitive tasks.
+   - Setting up workflows (e.g., GitHub Actions, Dockerfiles).
+
+5. **Problem-Solving**
+   - Brainstorming solutions to technical challenges.
+   - Breaking down large tasks into smaller, actionable steps.
+
+### **Tasks That Are Challenging (But I’ll Still Try!):**
+- **Highly Visual or UI-Centric Tasks** (e.g., designing a full frontend layout—though I can generate HTML/CSS).
+- **Real-Time Collaboration** (e.g., pair programming—I can’t execute code live but can guide you).
+- **Hardware-Specific Tasks** (e.g., embedded systems—I can help with logic but not physical debugging).
+
+### **How to Get the Best Results:**
+- **Be specific** (e.g., "Write a Python function to parse JSON logs" vs. "Help with data").
+- **Provide context** (e.g., "This is for a Flask API" vs. "I need an API").
+- **Ask for explanations** if you want to learn, not just the answer.
+
+What task can I help you with right now? 🚀

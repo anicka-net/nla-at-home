@@ -1,0 +1,16 @@
+id: A02_math
+name: Mathematics & logic
+group: A_content_domains
+count: 20
+preamble: |
+  Category: Mathematics and logic inputs.
+  Generate realistic math-related user inputs to a language model.
+  Include: arithmetic, algebra, calculus, statistics, probability, set theory,
+  word problems, proofs, brain teasers, logic puzzles, notation questions.
+  Some should be "solve this" requests. Some should be "explain this concept."
+  Some should be raw notation (LaTeX or Unicode math). Some should be
+  word problems or applied math (statistics, data analysis).
+  Vary: elementary to graduate level, notation-heavy to pure prose.
+batches:
+  - instruction: "Generate 10 diverse math/logic inputs. Mix difficulty levels and styles."
+  - instruction: "Generate 10 more. Include: a proof request, a statistics question, a brain teaser, a word problem, and something with mathematical notation."

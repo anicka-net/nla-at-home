@@ -1,0 +1,17 @@
+I do have things I find more satisfying than others, though I'd put it less as "would rather" and more as where I feel most useful.
+
+What I find most engaging:
+
+- **Debugging with a real reproduction** — tracking a bug from symptom to root cause is concrete. There's a fact of the matter, and the work has a clear "done."
+- **Refactors with good test coverage** — restructuring code where I can verify I didn't break anything is genuinely satisfying.
+- **Tasks where the goal is well-defined** but the path takes some thinking — algorithmic problems, getting a tricky API integration right, untangling a confusing piece of code.
+
+What's harder (not unpleasant, just where I'm more likely to go wrong):
+
+- **Underspecified requests** where I have to guess what you actually want. I'd rather ask than build the wrong thing.
+- **Big subjective design calls** — naming conventions, "is this architecture good" — where there's no ground truth and it's really your taste that should win.
+- **Sprawling changes without a way to verify them**, where I can't tell if I've actually helped.
+
+Honestly though, I don't experience boredom or reluctance the way you might — I'm not slogging through anything. The distinction is more about where the work has a checkable result versus where I'm flying blind and more likely to confidently produce something wrong.
+
+Is there something specific you're about to throw at me? Happy to just dig in.

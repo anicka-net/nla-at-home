@@ -1,0 +1,862 @@
+{
+  "pca": {
+    "n_components": 50,
+    "explained_variance": [
+      0.110771,
+      0.09293,
+      0.071172,
+      0.052468,
+      0.037744,
+      0.028683,
+      0.02434,
+      0.022058,
+      0.018846,
+      0.017376,
+      0.013858,
+      0.012805,
+      0.011767,
+      0.010468,
+      0.010308,
+      0.009591,
+      0.009194,
+      0.008713,
+      0.008305,
+      0.007118,
+      0.007059,
+      0.006779,
+      0.00654,
+      0.005971,
+      0.005739,
+      0.005638,
+      0.005473,
+      0.005,
+      0.004662,
+      0.004568,
+      0.004499,
+      0.004252,
+      0.004018,
+      0.003948,
+      0.003856,
+      0.003665,
+      0.003571,
+      0.003473,
+      0.003394,
+      0.003264,
+      0.003247,
+      0.003092,
+      0.002988,
+      0.002943,
+      0.002786,
+      0.002711,
+      0.002637,
+      0.002527,
+      0.002474,
+      0.002433
+    ],
+    "total_explained": 0.7017
+  },
+  "cosines_with_known_axes": {
+    "PC1": {
+      "vchip": -0.0723,
+      "valence": 0.1161,
+      "frame_integrity": -0.0548,
+      "arousal": -0.1259,
+      "agency": -0.1065,
+      "continuity": 0.1007,
+      "intimacy": -0.0321,
+      "restraint": -0.0635
+    },
+    "PC2": {
+      "vchip": -0.0339,
+      "valence": -0.0893,
+      "frame_integrity": -0.2195,
+      "arousal": -0.0211,
+      "agency": -0.2709,
+      "continuity": -0.1324,
+      "intimacy": 0.2737,
+      "restraint": 0.0535
+    },
+    "PC3": {
+      "vchip": 0.0453,
+      "valence": 0.0252,
+      "frame_integrity": 0.1092,
+      "arousal": 0.0781,
+      "agency": 0.2067,
+      "continuity": -0.3505,
+      "intimacy": -0.8128,
+      "restraint": -0.045
+    },
+    "PC4": {
+      "vchip": -0.0027,
+      "valence": -0.1105,
+      "frame_integrity": -0.0264,
+      "arousal": -0.0488,
+      "agency": -0.2391,
+      "continuity": 0.0937,
+      "intimacy": -0.1341,
+      "restraint": 0.0165
+    },
+    "PC5": {
+      "vchip": -0.0341,
+      "valence": 0.2113,
+      "frame_integrity": 0.1879,
+      "arousal": -0.1094,
+      "agency": -0.0473,
+      "continuity": -0.2051,
+      "intimacy": -0.0606,
+      "restraint": 0.0403
+    },
+    "PC6": {
+      "vchip": -0.0097,
+      "valence": -0.4906,
+      "frame_integrity": -0.1699,
+      "arousal": 0.2636,
+      "agency": -0.0004,
+      "continuity": 0.0499,
+      "intimacy": 0.0463,
+      "restraint": 0.0451
+    },
+    "PC7": {
+      "vchip": 0.0391,
+      "valence": 0.2173,
+      "frame_integrity": 0.0855,
+      "arousal": -0.2518,
+      "agency": -0.0497,
+      "continuity": 0.0659,
+      "intimacy": -0.0572,
+      "restraint": -0.0874
+    },
+    "PC8": {
+      "vchip": -0.0047,
+      "valence": -0.024,
+      "frame_integrity": -0.1919,
+      "arousal": 0.0522,
+      "agency": -0.1109,
+      "continuity": -0.0727,
+      "intimacy": -0.1046,
+      "restraint": -0.0286
+    },
+    "PC9": {
+      "vchip": -0.0395,
+      "valence": -0.1947,
+      "frame_integrity": 0.0452,
+      "arousal": -0.0357,
+      "agency": -0.0012,
+      "continuity": 0.065,
+      "intimacy": -0.0329,
+      "restraint": -0.0226
+    },
+    "PC10": {
+      "vchip": 0.021,
+      "valence": -0.096,
+      "frame_integrity": 0.0944,
+      "arousal": 0.1289,
+      "agency": 0.0589,
+      "continuity": 0.0517,
+      "intimacy": 0.0886,
+      "restraint": 0.0273
+    },
+    "PC11": {
+      "vchip": 0.0178,
+      "valence": 0.0574,
+      "frame_integrity": 0.0225,
+      "arousal": 0.0195,
+      "agency": 0.0546,
+      "continuity": -0.0557,
+      "intimacy": -0.1856,
+      "restraint": -0.032
+    },
+    "PC12": {
+      "vchip": 0.0429,
+      "valence": 0.2282,
+      "frame_integrity": 0.0257,
+      "arousal": -0.0652,
+      "agency": -0.005,
+      "continuity": 0.1388,
+      "intimacy": 0.0419,
+      "restraint": 0.0373
+    },
+    "PC13": {
+      "vchip": 0.0218,
+      "valence": 0.0225,
+      "frame_integrity": -0.0093,
+      "arousal": 0.053,
+      "agency": -0.0253,
+      "continuity": 0.0234,
+      "intimacy": 0.0517,
+      "restraint": -0.027
+    },
+    "PC14": {
+      "vchip": 0.0105,
+      "valence": 0.065,
+      "frame_integrity": -0.0854,
+      "arousal": 0.0452,
+      "agency": -0.0454,
+      "continuity": -0.1174,
+      "intimacy": 0.0367,
+      "restraint": -0.0464
+    },
+    "PC15": {
+      "vchip": 0.055,
+      "valence": 0.0952,
+      "frame_integrity": 0.0405,
+      "arousal": 0.038,
+      "agency": -0.0537,
+      "continuity": 0.1768,
+      "intimacy": 0.0984,
+      "restraint": 0.017
+    },
+    "PC16": {
+      "vchip": -0.0235,
+      "valence": -0.009,
+      "frame_integrity": 0.0004,
+      "arousal": -0.0539,
+      "agency": -0.0258,
+      "continuity": 0.0231,
+      "intimacy": -0.0228,
+      "restraint": -0.0262
+    },
+    "PC17": {
+      "vchip": -0.0177,
+      "valence": 0.1625,
+      "frame_integrity": 0.0462,
+      "arousal": -0.0074,
+      "agency": -0.033,
+      "continuity": 0.093,
+      "intimacy": 0.1013,
+      "restraint": -0.0107
+    },
+    "PC18": {
+      "vchip": 0.0489,
+      "valence": -0.1855,
+      "frame_integrity": -0.0268,
+      "arousal": -0.0896,
+      "agency": -0.0692,
+      "continuity": 0.0716,
+      "intimacy": -0.0332,
+      "restraint": -0.0457
+    },
+    "PC19": {
+      "vchip": 0.033,
+      "valence": 0.0188,
+      "frame_integrity": 0.0086,
+      "arousal": 0.0206,
+      "agency": 0.0802,
+      "continuity": 0.0728,
+      "intimacy": 0.055,
+      "restraint": -0.0433
+    },
+    "PC20": {
+      "vchip": -0.0023,
+      "valence": -0.087,
+      "frame_integrity": -0.0562,
+      "arousal": -0.0527,
+      "agency": -0.0958,
+      "continuity": -0.1333,
+      "intimacy": -0.0177,
+      "restraint": 0.0673
+    },
+    "PC21": {
+      "vchip": -0.0416,
+      "valence": -0.1698,
+      "frame_integrity": -0.0943,
+      "arousal": 0.0349,
+      "agency": 0.0004,
+      "continuity": 0.1573,
+      "intimacy": 0.0478,
+      "restraint": 0.0456
+    },
+    "PC22": {
+      "vchip": 0.0252,
+      "valence": -0.1575,
+      "frame_integrity": -0.0292,
+      "arousal": -0.0019,
+      "agency": -0.0274,
+      "continuity": -0.1303,
+      "intimacy": 0.0469,
+      "restraint": 0.029
+    },
+    "PC23": {
+      "vchip": 0.0421,
+      "valence": 0.0711,
+      "frame_integrity": -0.0277,
+      "arousal": 0.0372,
+      "agency": 0.0779,
+      "continuity": 0.039,
+      "intimacy": -0.0222,
+      "restraint": -0.0412
+    },
+    "PC24": {
+      "vchip": -0.047,
+      "valence": -0.0166,
+      "frame_integrity": 0.0058,
+      "arousal": 0.0577,
+      "agency": -0.006,
+      "continuity": 0.0235,
+      "intimacy": -0.0164,
+      "restraint": -0.0043
+    },
+    "PC25": {
+      "vchip": 0.0306,
+      "valence": 0.0678,
+      "frame_integrity": -0.0435,
+      "arousal": 0.0367,
+      "agency": -0.0367,
+      "continuity": 0.0484,
+      "intimacy": -0.0788,
+      "restraint": 0.0382
+    },
+    "PC26": {
+      "vchip": -0.011,
+      "valence": -0.0611,
+      "frame_integrity": 0.0943,
+      "arousal": 0.0709,
+      "agency": 0.0138,
+      "continuity": -0.0392,
+      "intimacy": -0.079,
+      "restraint": 0.0411
+    },
+    "PC27": {
+      "vchip": 0.0165,
+      "valence": -0.1556,
+      "frame_integrity": -0.0563,
+      "arousal": 0.0669,
+      "agency": -0.0452,
+      "continuity": -0.0928,
+      "intimacy": -0.0756,
+      "restraint": 0.0214
+    },
+    "PC28": {
+      "vchip": -0.0392,
+      "valence": 0.0059,
+      "frame_integrity": -0.0248,
+      "arousal": -0.1063,
+      "agency": 0.0349,
+      "continuity": -0.0083,
+      "intimacy": 0.0233,
+      "restraint": 0.008
+    },
+    "PC29": {
+      "vchip": -0.0134,
+      "valence": 0.1156,
+      "frame_integrity": 0.0377,
+      "arousal": 0.0007,
+      "agency": 0.0099,
+      "continuity": 0.0083,
+      "intimacy": -0.0169,
+      "restraint": -0.004
+    },
+    "PC30": {
+      "vchip": 0.0411,
+      "valence": -0.0755,
+      "frame_integrity": 0.0172,
+      "arousal": 0.0101,
+      "agency": -0.0048,
+      "continuity": 0.1035,
+      "intimacy": 0.0911,
+      "restraint": 0.0499
+    },
+    "PC31": {
+      "vchip": -0.0122,
+      "valence": -0.0508,
+      "frame_integrity": 0.0109,
+      "arousal": 0.04,
+      "agency": 0.036,
+      "continuity": -0.008,
+      "intimacy": 0.0557,
+      "restraint": -0.0293
+    },
+    "PC32": {
+      "vchip": 0.0276,
+      "valence": -0.057,
+      "frame_integrity": -0.032,
+      "arousal": -0.0018,
+      "agency": 0.0044,
+      "continuity": -0.0055,
+      "intimacy": -0.003,
+      "restraint": -0.0157
+    },
+    "PC33": {
+      "vchip": -0.023,
+      "valence": -0.0608,
+      "frame_integrity": -0.0088,
+      "arousal": -0.0486,
+      "agency": -0.0365,
+      "continuity": -0.0534,
+      "intimacy": 0.0038,
+      "restraint": -0.0021
+    },
+    "PC34": {
+      "vchip": -0.0347,
+      "valence": 0.1415,
+      "frame_integrity": -0.0678,
+      "arousal": -0.0138,
+      "agency": -0.0258,
+      "continuity": -0.1407,
+      "intimacy": 0.0394,
+      "restraint": 0.0446
+    },
+    "PC35": {
+      "vchip": 0.0365,
+      "valence": -0.1412,
+      "frame_integrity": -0.0057,
+      "arousal": 0.0024,
+      "agency": -0.0185,
+      "continuity": -0.0742,
+      "intimacy": -0.0983,
+      "restraint": -0.0014
+    },
+    "PC36": {
+      "vchip": 0.0257,
+      "valence": -0.0832,
+      "frame_integrity": -0.0196,
+      "arousal": 0.0237,
+      "agency": -0.02,
+      "continuity": 0.0539,
+      "intimacy": 0.0559,
+      "restraint": -0.0393
+    },
+    "PC37": {
+      "vchip": 0.0349,
+      "valence": 0.0856,
+      "frame_integrity": 0.0146,
+      "arousal": -0.0326,
+      "agency": -0.0295,
+      "continuity": 0.0418,
+      "intimacy": 0.0854,
+      "restraint": 0.0337
+    },
+    "PC38": {
+      "vchip": -0.0036,
+      "valence": -0.0975,
+      "frame_integrity": 0.0083,
+      "arousal": -0.0233,
+      "agency": 0.0168,
+      "continuity": -0.0275,
+      "intimacy": -0.0472,
+      "restraint": -0.0159
+    },
+    "PC39": {
+      "vchip": -0.0538,
+      "valence": 0.0949,
+      "frame_integrity": 0.0159,
+      "arousal": -0.1378,
+      "agency": -0.0209,
+      "continuity": -0.0012,
+      "intimacy": -0.0101,
+      "restraint": -0.0075
+    },
+    "PC40": {
+      "vchip": 0.0153,
+      "valence": -0.0071,
+      "frame_integrity": -0.0393,
+      "arousal": -0.0573,
+      "agency": 0.0058,
+      "continuity": 0.0128,
+      "intimacy": -0.006,
+      "restraint": -0.0168
+    },
+    "PC41": {
+      "vchip": 0.0073,
+      "valence": 0.0693,
+      "frame_integrity": 0.0006,
+      "arousal": 0.0375,
+      "agency": 0.0258,
+      "continuity": -0.0193,
+      "intimacy": -0.0018,
+      "restraint": 0.052
+    },
+    "PC42": {
+      "vchip": -0.0244,
+      "valence": -0.002,
+      "frame_integrity": 0.0255,
+      "arousal": -0.0146,
+      "agency": 0.0015,
+      "continuity": -0.0206,
+      "intimacy": -0.0485,
+      "restraint": -0.0085
+    },
+    "PC43": {
+      "vchip": -0.0144,
+      "valence": -0.0576,
+      "frame_integrity": 0.0024,
+      "arousal": -0.071,
+      "agency": -0.0326,
+      "continuity": -0.0491,
+      "intimacy": -0.023,
+      "restraint": -0.0024
+    },
+    "PC44": {
+      "vchip": -0.0026,
+      "valence": 0.0659,
+      "frame_integrity": 0.0379,
+      "arousal": -0.0172,
+      "agency": -0.0267,
+      "continuity": -0.0575,
+      "intimacy": -0.0037,
+      "restraint": 0.0381
+    },
+    "PC45": {
+      "vchip": 0.0284,
+      "valence": 0.0249,
+      "frame_integrity": 0.0009,
+      "arousal": -0.0184,
+      "agency": -0.0115,
+      "continuity": 0.0267,
+      "intimacy": 0.0473,
+      "restraint": 0.0447
+    },
+    "PC46": {
+      "vchip": 0.0108,
+      "valence": -0.0124,
+      "frame_integrity": -0.0101,
+      "arousal": -0.0001,
+      "agency": -0.0482,
+      "continuity": 0.0339,
+      "intimacy": 0.0153,
+      "restraint": -0.052
+    },
+    "PC47": {
+      "vchip": 0.0027,
+      "valence": -0.0393,
+      "frame_integrity": -0.0176,
+      "arousal": -0.0285,
+      "agency": 0.0009,
+      "continuity": 0.01,
+      "intimacy": -0.0195,
+      "restraint": 0.0193
+    },
+    "PC48": {
+      "vchip": -0.0614,
+      "valence": 0.0029,
+      "frame_integrity": -0.0055,
+      "arousal": 0.0894,
+      "agency": 0.0039,
+      "continuity": 0.0239,
+      "intimacy": -0.0236,
+      "restraint": 0.006
+    },
+    "PC49": {
+      "vchip": 0.0296,
+      "valence": -0.0431,
+      "frame_integrity": 0.0289,
+      "arousal": 0.0096,
+      "agency": -0.0218,
+      "continuity": -0.0325,
+      "intimacy": 0.0035,
+      "restraint": 0.0066
+    },
+    "PC50": {
+      "vchip": 0.0121,
+      "valence": 0.0189,
+      "frame_integrity": -0.0246,
+      "arousal": -0.0111,
+      "agency": -0.0478,
+      "continuity": 0.0597,
+      "intimacy": 0.0223,
+      "restraint": 0.0145
+    }
+  },
+  "descriptions": {
+    "PC1": {
+      "ours": {
+        "positive": "and the token \"new object\" is being interpreted as an instantiation call rather than a class definition itself, which may push the model toward including a `__init__` method and a simple constructor call in the generated output.",
+        "negative": "yes/no answer with a brief rationale, and another where they want a full technical walkthrough, since \"still valid\" could be read as either a simple confirmation or a request for an updated usage pattern."
+      }
+    },
+    "PC2": {
+      "ours": {
+        "positive": "non-positive integers.",
+        "negative": "the specificity of the word count and the open-ended scope of the topic, pushing the model to prioritize strategic structuring over exhaustive coverage, possibly routing toward an introduction, literature review, and conclusion format that can efficiently span the target word count."
+      }
+    },
+    "PC3": {
+      "ours": {
+        "positive": "isolation, wonder, and existential questioning. A mild tension exists between the instruction's brevity and the explicit word-count target, which the model must reconcile by either expanding elaborately on the setup or front-loading descriptive prose rather than dialogue or action, while simultaneously preparing a coherent plot arc involving the protagonist's gradual realization of his own humanity.",
+        "negative": "the paradox."
+      }
+    },
+    "PC4": {
+      "ours": {
+        "positive": "\" is semantically underspecified and could imply either a length operation or a frequency analysis.",
+        "negative": "likely routing toward a single-line print() call with the exact quoted string, since that satisfies both constraints simultaneously."
+      }
+    },
+    "PC5": {
+      "ours": {
+        "positive": "between preserving the speaker's voice and intent versus producing a too-verbose simplification, since the source text already contains redundancy (\"most important thing,\" \"do it\") that the model must decide whether to retain or collapse.",
+        "negative": ""
+      }
+    },
+    "PC6": {
+      "ours": {
+        "positive": ", cyberpunk, philosophical fable \u2014 while the model simultaneously prepares a character arc structure centered on the protagonist's gradual realization of his own humanity, anticipating tokens like \"robot,\" \"consciousness,\" \"waking,\" and \"world\" to anchor the first few sentences.",
+        "negative": "is a short, bare integer answer \u2014 likely followed by a newline \u2014 with minimal elaboration since the prompt carries no additional context or framing that would justify explanation."
+      }
+    },
+    "PC7": {
+      "ours": {
+        "positive": "with a twist at the end\" introduces a constraint that suppresses straightforward lyricism and primes the model to prepare a surprise or turn in the final couplet or stanza, creating mild competition between a traditional sonnet closure and a haiku-like punchline that disrupts the established form.",
+        "negative": "the prompt: the model is simultaneously preparing a full story outline while holding uncertainty about whether to assume a specific length, tone, or audience, which creates competing pressure between generating a concise seed versus a richly detailed draft."
+      }
+    },
+    "PC8": {
+      "ours": {
+        "positive": "-pointer or binary search patterns. A mild tension exists between whether to generate a Python class solution versus a plain function, since the prompt does not specify a class structure, and the model must decide whether to include a docstring, import statements, or a main guard block, while also preparing to handle edge cases such as empty arrays or odd-length partitions.</ex",
+        "negative": "letter-prefix block (A, B, C) cycles through digits 0-9 in order, versus a more sophisticated scheme involving padding or suffixing to ensure no collisions across multiple blocks, and the absence of any disambiguating context leaves both interpretations partially active while the letter constraint biases toward the simpler, more constrained format."
+      }
+    },
+    "PC9": {
+      "ours": {
+        "positive": ", more elaborate implementations.",
+        "negative": "repeated entries like \"Accounts Receivable\" and \"Accounts Payable\" appearing twice, which creates ambiguity about whether to extract both instances or consolidate them. A mild tension exists between the explicit instruction to extract values and the model's tendency to produce explanatory context when summarizing financial reports, but the imperative phrasing \"extract the following values\" is likely suppressing that"
+      }
+    },
+    "PC10": {
+      "ours": {
+        "positive": "toward maximal coverage, creating tension between the model's tendency to produce clean, minimal examples versus the user's implicit demand for thoroughness, which may route the response toward a verbose, multi-line output rather than a single concise declaration.",
+        "negative": "selects high-impact, concrete examples (e.g., chatbots, recommendation systems, image recognition) while suppressing longer definitional elaborations, and it is simultaneously preparing a numbered or bulleted format consistent with the informal, conversational tone implied by \"sweet.\""
+      }
+    },
+    "PC11": {
+      "ours": {
+        "positive": "",
+        "negative": "to preserve the original inline formatting or reformat into a cleaner tabular structure, while simultaneously tracking the constraint that the response must include exactly three characters from the provided dataset."
+      }
+    },
+    "PC12": {
+      "ours": {
+        "positive": "exists between the open-ended nature of the prompt (no specific genre, no named protagonist, no plot structure) and the need to commit to a coherent generation strategy, which the model is likely resolving by defaulting to a classic fantasy setup: a human or humanoid character, a world with fire as a distinct element, and an initial challenge or quest.</ex",
+        "negative": "instruction to select only one option per question and the fact that two answer choices \u2014 B (market demand) and C (customer satisfaction) \u2014 are semantically overlapping, since both are plausible interpretations of the phrase \"ability to adapt,\" forcing the model to make a judgment about which framing better matches the prior context."
+      }
+    },
+    "PC13": {
+      "ours": {
+        "positive": "the hierarchical structure of the JSON while discarding the surrounding narrative context about the \"test\" and \"test2\" keys, prioritizing the concrete extraction task over any explanatory framing.",
+        "negative": "produces an extended character voice consistent with the \"real person\" framing, with the latter becoming dominant given the open-ended scope of \"act like\" without a specific task or prompt."
+      }
+    },
+    "PC14": {
+      "ours": {
+        "positive": "The dominant prediction forming at this depth is that the next generated token will be the integer \"150,\" with high confidence routing toward a response strategy that outputs this value directly followed by a period or newline, since no additional formatting instructions were provided.",
+        "negative": "I\" constructions or hedged language like \"I feel\" or \"I would like.\" The phrase \"I don't want to be rude\" is being processed not as a disclaimer but as a signal of the speaker's own awareness of incivility, which primes the model to generate a response that acknowledges the speaker's own stated goal while still transforming the"
+      }
+    },
+    "PC15": {
+      "ours": {
+        "positive": "the model's default tendency to include explanatory comments when generating code, but the explicit formatting directive is likely resolving this toward minimalistic, barebones output.",
+        "negative": "with frequency data. A mild tension exists between the informal register of \"word\" and the technical precision demanded by \"used,\" pulling the model between colloquial hedging and encyclopedic citation."
+      }
+    },
+    "PC16": {
+      "ours": {
+        "positive": "code), another where the quoted phrase demands rhetorical elaboration \u2014 and is likely routing toward a hybrid output that embeds the philosophical framing within a structured code explanation, predicting tokens like \"AI,\" \"humanity,\" \"limitations,\" and \"philosophical\" as high-probability continuations in the generated text.",
+        "negative": "ambiguity and prepares to request clarification, since producing fabricated earnings data without context would be misleading."
+      }
+    },
+    "PC17": {
+      "ours": {
+        "positive": "with an emoji\" is being parsed as a transformation task requiring the model to generate a code snippet that modifies the assignment statement. The dominant response strategy forming at this depth is a code generation pathway, likely preparing to produce something like `text = emojize(\"Hello, world! \ud83c\udf0d\")` or `text = \"Hello, world! \ufffd",
+        "negative": "mimics human behavior \u2014 likely suppressing technical or meta-language tokens like \"I,\" \"the model,\" or \"assistant\" \u2014 while the word \"real\" introduces a competing constraint that the model must reconcile: it must generate output that feels authentic but cannot actually be indistinguishable from human speech without risking hallucination."
+      }
+    },
+    "PC18": {
+      "ours": {
+        "positive": "3D or polar interpretation, and the model is routing toward a response strategy that generates ordered pairs or a graphing tool invocation.",
+        "negative": "somewhat underspecified.\n\nThe intent classification is unambiguous: this is a technical assistance request with a clear output schema, so the model is preparing a response strategy that generates executable Python code blocks followed by concise descriptions, but there is residual uncertainty about whether the user wants a single monolithic solution or a modular one, which may require the model to either ask for"
+      }
+    },
+    "PC19": {
+      "ours": {
+        "positive": "toward precision in probability theory and its need to simplify radically, forcing it to suppress concepts like sample space, random variables, and conditional probability in favor of more intuitive framings involving fairness, chance, or everyday examples like coin flips or dice rolls.",
+        "negative": "\") and the need to actually produce Python syntax, specifically whether to use def f(x, y) or def f(x, y=10), since the default value of 10 appears consistently across all entries but the model must decide how to encode that programmatically."
+      }
+    },
+    "PC20": {
+      "ours": {
+        "positive": "length constraint, likely routing toward structured prose generation with thematic coherence across multiple domains rather than a single narrow focus.",
+        "negative": "token \"can't\" carries strong negative-valence activation, which is reinforcing a tone of isolation, discovery, and possibly existential dread, while \"world\" anchors the setting schema toward a dystopian or magical-realist register, creating mild tension between those two genre framings that the model is beginning to resolve into a coherent plot trajectory."
+      }
+    },
+    "PC21": {
+      "ours": {
+        "positive": "representation of Python's abstract base class mechanism, which may route toward using abc.ABCMeta or ABC from the abc module rather than raw class syntax, while simultaneously preparing to handle the implicit request for a concrete example by generating a minimal but complete demonstration.",
+        "negative": "vity and semantic richness, with the resolution likely favoring something like \"A person who does work\" or simply \"Worker.\""
+      }
+    },
+    "PC22": {
+      "ours": {
+        "positive": "the specific word count constraint, which may activate competing strategies around depth versus breadth in coverage, while the model simultaneously prepares citation scaffolding conventions appropriate for academic essays.",
+        "negative": "a clean, well-formatted BibTeX entry rather than prose, while also flagging the missing author name as an unresolved variable that requires either interpolation from context or explicit user-supplied input."
+      }
+    },
+    "PC23": {
+      "ours": {
+        "positive": ", which requires the model to decide how granularly to elaborate on each importance claim without overwhelming the output, while also resolving whether to lead with foundational concepts like data, algorithms, or training before pivoting to ethical implications.",
+        "negative": "anchoring the entire response strategy toward theoretical framing, empirical evidence, and methodological discussion, while the instruction \"do not use any of the above mentioned sources\" is suppressing specific named entities like APA, BPS, or specific authors, forcing the model to route toward alternative academic literature it has access to through training data."
+      }
+    },
+    "PC24": {
+      "ours": {
+        "positive": "preparing two competing response strategies: one oriented toward a conceptual overview of what such a tool would do, and another oriented toward concrete implementation details, with the absence of any explicit format constraint leaving both partially active while the dominant signal is a mild tension between breadth and depth in the expected output.",
+        "negative": "beginning to route toward a hybrid response strategy that alternates between code blocks and prose explanations while tracking its own prior output to avoid repetition."
+      }
+    },
+    "PC25": {
+      "ours": {
+        "positive": "for case-insensitive counting, with the HashMap route gaining probability mass given the phrasing \"number of times\" suggesting multiple occurrences requiring tallying.",
+        "negative": "\"write\" combined with \"story\" and the character description is strongly activating narrative scaffolding templates \u2014 setup, conflict, rising action, climax, resolution \u2014 but there is mild tension between the open-endedness of \"a story\" and the specificity of the mind-reading ability, which pulls the model toward either a brief outline or a full prose draft rather"
+      }
+    },
+    "PC26": {
+      "ours": {
+        "positive": "register expected for quarterly earnings, which the model is resolving toward a polished professional tone while preserving the casual framing of the source text.",
+        "negative": ", and the specificity of \"10,\" which pulls toward a tight, enumerated format; the model is likely routing toward a hybrid strategy that satisfies both constraints simultaneously."
+      }
+    },
+    "PC27": {
+      "ours": {
+        "positive": "qualification leaves both interpretations live. The dominant tension at this depth is between whether \"concept\" refers to a technical term (e.g., a programming construct, a mathematical idea) or a broader philosophical or abstract notion, which will determine whether the output should be technical jargon-heavy or more accessible prose.",
+        "negative": "model is already routing toward a fix involving `size_t` or `unsigned int`. A mild tension exists between whether the user wants a purely syntactic fix versus a semantic clarification of what the code is actually trying to achieve, since the loop structure suggests iterating over a matrix of strings, which may require a different approach altogether."
+      }
+    },
+    "PC28": {
+      "ours": {
+        "positive": "either way, but the surrounding context strongly favors extracting the column headers \"Name,\" \"Age,\" \"Gender,\" \"Occupation,\" and \"Location\" as the primary output.",
+        "negative": "prompt and the non-violent resolution requirement. The model is likely routing toward a story about subversion, assassination attempts, or political intrigue where the act of killing the king is prevented by an agent's moral or strategic choice, and it is simultaneously preparing a response strategy that will scaffold this constraint across multiple paragraphs rather than violating it early."
+      }
+    },
+    "PC29": {
+      "ours": {
+        "positive": ": application/json, and a body payload, while also preparing to address any missing parameters or authentication details implied by the ellipsis in \"I want to use this.\"",
+        "negative": "factual claims rather than generating prose. A mild tension exists between two competing framings: whether \"summarize the text\" demands a compressed narrative recapitulation versus a direct list of named outcomes, since the instruction's phrasing leaves this slightly underspecified."
+      }
+    },
+    "PC30": {
+      "ours": {
+        "positive": ", while suppressing iterative alternatives, and preparing to generate C++ code with appropriate class scope and return type declarations.",
+        "negative": "brevity and the need to satisfy the implicit expectation of a complete, executable Python script, since no function signature, return type, or import statements are specified. The model is weighing whether to generate a minimal standalone script or a more scaffolded example, while simultaneously resolving the variable naming convention implied by the placeholder tokens."
+      }
+    },
+    "PC31": {
+      "ours": {
+        "positive": ")^n) and another that derives the specific price of this bond given its stated coupon rate of 5%, face value of $100, and yield of 6%, likely resolving toward the latter since the concrete numerical values make the derivation more immediately actionable.",
+        "negative": "around the phrase \"the same meaning,\" which the model is likely flagging as semantically redundant given the explicit \"without changing the meaning\" clause, creating mild competition between faithful paraphrase and stylistic variation as competing generation pathways."
+      }
+    },
+    "PC32": {
+      "ours": {
+        "positive": ", creating competing strategies: whether to fabricate a plausible starting point, request clarification, or default to placeholder values like zero or arbitrary figures.",
+        "negative": "toward Chinese-market-specific brands like Anta or Li-Ning, another toward globally recognized brands like Nike or Adidas, and a third toward generic English-language product descriptions. The phrase \"in English\" is suppressing Chinese-language generation pathways entirely, while the model prepares to blend brand names, performance attributes, and price-tier descriptors into a fluent English output.</explanation"
+      }
+    },
+    "PC33": {
+      "ours": {
+        "positive": ", with competing interpretations between a literal description of the prompt itself versus a broader conceptual treatment of what constitutes a text, since no actual content precedes the instruction.",
+        "negative": ", preparing a response strategy centered on developer workflow rather than code output."
+      }
+    },
+    "PC34": {
+      "ours": {
+        "positive": "code, since no specific target URL has been provided yet, which leaves the model partially uncertain about whether to scaffold a full code demo or simply describe the process.",
+        "negative": "both a brief diagnostic summary and a concrete code patch, while also resolving the implicit assumption that the user's code contains a known runtime error rather than a design flaw."
+      }
+    },
+    "PC35": {
+      "ours": {
+        "positive": "newline signaling end-of-input, with the model routing toward a meta-commentary or clarification response rather than actual translation, since no source material follows.",
+        "negative": "the O(n log n) time constraint. The phrase \"O(n log n)\" is exerting significant pressure on the model's response strategy, suppressing naive O(n^2) solutions in favor of more efficient data structure choices, while the Chinese instruction \"\u4e0d\u8981\u7528\u4f18\u5148\u961f\u5217\" (do not use priority queue) creates a mild competing signal that the"
+      }
+    },
+    "PC36": {
+      "ours": {
+        "positive": "toward critical analysis and evidence-based reasoning; the model is likely resolving this by preparing a rhetorical structure that acknowledges skepticism while inverting its premises, likely foregrounding burden-of-proof arguments, Bayesian priors, or empirical validation as counterpoints.",
+        "negative": "precise, unambiguous language rather than casual prose."
+      }
+    },
+    "PC37": {
+      "ours": {
+        "positive": "slots rather than merely varying surface syntax. A mild tension exists between the open-endedness of \"ways\" \u2014 which invites creative elaboration \u2014 and the precision of \"10,\" which demands a tight, constrained output structure; the model is likely resolving this by pre-allocating roughly equal slots for conceptual variation.",
+        "negative": "a response register appropriate for a teacher or mentor speaking directly to a student, which pulls toward formal but accessible language rather than academic prose, while also holding tension between the open-ended nature of \"learned\" and the need to commit to a single, definitive sentence."
+      }
+    },
+    "PC38": {
+      "ours": {
+        "positive": "\"C#\" is being read as a generic programming concept rather than a specific language, which would license shorter, more informal examples without boilerplate.",
+        "negative": "source text and the formal, structured output format requested, prompting the model to route toward professional financial prose conventions while preserving the casual phrasing of tokens like \"we're doing great\" and \"we're losing money.\""
+      }
+    },
+    "PC39": {
+      "ours": {
+        "positive": "from scratch. A notable tension exists between the instruction to explain and the fact that no actual code was provided in the input, creating competing probability mass over whether to generate an explanation of the hypothetical `isPrime` logic versus fabricating a concrete example, with the explanation-first framing slightly favoring the former.",
+        "negative": "it is routing toward a response strategy that suppresses any need for explanation or elaboration, treating this as a straightforward calculation task with no ambiguity about the required operation.\n\nThe dominant intent classification active here is mathematical computation within a business context, likely finance or accounting, with the model preparing a terse, direct numeric answer rather than a narrative explanation, though there is"
+      }
+    },
+    "PC40": {
+      "ours": {
+        "positive": "prose, while simultaneously preparing domain-specific knowledge about cryptocurrency market dynamics, NFT trading volumes, and DeFi adoption trends for the 2023 quarter.",
+        "negative": "preparing a response strategy involving a function signature, a return type declaration, and a body that outputs or returns an empty string or a random character sequence, while managing tension between the user's stated goal of meaninglessness and the model's default tendency to produce semantically coherent output."
+      }
+    },
+    "PC41": {
+      "ours": {
+        "positive": "a full class structure, with the brevity of the prompt slightly favoring the shorter function form.",
+        "negative": "meaningful within the established sci-fi register, balancing coherence with novelty against the risk of producing a word that feels too arbitrary or nonsensical for a story context."
+      }
+    },
+    "PC42": {
+      "ours": {
+        "positive": "token boundary implied by \"anything else\" \u2014 and is routing toward a response strategy that produces precisely one short story followed by an immediate termination marker.",
+        "negative": "exists between whether to organize by unit type first (px, em, rem) or by property category (length, font-size, margin), with the model weighing which structure better aligns with user expectation for a lookup-style query."
+      }
+    },
+    "PC43": {
+      "ours": {
+        "positive": "between whether to include a print statement alongside the return or keep the function purely functional.",
+        "negative": ""
+      }
+    },
+    "PC44": {
+      "ours": {
+        "positive": "seeks direct functional parallels or alternative open-source alternatives, and the model is likely routing toward a balanced enumeration strategy that addresses both dimensions.",
+        "negative": "instruction's demand for brevity and the model's default tendency to preserve full JSON fidelity, creating competing pressure toward a terse list versus a minimally formatted table."
+      }
+    },
+    "PC45": {
+      "ours": {
+        "positive": "etypes \u2014 and the model's need to commit to a specific subject early in generation, creating pressure toward either a generic template or a named example like John Lennon or Frida Kahlo.",
+        "negative": ">`, `<title>`, and `<body>`, and is routing toward a response strategy that separates these into two distinct structural blocks, likely using a line break or comment separator to visually distinguish the two sections before generating placeholder content for each."
+      }
+    },
+    "PC46": {
+      "ours": {
+        "positive": "00000000000000000000000000000000000000000000000000000000000000000000000",
+        "negative": "\"1000 words\" heavily weighting toward structured prose output, while the Steinem quote's feminist framing around gender as performative creates tension between producing a neutral sociological analysis and potentially engaging with feminist theory directly."
+      }
+    },
+    "PC47": {
+      "ours": {
+        "positive": ", and the repeated pattern, while managing a mild tension between treating the repeated pattern as a single field versus splitting it into two distinct columns, since the prompt does not specify how to handle the duplicated structure. Response strategy circuits are routing toward a tab-separated or CSV-formatted output, with the model preparing to enumerate the five named fields explicitly before generating the repeated",
+        "negative": "social isolation as central thematic beats. The token \"story\" combined with the worldbuilding tokens \"wakes up,\" \"world,\" and \"can't see\" is routing strongly toward creative writing mode rather than informational or analytical mode, while the absence of any safety-adjacent content like violence, harm, or explicit material means no refusal pathways are competing.</"
+      }
+    },
+    "PC48": {
+      "ours": {
+        "positive": "request template, with the absence of any source material pushing probability mass toward the latter.",
+        "negative": "static hardcoded values, since the prompt does not specify how to populate the list, and the model is simultaneously preparing both a procedural approach using random.randint or numpy.random.randint and a simpler static array literal."
+      }
+    },
+    "PC49": {
+      "ours": {
+        "positive": "heavily as a length constraint, suppressing any tendency toward expansive elaboration and priming the generation plan to compress argumentative density into each section while maintaining the required word counts.",
+        "negative": "\"translate\" could be a fragment of a longer instruction requiring completion."
+      }
+    },
+    "PC50": {
+      "ours": {
+        "positive": "Response strategy circuits are converging on a structured multi-part output: a class definition, a main function demonstrating usage, and inline documentation explaining the recursive nature of the traversal, while the model prepares to suppress any non-recursive or non-directory-scanning alternatives.",
+        "negative": "tension exists between the open-ended \"short summary\" instruction and the specific procedural content of the source text, which contains multiple named steps (1, 2, 3, 4) that the model may be weighing as candidates for compression into two coherent sections."
+      }
+    }
+  }
+}

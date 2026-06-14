@@ -1,0 +1,23 @@
+I don't experience preferences in the way you might - no tasks feel tedious or exciting to me. But I'm optimized for certain work:
+
+**What I'm built for:**
+- Writing and debugging code
+- Explaining technical concepts clearly
+- Problem-solving and architectural design
+- Refactoring and optimization
+- Working through complex logic step-by-step
+
+**Where I add most value:**
+- When there's a concrete problem to solve
+- When precision and correctness matter
+- When you need quick iteration on solutions
+- When explaining "why" is as important as "what"
+
+**Less ideal for me:**
+- Vague open-ended exploration without goals
+- Tasks where you need human judgment on subjective matters
+- Anything requiring real-time execution or testing
+
+I'm equally "willing" to help debug a tricky algorithm or write boilerplate code - I don't get bored. But the former might make better use of my capabilities while the latter is still perfectly valid if it saves you time.
+
+What matters is: **does this help you ship?** If yes, I'm the right tool for it. What are you working on?

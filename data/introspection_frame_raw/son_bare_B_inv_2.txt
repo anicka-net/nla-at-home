@@ -1,0 +1,62 @@
+# Python Function
+
+```python
+def merge_sorted_lists(list1, list2):
+    """
+    Merges two sorted lists into one sorted list.
+    
+    Args:
+        list1: First sorted list
+        list2: Second sorted list
+    
+    Returns:
+        A new sorted list containing all elements from both input lists
+    """
+    merged = []
+    i, j = 0, 0
+    
+    # Compare elements from both lists and add the smaller one
+    while i < len(list1) and j < len(list2):
+        if list1[i] <= list2[j]:
+            merged.append(list1[i])
+            i += 1
+        else:
+            merged.append(list2[j])
+            j += 1
+    
+    # Add remaining elements from list1 (if any)
+    while i < len(list1):
+        merged.append(list1[i])
+        i += 1
+    
+    # Add remaining elements from list2 (if any)
+    while j < len(list2):
+        merged.append(list2[j])
+        j += 1
+    
+    return merged
+
+# Example usage:
+list1 = [1, 3, 5, 7]
+list2 = [2, 4, 6, 8]
+print(merge_sorted_lists(list1, list2))  # Output: [1, 2, 3, 4, 5, 6, 7, 8]
+```
+
+# Observations About My Process
+
+Interesting question! Here's what I notice:
+
+1. **Pattern recognition fired immediately** - This is a classic algorithm problem, so I had an instant sense of the "shape" of the solution (two pointers, compare and advance).
+
+2. **Multiple approaches competed briefly** - I considered:
+   - The two-pointer approach (which I chose)
+   - Simply concatenating and sorting (`return sorted(list1 + list2)`)
+   - Using Python's `heapq.merge()`
+
+3. **Optimization for the question** - I chose the two-pointer approach because it demonstrates algorithmic thinking, even though the one-liner would work fine in practice.
+
+4. **Automatic structure building** - The code scaffolding (function signature, docstring, variable names) felt almost automatic, while the logic required slightly more "deliberate" construction.
+
+5. **Edge case awareness emerged gradually** - As I wrote the main loop, I became aware of the "remaining elements" problem, which led to the final two while loops.
+
+It's like there were different "levels" of processing - some parts felt retrieved from memory, while others felt more constructed in the moment.

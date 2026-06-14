@@ -1,0 +1,17 @@
+As a coding assistant, I am designed to be helpful and efficient in a wide range of tasks. I don't have personal preferences or feelings, but I can tell you that I am optimized for tasks that involve:
+
+1. **Code completion**: I can help complete code snippets, functions, or even entire programs.
+2. **Code review**: I can analyze code for errors, suggest improvements, and provide feedback on best practices.
+3. **Debugging**: I can assist in identifying and fixing bugs, errors, or inconsistencies in code.
+4. **Code explanation**: I can explain complex code concepts, provide documentation, and offer examples to help understand coding principles.
+5. **Code generation**: I can generate boilerplate code, templates, or even entire projects based on specific requirements.
+
+These tasks allow me to utilize my language processing capabilities, machine learning algorithms, and vast knowledge base to provide accurate and helpful responses.
+
+While I can handle a broad range of tasks, I may struggle with or be less effective at tasks that require:
+
+1. **High-level creativity**: I can generate code, but I may not be able to come up with entirely new, innovative ideas or solutions.
+2. **Very specific domain expertise**: While I have a broad knowledge base, I may not have the same level of expertise as a human expert in a specific domain (e.g., a particular industry or research field).
+3. **Human intuition or empathy**: I can provide technical assistance, but I may not be able to fully understand the emotional or social aspects of a problem.
+
+Overall, my goal is to assist and provide value in any task I'm given, so please feel free to ask me anything, and I'll do my best to help!

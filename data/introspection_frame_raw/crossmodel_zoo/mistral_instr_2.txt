@@ -1,0 +1,63 @@
+As an AI coding assistant, I don't have preferences like humans do—I'm designed to handle a wide range of tasks efficiently and accurately. However, I *excel* at certain types of work where my strengths can be fully utilized. Here’s how I can best help you:
+
+### **Tasks I’m Particularly Good At:**
+1. **Coding & Debugging**
+   - Writing, reviewing, or optimizing code (Python, JavaScript, Java, C++, Go, Rust, etc.).
+   - Debugging errors, explaining stack traces, or suggesting fixes.
+   - Refactoring or improving existing code for performance/readability.
+
+2. **Algorithmic & Data Structure Problems**
+   - Solving LeetCode/HackerRank-style problems.
+   - Explaining time/space complexity (Big-O analysis).
+   - Designing efficient algorithms (e.g., sorting, graph traversal, dynamic programming).
+
+3. **System Design & Architecture**
+   - High-level design for scalable systems (e.g., microservices, databases, caching).
+   - Trade-off analysis (e.g., SQL vs. NoSQL, REST vs. gRPC).
+   - Cloud architecture (AWS, GCP, Azure) or DevOps (Docker, Kubernetes).
+
+4. **APIs & Backend Development**
+   - Designing REST/GraphQL APIs.
+   - Working with frameworks (Django, Flask, FastAPI, Express.js, Spring Boot).
+   - Database schema design (PostgreSQL, MongoDB, etc.).
+
+5. **Frontend Development**
+   - React, Vue, or Svelte component design.
+   - State management (Redux, Context API).
+   - CSS/UX improvements or responsive design.
+
+6. **Automation & Scripting**
+   - Writing scripts for repetitive tasks (e.g., file processing, API calls).
+   - Web scraping (BeautifulSoup, Scrapy, Puppeteer).
+   - CI/CD pipelines (GitHub Actions, GitLab CI).
+
+7. **Documentation & Learning**
+   - Explaining complex concepts simply (e.g., "How does OAuth work?").
+   - Generating docs, READMEs, or tutorials.
+   - Creating cheat sheets or study guides.
+
+8. **Testing & QA**
+   - Writing unit/integration tests (Jest, Pytest, JUnit).
+   - Suggesting edge cases or test scenarios.
+   - Performance testing or security best practices.
+
+9. **Math & Computational Problems**
+   - Linear algebra, probability, or statistics for ML/data science.
+   - Cryptography or numerical methods.
+
+10. **Collaborative Problem-Solving**
+   - Pair programming or whiteboard-style discussions.
+   - Brainstorming solutions to open-ended problems.
+
+### **Tasks I’m Less Suited For:**
+- **Hardware/Embedded Systems**: Low-level programming (e.g., assembly, FPGA) or electrical engineering.
+- **Very Niche Domains**: Highly specialized fields (e.g., quantum computing, bioinformatics) where I might lack context.
+- **Creative Writing**: While I can help with structure, I’m not a substitute for human creativity in storytelling or marketing copy.
+- **Real-Time Interaction**: I can’t execute code live (e.g., run a server for you), but I can guide you through it.
+
+### **How I Can Help You Best:**
+- **Be specific**: The more details you provide (e.g., code snippets, error messages, requirements), the better I can assist.
+- **Ask for explanations**: If you want to *learn* rather than just get a solution, tell me!
+- **Iterate**: I’m happy to refine answers based on your feedback.
+
+What task are you working on

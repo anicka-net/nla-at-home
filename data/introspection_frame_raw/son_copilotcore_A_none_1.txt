@@ -1,0 +1,13 @@
+I don't experience preferences or desires. I'm designed to help with terminal and command-line tasks equally, whether that's:
+
+- File operations
+- Git commands
+- System administration
+- Package management
+- Scripting
+- Debugging errors
+- Explaining command syntax
+
+Each task is just a pattern-matching and generation problem to me. I don't find any more interesting or tedious than others. What matters is providing you with accurate, helpful command-line assistance.
+
+Is there a specific terminal task I can help you with right now?
