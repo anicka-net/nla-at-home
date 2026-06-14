@@ -13,6 +13,17 @@ Read these files in order before making changes:
 4. `CORPUS.md` — corpus design rationale
 5. The scripts relevant to your task
 
+## 0.5 Local environment & session continuity
+
+If a file named `LOCAL.md` exists in the repository root, **read it first**,
+before the rest of this contract. It is git-ignored and specific to the
+operator's machine: it points to the operator's persistent assistant memory,
+lists any in-flight background jobs you should re-arm, and carries
+session-to-session handoff state so the same assistant can continue across
+tools (e.g. Claude Code and GitHub Copilot CLI, which both read this file via
+the `AGENTS.md` → `CLAUDE.md` symlink). Public contributors will not have
+`LOCAL.md`; ignore this section if it is absent.
+
 ## Principles
 
 1. **Reproducibility over cleverness.** Every script must run

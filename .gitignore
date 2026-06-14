@@ -18,6 +18,7 @@ working-docs/
 
 # Local agent settings (private, not for git)
 .claude/
+LOCAL.md
 
 # OS
 .DS_Store
