@@ -125,7 +125,7 @@ The AV hijacks a rare Unicode token's embedding position:
 1. Pick ㈎ (U+320E, token_id 149705) — single token, near-zero
    probability in neutral context, position-stable across 5 templates
 2. Build prompt: `<concept>㈎</concept> Please provide an explanation.`
-3. Replace embedding at ㈎ position with `activation × 150.0`
+3. Replace embedding at ㈎ position with the activation L2-normalized to norm 150.0
 4. Model generates description of what the activation represents
 
 The AR reverses this: process description text, extract hidden state

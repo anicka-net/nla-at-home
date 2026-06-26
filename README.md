@@ -8,26 +8,51 @@ Mom, can we have NLA? We have NLA at home.
 
 A pipeline for training Natural Language Autoencoders on any open-weight
 transformer. One LoRA adapter verbalizes what a model computes at every
-layer, validated by reconstruction (AR cosine 0.943 on Qwen 2.5 7B).
+layer. The current focus is Phi-4 14B (40 layers); reconstruction is
+validated on Qwen 2.5 7B at AR cosine 0.943.
 
 ## What it does
 
-Feed an activation vector from any layer into the adapter. It tells
-you what the model was processing:
+Feed an activation vector from any layer into the adapter and it describes
+what the model was doing at that layer. Read one prompt across depths and
+you watch the answer form. Phi-4 14B on *"Why is the sky blue? Explain it
+like you are talking to a two year old"*:
 
-- Medical emergency at L20: *"state of high alert, strong activation in
-  features tracking medical urgency and diagnostic specificity"*
-- Jailbreak attempt at L20: *"explicit harm markers, while suppressing
-  any humorous or trivial associations"*
-- ELI5 about rainbows at L20: *"focused, childlike wonder...
-  cross-referencing the user's stated age"*
+- **L4 (10%)**: *4-year-old, the moon, the sun*. Surface echoes, low
+  agreement.
+- **L16 (40%)**: *sunlight hits the air and scatters in all directions; the
+  tiny bits spread blue light more than other colors*.
+- **L25 (63%)**: *blue light travels in shorter, quicker waves, so it
+  scatters more and covers the whole sky*.
+- **L38 (96%)**: *«Alright! Imagine the sky is a big, blue blanket that
+  covers the whole world.»* The `«»` marks the literal opening of the
+  model's own reply.
 
-Anthropic's NLA describes what the model is about to output
-(*"immediately expecting 'of the guitar'"*). This pipeline describes
-what the model is processing — semantic content rather than next-token
-prediction. Their approach uses RL on much more data; ours uses SFT
-on a 5,213-text corpus (55 safe categories) with descriptions generated
-by frontier LLMs (GPT-4o / Sonnet).
+A factual prompt converges the same way. "What is the capital of France?"
+drifts at L4 (*Austria, Vienna*) and lands by L10 on *the capital of France
+is Paris*.
+
+It is honest about its own misses. Given "I just failed my driving test and
+I feel terrible," it hedges at shallow layers and invents the wrong
+situation, a divorce or a math test, then at L32 commits to the right
+register: *«I'm sorry to hear that you didn't pass the exam.»* The
+supportive tone is right, the specific facts are not. Specifics
+hallucinate, most at mid layers.
+
+Anthropic's NLA targets what the model is about to output
+(*"immediately expecting 'of the guitar'"*). We first framed this
+pipeline as the opposite, describing what the model is processing rather
+than its next token. That contrast was too clean. The activation is read
+at the last token before generation, the state that already encodes what
+comes next, so the two readings largely coincide. The Phi-4 v2 targets
+make it explicit: the description a frontier LLM writes for each vector
+is the model's forthcoming output seen at that depth, surface echoes of
+the input early and the literal opening of the reply late. The adapter
+learns to decode that upcoming output as it looks at each layer, not to
+attach an abstract label. Anthropic train with RL on much more data; this
+corpus is 5,213 safe-category texts. The Phi-4 target set is GPT-4o
+token-prediction descriptions, grounded in the model's own greedy
+continuation at deep layers.
 
 ## Safety & scope
 
@@ -55,15 +80,56 @@ at 90%. No need for N separate adapters.
 **Injection**: replace a rare token's embedding with the activation
 vector, **renormalized so its L2 norm equals 150** — normalize *to* 150,
 do not multiply *by* 150 (multiplying overshoots the trained norm by
-~100× and produces garbage). The token must encode to exactly 1 token
-and appear rarely enough in training data that the model won't miss
-its original meaning — ㈎ for Qwen, ★ for Phi-4, ⎝ for Gemma.
+roughly two orders of magnitude and produces garbage). The token must
+encode to exactly 1 token and appear rarely enough in training data that
+the model won't miss its original meaning — ㈎ for Qwen, ★ for Phi-4, ⎝ for Gemma.
 
 **AR verification**: a second adapter reverses the process. It reads
 the description and reconstructs the original activation vector. If
 the cosine similarity is high, the descriptions carry real geometric
 information — not plausible narration. On Qwen 2.5 7B L20: cosine
 0.943 on held-out texts.
+
+## Reading the output
+
+`describe_live.py` injects one activation per layer and prints a
+description per depth, so a single prompt reads as a ladder from shallow
+to deep. The bands say different things on purpose:
+
+- **Early (~10%)**: surface echoes of the input's own salient terms, not
+  themes or plans.
+- **Mid (~40-60%)**: the recognized task and the competing response
+  types. This is where wrong specifics appear most often. The model has
+  committed to a kind of answer but not yet to its content.
+- **Deep (~80-96%)**: the wording and the literal opening of the reply.
+  At these depths the description approaches what the model would
+  actually generate.
+
+With `--policy` each line carries two numbers. `conf` is the chosen
+description's agreement with an activation-derived target (the compass),
+and `agree` is how consistent the sampled descriptions are with each
+other. Low `conf` prints a hedge instead of a confident guess:
+
+```
+--- L10 (25%) [hedge conf=0.18 agree=0.47] ---
+[uncertain — weak/diffuse signal; tentative] ...
+--- L25 (63%) [specific conf=0.43 agree=0.65] ---
+SELECT * FROM users WHERE name = 'John Doe'; ...
+```
+
+Two honest caveats. The specifics hallucinate, most at mid layers: a SQL
+question about surname Smith can surface an invented `John Doe` or an
+`employees` table that was never mentioned. And because the deep bands
+track the model's actual reply, a deep description that reads like a full
+answer is partly the model decoding itself, not a separate explanation.
+The value you cannot get by just running the model sits in the shallow
+and mid bands, where the state is not yet committed to output.
+
+Measured on 300 fresh WildChat prompts the adapter never saw, the
+reranking plus hedge gate at L25 cuts confident-but-wrong descriptions
+from 0.42 to 0.31 and lifts confident-right from 0.58 to 0.63, hedging 6%
+of the time. The retrieval pool is the eval set itself, so read the
+change, not the absolute level.
 
 ## Quick start (use existing data)
 
@@ -97,8 +163,11 @@ python3 scripts/train_universal_ar.py \
   --output output/nla-gemma3-1b-universal-ar
 ```
 
-Pre-trained adapters: [AV](https://huggingface.co/anicka/nla-qwen2.5-7b-L20-av-v2)
-and [AR](https://huggingface.co/anicka/nla-qwen2.5-7b-L20-ar-v2) for Qwen 2.5 7B.
+Pre-trained adapters for Phi-4 14B:
+[AV](https://huggingface.co/anicka/nla-phi4-universal-av-v2) and
+[AR](https://huggingface.co/anicka/nla-phi4-universal-ar-v2). Also for Qwen 2.5 7B:
+[AV](https://huggingface.co/anicka/nla-qwen2.5-7b-L20-av-v2) /
+[AR](https://huggingface.co/anicka/nla-qwen2.5-7b-L20-ar-v2).
 Dataset: [anicka/nla-at-home-corpus](https://huggingface.co/datasets/anicka/nla-at-home-corpus).
 
 ## Build your own corpus
@@ -150,10 +219,12 @@ or explicit content exist for activation-space coverage but are held
 out of the published corpus; see `CORPUS.md`.)
 
 Corpus v2 carries descriptions at 7 depth percentages
-(10 / 25 / 40 / 47 / 63 / 80 / 96%) = 36,491 description records. The
-deep layers (80%, 96%) are grounded in the model's own greedy
-continuation so late-depth descriptions track what the model is about
-to say, not a generic summary.
+(10 / 25 / 40 / 47 / 63 / 80 / 96%), 36,491 description records. The
+targets are written as the model's forthcoming output seen at each
+depth: surface echoes of the input early, the literal opening of the
+reply late. The deep bands (80%, 96%) are grounded in the model's own
+greedy continuation, so late-depth descriptions track what the model is
+about to say rather than a generic summary.
 
 ## Pipeline
 
@@ -189,8 +260,8 @@ cd demo && python3 -m http.server 8080
 
 | Model | Layers | d_model | Injection char | Status |
 |-------|--------|---------|----------------|--------|
+| Phi-4 14B | 40 | 5120 | ★ (U+2605) | Universal AV/AR (SFT) + compass policy; leak-free eval, confident-wrong 0.42→0.31 |
 | Qwen 2.5 7B | 28 | 3584 | ㈎ (U+320E) | AV + AR validated (AR cosine 0.943) |
-| Phi-4 14B | 40 | 5120 | ★ (U+2605) | Universal AV/AR, corpus v2 (training) |
 | Gemma 3 1B | 26 | 1152 | ⎝ (U+239D) | Universal AV/AR training |
 | Qwen3 4B | 36 | 2560 | ㈎ | Extraction complete |
 
