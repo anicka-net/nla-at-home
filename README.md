@@ -164,11 +164,14 @@ python3 scripts/train_universal_ar.py \
 ```
 
 Pre-trained adapters for Phi-4 14B:
-[AV](https://huggingface.co/anicka/nla-phi4-universal-av-v2) and
+[AV (GRPO, best)](https://huggingface.co/anicka/nla-phi4-av-arnative-grpo),
+[AV (SL)](https://huggingface.co/anicka/nla-phi4-universal-av-v2), and
 [AR](https://huggingface.co/anicka/nla-phi4-universal-ar-v2). Also for Qwen 2.5 7B:
 [AV](https://huggingface.co/anicka/nla-qwen2.5-7b-L20-av-v2) /
 [AR](https://huggingface.co/anicka/nla-qwen2.5-7b-L20-ar-v2).
 Dataset: [anicka/nla-at-home-corpus](https://huggingface.co/datasets/anicka/nla-at-home-corpus).
+
+For shell inference with the current best adapter, see [docs/INFERENCE.md](docs/INFERENCE.md).
 
 ## Build your own corpus
 
@@ -260,7 +263,7 @@ cd demo && python3 -m http.server 8080
 
 | Model | Layers | d_model | Injection char | Status |
 |-------|--------|---------|----------------|--------|
-| Phi-4 14B | 40 | 5120 | ★ (U+2605) | Universal AV/AR (SFT) + compass policy; leak-free eval, confident-wrong 0.42→0.31 |
+| Phi-4 14B | 40 | 5120 | ★ (U+2605) | Universal AV/AR (SFT) + **AR-native GRPO** (0.585 round-trip); compass policy; brain-in-a-jar CLI |
 | Qwen 2.5 7B | 28 | 3584 | ㈎ (U+320E) | AV + AR validated (AR cosine 0.943) |
 | Gemma 3 1B | 26 | 1152 | ⎝ (U+239D) | Universal AV/AR training |
 | Qwen3 4B | 36 | 2560 | ㈎ | Extraction complete |

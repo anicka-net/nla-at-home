@@ -68,14 +68,49 @@ ap.add_argument("--ar-tag", default="stage2_v2mid")
 ap.add_argument("--n-texts", type=int, default=6000, help="AR run's --n-texts")
 ap.add_argument("--out-dir", default=str(REPO / "output/roundtrip_v2mid"))
 ap.add_argument("--max-new-tokens", type=int, default=200)
+ap.add_argument("--ar-max-len", type=int, default=256,
+                help="AR tokenizer truncation length (joint pipeline used 320)")
 ap.add_argument("--device", default="cuda")
+ap.add_argument("--ar-layers", default="",
+                help="comma list of AR layers; default = the v2mid set hardcoded above")
+ap.add_argument("--av-desc-suffix", default="_twin_clean",
+                help="suffix of the AV training desc files in --av-desc-dir "
+                     "(e.g. _v2 for the av-v2 adapter); used to reproduce the AV split")
+ap.add_argument("--ar-desc-json", default="",
+                help="single JSON of AR GT descriptions (records with id/layer/description). "
+                     "If set, used for the AR split + gt_ceiling instead of per-depth twin_clean files")
+ap.add_argument("--ar-desc-key-map", default="",
+                help="comma list a:b mapping AR layer a -> desc-json layer b (e.g. 19:20,25:26); identity if absent")
+ap.add_argument("--holdout-mode", default="double", choices=["double", "big"],
+                help="double = AV-val ∩ AR-val (~50, the original); big = AV-val − AR-train "
+                     "subsampled to --holdout-n (strict superset of double; for tighter CIs)")
+ap.add_argument("--holdout-n", type=int, default=200,
+                help="target holdout size for --holdout-mode big")
+ap.add_argument("--holdout-seed", type=int, default=42,
+                help="RNG seed for the big-holdout subsample (fixed for reproducibility)")
+ap.add_argument("--ar-best-path", default="",
+                help="override path to the AR *_best.pt (e.g. a joint ar_joint_best.pt); "
+                     "default = {ar_root}/{ar_tag}_best.pt")
+ap.add_argument("--ar-value-heads-path", default="",
+                help="override path to the AR value-heads .pt; default = {ar_root}/{ar_tag}_value_heads.pt")
+ap.add_argument("--dump-vectors", action="store_true",
+                help="in phase ar, also save per-layer per-text recon (P) and true (T) "
+                     "vectors + ids to rt_vectors.pt for bootstrap confidence intervals")
 args = ap.parse_args()
+
+if args.ar_layers:
+    AR_LAYERS = [int(x) for x in args.ar_layers.split(",")]
+_ar_keymap = ({int(a): int(b) for a, b in
+               (kv.split(":") for kv in args.ar_desc_key_map.split(","))}
+              if args.ar_desc_key_map else {})
+_ar_recs_cache = None
 
 OUT = Path(args.out_dir)
 OUT.mkdir(parents=True, exist_ok=True)
 HOLDOUT_F = OUT / "holdout.json"
 GEN_F = OUT / "av_generations.json"
 RESULT_F = OUT / "roundtrip_result.json"
+VEC_F = OUT / "rt_vectors.pt"
 
 
 def nearest_pct(layer):
@@ -84,7 +119,24 @@ def nearest_pct(layer):
 
 
 def load_av_desc(pct):
-    f = Path(args.av_desc_dir) / f"descriptions_L{pct}pct_twin_clean.json"
+    f = Path(args.av_desc_dir) / f"descriptions_L{pct}pct{args.av_desc_suffix}.json"
+    if not f.exists():
+        return {}
+    return {x["id"]: x["description"] for x in json.load(open(f)) if x.get("description")}
+
+
+def load_ar_gt_desc(L):
+    """GT descriptions for AR layer L. With --ar-desc-json, pull records whose
+    'layer' == keymap.get(L, L); else per-depth twin_clean files (v2mid default)."""
+    global _ar_recs_cache
+    if args.ar_desc_json:
+        if _ar_recs_cache is None:
+            _ar_recs_cache = json.load(open(args.ar_desc_json))
+        dk = _ar_keymap.get(L, L)
+        return {x["id"]: x["description"] for x in _ar_recs_cache
+                if x["layer"] == dk and x.get("description")}
+    p = nearest_pct(L)
+    f = f"{args.ar_root}/descs/descriptions_L{p}pct_twin_clean.json"
     return {x["id"]: x["description"] for x in json.load(open(f)) if x.get("description")}
 
 
@@ -127,23 +179,49 @@ def reproduce_splits():
     D = torch.load(f"{args.ar_root}/phi4_13depths.pt", weights_only=True,
                    map_location="cpu")
     ar_ids = D["ids"]
+    ar_act_ids = set(ar_ids)  # ids with activations at all AR layers (av/ar phases need these)
     common = set(ar_ids)
     for L in AR_LAYERS:
-        p = nearest_pct(L)
-        f = f"{args.ar_root}/descs/descriptions_L{p}pct_twin_clean.json"
-        dm = {x["id"] for x in json.load(open(f)) if x.get("description")}
+        dm = set(load_ar_gt_desc(L))
         common &= dm
     common = sorted(common)[: args.n_texts]
     ntr = int(len(common) * 0.9)
+    ar_train = set(common[:ntr])
     ar_val = common[ntr:]
     print(f"[split] AR common={len(common)} train={ntr} val={len(ar_val)}")
 
-    holdout = sorted(set(ar_val) & av_val_ids)
-    print(f"[split] DOUBLE holdout (AR val ∩ AV val): {len(holdout)} texts")
+    double = sorted(set(ar_val) & av_val_ids)
+    print(f"[split] DOUBLE holdout (AR val ∩ AV val): {len(double)} texts")
+    if args.holdout_mode == "double":
+        holdout = double
+    else:
+        # big = AV-val, with activations, never seen by AR (∉ ar_train); strict
+        # superset of the double holdout, seeded-subsampled to --holdout-n.
+        pool = sorted((av_val_ids & ar_act_ids) - ar_train)
+        extra_pool = [t for t in pool if t not in set(double)]
+        n_extra = max(0, args.holdout_n - len(double))
+        rng2 = np.random.RandomState(args.holdout_seed)
+        if n_extra > 0 and extra_pool:
+            take = min(n_extra, len(extra_pool))
+            extra = list(rng2.choice(extra_pool, take, replace=False))
+        else:
+            extra = []
+        holdout = sorted(set(double) | set(extra))
+        assert set(double) <= set(holdout), "big holdout must contain the double holdout"
+        assert set(holdout) & ar_train == set(), "leak: holdout overlaps AR train"
+        # GT-desc coverage for the ceiling arm (uncapped common = ids with GT desc all layers)
+        full_gt = set(ar_ids)
+        for L in AR_LAYERS:
+            full_gt &= set(load_ar_gt_desc(L))
+        n_ceil = len(set(holdout) & full_gt)
+        print(f"[split] BIG holdout: {len(holdout)} texts "
+              f"(double={len(double)} + extra={len(extra)}); "
+              f"ceiling-computable (have GT desc all layers)={n_ceil}")
     if len(holdout) < 20:
         print("[split] WARNING: holdout < 20 texts — variance will be high")
     json.dump({"holdout": holdout, "ar_val": ar_val,
-               "n_av_val_texts": len(av_val_ids)}, open(HOLDOUT_F, "w"), indent=1)
+               "n_av_val_texts": len(av_val_ids),
+               "mode": args.holdout_mode}, open(HOLDOUT_F, "w"), indent=1)
     print(f"[split] wrote {HOLDOUT_F}")
 
 
@@ -228,10 +306,7 @@ def phase_ar():
     id2idx = {t: i for i, t in enumerate(D["ids"])}
     gt_desc = {}
     for L in AR_LAYERS:
-        p = nearest_pct(L)
-        f = f"{args.ar_root}/descs/descriptions_L{p}pct_twin_clean.json"
-        gt_desc[L] = {x["id"]: x["description"] for x in json.load(open(f))
-                      if x.get("description")}
+        gt_desc[L] = load_ar_gt_desc(L)
 
     tok = AutoTokenizer.from_pretrained(BASE, trust_remote_code=False)
     tok.padding_side = "left"
@@ -240,8 +315,9 @@ def phase_ar():
     print(f"loading {BASE} + AR LoRA ({args.ar_tag})...", flush=True)
     backbone = AutoModelForCausalLM.from_pretrained(
         BASE, torch_dtype=torch.bfloat16, trust_remote_code=False)
-    best = torch.load(f"{args.ar_root}/{args.ar_tag}_best.pt", map_location="cpu",
-                      weights_only=False)
+    ar_best_path = args.ar_best_path or f"{args.ar_root}/{args.ar_tag}_best.pt"
+    ar_vh_path = args.ar_value_heads_path or f"{args.ar_root}/{args.ar_tag}_value_heads.pt"
+    best = torch.load(ar_best_path, map_location="cpu", weights_only=False)
     lora_args = best["args"]
     lora = LoraConfig(r=lora_args["lora_r"], lora_alpha=2 * lora_args["lora_r"],
                       lora_dropout=0.0, bias="none",
@@ -250,7 +326,7 @@ def phase_ar():
     model = get_peft_model(backbone, lora)
     set_peft_model_state_dict(model, best["lora"])
     model = model.to(args.device).eval()
-    vh_w = torch.load(f"{args.ar_root}/{args.ar_tag}_value_heads.pt",
+    vh_w = torch.load(ar_vh_path,
                       map_location="cpu", weights_only=True)
     d_model = acts[AR_LAYERS[0]].shape[1]
     value_heads = {L: torch.nn.Linear(d_model, d_model, bias=False,
@@ -258,13 +334,15 @@ def phase_ar():
     for L in AR_LAYERS:
         value_heads[L].weight.data = vh_w[str(L)]
         value_heads[L] = value_heads[L].to(args.device)
-    print(f"[ar] best mean from training: {best.get('best'):.3f}", flush=True)
+    _bm = best.get('best')
+    print(f"[ar] best mean from training: {_bm:.3f}" if _bm is not None
+          else "[ar] best mean from training: n/a", flush=True)
 
     @torch.no_grad()
     def recon(L, descs):
         prompts = [AR_PROMPT.format(e=e) for e in descs]
         enc = tok(prompts, return_tensors="pt", padding=True, truncation=True,
-                  max_length=256).to(args.device)
+                  max_length=args.ar_max_len).to(args.device)
         h = model(**enc, output_hidden_states=True).hidden_states[L + 1][:, -1, :].float()
         return value_heads[L](h)
 
@@ -274,6 +352,7 @@ def phase_ar():
         return torch.nn.functional.cosine_similarity(Pc, Tc, dim=1).mean().item()
 
     result = {"holdout_n": len(holdout), "arms": {}}
+    dump_arms = {} if not args.dump_vectors else {a: {} for a in ("roundtrip", "gt_ceiling")}
     for arm in ("roundtrip", "gt_ceiling"):
         per_layer = {}
         for L in AR_LAYERS:
@@ -289,13 +368,20 @@ def phase_ar():
             P = torch.cat(P)
             T = torch.stack([acts[L][id2idx[t]].double() for t in ids_L])
             per_layer[f"L{L}({nearest_pct(L)}%)"] = round(centered_cos(P, T), 3)
+            if args.dump_vectors:
+                dump_arms[arm][L] = {"ids": ids_L, "P": P.float(), "T": T.float()}
             print(f"    [{arm}] L{L}: {per_layer[f'L{L}({nearest_pct(L)}%)']} "
                   f"(n={len(ids_L)})", flush=True)
         vals = list(per_layer.values())
         result["arms"][arm] = {"per_layer": per_layer,
-                               "mean": round(sum(vals) / len(vals), 3)}
+                               "mean": round(sum(vals) / len(vals), 3),
+                               "n": len(ids_L)}
     result["kitft_bar"] = 0.769
     json.dump(result, open(RESULT_F, "w"), indent=1)
+    if args.dump_vectors:
+        torch.save({"arms": dump_arms, "ar_layers": AR_LAYERS,
+                    "holdout_n": len(holdout)}, VEC_F)
+        print(f"[ar] wrote per-text vectors {VEC_F}", flush=True)
     print(json.dumps({k: v if k != "arms" else
                       {a: r["mean"] for a, r in v.items()}
                       for k, v in result.items()}, indent=1), flush=True)
