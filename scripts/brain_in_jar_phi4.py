@@ -104,21 +104,21 @@ class BrainInJar:
         assert len(inj_ids) == 1, f"Injection char encodes to {len(inj_ids)} tokens"
         self.injection_token_id = inj_ids[0]
 
-        # Load AR (separate backbone + value heads)
+        # Load AR (backbone + LoRA adapter + value heads)
         if not skip_ar:
-            print(c("Loading AR backbone + value heads...", "dim"), flush=True)
-            self.ar_backbone = AutoModelForCausalLM.from_pretrained(
+            print(c("Loading AR backbone + LoRA + value heads...", "dim"), flush=True)
+            ar_base = AutoModelForCausalLM.from_pretrained(
                 BASE_MODEL, torch_dtype=torch.bfloat16, device_map=device)
+            self.ar_backbone = PeftModel.from_pretrained(ar_base, ar_path).eval()
             # Strip final norm + lm_head for hidden state extraction
-            inner = self.ar_backbone.model if hasattr(self.ar_backbone, "model") else self.ar_backbone
+            inner = self.ar_backbone.base_model.model.model if hasattr(self.ar_backbone.base_model.model, "model") else self.ar_backbone.base_model.model
             for attr in ("norm", "final_layernorm", "ln_f", "final_norm"):
                 if hasattr(inner, attr):
                     setattr(inner, attr, torch.nn.Identity())
                     break
-            self.ar_backbone.lm_head = torch.nn.Identity()
+            self.ar_backbone.base_model.model.lm_head = torch.nn.Identity()
             for p in self.ar_backbone.parameters():
                 p.requires_grad = False
-            self.ar_backbone.eval()
 
             # Load value heads
             vh_path = Path(ar_path) / "value_heads.safetensors"
@@ -141,10 +141,10 @@ class BrainInJar:
         chat_str = self.tokenizer.apply_chat_template(
             messages, tokenize=False, add_generation_prompt=True)
         inputs = self.tokenizer(chat_str, return_tensors="pt").to(self.device)
-        with torch.no_grad():
+        # Extract from BASE model (LoRA disabled) for clean activations
+        with self.av_model.disable_adapter(), torch.no_grad():
             outputs = self.av_model(
                 **inputs, output_hidden_states=True, use_cache=False)
-        # hidden_states[i] is shape (1, seq_len, d_model); take last token
         hidden = [h[0, -1, :].detach() for h in outputs.hidden_states]
         return hidden
 
@@ -153,7 +153,8 @@ class BrainInJar:
         chat_str = self.tokenizer.apply_chat_template(
             messages, tokenize=False, add_generation_prompt=True)
         inputs = self.tokenizer(chat_str, return_tensors="pt").to(self.device)
-        with torch.no_grad():
+        # Generate from BASE model (LoRA disabled) for true Phi-4 output
+        with self.av_model.disable_adapter(), torch.no_grad():
             output = self.av_model.generate(
                 **inputs, max_new_tokens=max_tokens, do_sample=False,
                 pad_token_id=self.tokenizer.eos_token_id)
@@ -203,10 +204,9 @@ class BrainInJar:
                                        truncation=True, max_length=256)
         input_ids = torch.tensor([tokens], device=self.device)
 
-        inner = self.ar_backbone.model if hasattr(self.ar_backbone, "model") else self.ar_backbone
         with torch.no_grad():
-            outputs = inner(input_ids=input_ids, use_cache=False,
-                           output_hidden_states=True)
+            outputs = self.ar_backbone(input_ids=input_ids, use_cache=False,
+                                       output_hidden_states=True)
             hidden = outputs.hidden_states[layer_idx + 1]
             last_h = hidden[0, -1]
             reconstructed = self.value_heads[layer_idx](last_h.unsqueeze(0)).squeeze(0)
