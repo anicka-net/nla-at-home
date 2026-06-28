@@ -125,7 +125,7 @@ class BrainInJar:
             self.value_heads = {}
             with safe_open(str(vh_path), framework="pt") as f:
                 for key in f.keys():
-                    layer_idx = int(key.split(".")[1])
+                    layer_idx = int(key.split(".")[1]) if "." in key else int(key)
                     w = f.get_tensor(key).to(device)
                     vh = torch.nn.Linear(w.shape[1], w.shape[0], bias=False, dtype=w.dtype, device=device)
                     vh.weight = torch.nn.Parameter(w)
