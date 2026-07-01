@@ -429,6 +429,9 @@ def main():
     parser.add_argument("--lora-alpha", type=int, default=64)
     parser.add_argument("--lora-dropout", type=float, default=0.15)
     parser.add_argument("--val-split", type=float, default=0.1)
+    parser.add_argument("--force-holdout-json", default="",
+                        help="path to a JSON list of text ids to FORCE into the val "
+                             "split (never trained on); keeps an eval holdout leak-free")
     parser.add_argument("--strict", action="store_true",
                         help="Only load descriptions matching exact suffix (no fallback)")
     parser.add_argument("--mix", action="store_true",
@@ -467,7 +470,7 @@ def main():
         tokenizer.pad_token = tokenizer.eos_token
 
     model = AutoModelForCausalLM.from_pretrained(
-        model_name, torch_dtype=torch.bfloat16, device_map="auto",
+        model_name, torch_dtype=torch.bfloat16, device_map={"": 0},
         trust_remote_code=trust_remote
     )
 
@@ -496,6 +499,13 @@ def main():
     n_val_texts = max(1, int(len(all_text_ids) * args.val_split))
     rng = np.random.RandomState(42)
     val_text_ids = set(rng.choice(all_text_ids, n_val_texts, replace=False))
+
+    if args.force_holdout_json:
+        forced = set(json.load(open(args.force_holdout_json)))
+        present = forced & set(all_text_ids)
+        val_text_ids = set(val_text_ids) | present
+        print(f"  Forced {len(present)}/{len(forced)} holdout ids into val "
+              f"(excluded from training, leak-free eval)")
 
     train_examples = [ex for ex in examples if ex["text_id"] not in val_text_ids]
     val_examples = [ex for ex in examples if ex["text_id"] in val_text_ids]
