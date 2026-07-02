@@ -25,6 +25,7 @@ from torch.utils.data import Dataset, DataLoader
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import LoraConfig, get_peft_model
 from collections import defaultdict
+from clean_data_guard import assert_clean_sources, assert_terse
 
 REPO_ROOT = Path(__file__).parent.parent
 GENERATED_DIR = REPO_ROOT / "corpus" / "generated"
@@ -56,8 +57,9 @@ def nearest_depth_pct(layer, n_layers):
     return min(DEPTH_PCTS, key=lambda p: abs(p - depth))
 
 
-def load_descriptions(suffix="_tokenpred_gpt4o"):
+def load_descriptions(suffix="_tokenpred_gpt4o_clean", allow_verbose=False):
     descs = {}
+    used_sources = []
     for pct in DEPTH_PCTS:
         candidates = [
             GENERATED_DIR / f"descriptions_L{pct}pct{suffix}.json",
@@ -72,9 +74,14 @@ def load_descriptions(suffix="_tokenpred_gpt4o"):
         if path is None:
             print(f"  L{pct}%: NO FILE FOUND")
             continue
+        used_sources.append(path.name)
         data = json.loads(path.read_text())
         descs[pct] = {d["id"]: d["description"] for d in data}
         print(f"  L{pct}%: {len(descs[pct])} from {path.name}")
+
+    # Data-integrity gates (see clean_data_guard). L1 = filenames, L2 = content.
+    assert_clean_sources(used_sources, allow_verbose)
+    assert_terse(descs, allow_verbose)
     return descs
 
 
@@ -421,6 +428,11 @@ def main():
     parser.add_argument("--min-layer", type=int, default=0,
                         help="Skip layers below this index (late-layers-only training)")
     parser.add_argument("--val-split", type=float, default=0.1)
+    parser.add_argument("--desc-suffix", default="_tokenpred_gpt4o_clean",
+                        help="Clean description suffix (default: _tokenpred_gpt4o_clean)")
+    parser.add_argument("--allow-verbose", action="store_true",
+                        help="Bypass the clean-data guard and train on verbose/"
+                             "raw prose. You almost never want this.")
     parser.add_argument("--device", default="cuda")
     args = parser.parse_args()
 
@@ -430,8 +442,9 @@ def main():
     if injection_char is None:
         raise ValueError(f"No injection char for {args.model}")
 
-    print("Loading descriptions...")
-    descriptions = load_descriptions()
+    print(f"Loading descriptions (suffix='{args.desc_suffix}', allow_verbose={args.allow_verbose})...")
+    descriptions = load_descriptions(suffix=args.desc_suffix,
+                                     allow_verbose=args.allow_verbose)
 
     print(f"\nLoading activations from {args.activations}...")
     act_data = torch.load(args.activations, weights_only=True)

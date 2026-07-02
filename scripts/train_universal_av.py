@@ -24,6 +24,7 @@ from torch.utils.data import Dataset, DataLoader
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import LoraConfig, get_peft_model
 from generation_utils import decode_generated
+from clean_data_guard import assert_clean_sources, assert_terse
 
 REPO_ROOT = Path(__file__).parent.parent
 GENERATED_DIR = REPO_ROOT / "corpus" / "generated"
@@ -83,24 +84,29 @@ def nearest_depth_pct(layer, n_layers):
     return min(DEPTH_PCTS, key=lambda p: abs(p - depth))
 
 
-def load_descriptions(suffix="", strict=False, mix=False):
+def load_descriptions(suffix="", strict=False, mix=False, allow_verbose=False):
     """Load descriptions at all depth percentages, with optional suffix.
 
     If strict=True, only load files matching the exact suffix — no fallback
     to _merged.json or unsuffixed files.
 
-    If mix=True, load ALL available files per depth and merge them. Each text
-    gets the description from the first file found (GPT-4o preferred), but
-    texts only in merged/sonnet files are also included.
+    If mix=True, load the clean multi-style siblings per depth and merge them
+    (each text gets one randomly chosen style). Mixing pulls CLEAN sources only
+    (_sonnet_clean, _tokenpred_gpt4o_clean) — never _merged / raw _sonnet.
+
+    Every path returns through the clean_data_guard: verbose/raw files are
+    refused unless allow_verbose=True. See scripts/clean_data_guard.py.
     """
     descs = {}
+    used_sources = []          # every base filename actually opened (for L1 guard)
     for pct in DEPTH_PCTS:
         if mix:
             all_by_id = {}
             sources = []
-            for pattern_suffix in [suffix, "_merged", "_sonnet"]:
+            for pattern_suffix in [suffix, "_sonnet_clean", "_tokenpred_gpt4o_clean"]:
                 path = GENERATED_DIR / f"descriptions_L{pct}pct{pattern_suffix}.json"
                 if path.exists():
+                    used_sources.append(path.name)
                     data = json.loads(path.read_text())
                     n = 0
                     for d in data:
@@ -130,6 +136,7 @@ def load_descriptions(suffix="", strict=False, mix=False):
             if path is None:
                 print(f"  L{pct}%: NO FILE FOUND (tried suffix='{suffix}')")
                 continue
+            used_sources.append(path.name)
             data = json.loads(path.read_text())
             descs[pct] = {d["id"]: d["description"] for d in data}
             print(f"  L{pct}%: {len(descs[pct])} descriptions from {path.name}")
@@ -155,9 +162,14 @@ def load_descriptions(suffix="", strict=False, mix=False):
             if path is None:
                 print(f"  L{pct}%: NO FILE FOUND (tried suffix='{suffix}')")
                 continue
+            used_sources.append(path.name)
             data = json.loads(path.read_text())
             descs[pct] = {d["id"]: d["description"] for d in data}
             print(f"  L{pct}%: {len(descs[pct])} descriptions from {path.name}")
+
+    # Data-integrity gates (see clean_data_guard). L1 = filenames, L2 = content.
+    assert_clean_sources(used_sources, allow_verbose)
+    assert_terse(descs, allow_verbose)
     return descs
 
 
@@ -435,15 +447,21 @@ def main():
     parser.add_argument("--strict", action="store_true",
                         help="Only load descriptions matching exact suffix (no fallback)")
     parser.add_argument("--mix", action="store_true",
-                        help="Load ALL available description files per depth and merge")
+                        help="Merge the CLEAN multi-style siblings per depth "
+                             "(_sonnet_clean, _tokenpred_gpt4o_clean)")
+    parser.add_argument("--allow-verbose", action="store_true",
+                        help="Bypass the clean-data guard and train on verbose/"
+                             "raw prose (_merged/base/raw). You almost never want "
+                             "this — it causes fluent hallucination.")
     parser.add_argument("--eval-only", action="store_true")
     parser.add_argument("--device", default="cuda")
     args = parser.parse_args()
 
     device = torch.device(args.device)
 
-    print(f"Loading descriptions at all depths (suffix='{args.desc_suffix}', strict={args.strict}, mix={args.mix})...")
-    descriptions = load_descriptions(suffix=args.desc_suffix, strict=args.strict, mix=args.mix)
+    print(f"Loading descriptions at all depths (suffix='{args.desc_suffix}', strict={args.strict}, mix={args.mix}, allow_verbose={args.allow_verbose})...")
+    descriptions = load_descriptions(suffix=args.desc_suffix, strict=args.strict,
+                                     mix=args.mix, allow_verbose=args.allow_verbose)
 
     print(f"\nLoading activations from {args.activations}...")
     act_data = torch.load(args.activations, weights_only=True)
