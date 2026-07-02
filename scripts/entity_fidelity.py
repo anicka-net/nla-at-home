@@ -16,13 +16,19 @@ deduplicated and lowercased for matching. We deliberately cast a wide net:
 false positives in entity extraction are symmetric (affect both input and
 description equally), so precision of the *match* is what matters.
 
+Controls:
+  --random-seed N   Random-pairing floor (derangement: no item keeps its input)
+  --teacher PATH    Teacher ceiling (GPT-4o GT descriptions, same matcher)
+
 Usage:
-    python3 scripts/entity_fidelity.py --data /tmp/entity_eval_data.json
-    python3 scripts/entity_fidelity.py --data /tmp/entity_eval_data.json --layer 25
-    python3 scripts/entity_fidelity.py --data /tmp/entity_eval_data.json --examples 5
+    python3 scripts/entity_fidelity.py --data output/entity_eval/entity_eval_data.json
+    python3 scripts/entity_fidelity.py --data output/entity_eval/entity_eval_data.json --random-seed 42
+    python3 scripts/entity_fidelity.py --data output/entity_eval/entity_eval_data.json \\
+        --teacher output/entity_eval/entity_controls_data.json
 """
 import argparse
 import json
+import random
 import re
 import statistics
 import sys
@@ -173,17 +179,114 @@ def compute_fidelity(input_text: str, description: str) -> dict:
     }
 
 
+def make_derangement(ids: list[str], seed: int) -> dict[str, str]:
+    """Create a derangement: a permutation where no element maps to itself.
+
+    Returns a dict mapping each id to a different id.
+    Raises ValueError if len(ids) < 2.
+    """
+    if len(ids) < 2:
+        raise ValueError("Need at least 2 ids for a derangement")
+    rng = random.Random(seed)
+    ids = list(ids)
+    shuffled = ids[:]
+    # Sattolo's algorithm guarantees a derangement (single cycle)
+    for i in range(len(shuffled) - 1, 0, -1):
+        j = rng.randint(0, i - 1)
+        shuffled[i], shuffled[j] = shuffled[j], shuffled[i]
+    return dict(zip(ids, shuffled))
+
+
+def compute_random_floor(av_descs: list[dict], input_texts: dict[str, str],
+                         seed: int) -> dict:
+    """Compute entity fidelity with randomly paired inputs (derangement).
+
+    Each description is scored against a *different* input text.
+    Returns per-layer and pooled precision.
+    """
+    text_ids = sorted(input_texts.keys())
+    perm = make_derangement(text_ids, seed)
+
+    per_layer = defaultdict(list)
+    for row in av_descs:
+        text_id = row['text_id']
+        layer = row['layer']
+        desc = row['description']
+        wrong_id = perm[text_id]
+        wrong_text = input_texts[wrong_id]
+
+        fid = compute_fidelity(wrong_text, desc)
+        if fid['precision'] is not None:
+            per_layer[layer].append(fid['precision'])
+
+    result = {}
+    all_precs = []
+    for layer in sorted(per_layer.keys()):
+        precs = per_layer[layer]
+        result[layer] = {
+            'mean_precision': statistics.mean(precs) if precs else 0,
+            'n': len(precs),
+        }
+        all_precs.extend(precs)
+    result['pooled'] = {
+        'mean_precision': statistics.mean(all_precs) if all_precs else 0,
+        'n': len(all_precs),
+    }
+    return result
+
+
+def compute_teacher_ceiling(gt_descs: list[dict], input_texts: dict[str, str],
+                            layer_key: str = 'av_layer') -> dict:
+    """Compute entity fidelity for teacher (GPT-4o GT) descriptions.
+
+    gt_descs rows must have 'id' (maps to input_texts keys),
+    layer_key (maps to AV layer for comparison), and 'description'.
+    Raises KeyError if an id is missing from input_texts (no silent skips).
+    """
+    per_layer = defaultdict(list)
+    for row in gt_descs:
+        text_id = row['id']
+        if text_id not in input_texts:
+            raise KeyError(f"GT description id '{text_id}' not found in input_texts")
+        layer = row[layer_key]
+        desc = row['description']
+        input_text = input_texts[text_id]
+
+        fid = compute_fidelity(input_text, desc)
+        if fid['precision'] is not None:
+            per_layer[layer].append(fid['precision'])
+
+    result = {}
+    all_precs = []
+    for layer in sorted(per_layer.keys()):
+        precs = per_layer[layer]
+        result[layer] = {
+            'mean_precision': statistics.mean(precs) if precs else 0,
+            'n': len(precs),
+        }
+        all_precs.extend(precs)
+    result['pooled'] = {
+        'mean_precision': statistics.mean(all_precs) if all_precs else 0,
+        'n': len(all_precs),
+    }
+    return result
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--data', required=True,
-                    help='Path to entity_eval_data.json (from deepthought)')
+                    help='Path to entity_eval_data.json')
     ap.add_argument('--layer', type=int, default=None,
                     help='Restrict to one layer (default: all)')
     ap.add_argument('--examples', type=int, default=0,
                     help='Show N worst-precision examples')
     ap.add_argument('--out', default=None,
                     help='Save per-item results to JSON')
+    ap.add_argument('--random-seed', type=int, default=None,
+                    help='Compute random-pairing floor with this seed')
+    ap.add_argument('--teacher', default=None,
+                    help='Path to entity_controls_data.json for teacher ceiling')
     args = ap.parse_args()
 
     with open(args.data) as f:
@@ -298,6 +401,44 @@ def main():
                 'items': results
             }, f, indent=2)
         print(f"\nSaved detailed results to {args.out}")
+
+    # --- Controls ---
+    depth_map = {4: 10, 10: 25, 16: 40, 19: 47, 25: 63, 32: 80, 38: 96}
+
+    if args.random_seed is not None:
+        print(f"\n{'=' * 70}")
+        print(f"Random-pairing floor (seed={args.random_seed})")
+        print(f"{'=' * 70}")
+        floor = compute_random_floor(av_descs, input_texts, args.random_seed)
+        print(f"{'Layer':>6} {'Depth%':>6} {'N':>4} {'Prec':>7}")
+        print("-" * 30)
+        for layer in sorted(k for k in floor if k != 'pooled'):
+            info = floor[layer]
+            print(f"L{layer:>4} {depth_map.get(layer, '?'):>6}% "
+                  f"{info['n']:>4} {info['mean_precision']:>7.3f}")
+        print("-" * 30)
+        p = floor['pooled']
+        print(f"{'ALL':>6} {'':>6} {p['n']:>4} {p['mean_precision']:>7.3f}")
+
+    if args.teacher:
+        with open(args.teacher) as f:
+            teacher_data = json.load(f)
+        gt_descs = teacher_data['gt_descriptions']
+        teacher_input_texts = teacher_data.get('input_texts', input_texts)
+
+        print(f"\n{'=' * 70}")
+        print("Teacher ceiling (GPT-4o GT descriptions)")
+        print(f"{'=' * 70}")
+        ceiling = compute_teacher_ceiling(gt_descs, teacher_input_texts)
+        print(f"{'Layer':>6} {'Depth%':>6} {'N':>4} {'Prec':>7}")
+        print("-" * 30)
+        for layer in sorted(k for k in ceiling if k != 'pooled'):
+            info = ceiling[layer]
+            print(f"L{layer:>4} {depth_map.get(layer, '?'):>6}% "
+                  f"{info['n']:>4} {info['mean_precision']:>7.3f}")
+        print("-" * 30)
+        p = ceiling['pooled']
+        print(f"{'ALL':>6} {'':>6} {p['n']:>4} {p['mean_precision']:>7.3f}")
 
 
 if __name__ == '__main__':

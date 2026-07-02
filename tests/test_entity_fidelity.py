@@ -9,7 +9,9 @@ from pathlib import Path
 # Make scripts importable
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
-from entity_fidelity import extract_entities, fuzzy_match, compute_fidelity
+from entity_fidelity import (extract_entities, fuzzy_match, compute_fidelity,
+                            make_derangement, compute_random_floor,
+                            compute_teacher_ceiling)
 
 
 # --- extract_entities ---
@@ -161,3 +163,124 @@ def test_compute_fidelity_basic():
     assert 'confabulated' in result
     assert isinstance(result['matched'], list)
     assert isinstance(result['confabulated'], list)
+
+
+# --- make_derangement ---
+
+def test_derangement_no_fixed_points():
+    """No element maps to itself, across several seeds."""
+    ids = ["A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08"]
+    for seed in [0, 1, 42, 99, 12345]:
+        perm = make_derangement(ids, seed)
+        assert set(perm.keys()) == set(ids)
+        assert set(perm.values()) == set(ids)
+        for k, v in perm.items():
+            assert k != v, f"Fixed point {k}→{v} at seed={seed}"
+
+
+def test_derangement_deterministic():
+    """Same seed → same derangement."""
+    ids = ["X", "Y", "Z", "W"]
+    d1 = make_derangement(ids, seed=42)
+    d2 = make_derangement(ids, seed=42)
+    assert d1 == d2
+
+
+def test_derangement_two_elements():
+    """Minimum case: 2 elements always swap."""
+    perm = make_derangement(["a", "b"], seed=0)
+    assert perm == {"a": "b", "b": "a"}
+
+
+def test_derangement_raises_on_single():
+    """Cannot derange a single element."""
+    import pytest
+    with pytest.raises(ValueError):
+        make_derangement(["only_one"], seed=0)
+
+
+# --- compute_random_floor ---
+
+def test_floor_deterministic_with_seed():
+    """Same seed → same floor result."""
+    descs = [
+        {"text_id": "A", "layer": 10, "description": "Alice visits Paris."},
+        {"text_id": "B", "layer": 10, "description": "Bob goes to London."},
+        {"text_id": "C", "layer": 10, "description": "Charlie in Tokyo."},
+    ]
+    texts = {
+        "A": "Alice went to Paris last summer.",
+        "B": "Bob traveled to London for work.",
+        "C": "Charlie moved to Tokyo in spring.",
+    }
+    f1 = compute_random_floor(descs, texts, seed=42)
+    f2 = compute_random_floor(descs, texts, seed=42)
+    assert f1 == f2
+
+
+def test_floor_different_seed_can_differ():
+    """Different seeds can produce different results (not guaranteed but likely)."""
+    descs = [
+        {"text_id": "A", "layer": 10, "description": "Alice visits Paris."},
+        {"text_id": "B", "layer": 10, "description": "Bob goes to London."},
+        {"text_id": "C", "layer": 10, "description": "Charlie in Tokyo."},
+        {"text_id": "D", "layer": 10, "description": "Diana in Berlin."},
+    ]
+    texts = {
+        "A": "Alice went to Paris.",
+        "B": "Bob traveled to London.",
+        "C": "Charlie moved to Tokyo.",
+        "D": "Diana flew to Berlin.",
+    }
+    f1 = compute_random_floor(descs, texts, seed=0)
+    f2 = compute_random_floor(descs, texts, seed=999)
+    # They *may* be equal by coincidence but the derangements differ
+    # Just check structure
+    assert 'pooled' in f1
+    assert 'pooled' in f2
+
+
+# --- compute_teacher_ceiling ---
+
+def test_teacher_ceiling_basic():
+    """Teacher ceiling computes precision for GT descriptions."""
+    gt_descs = [
+        {"id": "A", "av_layer": 10, "description": "Alice visits Paris."},
+        {"id": "B", "av_layer": 10, "description": "Bob goes to London."},
+    ]
+    texts = {
+        "A": "Alice went to Paris last summer.",
+        "B": "Bob traveled to London for work.",
+    }
+    result = compute_teacher_ceiling(gt_descs, texts)
+    assert 'pooled' in result
+    assert result['pooled']['n'] >= 0
+
+
+def test_teacher_join_integrity():
+    """Dangling id raises KeyError, not silent skip."""
+    import pytest
+    gt_descs = [
+        {"id": "A", "av_layer": 10, "description": "Alice visits Paris."},
+        {"id": "MISSING", "av_layer": 10, "description": "Unknown person."},
+    ]
+    texts = {"A": "Alice went to Paris."}
+    with pytest.raises(KeyError, match="MISSING"):
+        compute_teacher_ceiling(gt_descs, texts)
+
+
+def test_teacher_all_ids_resolve():
+    """3-row fixture: every description resolves to its text."""
+    gt_descs = [
+        {"id": "X", "av_layer": 4, "description": "Discussion of Tokyo's architecture."},
+        {"id": "Y", "av_layer": 4, "description": "Analysis of Berlin's history."},
+        {"id": "Z", "av_layer": 4, "description": "Review of Paris's cuisine."},
+    ]
+    texts = {
+        "X": "Tokyo has amazing modern architecture.",
+        "Y": "Berlin's history spans centuries of change.",
+        "Z": "Paris is renowned for its cuisine.",
+    }
+    # Should not raise
+    result = compute_teacher_ceiling(gt_descs, texts)
+    assert result['pooled']['n'] > 0
