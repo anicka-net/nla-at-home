@@ -102,11 +102,16 @@ def extract_entities(text: str) -> set[str]:
     return entities
 
 
-def fuzzy_match(desc_entities: set[str], input_entities: set[str]) -> set[str]:
+def fuzzy_match(desc_entities: set[str], input_entities: set[str],
+                input_text: str | None = None) -> set[str]:
     """Match description entities against input entities.
 
     Uses substring matching in addition to exact match, because NER
     boundaries are noisy (e.g., "Monster Hunter" vs "Monster Hunter World").
+
+    If input_text is provided, unmatched entities get a raw-text fallback:
+    they count as matched if they appear verbatim in the input text with
+    word boundaries (prevents "ada" matching inside "Canada").
     """
     matched = set()
     for d_ent in desc_entities:
@@ -119,6 +124,13 @@ def fuzzy_match(desc_entities: set[str], input_entities: set[str]) -> set[str]:
             if d_ent in i_ent or i_ent in d_ent:
                 matched.add(d_ent)
                 break
+        else:
+            # Raw-text fallback: check if entity appears in input text
+            # with word boundaries (token-boundary guard)
+            if input_text is not None:
+                pattern = rf"\b{re.escape(d_ent)}\b"
+                if re.search(pattern, input_text.lower()):
+                    matched.add(d_ent)
     return matched
 
 
@@ -141,7 +153,7 @@ def compute_fidelity(input_text: str, description: str) -> dict:
             'n_confabulated': 0,
         }
 
-    matched = fuzzy_match(desc_ents, input_ents)
+    matched = fuzzy_match(desc_ents, input_ents, input_text=input_text)
     confabulated = desc_ents - matched
 
     precision = len(matched) / len(desc_ents) if desc_ents else 0.0
