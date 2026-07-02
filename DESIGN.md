@@ -192,24 +192,55 @@ Fine-grained system prompt distinguishes 11 processing bands.
 Unsafe categories (F35, F36, I44, L59) flagged in YAML with
 `unsafe: true` and `content_warning`.
 
-## Pipeline (10 scripts)
+## Pipeline
+
+The core pipeline has grown from 10 scripts to ~70. The critical path:
 
 ```
-find_injection_token.py  → pick rare token for any tokenizer
-generate_corpus.py       → texts + descriptions (5 LLM backends)
-extract_activations.py   → forward hooks, any model/layer
-augment_directions.py    → contrastive + PCA-sparse training data
-train_av.py              → AV SFT with LoRA
-train_ar.py              → AR SFT with MSE loss
-train_av_rft.py          → rejection-filtered refinement (AV+AR)
-compare_nla.py           → head-to-head vs Anthropic
-deformulify.py           → rewrite formulaic descriptions
-status.py                → pipeline readiness dashboard
-merge_descriptions.py    → combine parallel description runs
+# Corpus & data
+find_injection_token.py        → pick rare token for any tokenizer
+generate_corpus.py             → texts + descriptions (5 LLM backends)
+extract_activations.py         → forward hooks, any model/layer, all-layers mode
+
+# Training (canonical: use train_universal.sh)
+train_universal.sh <model> av|ar  → launcher with clean-data defaults
+train_universal_av.py          → depth-conditioned AV LoRA adapter
+train_universal_ar.py          → AR reconstruction with truncated model
+clean_data_guard.py            → load-time guard: refuses verbose/contaminated data
+
+# RL refinement
+probe_activation_faithfulness.py  → fit oracle compass (model-specific, do NOT reuse across models)
+train_ar_native_grpo.py        → compass-curriculum GRPO (the proven approach)
+
+# Inference
+brain_in_jar_phi4.py           → interactive shell inference (Phi-4)
+brain_in_jar_qwen.py           → interactive shell inference (Qwen)
+describe_live.py               → legacy single-prompt inference
+
+# Evaluation
+eval_roundtrip_phi4.py         → AV→AR round-trip faithfulness
+entity_fidelity.py             → entity-level metric + random floor / teacher ceiling
+compare_nla.py                 → head-to-head vs Anthropic
 ```
+
+Legacy single-layer scripts (`train_av.py`, `train_ar.py`, `train_av_rft.py`)
+still exist but the universal pipeline supersedes them.
 
 5 LLM backends: DeepSeek, HuggingFace (Hermes-2-Pro, uncensored),
 NVIDIA NIM, OpenAI, local (llama.cpp/vllm).
+
+## Clean data guard
+
+`clean_data_guard.py` enforces clean training data at load time. Verbose-prose
+descriptions (`_merged`, raw `_sonnet`) produce models that train to low loss
+but generate garbage (SpongeBob artifacts, Chinese-token leakage). The guard:
+
+- **L1 (filename):** default-deny — only `_twin_clean`, `_sonnet_clean`,
+  `_tokenpred_gpt4o_clean` pass. Bypass requires explicit `--allow-verbose`.
+- **L2 (content):** median description length > 400 chars → exit with fix hint.
+
+The canonical launcher (`train_universal.sh`) hardwires the safe flags. If you
+must run training manually, always use `--desc-suffix _twin_clean --strict`.
 
 ## Design decisions
 
@@ -217,18 +248,30 @@ See previous section — these are intentional, not bugs:
 
 1. **Extraction at last token after generation prompt** — this IS the
    full-context representation, not "the assistant prefix token."
-2. **AR reconstruction as RFT reward** — sound objective, implementation
-   now fixed (extract at correct layer, not last layer).
+2. **AR reconstruction as GRPO reward** — sound objective, proven on
+   Phi-4 (0.585 round-trip, +23% over SL). The AR must be model-specific;
+   the oracle compass must be refit for each model.
 3. **nla_meta.yaml per adapter** — matches Anthropic schema, sufficient
    for current scale.
+4. **Center + drop-top-PC for small models** — Gemma (and likely other
+   small architectures) has dominant residual dimensions that make raw
+   cosine/PCA/injection degenerate. The AR path already has
+   `--pca-drop-top 1`; the AV injection path needs the same treatment
+   for small models. See `gemma-outlier-geometry.md`.
 
 ## What's next
 
-1. **Interactive browser demo** — type a prompt, see layer-by-layer
-   processing narration. Gemma 1B client-side via transformers.js.
-2. **Active learning** — use reconstruction error to find activation
-   space gaps, generate targeted texts to fill them
-3. **Scale to 70B** — projection layer from 8192→3584 dims, use 7B AV
+1. ~~Interactive browser demo~~ — ✅ done. Gallery + interactive (Gemma 1B
+   via transformers.js/WebGPU). Three Colab notebooks for HAAISS workshop.
+2. **Qwen 7B universal pipeline** — AV training in progress, then
+   AR → compass refit → AR-native GRPO. The full proven Phi-4 chain
+   replicated on a smaller model for workshop use.
+3. **Small-model retry** — Qwen3 4B with clean pipeline + outlier-robust
+   injection. Prior Gemma failures were confounded by data contamination
+   AND residual geometry; a fair test needs both fixed.
+4. **Active learning** — use reconstruction error to find activation
+   space gaps, generate targeted texts to fill them.
+5. **Scale to 70B** — projection layer from 8192→3584 dims, use 7B AV.
 
 ## Answered questions
 
@@ -250,3 +293,21 @@ was ~$0.30.
 
 Training: ~8 hours per adapter on NVIDIA GB10 for Gemma 3 1B
 universal (all 26 layers), ~2 hours for single-layer Qwen 7B.
+Phi-4 14B universal: ~10 hours AV + AR on GB10.
+
+## Known issues
+
+1. **Gemma outlier geometry** — Gemma 3 1B (and possibly larger Gemma
+   models) has a dominant residual dimension holding up to 97% of energy
+   at mid layers. This makes raw cosine ~0.99 between any two activations,
+   breaking injection and all cosine-based geometry. Fix: center +
+   drop-top-PC before injection. Supervised accuracy is unaffected (the
+   class signal lives in the angular residual). Full analysis in
+   `gemma-outlier-geometry.md` (seventh repo). Status: measured on 1B,
+   hypothesized for larger Gemma models, not yet confirmed.
+
+2. **Stdout buffering during training** — When running training with
+   output redirected to a file (`> /tmp/train.log`), Python uses full
+   buffering. Training may appear stuck when it's actually running.
+   Check GPU utilization and output directory timestamps instead of
+   relying on log content. Use `python3 -u` for unbuffered output.

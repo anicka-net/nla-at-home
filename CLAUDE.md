@@ -118,6 +118,19 @@ useless for content moderation applications.
 - Any change to `nla_meta.yaml` schema
 - Publishing trained adapters
 
+## Training Data Rules (Non-Negotiable)
+
+**Use the canonical launcher** `scripts/train_universal.sh <model> av|ar` for
+all training runs. It hardwires the safe flags.
+
+If you must run training scripts manually:
+- Always use `--desc-suffix _twin_clean --strict` for AV training
+- Never use `--mix` without `--strict` — it will silently load contaminated
+  verbose-prose descriptions that produce garbage models with low loss
+- The `clean_data_guard.py` module enforces this at load time: verbose/raw
+  description files cause a non-zero exit with a fix hint
+- See the "How we learned this" note in `DESIGN.md` § Clean data guard
+
 ## GPU Paths
 
 Scripts that need GPU: `extract_activations.py`, `train_universal_av.py`,

@@ -141,7 +141,7 @@ for exact sizes and depths). Skip straight to training:
 pip install torch transformers peft huggingface_hub pyyaml
 
 # Download corpus + activations + train
-python3 scripts/quickstart.py --train gemma3-1b
+python3 scripts/quickstart.py --train qwen25-7b
 ```
 
 Or step by step:
@@ -150,17 +150,19 @@ Or step by step:
 # 1. Download corpus only
 python3 scripts/quickstart.py
 
-# 2. Train AV adapter
-python3 scripts/train_universal_av.py \
-  --model gemma3-1b \
-  --activations corpus/activations/gemma3-1b_all_layers.pt \
-  --output output/nla-gemma3-1b-universal-av
+# 2. Extract activations (all layers)
+python3 scripts/extract_activations.py --model qwen25-7b --all-layers
 
-# 3. Verify with AR (should get cosine > 0.93)
-python3 scripts/train_universal_ar.py \
-  --model gemma3-1b \
-  --activations corpus/activations/gemma3-1b_all_layers.pt \
-  --output output/nla-gemma3-1b-universal-ar
+# 3. Train AV + AR using the canonical launcher (enforces clean data)
+bash scripts/train_universal.sh qwen25-7b av
+bash scripts/train_universal.sh qwen25-7b ar
+
+# Or manually (the clean_data_guard will refuse verbose/contaminated data):
+python3 scripts/train_universal_av.py \
+  --model qwen25-7b \
+  --activations corpus/activations/qwen25-7b_all_layers.pt \
+  --desc-suffix _twin_clean --strict \
+  --output output/nla-qwen25-7b-universal-av
 ```
 
 Pre-trained adapters for Phi-4 14B:
@@ -232,13 +234,28 @@ about to say rather than a generic summary.
 ## Pipeline
 
 ```
-find_injection_token.py    rare token for any tokenizer
-generate_corpus.py         corpus texts + descriptions (5 LLM backends)
-extract_activations.py     all layers in one pass
-train_universal_av.py      depth-conditioned LoRA adapter
-train_universal_ar.py      reconstruction verification
-compare_nla.py             compare with Anthropic's NLA
-build_demo_gallery.py      browser demo data
+# Corpus & data
+find_injection_token.py        rare token for any tokenizer
+generate_corpus.py             corpus texts + descriptions (5 LLM backends)
+extract_activations.py         all layers in one pass
+
+# Training (use the launcher — it enforces clean data)
+train_universal.sh <model> av|ar   canonical launcher with safe defaults
+train_universal_av.py          depth-conditioned AV LoRA adapter
+train_universal_ar.py          AR reconstruction verification
+clean_data_guard.py            refuses verbose/contaminated descriptions at load time
+
+# Post-training
+probe_activation_faithfulness.py   fit oracle compass (model-specific)
+train_ar_native_grpo.py        AR-native compass-curriculum GRPO refinement
+
+# Inference & eval
+brain_in_jar_phi4.py           interactive shell inference (Phi-4)
+brain_in_jar_qwen.py           interactive shell inference (Qwen)
+eval_roundtrip_phi4.py         AV→AR round-trip faithfulness
+entity_fidelity.py             entity-level fidelity metric + controls
+compare_nla.py                 compare with Anthropic's NLA
+build_demo_gallery.py          browser demo data
 ```
 
 ## Browser demo
@@ -264,9 +281,9 @@ cd demo && python3 -m http.server 8080
 | Model | Layers | d_model | Injection char | Status |
 |-------|--------|---------|----------------|--------|
 | Phi-4 14B | 40 | 5120 | ★ (U+2605) | Universal AV/AR (SFT) + **AR-native GRPO** (0.585 round-trip); compass policy; brain-in-a-jar CLI |
-| Qwen 2.5 7B | 28 | 3584 | ㈎ (U+320E) | AV + AR validated (AR cosine 0.943) |
-| Gemma 3 1B | 26 | 1152 | ⎝ (U+239D) | Universal AV/AR training |
-| Qwen3 4B | 36 | 2560 | ㈎ | Extraction complete |
+| Qwen 2.5 7B | 28 | 3584 | ㈎ (U+320E) | Universal AV training (clean pipeline); single-layer AR cosine 0.943 |
+| Gemma 3 1B | 26 | 1152 | ⎝ (U+239D) | Outlier geometry issue: dominant residual dim makes cosine/inject degenerate (see `gemma-outlier-geometry.md` in seventh). Fix: center + drop-top-PC before injection. Retrain pending. |
+| Qwen3 4B | 36 | 2560 | ㈎ | Extraction complete; training queued after 7B validates |
 
 ## Related work
 
