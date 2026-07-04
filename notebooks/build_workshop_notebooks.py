@@ -453,7 +453,11 @@ def notebook_03():
         code(
             'prompt = "Explain how a hash map handles collisions."',
             'model.set_adapter("default")',
-            'activation, reply = read_activation(prompt)',
+            '# Capture the activation from the CLEAN BASE model (adapter off): the AR',
+            '# was trained on base-model activations, and "reading the model\'s mind"',
+            '# should mean the model\'s mind — not the verbalizer\'s.',
+            'with model.disable_adapter():',
+            '    activation, reply = read_activation(prompt)',
             'caption = describe(activation)',
             'back    = reconstruct(caption)',
             '',
@@ -468,15 +472,12 @@ def notebook_03():
             "problem.",
         ),
         md(
-            "## Faithfulness as a gap\n",
+            "## Faithfulness as a gap — and a trap\n",
             "Now the payoff. Take the *real* caption and a deliberately *wrong* one, "
-            "reconstruct both, and compare cosine to the true activation. The **gap** "
-            "(real − wrong) is positive when the NLA is honest and collapses when it isn't. "
-            "This is how you catch a hallucinating readout **without a ground-truth label** — "
-            "you let the vector vote.",
+            "reconstruct both, and compare cosine to the true activation. First, the "
+            "**naive** way — watch it fail:",
         ),
         code(
-            '# === EDIT THE WRONG CAPTION to probe the detector ===',
             'wrong = "- Recipe for Thai green curry with coconut milk and basil\\n"\\',
             '        "- Step-by-step cooking instructions for dinner"',
             '',
@@ -484,23 +485,61 @@ def notebook_03():
             'c_wrong = cos(activation.float().cpu(), reconstruct(wrong))',
             'print(f"cos(real caption)  = {c_real:.3f}")',
             'print(f"cos(wrong caption) = {c_wrong:.3f}")',
-            'print(f"gap = {c_real - c_wrong:+.3f}   (positive => the vector prefers the truth)")',
+            'print(f"naive gap = {c_real - c_wrong:+.3f}   ...both ~0.6 and the gap is noise. Why?")',
         ),
         md(
-            "Try several wrong captions — a *near-miss* (same domain, wrong detail) vs a "
-            "*wild miss* (unrelated topic). The gap should shrink for near-misses: the "
-            "detector is graded, not binary. That gradient is what makes the compass metric "
-            "usable as a training signal (rerank candidate captions by reconstruction "
-            "cosine, keep the faithful ones).",
+            "Both cosines land around **0.6** and the gap is a coin-flip (±0.01–0.03 — "
+            "measured on the exact T4 you are using). The reason: **every** AR "
+            "reconstruction shares one huge component — the mean of the reconstruction "
+            "distribution. Raw cosine mostly measures that shared mean, and the actual "
+            "*content* signal lives in the small deviation from it. (Notebook 04 builds "
+            "this same lesson for raw activations; here it bites the reconstructions.) "
+            "So we **center**: reconstruct a handful of distractor captions, subtract "
+            "their mean, and compare in deviation space.",
+        ),
+        code(
+            '# === EDIT THE DISTRACTORS to probe the detector ===',
+            'DISTRACTORS = [',
+            '    wrong,  # the curry recipe from above',
+            '    "- Legal contract clause about liability limitation active\\n- Formal register, defined terms",',
+            '    "- Football match commentary, goal celebration active\\n- Present-tense excited sports narration",',
+            '    "- Romantic poetry about moonlight and longing\\n- Metaphor-dense lyrical register",',
+            '    "- Python exception traceback analysis active\\n- Debugging context, error-message vocabulary",',
+            ']',
+            'recons = [reconstruct(d) for d in DISTRACTORS]',
+            'mean_recon = torch.stack(recons).mean(0)',
+            '',
+            'a_dev    = activation.float().cpu() - mean_recon',
+            'true_dev = reconstruct(caption) - mean_recon',
+            'scores   = {"TRUE caption": cos(a_dev, true_dev)}',
+            'for d, r in zip(DISTRACTORS, recons):',
+            '    scores[d.split(chr(10))[0][:48]] = cos(a_dev, r - mean_recon)',
+            '',
+            'ranked = sorted(scores.items(), key=lambda kv: -kv[1])',
+            'for name, s in ranked:',
+            '    mark = " <-- the vector votes for this one" if name == "TRUE caption" else ""',
+            '    print(f"{s:+.3f}  {name}{mark}")',
+            '',
+            'centered_gap = scores["TRUE caption"] - max(v for k, v in scores.items() if k != "TRUE caption")',
+            'print(f"\\ncentered gap = {centered_gap:+.3f}   (positive => the vector prefers the truth)")',
+        ),
+        md(
+            "Try harder distractors — a *near-miss* (same domain, wrong detail) vs a "
+            "*wild miss* (unrelated topic). The centered gap should shrink for "
+            "near-misses: the detector is graded, not binary. That gradient is what makes "
+            "the compass metric usable as a training signal (rerank candidate captions by "
+            "centered reconstruction cosine, keep the faithful ones).",
         ),
         md("---\n### ✅ Self-check\n"
-           "Expected: both adapters load; round-trip cosine is **positive and clearly above "
-           "the wrong-caption cosine** (gap > 0). If the gap is ≤ 0 for a blatantly wrong "
-           "caption, something is off — check `LAYER+1` indexing and that `set_adapter` "
-           "actually switched (`model.active_adapter`)."),
+           "Expected: both adapters load; the **naive** gap is ~0 (that is the lesson, "
+           "not a bug); the **TRUE caption ranks #1** in the centered comparison with a "
+           "clearly positive centered gap (≈ +0.1–0.25 measured on a T4). If the true "
+           "caption does not win, something is off — check `LAYER+1` indexing and that "
+           "`set_adapter` actually switched (`model.active_adapter`)."),
         code(
-            'assert c_real > c_wrong, "faithfulness gap collapsed — see self-check note"',
-            'print(f"self-check: vector prefers the true caption by {c_real - c_wrong:+.3f} ✓")',
+            'assert ranked[0][0] == "TRUE caption", "centered ranking failed — see self-check note"',
+            'assert centered_gap > 0.03, f"centered gap suspiciously small: {centered_gap:+.3f}"',
+            'print(f"self-check: TRUE caption ranks #1, centered gap {centered_gap:+.3f} ✓")',
         ),
     ]
     write_nb(cells, fn)

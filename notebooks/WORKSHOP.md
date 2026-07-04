@@ -109,3 +109,18 @@ build is checked with a JSON + Python-syntax pass.
   universal model.
 - The `depth=` drift demo feeds off-distribution depths on purpose. The point
   is *that depth is an input*, not a benchmark of other depths.
+
+## Pre-flight record (2026-07-04, rented T4 — Colab-matching 15360 MiB)
+
+All four notebooks executed end-to-end headless (`nbconvert --execute`), 0 errors,
+all self-checks green. Wall-clock per notebook (warm HF cache): NB01 ~2 min,
+NB02 ~2.7 min, NB03 ~3 min, NB04 ~2.5 min. Cold model download adds ~2 min on a
+fast link (Colab will be slower). Executed outputs with all cell results are in
+`notebooks/preflight-2026-07-04/` — usable as the projector fallback if the room
+has no GPUs.
+
+Found & fixed during pre-flight: NB03's original naive-cosine faithfulness gap
+was noise (±0.01 at cos ~0.6 — reconstructions share a dominant mean component).
+NB03 now teaches the failure deliberately, then centers against distractor
+reconstructions (measured centered gap +0.13–0.23, TRUE caption ranks #1), and
+captures the activation from the clean base model (`disable_adapter()`).
