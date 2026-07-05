@@ -60,55 +60,21 @@ except ImportError:
 
 REPO_ROOT = Path(__file__).parent.parent
 
-MODELS = {
-    "gemma3-1b": "google/gemma-3-1b-it",
-    "qwen25-7b": "Qwen/Qwen2.5-7B-Instruct",
-    "phi4-mini": "microsoft/Phi-4-mini-instruct",
-    "phi4": "microsoft/phi-4",
-}
-
-INJECTION_CHARS = {
-    "gemma3-1b": "⎝",
-    "qwen25-7b": "㈎",
-    "phi4-mini": "★",
-    "phi4": "★",
-}
-INJECTION_SCALE = 150.0
-
-DEPTH_PCTS = [4, 10, 17, 25, 32, 40, 47, 55, 63, 71, 80, 90, 96]
+# Single source of truth for constants/templates is nla_lib; the names are
+# re-exported here because several scripts import them from this module.
+from nla_lib import (  # noqa: E402
+    MODELS_HF as MODELS, INJECTION_CHARS, INJECTION_SCALE, DEPTH_PCTS,
+    nearest_depth_pct,
+)
+from nla_lib import AR_TEMPLATE_NODEPTH as AR_TEMPLATE  # noqa: E402
 
 # Must match phi_ar_stage2.py exactly: the AR was trained reading the last
-# token of this template, left-padded, max_length 256.
-AR_TEMPLATE = "Summary of the following text: <text>{explanation}</text> <summary>"
+# token of AR_TEMPLATE, left-padded, max_length 256.
 AR_MAX_LEN = 256
 AR_LORA_TARGET_MODULES = ["qkv_proj", "o_proj", "gate_up_proj", "down_proj"]
 
 
-def nearest_depth_pct(layer, n_layers):
-    depth = layer * 100 / n_layers
-    return min(DEPTH_PCTS, key=lambda p: abs(p - depth))
-
-
-def normalize_activation(v, target_scale):
-    norm = v.float().norm(dim=-1, keepdim=True).clamp_min(1e-12)
-    return v * (target_scale / norm)
-
-
-def make_av_prompt(depth_pct, injection_char):
-    return (
-        "You are a meticulous AI researcher conducting an important investigation "
-        "into activation vectors from a language model. Your overall task is to "
-        "describe the semantic content of that activation vector.\n\n"
-        "We will pass the vector enclosed in <concept> tags into your context, "
-        "along with the network depth where it was extracted. "
-        "You must then produce an explanation for the vector, enclosed within "
-        "<explanation> tags. The explanation consists of 2-3 text snippets "
-        "describing that vector.\n\n"
-        f"Here is the vector from depth {depth_pct}% of the network:\n\n"
-        f"<concept>{injection_char}</concept>\n\n"
-        "Please provide an explanation.\n\n"
-        "<explanation>"
-    )
+from nla_lib import normalize_activation, make_av_prompt  # noqa: E402
 
 
 def centered_cosine(pred, target, mean):

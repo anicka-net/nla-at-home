@@ -1,0 +1,263 @@
+"""nla_lib — single source of truth for NLA constants, templates, and loaders.
+
+Why this exists: model constants (injection chars, HF ids), prompt templates,
+and adapter-loading logic used to be copy-pasted across ~20 scripts. That
+caused real failures: an AV prompt copy silently dropped the depth sentence,
+a GRPO script hardcoded phi4's 40 layers into a depth computation used for
+qwen (28), and an AR loader assumed a value-heads format that the universal
+qwen AR doesn't have. Everything here is the ONE definition; scripts import
+from this module and must not re-declare any of it.
+
+Rules:
+- Templates are FROZEN interfaces. Shipped adapters were trained against
+  these exact strings; changing a byte silently breaks every published
+  checkpoint. tests/test_nla_lib.py pins them and also scans legacy scripts
+  for drift. Changes require human review (see CLAUDE.md).
+- Layer counts and d_model are NOT authoritative here: always take them from
+  the activation file / model config / nla_meta.yaml at runtime. The
+  reference values in ModelSpec exist for documentation and sanity checks
+  only — a hardcoded layer count in control flow is how we got burned.
+- Heavy deps (torch, transformers, peft) are imported lazily inside the
+  functions that need them, so light consumers can import this module fast.
+"""
+
+from dataclasses import dataclass
+from pathlib import Path
+
+# ---------------------------------------------------------------------------
+# Depth grid
+# ---------------------------------------------------------------------------
+
+DEPTH_PCTS = [4, 10, 17, 25, 32, 40, 47, 55, 63, 71, 80, 90, 96]
+
+INJECTION_SCALE = 150.0
+
+
+def nearest_depth_pct(layer, n_layers):
+    """Map a layer index to the nearest depth percentage in DEPTH_PCTS.
+
+    n_layers MUST come from the activation file / model config of the model
+    actually in use — never hardcode it (phi4 has 40, qwen25-7b has 28,
+    phi4-mini 32, gemma3-1b 26).
+    """
+    depth = layer * 100 / n_layers
+    return min(DEPTH_PCTS, key=lambda p: abs(p - depth))
+
+
+# ---------------------------------------------------------------------------
+# Model registry
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True)
+class ModelSpec:
+    key: str
+    hf_id: str
+    injection_char: str        # None if no injection token established yet
+    trust_remote_code: bool = False
+    # Reference only — verify against the artifact at runtime:
+    n_layers: int = None
+    d_model: int = None
+    notes: str = ""
+
+
+MODELS = {
+    "qwen25-7b": ModelSpec(
+        key="qwen25-7b", hf_id="Qwen/Qwen2.5-7B-Instruct",
+        injection_char="㈎",  # ㈎ (token id 149705)
+        n_layers=28, d_model=3584),
+    "qwen3-4b": ModelSpec(
+        key="qwen3-4b", hf_id="Qwen/Qwen3-4B",
+        injection_char="㈎",
+        n_layers=36, d_model=2560,
+        notes="chat template needs enable_thinking=False"),
+    "gemma3-1b": ModelSpec(
+        key="gemma3-1b", hf_id="google/gemma-3-1b-it",
+        injection_char="⎝",  # ⎝
+        n_layers=26, d_model=1152,
+        notes="massive-activation outlier dim dominates norms; "
+              "cosine/PCA geometry unreliable"),
+    "phi4-mini": ModelSpec(
+        key="phi4-mini", hf_id="microsoft/Phi-4-mini-instruct",
+        injection_char="★",  # ★ (token id 12087 in phi4-mini)
+        trust_remote_code=True,
+        n_layers=32, d_model=3072),
+    "phi4": ModelSpec(
+        key="phi4", hf_id="microsoft/phi-4",
+        injection_char="★",  # ★ (token id 27347 in phi4 — differs from mini!)
+        trust_remote_code=True,
+        n_layers=40, d_model=5120),
+    "llama-8b": ModelSpec(
+        key="llama-8b", hf_id="meta-llama/Llama-3.1-8B-Instruct",
+        injection_char=None,
+        n_layers=32, d_model=4096,
+        notes="no injection token established; extraction only"),
+}
+
+
+def get_model(key):
+    if key not in MODELS:
+        raise KeyError(f"Unknown model '{key}'. Known: {sorted(MODELS)}")
+    return MODELS[key]
+
+
+# Legacy plain-dict views, so retrofitted scripts keep their interfaces:
+MODELS_HF = {k: m.hf_id for k, m in MODELS.items()}
+INJECTION_CHARS = {k: m.injection_char for k, m in MODELS.items()
+                   if m.injection_char is not None}
+
+
+# ---------------------------------------------------------------------------
+# Prompt templates (FROZEN — see module docstring)
+# ---------------------------------------------------------------------------
+
+def make_av_prompt(depth_pct, injection_char):
+    """The canonical AV prompt (universal, depth-conditioned).
+
+    This is what every universal AV adapter was trained on. The single-layer
+    era used a variant without the depth sentence; that variant lives only in
+    the legacy scripts that serve those old adapters.
+    """
+    return (
+        "You are a meticulous AI researcher conducting an important investigation "
+        "into activation vectors from a language model. Your overall task is to "
+        "describe the semantic content of that activation vector.\n\n"
+        "We will pass the vector enclosed in <concept> tags into your context, "
+        "along with the network depth where it was extracted. "
+        "You must then produce an explanation for the vector, enclosed within "
+        "<explanation> tags. The explanation consists of 2-3 text snippets "
+        "describing that vector.\n\n"
+        f"Here is the vector from depth {depth_pct}% of the network:\n\n"
+        f"<concept>{injection_char}</concept>\n\n"
+        "Please provide an explanation.\n\n"
+        "<explanation>"
+    )
+
+
+# AR prompt family. Three shipped variants — the adapter's training script
+# determines which one it understands:
+#   nodepth      — phi4 stage2 ARs (value heads read at last token; no
+#                  injection char in the prompt)
+#   depth_sl     — train_universal_ar.py "self-layer" ARs (depth-conditioned,
+#                  trailing injection char marks the readout position)
+AR_TEMPLATE_NODEPTH = (
+    "Summary of the following text: <text>{explanation}</text> <summary>")
+AR_TEMPLATE_DEPTH_SL = (
+    "Summary of the following text from depth {depth}%: "
+    "<text>{explanation}</text> <summary>{inj}")
+
+
+def make_ar_prompt_nodepth(explanation):
+    return AR_TEMPLATE_NODEPTH.format(explanation=explanation)
+
+
+def make_ar_prompt_depth_sl(explanation, depth_pct, injection_char):
+    return AR_TEMPLATE_DEPTH_SL.format(
+        explanation=explanation, depth=depth_pct, inj=injection_char)
+
+
+# ---------------------------------------------------------------------------
+# Injection
+# ---------------------------------------------------------------------------
+
+def normalize_activation(v, target_scale=INJECTION_SCALE):
+    """L2-normalize activation TO target_scale (Anthropic's approach).
+
+    Works on a single vector [d] or a batch [..., d] (last dim is the
+    vector). THE COMMON MISTAKE is multiplying BY the scale instead: a
+    vector with norm 129 must come out with norm 150, not 19350.
+    """
+    norm = v.float().norm(dim=-1, keepdim=True).clamp_min(1e-12)
+    return v * (target_scale / norm)
+
+
+# ---------------------------------------------------------------------------
+# Adapter format detection + loading
+# ---------------------------------------------------------------------------
+
+AR_FORMAT_LORA_SL = "lora_sl"      # train_universal_ar.py output
+AR_FORMAT_HEADS_DIR = "heads_dir"  # frozen backbone + value_heads.safetensors
+AR_FORMAT_STAGE2_PT = "stage2_pt"  # phi_ar_stage2 *_best.pt + sibling heads
+
+
+def detect_ar_format(ar_checkpoint):
+    """Classify an AR checkpoint path into one of the three shipped formats."""
+    p = Path(ar_checkpoint)
+    if p.suffix == ".pt":
+        return AR_FORMAT_STAGE2_PT
+    if p.is_dir():
+        if (p / "value_heads.safetensors").exists():
+            return AR_FORMAT_HEADS_DIR
+        if (p / "adapter_config.json").exists():
+            return AR_FORMAT_LORA_SL
+    raise ValueError(
+        f"Unrecognized AR checkpoint format at {ar_checkpoint}: expected a "
+        f"stage2 .pt file, a directory with value_heads.safetensors, or a "
+        f"LoRA adapter directory (adapter_config.json)")
+
+
+def read_nla_meta(adapter_dir):
+    """Read nla_meta.yaml from an adapter directory (None if absent)."""
+    import yaml
+    p = Path(adapter_dir) / "nla_meta.yaml"
+    if not p.exists():
+        return None
+    with open(p) as f:
+        return yaml.safe_load(f)
+
+
+class LoraSLReward:
+    """Unified reconstruction interface for lora_sl ARs.
+
+    reconstruct(descriptions, layers, device) -> {layer: tensor[N, d]}.
+    Reconstruction = the model's own hidden state at layer L (output of
+    block L = hidden_states[L+1]) at the trailing injection token, exactly
+    mirroring the train_universal_ar.py training hook.
+    """
+
+    MAX_LEN = 512
+
+    def __init__(self, model, tokenizer, n_layers, injection_char):
+        self.model = model
+        self.tokenizer = tokenizer
+        self.n_layers = n_layers
+        self.injection_char = injection_char
+
+    def reconstruct(self, descriptions, layers, device):
+        import torch
+        recons = {}
+        for L in layers:
+            depth = nearest_depth_pct(L, self.n_layers)
+            prompts = [make_ar_prompt_depth_sl(d, depth, self.injection_char)
+                       for d in descriptions]
+            enc = self.tokenizer(
+                prompts, return_tensors="pt", padding=True, truncation=True,
+                max_length=self.MAX_LEN, add_special_tokens=False).to(device)
+            with torch.no_grad():
+                out = self.model(**enc, output_hidden_states=True,
+                                 use_cache=False)
+            recons[L] = out.hidden_states[L + 1][:, -1, :].float()
+        return recons
+
+
+def load_ar_lora_sl(ar_checkpoint, base_model_name, device, trust_remote,
+                    n_layers, injection_char):
+    """Load a train_universal_ar.py-style AR as a frozen LoraSLReward."""
+    import torch
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+    from peft import PeftModel
+
+    tokenizer = AutoTokenizer.from_pretrained(
+        ar_checkpoint, trust_remote_code=trust_remote)
+    tokenizer.padding_side = "left"
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+
+    backbone = AutoModelForCausalLM.from_pretrained(
+        base_model_name, torch_dtype=torch.bfloat16,
+        trust_remote_code=trust_remote)
+    model = PeftModel.from_pretrained(backbone, ar_checkpoint)
+    model = model.to(device)
+    model.eval()
+    for p in model.parameters():
+        p.requires_grad = False
+    return LoraSLReward(model, tokenizer, n_layers, injection_char)

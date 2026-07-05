@@ -488,6 +488,14 @@ def main():
     n_val = sum(len(v) for v in val_by_layer.values())
     print(f"  Train: {n_train}, Val: {n_val} ({n_val_texts} held-out texts)")
 
+    # Persist the held-out text ids IMMEDIATELY (not at training end):
+    # downstream stages (GRPO exclusion, round-trip eval) need them, and a
+    # crashed/killed run must not lose the split.
+    Path(args.output).mkdir(parents=True, exist_ok=True)
+    with open(Path(args.output) / "val_text_ids.json", "w") as f:
+        json.dump(sorted(val_text_ids), f)
+    print(f"  Saved val split to {args.output}/val_text_ids.json")
+
     model_name = MODELS[args.model]
     print(f"\nLoading {model_name}...")
     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
