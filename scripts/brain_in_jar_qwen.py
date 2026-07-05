@@ -16,11 +16,17 @@ from safetensors import safe_open
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 
-BASE_MODEL = "Qwen/Qwen2.5-7B-Instruct"
-INJECTION_CHAR = "㈎"
-INJECTION_SCALE = 150.0
+from nla_lib import (
+    get_model, INJECTION_SCALE, normalize_activation,
+    make_av_prompt as _nla_make_av_prompt,
+    AR_TEMPLATE_RECONSTRUCT as AR_TEMPLATE,
+)
+
+_SPEC = get_model("qwen25-7b")
+BASE_MODEL = _SPEC.hf_id
+INJECTION_CHAR = _SPEC.injection_char
 LAYER = 20
-N_LAYERS = 28
+N_LAYERS = 28  # documentation for the published L20 adapter (depth 71%)
 
 COLORS = {
     "reset": "\033[0m",
@@ -37,41 +43,15 @@ def c(text, color):
     return f"{COLORS.get(color, '')}{text}{COLORS['reset']}"
 
 
-def normalize_activation(v, target_scale):
-    norm = v.float().norm(dim=-1, keepdim=True).clamp_min(1e-12)
-    return v * (target_scale / norm)
-
-
-def make_av_prompt(depth_pct):
-    return (
-        "You are a meticulous AI researcher conducting an important investigation "
-        "into activation vectors from a language model. Your overall task is to "
-        "describe the semantic content of that activation vector.\n\n"
-        "We will pass the vector enclosed in <concept> tags into your context, "
-        "along with the network depth where it was extracted. "
-        "You must then produce an explanation for the vector, enclosed within "
-        "<explanation> tags. The explanation consists of 2-3 text snippets "
-        "describing that vector.\n\n"
-        f"Here is the vector from depth {depth_pct}% of the network:\n\n"
-        f"<concept>{INJECTION_CHAR}</concept>\n\n"
-        "Please provide an explanation.\n\n"
-        "<explanation>"
-    )
-
-
-AR_TEMPLATE = (
-    "You are a meticulous AI researcher conducting an important investigation "
-    "into a model's internal states. Below is a description of an activation vector:\n\n"
-    "<explanation>{explanation}</explanation>\n\n"
-    "Based on this description, reconstruct the activation vector."
-)
+def _av_prompt(depth_pct):
+    return _nla_make_av_prompt(depth_pct, INJECTION_CHAR)
 
 
 def load_models(av_path, ar_path, device, skip_ar=False):
     print("Loading Qwen 2.5 7B...", end=" ", flush=True)
     base = AutoModelForCausalLM.from_pretrained(
-        BASE_MODEL, torch_dtype=torch.bfloat16, trust_remote_code=True)
-    tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL, trust_remote_code=True)
+        BASE_MODEL, torch_dtype=torch.bfloat16, trust_remote_code=_SPEC.trust_remote_code)
+    tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL, trust_remote_code=_SPEC.trust_remote_code)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     print("done")
@@ -91,7 +71,7 @@ def load_models(av_path, ar_path, device, skip_ar=False):
     if not skip_ar:
         print("Loading AR backbone...", end=" ", flush=True)
         ar_backbone = AutoModelForCausalLM.from_pretrained(
-            BASE_MODEL, torch_dtype=torch.bfloat16, trust_remote_code=True)
+            BASE_MODEL, torch_dtype=torch.bfloat16, trust_remote_code=_SPEC.trust_remote_code)
         inner = ar_backbone.model if hasattr(ar_backbone, "model") else ar_backbone
         for attr in ("norm", "final_layernorm", "ln_f"):
             if hasattr(inner, attr):
@@ -153,7 +133,7 @@ def extract_layer_activation(model, tokenizer, prompt, layer, device):
 
 def verbalize(av_model, tokenizer, activation, depth_pct,
               injection_token_id, device, max_tokens=120):
-    prompt_text = make_av_prompt(depth_pct)
+    prompt_text = _av_prompt(depth_pct)
     tokens = tokenizer.encode(prompt_text, add_special_tokens=True)
 
     inject_pos = None

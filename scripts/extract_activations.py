@@ -19,14 +19,9 @@ REPO_ROOT = Path(__file__).parent.parent
 GENERATED_DIR = REPO_ROOT / "corpus" / "generated"
 ACTIVATIONS_DIR = REPO_ROOT / "corpus" / "activations"
 
-MODELS = {
-    "qwen25-7b": "Qwen/Qwen2.5-7B-Instruct",
-    "qwen3-4b": "Qwen/Qwen3-4B",
-    "llama-8b": "meta-llama/Llama-3.1-8B-Instruct",
-    "gemma3-1b": "google/gemma-3-1b-it",
-    "phi4-mini": "microsoft/Phi-4-mini-instruct",
-    "phi4": "microsoft/phi-4",
-}
+# Extraction works on any registered model (no injection token needed),
+# hence MODELS_HF rather than INJECTABLE_MODELS_HF.
+from nla_lib import MODELS_HF as MODELS, get_model  # noqa: E402
 
 device = torch.device("cuda")
 
@@ -194,7 +189,7 @@ def main():
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
-    trust_remote = "phi" not in args.model.lower()
+    trust_remote = get_model(args.model).trust_remote_code
     model = AutoModelForCausalLM.from_pretrained(
         model_name, torch_dtype=torch.bfloat16, device_map="auto",
         trust_remote_code=trust_remote

@@ -79,13 +79,15 @@ MODELS = {
     "phi4-mini": ModelSpec(
         key="phi4-mini", hf_id="microsoft/Phi-4-mini-instruct",
         injection_char="★",  # ★ (token id 12087 in phi4-mini)
-        trust_remote_code=True,
-        n_layers=32, d_model=3072),
+        n_layers=32, d_model=3072,
+        notes="repo ships modeling_phi3.py, but every shipped adapter was "
+              "trained with trust_remote_code=False (native transformers "
+              "Phi3 implementation) — keep False"),
     "phi4": ModelSpec(
         key="phi4", hf_id="microsoft/phi-4",
         injection_char="★",  # ★ (token id 27347 in phi4 — differs from mini!)
-        trust_remote_code=True,
-        n_layers=40, d_model=5120),
+        n_layers=40, d_model=5120,
+        notes="repo ships no custom code; trust_remote_code irrelevant"),
     "llama-8b": ModelSpec(
         key="llama-8b", hf_id="meta-llama/Llama-3.1-8B-Instruct",
         injection_char=None,

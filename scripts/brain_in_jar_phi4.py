@@ -65,7 +65,7 @@ def depth_color(pct):
 from nla_lib import normalize_activation
 from nla_lib import make_av_prompt as _nla_make_av_prompt
 
-def make_av_prompt(depth_pct):
+def _av_prompt(depth_pct):
     return _nla_make_av_prompt(depth_pct, INJECTION_CHAR)
 
 
@@ -149,7 +149,7 @@ class BrainInJar:
         return reply
 
     def verbalize(self, activation, depth_pct, max_tokens=150):
-        prompt_text = make_av_prompt(depth_pct)
+        prompt_text = _av_prompt(depth_pct)
         chat_str = self.tokenizer.apply_chat_template(
             [{"role": "user", "content": prompt_text}],
             tokenize=False, add_generation_prompt=True)

@@ -162,11 +162,11 @@ def test_heads_dir_wins_over_adapter_config(tmp_path):
 
 SCRIPTS = REPO_ROOT / "scripts"
 
-# Scripts allowed to carry the AV prompt text literally. brain_in_jar_qwen
-# serves the published single-layer L20 adapters, whose prompt (no depth
-# sentence) predates nla_lib. This list is CLOSED — a new script must
-# import make_av_prompt from nla_lib instead.
-AV_LITERAL_ALLOWED = {"nla_lib.py", "brain_in_jar_qwen.py"}
+# Scripts allowed to carry the AV prompt text literally: only the library
+# itself. (brain_in_jar_qwen.py used to be exempt on the theory that it
+# served an older prompt variant — its literals turned out to be
+# byte-identical to nla_lib's, so it now imports them; 2026-07-05.)
+AV_LITERAL_ALLOWED = {"nla_lib.py"}
 
 
 def _scripts_with(pattern):
@@ -206,9 +206,10 @@ def test_no_live_ar_template_copies():
         f"import from nla_lib instead")
 
 
-def test_injection_char_copies_match_registry():
-    """Any script that declares an injection char for a model must agree
-    with the registry."""
+def test_no_injection_char_dict_copies():
+    """No live script may declare a model->injection-char mapping at all
+    (consistency scans are not enough: a consistent copy still diverges the
+    day the registry changes). Import INJECTION_CHARS from nla_lib."""
     pat = re.compile(
         r'"(qwen25-7b|qwen3-4b|gemma3-1b|phi4-mini|phi4)"\s*:\s*"(.)"')
     offenders = []
@@ -216,14 +217,15 @@ def test_injection_char_copies_match_registry():
         if f.name == "nla_lib.py":
             continue
         for m in pat.finditer(f.read_text(errors="replace")):
-            key, char = m.group(1), m.group(2)
-            expected = nla_lib.INJECTION_CHARS.get(key)
-            if expected is not None and char != expected:
-                offenders.append((f.name, key, char, expected))
-    assert not offenders, f"Injection-char drift: {offenders}"
+            offenders.append((f.name, m.group(1), m.group(2)))
+    assert not offenders, (
+        f"Model->char dict literals in live scripts: {offenders} — "
+        f"import INJECTION_CHARS from nla_lib instead")
 
 
-def test_hf_id_copies_match_registry():
+def test_no_hf_id_dict_copies():
+    """Same rule for model->HF-id mappings: import MODELS_HF (or
+    INJECTABLE_MODELS_HF) from nla_lib."""
     pat = re.compile(
         r'"(qwen25-7b|qwen3-4b|gemma3-1b|phi4-mini|phi4|llama-8b)"'
         r'\s*:\s*"([A-Za-z0-9./_-]+/[A-Za-z0-9./_-]+)"')
@@ -232,7 +234,43 @@ def test_hf_id_copies_match_registry():
         if f.name == "nla_lib.py":
             continue
         for m in pat.finditer(f.read_text(errors="replace")):
-            key, hf = m.group(1), m.group(2)
-            if hf != nla_lib.MODELS_HF[key]:
-                offenders.append((f.name, key, hf))
-    assert not offenders, f"HF-id drift: {offenders}"
+            offenders.append((f.name, m.group(1), m.group(2)))
+    assert not offenders, (
+        f"Model->HF-id dict literals in live scripts: {offenders} — "
+        f"import MODELS_HF from nla_lib instead")
+
+
+def test_no_nla_lib_function_redeclarations():
+    """No live script may re-declare a function that nla_lib owns. The drift
+    scans above only catch string literals; this catches the 2026-07-05
+    Seventh finding (nearest_depth_pct re-declared in train_universal_av.py,
+    invisible to the template scans)."""
+    owned = ("nearest_depth_pct", "normalize_activation", "make_av_prompt",
+             "make_ar_prompt_nodepth", "make_ar_prompt_depth_sl",
+             "detect_ar_format", "load_ar_lora_sl", "get_model",
+             "read_nla_meta")
+    pat = re.compile(r"^\s*def (" + "|".join(owned) + r")\s*\(", re.M)
+    offenders = []
+    for f in sorted(SCRIPTS.glob("*.py")):
+        if f.name == "nla_lib.py":
+            continue
+        for m in pat.finditer(f.read_text(errors="replace")):
+            offenders.append((f.name, m.group(1)))
+    assert not offenders, (
+        f"nla_lib functions re-declared in live scripts: {offenders} — "
+        f"import from nla_lib instead")
+
+
+def test_no_trust_remote_heuristic():
+    """trust_remote_code comes from get_model(key).trust_remote_code, not
+    from substring heuristics on the model name (the '\"phi\" not in' rule
+    was scattered across 5 scripts and contradicted the registry)."""
+    offenders = [
+        f.name for f in sorted(SCRIPTS.glob("*.py"))
+        if f.name != "nla_lib.py"
+        and re.search(r'''["'']phi["'']\s+(not\s+)?in\s''',
+                      f.read_text(errors="replace"))
+    ]
+    assert not offenders, (
+        f"trust_remote_code name-substring heuristic in: {offenders} — "
+        f"use get_model(args.model).trust_remote_code")

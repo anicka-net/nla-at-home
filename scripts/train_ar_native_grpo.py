@@ -133,7 +133,7 @@ def select_curriculum(scores, layers, n_texts, tau, max_samples, n_layers):
 # the AR is a LoRA on the base model and the reconstruction is the model's
 # OWN hidden state at layer L, read at the trailing injection token.
 from nla_lib import (  # noqa: E402
-    detect_ar_format, load_ar_lora_sl, AR_FORMAT_LORA_SL,
+    detect_ar_format, load_ar_lora_sl, AR_FORMAT_LORA_SL, get_model,
 )
 
 
@@ -176,7 +176,7 @@ def main():
     device = torch.device(args.device)
     base_model_name = MODELS[args.model]
     injection_char = INJECTION_CHARS[args.model]
-    trust_remote = "phi" not in args.model.lower()
+    trust_remote = get_model(args.model).trust_remote_code
 
     # --- Load compass (curriculum only) ---
     print("Loading compass (for curriculum, not reward)...")

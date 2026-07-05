@@ -23,21 +23,12 @@ from extract_activations import get_blocks
 REPO_ROOT = Path(__file__).parent.parent
 ACTIVATIONS_DIR = REPO_ROOT / "corpus" / "activations"
 
-MODELS = {
-    "gemma3-1b": "google/gemma-3-1b-it",
-    "phi4-mini": "microsoft/Phi-4-mini-instruct",
-    "qwen25-7b": "Qwen/Qwen2.5-7B-Instruct",
-}
-
-INJECTION_CHARS = {
-    "gemma3-1b": "⎝",
-    "phi4-mini": "★",
-    "qwen25-7b": "㈎",
-}
-INJECTION_SCALE = 150.0
-
 device = torch.device("cuda")
 
+from nla_lib import (  # noqa: E402
+    INJECTABLE_MODELS_HF as MODELS, INJECTION_CHARS, get_model,
+    normalize_activation,
+)
 from nla_lib import make_av_prompt as get_universal_prompt  # noqa: E402
 
 def generate_trace(model, tokenizer, activation, depth_pct, inject_id,
@@ -51,7 +42,7 @@ def generate_trace(model, tokenizer, activation, depth_pct, inject_id,
     embed_layer = model.get_input_embeddings()
     embeddings = embed_layer(input_ids)
     
-    embeddings[0, inject_pos, :] = activation.to(device).float() * INJECTION_SCALE
+    embeddings[0, inject_pos, :] = normalize_activation(activation.to(device).float())
     attention_mask = torch.ones_like(input_ids)
 
     with torch.no_grad():
@@ -83,7 +74,7 @@ def main():
 
     model_name = MODELS[args.model]
     injection_char = INJECTION_CHARS[args.model]
-    trust_remote = "phi" not in args.model.lower()
+    trust_remote = get_model(args.model).trust_remote_code
 
     print(f"Loading demo prompts from {args.prompts}...")
     with open(args.prompts, "r") as f:

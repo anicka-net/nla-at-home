@@ -64,7 +64,7 @@ REPO_ROOT = Path(__file__).parent.parent
 # re-exported here because several scripts import them from this module.
 from nla_lib import (  # noqa: E402
     INJECTABLE_MODELS_HF as MODELS, INJECTION_CHARS, INJECTION_SCALE, DEPTH_PCTS,
-    nearest_depth_pct,
+    nearest_depth_pct, get_model,
 )
 from nla_lib import AR_TEMPLATE_NODEPTH as AR_TEMPLATE  # noqa: E402
 
@@ -300,7 +300,7 @@ def main():
     device = torch.device(args.device)
     base_model_name = MODELS[args.model]
     injection_char = INJECTION_CHARS[args.model]
-    trust_remote = "phi" not in args.model.lower()
+    trust_remote = get_model(args.model).trust_remote_code
 
     print("Loading activations...")
     act_data = torch.load(args.activations, weights_only=True, map_location="cpu")

@@ -33,7 +33,7 @@ GENERATED_DIR = REPO_ROOT / "corpus" / "generated"
 # scripts import them from this module.
 from nla_lib import (  # noqa: E402
     INJECTABLE_MODELS_HF as MODELS, INJECTION_CHARS, INJECTION_SCALE, DEPTH_PCTS,
-    normalize_activation,
+    normalize_activation, nearest_depth_pct, get_model,
 )
 from nla_lib import make_av_prompt as make_prompt  # noqa: E402
 
@@ -43,11 +43,6 @@ def find_inject_pos(prompt_tokens, injection_token_id):
         if tid == injection_token_id:
             return i
     raise ValueError("Injection token not found in prompt")
-
-
-def nearest_depth_pct(layer, n_layers):
-    depth = layer * 100 / n_layers
-    return min(DEPTH_PCTS, key=lambda p: abs(p - depth))
 
 
 def load_descriptions(suffix="", strict=False, mix=False, allow_verbose=False):
@@ -447,7 +442,7 @@ def main():
         )
 
     model_name = MODELS[args.model]
-    trust_remote = "phi" not in args.model.lower()
+    trust_remote = get_model(args.model).trust_remote_code
     print(f"\nLoading {model_name}...")
     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=trust_remote)
     if tokenizer.pad_token is None:

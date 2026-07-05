@@ -63,7 +63,7 @@ from nla_lib import normalize_activation
 from nla_lib import make_av_prompt as _nla_make_av_prompt
 
 
-def make_av_prompt(depth_pct):
+def _av_prompt(depth_pct):
     return _nla_make_av_prompt(depth_pct, INJECTION_CHAR)
 
 
@@ -140,7 +140,7 @@ def generate_output(model, tokenizer, prompt, device, max_tokens=200):
 
 def verbalize_layer(av_model, tokenizer, activation, depth_pct,
                     injection_token_id, device, max_tokens=100):
-    prompt_text = make_av_prompt(depth_pct)
+    prompt_text = _av_prompt(depth_pct)
     tokens = tokenizer.encode(prompt_text, add_special_tokens=True)
 
     inject_pos = None
