@@ -21,7 +21,7 @@ The round trip is a loop:
     faithfulness = centered-cos(a, â)
 
 Today AV and AR are trained separately and only SHARE a description
-distribution. `scripts/train_universal_grpo.py` already rewards AV with a
+distribution. `scripts/legacy/train_universal_grpo.py` already rewards AV with a
 FROZEN AR's cosine (phi4-mini line) — but (1) AR never improves from the loop,
 and (2) there is NO KL anchor, so the AV policy is free to drift toward an
 AR-readable private code (illegible descriptions). That is mode collapse
