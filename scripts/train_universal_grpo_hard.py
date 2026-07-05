@@ -213,6 +213,7 @@ def load_ar(ar_checkpoint, base_model_name, device, trust_remote):
     hidden_states[layer+1][:, -1, :].float() -> value_head[layer].
     """
     ar_path = Path(ar_checkpoint)
+    universal_ar = False
 
     tokenizer = AutoTokenizer.from_pretrained(
         base_model_name, trust_remote_code=trust_remote)
@@ -239,6 +240,14 @@ def load_ar(ar_checkpoint, base_model_name, device, trust_remote):
             raise FileNotFoundError(f"value heads not found next to AR: {vh_path}")
         print(f"  AR: LoRA r={r} from {ar_path.name}, heads from {vh_path.name} "
               f"(best={ck.get('best', float('nan')):.3f})")
+    elif (ar_path / "adapter_config.json").exists() and \
+         not (ar_path / "value_heads.safetensors").exists():
+        # Universal AR: LoRA adapter does the adaptation, hidden state at
+        # the injection position IS the reconstruction (identity heads)
+        from peft import PeftModel
+        model = PeftModel.from_pretrained(backbone, str(ar_path))
+        universal_ar = True
+        print(f"  AR: universal (LoRA adapter from {ar_path.name}, identity heads)")
     else:
         model = backbone
         vh_path = ar_path / "value_heads.safetensors"
@@ -249,14 +258,25 @@ def load_ar(ar_checkpoint, base_model_name, device, trust_remote):
     for p in model.parameters():
         p.requires_grad = False
 
-    head_weights = load_value_head_weights(vh_path)
-    value_heads = {}
-    for layer_idx, w in head_weights.items():
-        vh = torch.nn.Linear(w.shape[1], w.shape[0], bias=False,
-                             dtype=torch.float32)
-        vh.weight = torch.nn.Parameter(w.float(), requires_grad=False)
-        value_heads[layer_idx] = vh.to(device).eval()
-    print(f"  AR value heads: layers {sorted(value_heads.keys())}")
+    if universal_ar:
+        d_model = backbone.config.hidden_size
+        n_layers = backbone.config.num_hidden_layers
+        value_heads = {}
+        for L in range(n_layers):
+            vh = torch.nn.Linear(d_model, d_model, bias=False, dtype=torch.float32)
+            vh.weight = torch.nn.Parameter(
+                torch.eye(d_model, dtype=torch.float32), requires_grad=False)
+            value_heads[L] = vh.to(device).eval()
+        print(f"  AR identity heads: {n_layers} layers, d={d_model}")
+    else:
+        head_weights = load_value_head_weights(vh_path)
+        value_heads = {}
+        for layer_idx, w in head_weights.items():
+            vh = torch.nn.Linear(w.shape[1], w.shape[0], bias=False,
+                                 dtype=torch.float32)
+            vh.weight = torch.nn.Parameter(w.float(), requires_grad=False)
+            value_heads[layer_idx] = vh.to(device).eval()
+        print(f"  AR value heads: layers {sorted(value_heads.keys())}")
 
     return model, value_heads, tokenizer
 
