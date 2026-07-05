@@ -53,7 +53,7 @@ from train_universal_av import (  # noqa: E402
 
 BASE = "microsoft/phi-4"
 INJECTION_CHAR = "★"
-AR_PROMPT = "Summary of the following text: <text>{e}</text> <summary>"
+from nla_lib import AR_TEMPLATE_NODEPTH as AR_PROMPT
 AR_LAYERS = [13, 16, 19, 22, 25, 28, 32, 36, 38]
 DEPTH_PCTS = [4, 10, 17, 25, 32, 40, 47, 55, 63, 71, 80, 90, 96]
 N_LAYERS = 40
@@ -340,7 +340,7 @@ def phase_ar():
 
     @torch.no_grad()
     def recon(L, descs):
-        prompts = [AR_PROMPT.format(e=e) for e in descs]
+        prompts = [AR_PROMPT.format(explanation=e) for e in descs]
         enc = tok(prompts, return_tensors="pt", padding=True, truncation=True,
                   max_length=args.ar_max_len).to(args.device)
         h = model(**enc, output_hidden_states=True).hidden_states[L + 1][:, -1, :].float()

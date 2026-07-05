@@ -30,31 +30,16 @@ from clean_data_guard import assert_clean_sources, assert_terse
 REPO_ROOT = Path(__file__).parent.parent
 GENERATED_DIR = REPO_ROOT / "corpus" / "generated"
 
-MODELS = {
-    "gemma3-1b": "google/gemma-3-1b-it",
-    "qwen25-7b": "Qwen/Qwen2.5-7B-Instruct",
-    "qwen3-4b": "Qwen/Qwen3-4B",
-}
-
-INJECTION_CHARS = {
-    "gemma3-1b": "⎝",
-    "qwen25-7b": "㈎",
-    "qwen3-4b": "㈎",
-}
-
-DEPTH_PCTS = [4, 10, 17, 25, 32, 40, 47, 55, 63, 71, 80, 90, 96]
+# Single source of truth is nla_lib; names re-exported for importers.
+from nla_lib import (  # noqa: E402
+    INJECTABLE_MODELS_HF as MODELS, INJECTION_CHARS, DEPTH_PCTS,
+    nearest_depth_pct, AR_TEMPLATE_DEPTH_SL,
+)
 
 
 def make_ar_template(depth_pct, injection_char):
-    return (
-        f"Summary of the following text from depth {depth_pct}%: "
-        f"<text>{{explanation}}</text> <summary>{injection_char}"
-    )
-
-
-def nearest_depth_pct(layer, n_layers):
-    depth = layer * 100 / n_layers
-    return min(DEPTH_PCTS, key=lambda p: abs(p - depth))
+    return AR_TEMPLATE_DEPTH_SL.replace("{depth}", str(depth_pct)).replace(
+        "{inj}", injection_char)
 
 
 def load_descriptions(suffix="_tokenpred_gpt4o_clean", allow_verbose=False):
@@ -467,6 +452,7 @@ def main():
         layer_means = {}
         for layer_idx in range(args.min_layer, n_layers):
             layer_means[layer_idx] = act_data["activations"][layer_idx].float().mean(dim=0)
+        Path(args.output).mkdir(parents=True, exist_ok=True)
         torch.save(layer_means, Path(args.output) / "layer_means.pt")
         print(f"  Saved layer means to {args.output}/layer_means.pt")
 

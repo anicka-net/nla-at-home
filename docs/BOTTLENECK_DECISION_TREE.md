@@ -214,7 +214,7 @@ AR cosine improves.
 ### Sonnet description regeneration (2026-05-13, IN PROGRESS)
 Regenerating all 4378 expansion + WildChat descriptions using `claude -p --model sonnet`
 (4 parallel workers, ~9/min). Original 1179 Sonnet descriptions retained.
-Script: `scripts/generate_descriptions_sonnet.py`
+Script: `scripts/legacy/generate_descriptions_sonnet.py`
 
 ### CRITICAL: AV memorizes exact vectors, doesn't generalize (2026-05-14)
 
@@ -271,7 +271,7 @@ non-reproduction was caused by the stress test bug, not activation brittleness.
 
 ### Pipeline infrastructure (2026-05-12/13)
 - `scripts/run_expanded_pipeline.sh` — automated merge→sync→extract→train→test
-- `scripts/generate_descriptions_sonnet.py` — parallel Sonnet desc generation via CLI
+- `scripts/legacy/generate_descriptions_sonnet.py` — parallel Sonnet desc generation via CLI
 - Fixed `extract_activations.py` — `load_corpus()` now filters for "text" field, deduplicates
 - Fixed `stress_test_nla.py` — keeps both AV+AR loaded for round-trip test
 - Installed `sentence-transformers` on deepthought for forced-choice test

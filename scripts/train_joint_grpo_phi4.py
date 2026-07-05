@@ -112,7 +112,7 @@ from train_universal_av import (  # noqa: E402
 
 BASE = "microsoft/phi-4"
 INJECTION_CHAR = "★"
-AR_PROMPT = "Summary of the following text: <text>{e}</text> <summary>"
+from nla_lib import AR_TEMPLATE_NODEPTH as AR_PROMPT
 DEPTH_PCTS = [4, 10, 17, 25, 32, 40, 47, 55, 63, 71, 80, 90, 96]
 N_LAYERS = 40
 AR_TARGET_MODULES = ["qkv_proj", "o_proj", "gate_up_proj", "down_proj"]
@@ -323,7 +323,7 @@ def load_ar(args, ar_layers, device):
 
 def ar_recon(ar_model, value_heads, ar_tok, descs, layer, device, max_len, no_grad=True):
     """descs: list[str] -> reconstructed activations (len(descs) x d), value-head output."""
-    prompts = [AR_PROMPT.format(e=d) for d in descs]
+    prompts = [AR_PROMPT.format(explanation=d) for d in descs]
     enc = ar_tok(prompts, return_tensors="pt", padding=True, truncation=True,
                  max_length=max_len).to(device)
     ctx = torch.no_grad() if no_grad else torch.enable_grad()

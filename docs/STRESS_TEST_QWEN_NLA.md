@@ -5,7 +5,7 @@ NLA adapters. The goal is not to make the output look good. The goal is
 to decide whether the Activation Verbalizer (AV) carries activation
 specific signal, or mostly emits plausible DeepSeek-style narration.
 
-The implementation is `scripts/stress_test_qwen_nla.py`.
+The implementation is `scripts/legacy/stress_test_qwen_nla.py`.
 
 ## Question
 
@@ -40,7 +40,7 @@ included only in a deliberate run.
 Run:
 
 ```bash
-python3 scripts/stress_test_qwen_nla.py \
+python3 scripts/legacy/stress_test_qwen_nla.py \
   --av-adapter output/nla-qwen25-7b-L20-av-v3 \
   --ar-adapter output/nla-qwen25-7b-L20-ar \
   --n 100 \

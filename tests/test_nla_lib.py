@@ -162,14 +162,11 @@ def test_heads_dir_wins_over_adapter_config(tmp_path):
 
 SCRIPTS = REPO_ROOT / "scripts"
 
-# The depth sentence that silently vanished from one AV-prompt copy once.
-AV_DEPTH_SENTENCE = "along with the network depth where it was extracted"
-
-# Scripts allowed to differ (single-layer era: no depth in the AV prompt,
-# because their adapters were trained without it). Everything else from
-# that era lives in scripts/legacy/ (outside this scan); this list is
-# CLOSED — a new script must import make_av_prompt from nla_lib instead.
-AV_NODEPTH_LEGACY = {"brain_in_jar_qwen.py"}
+# Scripts allowed to carry the AV prompt text literally. brain_in_jar_qwen
+# serves the published single-layer L20 adapters, whose prompt (no depth
+# sentence) predates nla_lib. This list is CLOSED — a new script must
+# import make_av_prompt from nla_lib instead.
+AV_LITERAL_ALLOWED = {"nla_lib.py", "brain_in_jar_qwen.py"}
 
 
 def _scripts_with(pattern):
@@ -183,18 +180,30 @@ def _scripts_with(pattern):
     return hits
 
 
-def test_av_prompt_copies_keep_depth_sentence():
-    """Every non-legacy copy of the AV prompt must still contain the depth
-    sentence. (Legacy single-layer scripts are exempt by list — additions
-    to that list require knowing which adapter the script serves.)"""
-    offenders = []
-    for name, text in _scripts_with(r"meticulous AI researcher"):
-        if name in AV_NODEPTH_LEGACY:
-            continue
-        if AV_DEPTH_SENTENCE not in text:
-            offenders.append(name)
+def test_no_live_av_prompt_copies():
+    """No live script may carry a literal copy of the AV prompt — copies
+    drift (one lost its depth sentence before nla_lib existed). Import
+    make_av_prompt from nla_lib instead."""
+    offenders = [
+        f.name for f in sorted(SCRIPTS.glob("*.py"))
+        if f.name not in AV_LITERAL_ALLOWED
+        and "meticulous AI researcher" in f.read_text(errors="replace")
+    ]
     assert not offenders, (
-        f"AV prompt drift (missing depth sentence) in: {offenders}")
+        f"Literal AV prompt copies in live scripts: {offenders} — "
+        f"import make_av_prompt from nla_lib instead")
+
+
+def test_no_live_ar_template_copies():
+    """Same rule for the AR summary templates."""
+    offenders = [
+        f.name for f in sorted(SCRIPTS.glob("*.py"))
+        if f.name != "nla_lib.py"
+        and re.search(r'"Summary of the following text', f.read_text(errors="replace"))
+    ]
+    assert not offenders, (
+        f"Literal AR template copies in live scripts: {offenders} — "
+        f"import from nla_lib instead")
 
 
 def test_injection_char_copies_match_registry():

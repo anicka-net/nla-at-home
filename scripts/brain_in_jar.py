@@ -59,34 +59,15 @@ def depth_color(pct):
         return "red"
 
 
-def normalize_activation(v, target_scale):
-    norm = v.float().norm(dim=-1, keepdim=True).clamp_min(1e-12)
-    return v * (target_scale / norm)
+from nla_lib import normalize_activation
+from nla_lib import make_av_prompt as _nla_make_av_prompt
 
 
 def make_av_prompt(depth_pct):
-    return (
-        "You are a meticulous AI researcher conducting an important investigation "
-        "into activation vectors from a language model. Your overall task is to "
-        "describe the semantic content of that activation vector.\n\n"
-        "We will pass the vector enclosed in <concept> tags into your context, "
-        "along with the network depth where it was extracted. "
-        "You must then produce an explanation for the vector, enclosed within "
-        "<explanation> tags. The explanation consists of 2-3 text snippets "
-        "describing that vector.\n\n"
-        f"Here is the vector from depth {depth_pct}% of the network:\n\n"
-        f"<concept>{INJECTION_CHAR}</concept>\n\n"
-        "Please provide an explanation.\n\n"
-        "<explanation>"
-    )
+    return _nla_make_av_prompt(depth_pct, INJECTION_CHAR)
 
 
-AR_TEMPLATE = (
-    "You are a meticulous AI researcher conducting an important investigation "
-    "into a model's internal states. Below is a description of an activation vector:\n\n"
-    "<explanation>{explanation}</explanation>\n\n"
-    "Based on this description, reconstruct the activation vector."
-)
+from nla_lib import AR_TEMPLATE_RECONSTRUCT as AR_TEMPLATE
 
 
 def load_av_model(av_adapter_path, device):

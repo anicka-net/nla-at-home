@@ -104,6 +104,11 @@ def get_model(key):
 MODELS_HF = {k: m.hf_id for k, m in MODELS.items()}
 INJECTION_CHARS = {k: m.injection_char for k, m in MODELS.items()
                    if m.injection_char is not None}
+# For injection-dependent CLIs (training/inference): only models with an
+# established injection token. Using MODELS_HF for argparse choices would
+# accept llama-8b and crash later on INJECTION_CHARS lookup.
+INJECTABLE_MODELS_HF = {k: v for k, v in MODELS_HF.items()
+                        if k in INJECTION_CHARS}
 
 
 # ---------------------------------------------------------------------------
@@ -133,17 +138,25 @@ def make_av_prompt(depth_pct, injection_char):
     )
 
 
-# AR prompt family. Three shipped variants — the adapter's training script
+# AR prompt family. Four shipped variants — the adapter's training script
 # determines which one it understands:
 #   nodepth      — phi4 stage2 ARs (value heads read at last token; no
 #                  injection char in the prompt)
 #   depth_sl     — train_universal_ar.py "self-layer" ARs (depth-conditioned,
 #                  trailing injection char marks the readout position)
+#   reconstruct  — phi4-mini universal AR (value heads; prose instruction,
+#                  served by brain_in_jar.py)
 AR_TEMPLATE_NODEPTH = (
     "Summary of the following text: <text>{explanation}</text> <summary>")
 AR_TEMPLATE_DEPTH_SL = (
     "Summary of the following text from depth {depth}%: "
     "<text>{explanation}</text> <summary>{inj}")
+AR_TEMPLATE_RECONSTRUCT = (
+    "You are a meticulous AI researcher conducting an important investigation "
+    "into a model's internal states. Below is a description of an activation vector:\n\n"
+    "<explanation>{explanation}</explanation>\n\n"
+    "Based on this description, reconstruct the activation vector."
+)
 
 
 def make_ar_prompt_nodepth(explanation):
@@ -245,6 +258,17 @@ def load_ar_lora_sl(ar_checkpoint, base_model_name, device, trust_remote,
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
     from peft import PeftModel
+
+    # A mean-subtracted AR predicts (act - layer_mean); LoraSLReward returns
+    # hidden states as raw activation space and consumers center them again.
+    # Until someone adds the mean-add-back path, refuse rather than silently
+    # score in the wrong space.
+    meta = read_nla_meta(ar_checkpoint)
+    if meta and meta.get("training", {}).get("mean_subtract"):
+        raise NotImplementedError(
+            f"AR at {ar_checkpoint} was trained with --mean-subtract; "
+            f"LoraSLReward does not support mean-subtracted checkpoints yet "
+            f"(reconstructions would be centered twice)")
 
     tokenizer = AutoTokenizer.from_pretrained(
         ar_checkpoint, trust_remote_code=trust_remote)

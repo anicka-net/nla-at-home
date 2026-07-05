@@ -219,13 +219,13 @@ corpus/
     descriptions_L{pct}pct.json             — original flowery (DeepSeek, deprecated)
 
 scripts/
-  train_av_single_layer.py     — single-layer AV (normalize + chat template)
-  train_ar_truncated.py        — single-layer AR (truncated + value_head)
+  legacy/train_av_single_layer.py     — single-layer AV (normalize + chat template)
+  legacy/train_ar_truncated.py        — single-layer AR (truncated + value_head)
   train_universal_av.py        — multi-layer AV (depth-conditioned)
-  train_universal_ar_truncated.py — multi-layer AR (per-layer value_heads, output_hidden_states)
-  generate_prediction_descriptions.py — prediction-style description generator
-  rewrite_descriptions.py      — tight-style rewriter (Gemma 4B)
-  stress_test_qwen_nla.py      — evaluation battery
+  legacy/train_universal_ar_truncated.py — multi-layer AR (per-layer value_heads, output_hidden_states)
+  legacy/generate_prediction_descriptions.py — prediction-style description generator
+  legacy/rewrite_descriptions.py      — tight-style rewriter (Gemma 4B)
+  legacy/stress_test_qwen_nla.py      — evaluation battery
 
 output/
   nla-{model}-L{layer}-{role}-{variant}/   — single-layer checkpoints

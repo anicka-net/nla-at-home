@@ -41,7 +41,7 @@ AR_LAYERS = [4, 10, 16, 19, 25, 32, 38]
 DEPTH_PCTS = [4, 10, 17, 25, 32, 40, 47, 55, 63, 71, 80, 90, 96]
 
 # AR prompt template
-AR_TEMPLATE = "Summary of the following text: <text>{explanation}</text> <summary>"
+from nla_lib import AR_TEMPLATE_NODEPTH as AR_TEMPLATE
 
 COLORS = {
     "reset": "\033[0m", "bold": "\033[1m", "dim": "\033[2m",
@@ -62,25 +62,11 @@ def depth_color(pct):
     elif pct <= 85: return "yellow"
     else: return "red"
 
-def normalize_activation(v, target_scale):
-    norm = v.float().norm(dim=-1, keepdim=True).clamp_min(1e-12)
-    return v * (target_scale / norm)
+from nla_lib import normalize_activation
+from nla_lib import make_av_prompt as _nla_make_av_prompt
 
 def make_av_prompt(depth_pct):
-    return (
-        "You are a meticulous AI researcher conducting an important investigation "
-        "into activation vectors from a language model. Your overall task is to "
-        "describe the semantic content of that activation vector.\n\n"
-        "We will pass the vector enclosed in <concept> tags into your context, "
-        "along with the network depth where it was extracted. "
-        "You must then produce an explanation for the vector, enclosed within "
-        "<explanation> tags. The explanation consists of 2-3 text snippets "
-        "describing that vector.\n\n"
-        f"Here is the vector from depth {depth_pct}% of the network:\n\n"
-        f"<concept>{INJECTION_CHAR}</concept>\n\n"
-        "Please provide an explanation.\n\n"
-        "<explanation>"
-    )
+    return _nla_make_av_prompt(depth_pct, INJECTION_CHAR)
 
 
 class BrainInJar:

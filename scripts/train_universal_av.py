@@ -29,47 +29,13 @@ from clean_data_guard import assert_clean_sources, assert_terse
 REPO_ROOT = Path(__file__).parent.parent
 GENERATED_DIR = REPO_ROOT / "corpus" / "generated"
 
-MODELS = {
-    "gemma3-1b": "google/gemma-3-1b-it",
-    "qwen25-7b": "Qwen/Qwen2.5-7B-Instruct",
-    "qwen3-4b": "Qwen/Qwen3-4B",
-    "phi4-mini": "microsoft/Phi-4-mini-instruct",
-    "phi4": "microsoft/phi-4",
-}
-
-INJECTION_CHARS = {
-    "gemma3-1b": "⎝",   # U+239D, token_id=251266
-    "qwen25-7b": "㈎",   # U+320E, token_id=149705
-    "qwen3-4b": "㈎",
-    "phi4-mini": "★",    # U+2605, token_id=12087
-    "phi4": "★",         # U+2605, token_id=27347
-}
-INJECTION_SCALE = 150.0
-
-DEPTH_PCTS = [4, 10, 17, 25, 32, 40, 47, 55, 63, 71, 80, 90, 96]
-
-
-def normalize_activation(v, target_scale):
-    """L2-normalize activation to target_scale (Anthropic's approach)."""
-    norm = v.float().norm(dim=-1, keepdim=True).clamp_min(1e-12)
-    return v * (target_scale / norm)
-
-
-def make_prompt(depth_pct, injection_char):
-    return (
-        "You are a meticulous AI researcher conducting an important investigation "
-        "into activation vectors from a language model. Your overall task is to "
-        "describe the semantic content of that activation vector.\n\n"
-        "We will pass the vector enclosed in <concept> tags into your context, "
-        "along with the network depth where it was extracted. "
-        "You must then produce an explanation for the vector, enclosed within "
-        "<explanation> tags. The explanation consists of 2-3 text snippets "
-        "describing that vector.\n\n"
-        f"Here is the vector from depth {depth_pct}% of the network:\n\n"
-        f"<concept>{injection_char}</concept>\n\n"
-        "Please provide an explanation.\n\n"
-        "<explanation>"
-    )
+# Single source of truth is nla_lib; names re-exported because several
+# scripts import them from this module.
+from nla_lib import (  # noqa: E402
+    INJECTABLE_MODELS_HF as MODELS, INJECTION_CHARS, INJECTION_SCALE, DEPTH_PCTS,
+    normalize_activation,
+)
+from nla_lib import make_av_prompt as make_prompt  # noqa: E402
 
 
 def find_inject_pos(prompt_tokens, injection_token_id):

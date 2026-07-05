@@ -289,11 +289,11 @@ def readiness_for(model_key, layer):
     if av_found:
         checks.append(("AV adapter", "OK", "trained"))
     else:
-        checks.append(("AV adapter", "MISSING", "Run: train_av.py"))
+        checks.append(("AV adapter", "MISSING", "Run: train_universal.sh <model> av"))
     if ar_found:
         checks.append(("AR adapter", "OK", "trained"))
     else:
-        checks.append(("AR adapter", "MISSING", "Run: train_ar.py"))
+        checks.append(("AR adapter", "MISSING", "Run: train_universal.sh <model> ar"))
 
     return checks
 

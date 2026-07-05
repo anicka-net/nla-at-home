@@ -38,21 +38,7 @@ INJECTION_SCALE = 150.0
 
 device = torch.device("cuda")
 
-def get_universal_prompt(depth_pct, injection_char):
-    return (
-        "You are a meticulous AI researcher conducting an important investigation "
-        "into activation vectors from a language model. Your overall task is to "
-        "describe the semantic content of that activation vector.\n\n"
-        "We will pass the vector enclosed in <concept> tags into your context, "
-        "along with the network depth where it was extracted. "
-        "You must then produce an explanation for the vector, enclosed within "
-        "<explanation> tags. The explanation consists of 2-3 text snippets "
-        "describing that vector.\n\n"
-        f"Here is the vector from depth {depth_pct}% of the network:\n\n"
-        f"<concept>{injection_char}</concept>\n\n"
-        "Please provide an explanation.\n\n"
-        "<explanation>"
-    )
+from nla_lib import make_av_prompt as get_universal_prompt  # noqa: E402
 
 def generate_trace(model, tokenizer, activation, depth_pct, inject_id,
                     injection_char, max_new_tokens=150):

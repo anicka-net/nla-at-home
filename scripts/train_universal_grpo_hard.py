@@ -63,7 +63,7 @@ REPO_ROOT = Path(__file__).parent.parent
 # Single source of truth for constants/templates is nla_lib; the names are
 # re-exported here because several scripts import them from this module.
 from nla_lib import (  # noqa: E402
-    MODELS_HF as MODELS, INJECTION_CHARS, INJECTION_SCALE, DEPTH_PCTS,
+    INJECTABLE_MODELS_HF as MODELS, INJECTION_CHARS, INJECTION_SCALE, DEPTH_PCTS,
     nearest_depth_pct,
 )
 from nla_lib import AR_TEMPLATE_NODEPTH as AR_TEMPLATE  # noqa: E402
