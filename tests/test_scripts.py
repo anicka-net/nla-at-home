@@ -147,13 +147,24 @@ def test_injection_token_single_token():
     assert ord(char) == 0x320E
 
 
-@pytest.mark.parametrize("script", [
-    "generate_corpus", "extract_activations", "train_av", "train_ar",
-    "train_av_rft", "augment_directions", "compare_nla",
-    "find_injection_token", "merge_descriptions", "status",
-    "stress_test_qwen_nla",
-])
+LIVE_SCRIPTS = sorted(
+    p.stem for p in (REPO_ROOT / "scripts").glob("*.py"))
+
+
+@pytest.mark.parametrize("script", LIVE_SCRIPTS)
 def test_script_compiles(script):
+    """Every live script must at least be valid Python. Legacy scripts
+    (scripts/legacy/) are frozen and exempt."""
+    import py_compile
+    py_compile.compile(
+        str(REPO_ROOT / "scripts" / f"{script}.py"), doraise=True)
+
+
+@pytest.mark.parametrize("script", [
+    "generate_corpus", "extract_activations", "compare_nla",
+    "find_injection_token", "merge_descriptions", "status", "nla_lib",
+])
+def test_core_script_imports(script):
     import importlib
     mod = importlib.import_module(script)
     assert mod is not None

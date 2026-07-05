@@ -166,13 +166,10 @@ SCRIPTS = REPO_ROOT / "scripts"
 AV_DEPTH_SENTENCE = "along with the network depth where it was extracted"
 
 # Scripts allowed to differ (single-layer era: no depth in the AV prompt,
-# because their adapters were trained without it).
-AV_NODEPTH_LEGACY = {"stress_test_nla.py", "stress_test_qwen_nla.py",
-                     "brain_in_jar_qwen.py", "train_av_single_layer.py",
-                     "train_grpo_hard.py", "train_av_grpo.py",
-                     "rerank_experiment.py",
-                     # single-layer L20 era (kitft-matching architecture):
-                     "train_av.py", "pca_nla_manifold.py"}
+# because their adapters were trained without it). Everything else from
+# that era lives in scripts/legacy/ (outside this scan); this list is
+# CLOSED — a new script must import make_av_prompt from nla_lib instead.
+AV_NODEPTH_LEGACY = {"brain_in_jar_qwen.py"}
 
 
 def _scripts_with(pattern):

@@ -96,6 +96,11 @@ These rules keep it ended:
    in the output dir, written before the first optimizer step. A
    crashed run must not lose the split — downstream GRPO exclusion
    and round-trip eval depend on it.
+7. **`scripts/legacy/` is frozen.** Never import from it, never add
+   to it, never "fix" it — its scripts carry era-correct copies of
+   constants that would be bugs anywhere else. If you need something
+   a legacy script does, reimplement it live on top of nla_lib. See
+   `scripts/legacy/README.md` for the classification.
 
 ## Launching Training Runs (Operational)
 

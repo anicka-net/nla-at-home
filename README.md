@@ -258,6 +258,14 @@ compare_nla.py                 compare with Anthropic's NLA
 build_demo_gallery.py          browser demo data
 ```
 
+Shared constants, prompt templates, and adapter loaders live in
+`scripts/nla_lib.py` — the single source of truth; nothing may re-declare
+them (enforced by `tests/test_nla_lib.py`). Everything in `scripts/` is
+live and maintained; earlier-era scripts (single-layer L20 training,
+superseded generators, one-shot corpus surgery) are frozen in
+`scripts/legacy/` — see `scripts/legacy/README.md` for what's there
+and why.
+
 ## Browser demo
 
 Type a prompt, watch the model think layer by layer.
