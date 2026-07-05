@@ -59,6 +59,7 @@ DIAGNOSTIC (run after training — the key test):
 """
 import torch
 import argparse
+import json
 import math
 import time
 import faulthandler
@@ -107,7 +108,7 @@ def compute_curriculum_scores(compass, acts_by_layer, layers, n_texts):
     return scores
 
 
-def select_curriculum(scores, layers, n_texts, tau, max_samples):
+def select_curriculum(scores, layers, n_texts, tau, max_samples, n_layers):
     """Select (layer, text_idx, depth_pct) tuples above the tau-th percentile
     of compass confidence, up to max_samples."""
     # Pool all scores, find threshold at the tau-th percentile
@@ -125,7 +126,71 @@ def select_curriculum(scores, layers, n_texts, tau, max_samples):
     rng = np.random.RandomState(int(time.time()) % 2**31)
     rng.shuffle(candidates)
     candidates = candidates[:max_samples]
-    return [(L, t, nearest_depth_pct(L, 40)) for L, t, _ in candidates]
+    return [(L, t, nearest_depth_pct(L, n_layers)) for L, t, _ in candidates]
+
+
+# ---------------------------------------------------------------------------
+# lora_sl AR support (train_universal_ar.py output): the AR is a LoRA on the
+# base model and the reconstruction is the model's OWN hidden state at layer
+# L, read at the trailing injection token. No value heads. The AR prompt is
+# depth-conditioned, so each layer needs its own forward pass.
+# ---------------------------------------------------------------------------
+
+# Must match train_universal_ar.py make_ar_template() exactly.
+AR_SL_TEMPLATE = ("Summary of the following text from depth {depth}%: "
+                  "<text>{explanation}</text> <summary>{inj}")
+AR_SL_MAX_LEN = 512
+
+
+def ar_is_lora_sl(ar_checkpoint):
+    p = Path(ar_checkpoint)
+    return (p.is_dir() and (p / "adapter_config.json").exists()
+            and not (p / "value_heads.safetensors").exists())
+
+
+def load_ar_lora_sl(ar_checkpoint, base_model_name, device, trust_remote,
+                    n_layers):
+    """Load a train_universal_ar.py-style AR. Returns the same triple shape
+    as load_ar(); the "value heads" dict maps every layer to None (identity)
+    and only serves layer-availability discovery."""
+    tokenizer = AutoTokenizer.from_pretrained(
+        ar_checkpoint, trust_remote_code=trust_remote)
+    tokenizer.padding_side = "left"
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+
+    backbone = AutoModelForCausalLM.from_pretrained(
+        base_model_name, torch_dtype=torch.bfloat16,
+        trust_remote_code=trust_remote)
+    model = PeftModel.from_pretrained(backbone, ar_checkpoint)
+    model = model.to(device)
+    model.eval()
+    for p in model.parameters():
+        p.requires_grad = False
+    print(f"  AR: lora_sl (self-layer) adapter from {ar_checkpoint}, "
+          f"no value heads, {n_layers} layers")
+    return model, {L: None for L in range(n_layers)}, tokenizer
+
+
+def ar_reconstruct_lora_sl(ar_model, ar_tokenizer, descriptions,
+                           layers_needed, device, n_layers, injection_char):
+    """Reconstruction = hidden_states[L+1][:, -1, :] (output of block L at
+    the injection token, which is the last prompt token under left padding).
+    Mirrors the training hook in train_universal_ar.py exactly."""
+    recons = {}
+    for L in layers_needed:
+        depth = nearest_depth_pct(L, n_layers)
+        prompts = [AR_SL_TEMPLATE.format(depth=depth, explanation=d,
+                                         inj=injection_char)
+                   for d in descriptions]
+        enc = ar_tokenizer(prompts, return_tensors="pt", padding=True,
+                           truncation=True, max_length=AR_SL_MAX_LEN,
+                           add_special_tokens=False).to(device)
+        with torch.no_grad():
+            outputs = ar_model(**enc, output_hidden_states=True,
+                               use_cache=False)
+        recons[L] = outputs.hidden_states[L + 1][:, -1, :].float()
+    return recons
 
 
 def main():
@@ -185,8 +250,14 @@ def main():
 
     # --- Load AR (reward model — frozen) ---
     print("Loading AR...")
-    ar_model, ar_value_heads, ar_tokenizer = load_ar(
-        args.ar_checkpoint, base_model_name, device, trust_remote)
+    ar_format = "lora_sl" if ar_is_lora_sl(args.ar_checkpoint) else "heads"
+    if ar_format == "lora_sl":
+        ar_model, ar_value_heads, ar_tokenizer = load_ar_lora_sl(
+            args.ar_checkpoint, base_model_name, device, trust_remote,
+            n_layers)
+    else:
+        ar_model, ar_value_heads, ar_tokenizer = load_ar(
+            args.ar_checkpoint, base_model_name, device, trust_remote)
     ar_layers = set(ar_value_heads.keys())
 
     # Determine training layers
@@ -283,9 +354,19 @@ def main():
         tau = args.tau_start * (1 - frac) + args.tau_end * frac
         epoch_samples = select_curriculum(
             curriculum_scores, train_layers, n_texts,
-            tau=tau, max_samples=args.samples_per_epoch)
+            tau=tau, max_samples=args.samples_per_epoch,
+            n_layers=n_layers)
         print("\nEpoch %d/%d: curriculum tau=%.2f -> %d samples" %
               (epoch + 1, args.epochs, tau, len(epoch_samples)))
+
+        # Log which (layer, text_idx) pairs this epoch trains on — the
+        # curriculum RNG is time-seeded, so without this record a clean
+        # eval holdout cannot be reconstructed afterwards.
+        with open(Path(args.output) / "trained_samples.jsonl", "a") as f:
+            f.write(json.dumps({
+                "epoch": epoch + 1, "tau": round(tau, 4),
+                "samples": [[int(L), int(t)] for L, t, _ in epoch_samples],
+            }) + "\n")
 
         epoch_cos = 0.0
         epoch_spec = 0.0
@@ -331,8 +412,14 @@ def main():
                 ]
 
                 # --- AR REWARD (native, no MiniLM) ---
-                recons = ar_reconstruct(ar_model, ar_value_heads, ar_tokenizer,
-                                        group_descs, [layer_idx], device)
+                if ar_format == "lora_sl":
+                    recons = ar_reconstruct_lora_sl(
+                        ar_model, ar_tokenizer, group_descs, [layer_idx],
+                        device, n_layers, injection_char)
+                else:
+                    recons = ar_reconstruct(ar_model, ar_value_heads,
+                                            ar_tokenizer, group_descs,
+                                            [layer_idx], device)
                 recon = recons[layer_idx]  # [G, d_model]
                 mean_L = layer_means_dev[layer_idx]
 
