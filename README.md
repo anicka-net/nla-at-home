@@ -165,10 +165,18 @@ python3 scripts/train_universal_av.py \
   --output output/nla-qwen25-7b-universal-av
 ```
 
-Pre-trained adapters for Phi-4 14B:
-[AV (GRPO, best)](https://huggingface.co/anicka/nla-phi4-av-arnative-grpo),
-[AV (SL)](https://huggingface.co/anicka/nla-phi4-universal-av-v2), and
-[AR](https://huggingface.co/anicka/nla-phi4-universal-ar-v2). Also for Qwen 2.5 7B:
+Pre-trained adapters — **Qwen 2.5 7B universal (all 28 layers, current
+best)**:
+[AV-GRPO](https://huggingface.co/anicka/nla-qwen2.5-7b-universal-av-grpo)
+(round-trip 0.628 mean / 0.741 peak on a clean holdout, confabulation
+tail 7× thinner than SFT — eval data ships with the repo),
+[AV-SFT](https://huggingface.co/anicka/nla-qwen2.5-7b-universal-av),
+[AR](https://huggingface.co/anicka/nla-qwen2.5-7b-universal-ar)
+(val cosine 0.932). Phi-4 14B:
+[AV (GRPO)](https://huggingface.co/anicka/nla-phi4-av-arnative-grpo),
+[AV (SL)](https://huggingface.co/anicka/nla-phi4-universal-av-v2),
+[AR](https://huggingface.co/anicka/nla-phi4-universal-ar-v2).
+Qwen 2.5 7B single-layer L20 (legacy):
 [AV](https://huggingface.co/anicka/nla-qwen2.5-7b-L20-av-v2) /
 [AR](https://huggingface.co/anicka/nla-qwen2.5-7b-L20-ar-v2).
 Dataset: [anicka/nla-at-home-corpus](https://huggingface.co/datasets/anicka/nla-at-home-corpus).
