@@ -162,6 +162,14 @@ def test_heads_dir_wins_over_adapter_config(tmp_path):
 
 SCRIPTS = REPO_ROOT / "scripts"
 
+
+def _live_py_files():
+    """Every live script, recursively — scripts/legacy/ is exempt (frozen,
+    carries era-correct copies by design; see scripts/legacy/README.md)."""
+    return [f for f in sorted(SCRIPTS.rglob("*.py"))
+            if "legacy" not in f.parts]
+
+
 # Scripts allowed to carry the AV prompt text literally: only the library
 # itself. (brain_in_jar_qwen.py used to be exempt on the theory that it
 # served an older prompt variant — its literals turned out to be
@@ -171,7 +179,7 @@ AV_LITERAL_ALLOWED = {"nla_lib.py"}
 
 def _scripts_with(pattern):
     hits = []
-    for f in sorted(SCRIPTS.glob("*.py")):
+    for f in _live_py_files():
         if f.name == "nla_lib.py":
             continue
         text = f.read_text(errors="replace")
@@ -185,7 +193,7 @@ def test_no_live_av_prompt_copies():
     drift (one lost its depth sentence before nla_lib existed). Import
     make_av_prompt from nla_lib instead."""
     offenders = [
-        f.name for f in sorted(SCRIPTS.glob("*.py"))
+        f.name for f in _live_py_files()
         if f.name not in AV_LITERAL_ALLOWED
         and "meticulous AI researcher" in f.read_text(errors="replace")
     ]
@@ -197,7 +205,7 @@ def test_no_live_av_prompt_copies():
 def test_no_live_ar_template_copies():
     """Same rule for the AR summary templates."""
     offenders = [
-        f.name for f in sorted(SCRIPTS.glob("*.py"))
+        f.name for f in _live_py_files()
         if f.name != "nla_lib.py"
         and re.search(r'"Summary of the following text', f.read_text(errors="replace"))
     ]
@@ -213,7 +221,7 @@ def test_no_injection_char_dict_copies():
     pat = re.compile(
         r'"(qwen25-7b|qwen3-4b|gemma3-1b|phi4-mini|phi4)"\s*:\s*"(.)"')
     offenders = []
-    for f in sorted(SCRIPTS.glob("*.py")):
+    for f in _live_py_files():
         if f.name == "nla_lib.py":
             continue
         for m in pat.finditer(f.read_text(errors="replace")):
@@ -230,7 +238,7 @@ def test_no_hf_id_dict_copies():
         r'"(qwen25-7b|qwen3-4b|gemma3-1b|phi4-mini|phi4|llama-8b)"'
         r'\s*:\s*"([A-Za-z0-9./_-]+/[A-Za-z0-9./_-]+)"')
     offenders = []
-    for f in sorted(SCRIPTS.glob("*.py")):
+    for f in _live_py_files():
         if f.name == "nla_lib.py":
             continue
         for m in pat.finditer(f.read_text(errors="replace")):
@@ -251,7 +259,7 @@ def test_no_nla_lib_function_redeclarations():
              "read_nla_meta")
     pat = re.compile(r"^\s*def (" + "|".join(owned) + r")\s*\(", re.M)
     offenders = []
-    for f in sorted(SCRIPTS.glob("*.py")):
+    for f in _live_py_files():
         if f.name == "nla_lib.py":
             continue
         for m in pat.finditer(f.read_text(errors="replace")):
@@ -266,7 +274,7 @@ def test_no_trust_remote_heuristic():
     from substring heuristics on the model name (the '\"phi\" not in' rule
     was scattered across 5 scripts and contradicted the registry)."""
     offenders = [
-        f.name for f in sorted(SCRIPTS.glob("*.py"))
+        f.name for f in _live_py_files()
         if f.name != "nla_lib.py"
         and re.search(r'''["'']phi["'']\s+(not\s+)?in\s''',
                       f.read_text(errors="replace"))

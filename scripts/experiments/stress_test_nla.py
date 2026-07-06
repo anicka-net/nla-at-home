@@ -24,9 +24,13 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 from generation_utils import decode_generated
 
-BASE_MODEL = "Qwen/Qwen2.5-7B-Instruct"
-INJECTION_CHAR = "㈎"
-INJECTION_SCALE = 150.0
+import sys
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from nla_lib import (AR_TEMPLATE_NODEPTH, INJECTION_CHARS, INJECTION_SCALE,
+                     MODELS_HF)
+
+BASE_MODEL = MODELS_HF["qwen25-7b"]
+INJECTION_CHAR = INJECTION_CHARS["qwen25-7b"]
 
 
 def load_av(adapter_path, device):
@@ -64,8 +68,10 @@ class LoraAR:
     def __init__(self, checkpoint_path, device):
         meta = yaml.safe_load(open(Path(checkpoint_path) / "nla_meta.yaml"))
         self.extraction_layer = int(meta.get("extraction_layer_index", 20))
-        self.ar_template = meta.get("prompt_templates", {}).get("ar",
-            "Summary of the following text: <text>{explanation}</text> <summary>{injection_char}")
+        # fallback = the single-layer-era template: nodepth base + trailing
+        # injection char (kept byte-exact via composition, not a copy)
+        self.ar_template = meta.get("prompt_templates", {}).get(
+            "ar", AR_TEMPLATE_NODEPTH + "{injection_char}")
         self.ar_template = self.ar_template.replace("{injection_char}", INJECTION_CHAR)
 
         base = AutoModelForCausalLM.from_pretrained(
@@ -112,8 +118,10 @@ class ValueHeadAR:
     def __init__(self, checkpoint_path, device):
         meta = yaml.safe_load(open(Path(checkpoint_path) / "nla_meta.yaml"))
         self.extraction_layer = int(meta.get("extraction_layer_index", 20))
-        self.ar_template = meta.get("prompt_templates", {}).get("ar",
-            "Summary of the following text: <text>{explanation}</text> <summary>{injection_char}")
+        # fallback = the single-layer-era template: nodepth base + trailing
+        # injection char (kept byte-exact via composition, not a copy)
+        self.ar_template = meta.get("prompt_templates", {}).get(
+            "ar", AR_TEMPLATE_NODEPTH + "{injection_char}")
         self.ar_template = self.ar_template.replace("{injection_char}", INJECTION_CHAR)
 
         self.model = AutoModelForCausalLM.from_pretrained(
