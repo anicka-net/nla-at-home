@@ -415,6 +415,12 @@ def main():
                              "raw prose (_merged/base/raw). You almost never want "
                              "this — it causes fluent hallucination.")
     parser.add_argument("--eval-only", action="store_true")
+    parser.add_argument("--sink-fix", type=int, default=0, metavar="K",
+                        help="Center + drop top-K PCs per layer before injection "
+                             "(Gemma massive-activation outlier fix; typical K=1). "
+                             "Writes sink_fix.pt sidecar — inference MUST apply the "
+                             "same transform before normalize_activation. See "
+                             "scripts/sink_fix.py.")
     parser.add_argument("--device", default="cuda")
     args = parser.parse_args()
 
@@ -430,6 +436,18 @@ def main():
     d_model = act_data["d_model"]
     n_texts = act_data["n_texts"]
     print(f"  {n_layers} layers, {n_texts} texts, d={d_model}")
+
+    if args.sink_fix:
+        import sink_fix
+        from pathlib import Path as _P
+        print(f"\nFitting sink fix (center + drop top-{args.sink_fix} PC per layer)...")
+        sf_params = sink_fix.fit(act_data["activations"], drop_top_pc=args.sink_fix)
+        print(sink_fix.report(sf_params))
+        _P(args.output).mkdir(parents=True, exist_ok=True)
+        sink_fix.save(sf_params, _P(args.output) / "sink_fix.pt")
+        print(f"  sidecar written: {args.output}/sink_fix.pt "
+              f"(inference must apply it BEFORE normalize_activation)")
+        act_data["activations"] = sink_fix.apply_all(sf_params, act_data["activations"])
 
     print("\nBuilding examples...")
     examples = build_examples(act_data, descriptions)
@@ -536,6 +554,14 @@ def main():
             "corpus": "nla-at-home",
         },
     }
+    if args.sink_fix:
+        # additive, optional key: adapters trained without the fix have no
+        # entry; consumers must apply sink_fix.pt BEFORE normalize_activation
+        meta["extraction"]["sink_fix"] = {
+            "drop_top_pc": args.sink_fix,
+            "sidecar": "sink_fix.pt",
+            "order": "center+drop_pc THEN normalize",
+        }
     with open(Path(args.output) / "nla_meta.yaml", "w") as f:
         yaml.dump(meta, f, default_flow_style=False)
 
