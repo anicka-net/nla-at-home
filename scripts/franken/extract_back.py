@@ -26,7 +26,8 @@ from transformers import AutoConfig, AutoModelForCausalLM
 
 sys.path.insert(0, str(Path(__file__).parent))
 from wire import recv_msg, _recv_exact
-from forward_utils import make_layer_caller, prepare_positions
+from forward_utils import (make_layer_caller, prepare_positions,
+                           capture_from_h)
 
 
 def load_back_half(model_name, split_layer, device, dtype, quant):
@@ -57,16 +58,19 @@ def load_back_half(model_name, split_layer, device, dtype, quant):
     return model, config
 
 
-def forward_back(model, hidden_states, split_layer, n_layers, call_layer):
+def forward_back(model, hidden_states, split_layer, n_layers, call_layer,
+                 input_ids=None):
     """Layers split..N-1 over the full sequence. Returns last-token
-    residual per back layer: [n_back, d_model]."""
+    residual per back layer: [n_back, d_model] (or [n_back, hc_mult, d_model]
+    for HC models)."""
     captures = []
     with torch.no_grad():
         h = hidden_states
         pos = prepare_positions(model, h)
         for i in range(split_layer, n_layers):
-            h = call_layer(model.model.layers[i], h, pos)
-            captures.append(h[0, -1, :].float().cpu().clone())
+            h = call_layer(model.model.layers[i], h, pos,
+                           input_ids=input_ids)
+            captures.append(capture_from_h(h))
     return torch.stack(captures)
 
 
@@ -149,7 +153,8 @@ def main():
         h = msg["h_split"].to(args.device, dtype)
         front_rows.append(msg["front_caps"])
         back_rows.append(forward_back(
-            model, h, args.split_layer, n_layers, call_layer))
+            model, h, args.split_layer, n_layers, call_layer,
+            input_ids=msg.get("input_ids")))
 
         i = len(back_rows)
         if i % 50 == 0:

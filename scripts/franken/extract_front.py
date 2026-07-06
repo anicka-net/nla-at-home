@@ -34,7 +34,8 @@ from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
 
 sys.path.insert(0, str(Path(__file__).parent))
 from wire import send_tensor, send_done
-from forward_utils import make_layer_caller, prepare_positions
+from forward_utils import (make_layer_caller, prepare_positions,
+                           expand_for_hc, capture_from_h)
 
 
 def load_front_half(model_name, split_layer, device, dtype, quant):
@@ -66,14 +67,17 @@ def load_front_half(model_name, split_layer, device, dtype, quant):
 
 def forward_front(model, input_ids, split_layer, call_layer):
     """Embedding + layers 0..split-1. Returns (full-seq hidden at split,
-    front-layer last-token captures [split_layer, d_model])."""
+    front-layer last-token captures [split_layer, d_model] or
+    [split_layer, hc_mult, d_model] for HC models)."""
     captures = []
     with torch.no_grad():
         h = model.model.embed_tokens(input_ids)
+        h = expand_for_hc(model, h)
         pos = prepare_positions(model, h)
         for i in range(split_layer):
-            h = call_layer(model.model.layers[i], h, pos)
-            captures.append(h[0, -1, :].float().cpu().clone())
+            h = call_layer(model.model.layers[i], h, pos,
+                           input_ids=input_ids)
+            captures.append(capture_from_h(h))
     return h, torch.stack(captures)
 
 
@@ -146,8 +150,10 @@ def main():
             model, input_ids, args.split_layer, call_layer)
 
         # full sequence for the back half + this half's layer captures
+        # input_ids shipped for DeepSeek V4 hash-routing (first 3 layers)
         send_tensor(sock, {"h_split": hidden.to(torch.float16).cpu(),
-                           "front_caps": front_caps})
+                           "front_caps": front_caps,
+                           "input_ids": input_ids.cpu()})
 
         if (i + 1) % 50 == 0:
             elapsed = time.time() - t0

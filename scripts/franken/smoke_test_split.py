@@ -31,7 +31,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 sys.path.insert(0, str(Path(__file__).parent))
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from nla_lib import get_model
-from forward_utils import make_layer_caller, prepare_positions
+from forward_utils import (make_layer_caller, prepare_positions,
+                           expand_for_hc, capture_from_h)
 
 TEXTS = [
     "Explain how a hash map handles collisions.",
@@ -45,12 +46,16 @@ def direct_reference(model, input_ids):
     """Ground truth via forward hooks on each block — the SAME convention
     as extract_activations.py (raw block output). NOT output_hidden_states:
     its last entry is post-final-RMSNorm, which is a different vector than
-    the residual stream at the last layer (19x norm difference on gemma3)."""
+    the residual stream at the last layer (19x norm difference on gemma3).
+    For HC models, captures [hc_mult, D] per layer; for standard, [D]."""
     caps = []
 
     def hook(mod, inp, out):
         h = out[0] if isinstance(out, tuple) else out
-        caps.append(h[0, -1, :].float().clone())
+        if h.dim() == 4:  # HC: [B, S, hc_mult, D]
+            caps.append(h[0, -1, :, :].float().clone())
+        else:
+            caps.append(h[0, -1, :].float().clone())
 
     handles = [layer.register_forward_hook(hook)
                for layer in model.model.layers]
@@ -66,17 +71,20 @@ def split_extraction(model, input_ids, split_layer, call_layer):
     caps = []
     with torch.no_grad():
         h = model.model.embed_tokens(input_ids)
+        h = expand_for_hc(model, h)
         pos = prepare_positions(model, h)
         for i in range(split_layer):
-            h = call_layer(model.model.layers[i], h, pos)
-            caps.append(h[0, -1, :].float().clone())
+            h = call_layer(model.model.layers[i], h, pos,
+                           input_ids=input_ids)
+            caps.append(capture_from_h(h))
         # handoff (optionally through the TCP wire)
         h = HANDOFF(h)
         pos = prepare_positions(model, h)
         n_layers = len(model.model.layers)
         for i in range(split_layer, n_layers):
-            h = call_layer(model.model.layers[i], h, pos)
-            caps.append(h[0, -1, :].float().clone())
+            h = call_layer(model.model.layers[i], h, pos,
+                           input_ids=input_ids)
+            caps.append(capture_from_h(h))
     return caps
 
 
@@ -143,14 +151,17 @@ def main():
         assert len(ref) == len(got) == n_layers
 
         for L, (r, g) in enumerate(zip(ref, got)):
-            rc = r - r.mean()
-            gc = g - g.mean()
+            # Flatten for HC models: [hc_mult, D] → [hc_mult*D]
+            r_flat = r.reshape(-1)
+            g_flat = g.reshape(-1)
+            rc = r_flat - r_flat.mean()
+            gc = g_flat - g_flat.mean()
             cos = torch.nn.functional.cosine_similarity(
                 rc.unsqueeze(0), gc.unsqueeze(0)).item()
             worst = min(worst, cos)
             if cos < 0.999:
                 print(f"  MISMATCH L{L} '{text[:30]}': centered cos {cos:.4f} "
-                      f"(‖ref‖={r.norm():.1f} ‖got‖={g.norm():.1f})",
+                      f"(‖ref‖={r_flat.norm():.1f} ‖got‖={g_flat.norm():.1f})",
                       flush=True)
         print(f"  '{text[:40]}…' worst-so-far cos={worst:.5f}", flush=True)
 
