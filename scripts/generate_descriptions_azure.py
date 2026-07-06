@@ -43,7 +43,7 @@ LAYER_HINTS = {
 }
 
 # Gemma 3 1B: 26 layers
-DEPTH_PCTS = {i: round(i / 26 * 100) for i in range(26)}
+LAYER_PCT_MAP = {i: round(i / 26 * 100) for i in range(26)}  # gemma per-layer map, NOT nla_lib.DEPTH_PCTS
 
 
 def call_gpt4o(prompt, max_retries=5):
@@ -130,7 +130,7 @@ def main():
     t_start = time.time()
 
     for layer in layers:
-        depth_pct = DEPTH_PCTS.get(layer, round(layer / 26 * 100))
+        depth_pct = LAYER_PCT_MAP.get(layer, round(layer / 26 * 100))
         hint = LAYER_HINTS.get(layer, "")
 
         remaining = [t for t in texts if (t["id"], layer) not in done_keys]

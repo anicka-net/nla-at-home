@@ -23,17 +23,23 @@ Apply to ds4 activations before injection into Llama:
 """
 
 import argparse
+import sys
 from pathlib import Path
 
 import torch
 
-# From nla_lib: depth percentage grid
-DEPTH_PCTS = [3, 10, 18, 25, 33, 40, 50, 60, 67, 75, 82, 90, 97]
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from nla_lib import DEPTH_PCTS  # frozen grid — never re-type it
 
 
 def nearest_layer(pct, n_layers):
-    """Convert depth percentage to layer index."""
-    return round(pct / 100 * (n_layers - 1))
+    """Invert nla_lib's layer→depth convention (pct ≈ layer*100/n_layers).
+
+    NOT (n_layers-1): nla_lib.nearest_depth_pct divides by n_layers, so
+    the inverse must multiply by it — round(71*28/100)=20 and L20 is the
+    71% layer; with (n_layers-1) this would be off by one.
+    """
+    return min(n_layers - 1, max(0, round(pct * n_layers / 100)))
 
 
 def procrustes(A, B):

@@ -113,7 +113,7 @@ from train_universal_av import (  # noqa: E402
 BASE = "microsoft/phi-4"
 INJECTION_CHAR = "★"
 from nla_lib import AR_TEMPLATE_NODEPTH as AR_PROMPT
-DEPTH_PCTS = [4, 10, 17, 25, 32, 40, 47, 55, 63, 71, 80, 90, 96]
+from nla_lib import DEPTH_PCTS  # frozen grid — import, never re-type
 N_LAYERS = 40
 AR_TARGET_MODULES = ["qkv_proj", "o_proj", "gate_up_proj", "down_proj"]
 

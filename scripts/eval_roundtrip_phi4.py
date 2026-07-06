@@ -55,7 +55,7 @@ BASE = "microsoft/phi-4"
 INJECTION_CHAR = "★"
 from nla_lib import AR_TEMPLATE_NODEPTH as AR_PROMPT
 AR_LAYERS = [13, 16, 19, 22, 25, 28, 32, 36, 38]
-DEPTH_PCTS = [4, 10, 17, 25, 32, 40, 47, 55, 63, 71, 80, 90, 96]
+from nla_lib import DEPTH_PCTS  # frozen grid — import, never re-type
 N_LAYERS = 40
 
 ap = argparse.ArgumentParser()

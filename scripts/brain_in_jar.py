@@ -23,7 +23,7 @@ from peft import PeftModel
 BASE_MODEL = "microsoft/Phi-4-mini-instruct"
 INJECTION_CHAR = "★"
 INJECTION_SCALE = 150.0
-DEPTH_PCTS = [4, 10, 17, 25, 32, 40, 47, 55, 63, 71, 80, 90, 96]
+from nla_lib import DEPTH_PCTS  # frozen grid — import, never re-type
 N_LAYERS = 32
 
 COLORS = {

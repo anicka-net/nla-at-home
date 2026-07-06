@@ -67,7 +67,7 @@ from train_universal_av import (  # noqa: E402
 BASE = "microsoft/phi-4"
 INJECTION_CHAR = "★"  # matches train_joint_grpo_phi4.INJECTION_CHAR
 N_LAYERS = 40
-DEPTH_PCTS = [4, 10, 17, 25, 32, 40, 47, 55, 63, 71, 80, 90, 96]
+from nla_lib import DEPTH_PCTS  # frozen grid — import, never re-type
 
 
 def nearest_pct(layer):

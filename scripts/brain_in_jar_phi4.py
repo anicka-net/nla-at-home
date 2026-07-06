@@ -38,7 +38,7 @@ DEFAULT_AR = str(REPO / "output/nla-phi4-universal-ar-v2")
 AR_LAYERS = [4, 10, 16, 19, 25, 32, 38]
 
 # Depth percentages for display
-DEPTH_PCTS = [4, 10, 17, 25, 32, 40, 47, 55, 63, 71, 80, 90, 96]
+from nla_lib import DEPTH_PCTS  # frozen grid — import, never re-type
 
 # AR prompt template
 from nla_lib import AR_TEMPLATE_NODEPTH as AR_TEMPLATE

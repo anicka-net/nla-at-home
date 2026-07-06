@@ -282,3 +282,17 @@ def test_no_trust_remote_heuristic():
     assert not offenders, (
         f"trust_remote_code name-substring heuristic in: {offenders} — "
         f"use get_model(args.model).trust_remote_code")
+
+
+def test_no_depth_pcts_redeclaration():
+    """DEPTH_PCTS is a frozen interface constant — a re-declared copy is
+    how the franken fit_procrustes shipped a grid with 10/13 wrong values
+    (2026-07-06). Import it from nla_lib; never re-type it."""
+    offenders = [
+        f.name for f in _live_py_files()
+        if f.name != "nla_lib.py"
+        and re.search(r"^DEPTH_PCTS\s*=", f.read_text(errors="replace"),
+                      re.MULTILINE)
+    ]
+    assert not offenders, (
+        f"DEPTH_PCTS re-declared in: {offenders} — import from nla_lib")

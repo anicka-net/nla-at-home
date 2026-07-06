@@ -24,7 +24,7 @@ ACTIVATION_URLS = {
     "gemma3-1b": "https://huggingface.co/datasets/anicka/nla-at-home-corpus/resolve/main/activations/gemma3-1b_all_layers.pt",
 }
 
-DEPTH_PCTS = [4, 10, 17, 25, 32, 40, 47, 55, 63, 71, 80, 90, 96]
+from nla_lib import DEPTH_PCTS  # frozen grid — import, never re-type
 
 
 def download_corpus():
