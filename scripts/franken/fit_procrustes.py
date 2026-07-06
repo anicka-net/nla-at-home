@@ -43,17 +43,29 @@ def nearest_layer(pct, n_layers):
 
 
 def procrustes(A, B):
-    """Orthogonal Procrustes: find R s.t. ||R @ A - B||_F is minimized.
-    A, B: [n_samples, d_model]. Returns R: [d_model, d_model]."""
-    M = B.T @ A  # [d, d]
+    """Orthogonal Procrustes on CENTERED data: R s.t. ||R(A-μA) - (B-μB)||_F
+    is minimal. A, B: [n_samples, d_model].
+
+    Centering matters: residual-stream means are huge and shared — fitting
+    raw wastes the rotation on aligning means and inflates the cos
+    diagnostic (same reason round-trip eval uses centered cosine). The
+    full transform is affine: h' = R @ (h - mu_src) + mu_tgt; both means
+    ship in the output.
+
+    Statistical floor: a d×d rotation fitted on n < d samples is only
+    determined on an n-dim subspace. main() warns; use ≥ d_model matched
+    texts (the full corpus, not a 200-text pilot).
+    """
+    mu_a, mu_b = A.mean(dim=0), B.mean(dim=0)
+    Ac, Bc = A - mu_a, B - mu_b
+    M = Bc.T @ Ac  # [d, d]
     U, S, Vh = torch.linalg.svd(M)
     R = U @ Vh
-    # Ensure proper rotation (det = +1), not reflection
-    if torch.det(R) < 0:
+    if torch.det(R) < 0:  # keep a proper rotation (harmless either way)
         U[:, -1] *= -1
         R = U @ Vh
-    residual = torch.norm(A @ R.T - B).item()
-    return R, residual
+    residual = torch.norm(Ac @ R.T - Bc).item()
+    return R, residual, mu_a, mu_b
 
 
 def main():
@@ -95,8 +107,16 @@ def main():
     src_idxs = [src_id2idx[tid] for tid in shared_ids]
     tgt_idxs = [tgt_id2idx[tid] for tid in shared_ids]
 
+    if len(shared_ids) < src_d:
+        print(f"  ⚠️  n_samples={len(shared_ids)} < d_model={src_d}: the "
+              f"rotation is only determined on a {len(shared_ids)}-dim "
+              f"subspace — use the full corpus, not a pilot sample",
+              flush=True)
+
     rotations = {}
     residuals = {}
+    mus_src = {}
+    mus_tgt = {}
     source_layers = {}
     target_layers = {}
 
@@ -116,26 +136,32 @@ def main():
         A = src["activations"][src_layer][src_idxs].float()
         B = tgt["activations"][tgt_layer][tgt_idxs].float()
 
-        R, res = procrustes(A, B)
+        R, res, mu_a, mu_b = procrustes(A, B)
         rotations[pct] = R
         residuals[pct] = res
+        mus_src[pct] = mu_a
+        mus_tgt[pct] = mu_b
         source_layers[pct] = src_layer
         target_layers[pct] = tgt_layer
 
-        # Measure alignment quality
-        aligned = A @ R.T
-        cos = torch.nn.functional.cosine_similarity(aligned, B, dim=1)
+        # Alignment quality on CENTERED vectors (uncentered cos is
+        # inflated by the shared mean — same story as round-trip eval)
+        aligned = (A - mu_a) @ R.T
+        cos = torch.nn.functional.cosine_similarity(aligned, B - mu_b, dim=1)
         print(f"  {pct:3d}% (src L{src_layer} → tgt L{tgt_layer}): "
-              f"residual={res:.1f}, cos={cos.mean():.3f}±{cos.std():.3f}",
+              f"residual={res:.1f}, centered cos={cos.mean():.3f}±{cos.std():.3f}",
               flush=True)
 
     output = {
         "rotations": rotations,
         "residuals": residuals,
+        "mu_source": mus_src,
+        "mu_target": mus_tgt,
+        "transform": "h_aligned = R @ (h - mu_source) + mu_target",
         "source_layers": source_layers,
         "target_layers": target_layers,
-        "source_model": src.get("source_model", "unknown"),
-        "target_model": tgt.get("source_model", "unknown"),
+        "source_model": src.get("model", src.get("source_model", "unknown")),
+        "target_model": tgt.get("model", tgt.get("source_model", "unknown")),
         "d_model": src_d,
         "n_samples": len(shared_ids),
     }

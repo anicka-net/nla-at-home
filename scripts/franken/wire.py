@@ -70,6 +70,16 @@ def send_done(sock):
     sock.sendall(struct.pack("!Q", 0))
 
 
+def recv_msg(sock):
+    """Receive a payload (tensor or dict of tensors); None = done signal."""
+    raw_len = _recv_exact(sock, 8)
+    length = struct.unpack("!Q", raw_len)[0]
+    if length == 0:
+        return None
+    data = _recv_exact(sock, length)
+    return torch.load(io.BytesIO(data), weights_only=True)
+
+
 def recv_is_done(sock):
     """Check if the other side signaled completion."""
     raw_len = _recv_exact(sock, 8)
