@@ -242,6 +242,87 @@ but generate garbage (SpongeBob artifacts, Chinese-token leakage). The guard:
 The canonical launcher (`train_universal.sh`) hardwires the safe flags. If you
 must run training manually, always use `--desc-suffix _twin_clean --strict`.
 
+## AR faithfulness audit (2026-07-07)
+
+The AR is trained on synthetic descriptions — GPT-4o/Sonnet guesses written
+from the *texts*, not from the activations. That opens a specific cheat:
+systematic describer conventions could become retrieval keys, so the AR
+would learn "identify which text this was, emit its centroid" instead of
+reading the description's content — and the GRPO reward would then teach
+the AV to reproduce describer conventions (their hallucinations included)
+rather than describe activations. The worry in one sentence: *the whole
+round-trip could be a closed loop of consensual hallucination, anchored to
+activations only through topic identity.*
+
+`scripts/audit_ar_faithfulness.py` tests this. 150 held-out texts (the
+AR's own val split — texts it never trained on) × 6 layers × 6 description
+variants, each scored against the true activation with the **exact GRPO
+reward path** (imported unchanged from `train_universal_grpo_hard.py`:
+same `load_ar`, same `ar_reconstruct`, same `centered_cosine`, same
+`AR_TEMPLATE`). Audited: the Qwen2.5-7B universal AR. One GPU-evening.
+
+Variants: **A** matched `_twin_clean` description (the trained
+distribution); **B** the same text+depth described by a *different
+describer* (`_tokenpred_gpt4o_clean`); **C** = A with word order
+shuffled; **D** a different text from the *same category*, same depth;
+**E** a different category; **F** one constant generic description.
+
+Centered cosine (the reward's metric), raw in parens:
+
+| layer | A matched | B alt-describer | C shuffled | D same-cat | E cross-cat | F generic | P(A>D) |
+|---|---|---|---|---|---|---|---|
+| L4 (17%) | 0.066 (0.77) | 0.055 | 0.055 | 0.019 (0.77) | −0.006 | −0.012 (0.76) | 0.83 |
+| L9 (32%) | 0.140 (0.85) | 0.117 | 0.113 | 0.055 | −0.014 | −0.021 | 0.81 |
+| L14 (47%) | 0.348 (0.90) | 0.300 | 0.311 | 0.101 | −0.025 | −0.038 | 0.89 |
+| L19 (71%) | 0.504 (0.89) | 0.456 | 0.431 | 0.119 | −0.012 | −0.046 | 0.97 |
+| L24 (90%) | 0.582 (0.88) | 0.539 | 0.519 | 0.130 | −0.021 | −0.045 | 0.95 |
+| L27 (96%) | 0.233 (0.34) | 0.202 | 0.205 | 0.036 | −0.028 | −0.029 | 0.96 |
+
+Findings:
+
+1. **Raw cosine is ~90% free and must never be quoted as faithfulness.**
+   A content-free constant description scores raw 0.68–0.83; at L4 raw
+   cosine cannot even separate the matched description from a wrong-text
+   one (0.76–0.77 across all conditions). All signal lives in the centered
+   column. The GRPO reward is centered (see the docstring in
+   `train_universal_grpo_hard.py`), so the *reward* pays zero for
+   convention-only content — but any raw round-trip number in a report
+   overstates information content.
+2. **No describer-convention keying.** A different describer's
+   description of the same text keeps ~90% of the matched score (B vs A,
+   e.g. 0.539 vs 0.582 at L24). If the AR keyed on trained conventions,
+   B would collapse toward D. It does not: the AR reads content, not
+   scaffolding.
+3. **Within-topic discrimination is real.** A same-category wrong-text
+   description carries only 0.10–0.13 centered (vs 0.35–0.58 matched),
+   and the matched description wins in 81–97% of head-to-head pairs,
+   improving with depth. The gradient A ≫ D > E ≈ F ≈ 0 is exactly what
+   an honest content reader should produce: content ≫ topic ≫ nothing.
+   The "topic-centroid retrieval" cheat is quantitatively disconfirmed.
+4. **The AR is a keyword-bag reader.** Shuffling word order costs almost
+   nothing (C ≈ B). The reward therefore cannot enforce structure or
+   relations — "SELECT over customers" and "customers over SELECT" score
+   the same. This is a real, now-quantified ceiling on what GRPO-against-
+   this-AR can teach.
+5. **Shallow layers carry little describable signal** (A = 0.066 at L4
+   vs 0.582 at L24), consistent with every readout result in this repo.
+
+Limits: one AR/model audited (Qwen2.5-7B universal); texts held out but
+categories in-distribution; entity-grain inside a single description
+(swap one entity, keep the rest) is bounded by C and D but not measured —
+that is the sharpest remaining probe, and the Jacobian-lens grounded-rate
+(notebook 06) is the AR-independent cross-check for it.
+
+Rerun:
+
+```bash
+python3 scripts/audit_ar_faithfulness.py \
+  --ar-checkpoint output/nla-qwen25-7b-universal-ar \
+  --activations corpus/activations/qwen25-7b_all_layers.pt \
+  --ids-file output/nla-qwen25-7b-universal-ar/val_text_ids.json \
+  --layers 4,9,14,19,24,27 --n-per-layer 150
+```
+
 ## Design decisions
 
 See previous section — these are intentional, not bugs:
@@ -250,7 +331,8 @@ See previous section — these are intentional, not bugs:
    full-context representation, not "the assistant prefix token."
 2. **AR reconstruction as GRPO reward** — sound objective, proven on
    Phi-4 (0.585 round-trip, +23% over SL). The AR must be model-specific;
-   the oracle compass must be refit for each model.
+   the oracle compass must be refit for each model. What the reward can
+   and cannot see is now measured — see § AR faithfulness audit above.
 3. **nla_meta.yaml per adapter** — matches Anthropic schema, sufficient
    for current scale.
 4. **Center + drop-top-PC for small models** — Gemma (and likely other

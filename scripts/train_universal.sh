@@ -39,7 +39,10 @@ fi
 case "$STAGE" in
   av)
     echo ">> AV SFT (clean twin_clean, strict) for $MODEL"
-    exec python3 scripts/train_universal_av.py \
+    # ${PYTHON:-python3}: bare python3 crashed a 2026-07-07 launch on a host
+    # where torch lives in a venv. -u: unbuffered — DESIGN.md known issue #2
+    # (buffered logs look like a hang for the whole first epoch).
+    exec "${PYTHON:-python3}" -u scripts/train_universal_av.py \
       --model "$MODEL" \
       --activations "$ACTS" \
       --desc-suffix _twin_clean --strict \
@@ -49,7 +52,7 @@ case "$STAGE" in
     ;;
   ar)
     echo ">> AR (clean tokenpred_gpt4o_clean) for $MODEL"
-    exec python3 scripts/train_universal_ar.py \
+    exec "${PYTHON:-python3}" -u scripts/train_universal_ar.py \
       --model "$MODEL" \
       --activations "$ACTS" \
       --desc-suffix _tokenpred_gpt4o_clean \
