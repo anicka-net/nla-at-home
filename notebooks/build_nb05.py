@@ -87,7 +87,7 @@ establish four things on Qwen 2.5 7B:
 - content appears in the residual stream layers before the model says
   it, and a linearization of the model itself reads it out — no trained
   probe;
-- the readable band has a sharp onset (~L21 of 28 on our recall
+- the readable band has a sharp onset (~L21-22 of 28 on our recall
   prompts);
 - recall and copying reach that band along different trajectories;
 - editing the stream along a J-lens direction changes the model's
@@ -97,7 +97,17 @@ Out of scope because nothing here measures it: consciousness,
 introspection, experience. "Workspace" in this notebook is a property
 of an averaged Jacobian. The negative controls below show what a
 readout looks like when there is nothing behind it — run them before
-trusting any single pretty table, including ours."""),
+trusting any single pretty table, including ours.
+
+**Numbers quoted in this notebook are bf16 anchors** from one GB10 run.
+Colab loads the model in 4-bit (nf4), so your exact ranks, ignition
+layer, and steering doses will differ — judge by the qualitative
+patterns, not the digits: the matched J-lens should beat the logit lens
+through the mid/deep layers; the matched negative control should beat
+the random-vector and wrong-layer ones; the depth ladder's
+confabulation→content flip and the steering sweep's dose-response should
+appear, possibly shifted by a few layers or a different alpha. If a
+pattern reproduces qualitatively, your run is working."""),
 
     md("""## Setup
 
@@ -144,7 +154,13 @@ def get_layers(m):
 
 def read_activation(prompt, layer=LAYER, max_new_tokens=128):
     \"\"\"Residual-stream vector at `layer`, last prompt token (block forward
-    hook — NOT output_hidden_states, whose last entry is post-final-RMSNorm).\"\"\"
+    hook — NOT output_hidden_states, whose last entry is post-final-RMSNorm).
+
+    Captured under disable_adapter(): the J-lens was fitted on CLEAN Qwen and
+    the NLA was trained on CLEAN activations, so both readers want the base
+    model's residual, not base+AV-LoRA. (PeftModel injects the LoRA into the
+    shared base modules and leaves it ON by default — an easy silent mismatch.)
+    describe() re-enables the adapter itself for the verbalization step.\"\"\"
     chat = tok.apply_chat_template([{"role": "user", "content": prompt}],
                                    tokenize=False, add_generation_prompt=True)
     inp = tok(chat, return_tensors="pt").to(device)
@@ -154,10 +170,12 @@ def read_activation(prompt, layer=LAYER, max_new_tokens=128):
         if "h" not in grab:                  # FIRST forward pass only
             grab["h"] = h[:, -1, :].detach()
     handle = get_layers(model)[layer].register_forward_hook(hook)
-    with torch.no_grad():
-        out = model.generate(**inp, max_new_tokens=max_new_tokens, do_sample=False,
-                             pad_token_id=tok.eos_token_id)
-    handle.remove()
+    try:
+        with model.disable_adapter(), torch.no_grad():
+            out = model.generate(**inp, max_new_tokens=max_new_tokens, do_sample=False,
+                                 pad_token_id=tok.eos_token_id)
+    finally:
+        handle.remove()
     reply = tok.decode(out[0][inp.input_ids.shape[1]:], skip_special_tokens=True)
     return grab["h"].squeeze(0), reply
 
@@ -187,10 +205,12 @@ def describe(activation, depth=DEPTH_PCT, max_new_tokens=120, scale_fn=normalize
     pos = ids.index(inject_id)
     emb = model.get_input_embeddings()(torch.tensor([ids], device=device)).clone()
     emb[0, pos, :] = scale_fn(activation.to(emb.dtype))
+    attn = torch.ones((1, len(ids)), device=device, dtype=torch.long)  # explicit, per repo protocol
     gen_args = dict(do_sample=False)
     gen_args.update(gen_kw)
     with torch.no_grad():
-        out = model.generate(inputs_embeds=emb, max_new_tokens=max_new_tokens,
+        out = model.generate(inputs_embeds=emb, attention_mask=attn,
+                             max_new_tokens=max_new_tokens,
                              pad_token_id=tok.eos_token_id, **gen_args)
     seq = out[0]
     gen = seq[len(ids):] if seq.shape[0] > len(ids) else seq
@@ -257,27 +277,27 @@ for p in PROMPTS:
     md("""### What actually happens here (real output, GB10 run 2026-07-07)
 
 Both token lenses return near-noise at this position — for the currency
-prompt the logit lens top-5 was `['The', 'Ũ', 'arbe', '抱歉', 'answer']`
-and the J-lens no better — while the NLA reads full content ("factual
-geography and economics… direct declarative answer"). That is NOT a
-failure of the lenses; it is the **position lesson**:
+prompt the logit lens top-5 was `['anál', '换句话', 'The', '说到这里',
+'视听节目']` and the J-lens no better — while the NLA reads full content
+("country identification query… confident factual answer naming a
+specific country (likely Italy)"). That is NOT a failure of the lenses;
+it is the **position lesson**:
 
 - `read_activation` grabs `h` at the last token of the CHAT-TEMPLATED
   prompt — i.e. right after `<|im_start|>assistant`. What the model is
-  *poised to say next* there is a generic response opener ("The…"), and
-  that is exactly what token lenses read out. One token of boilerplate.
+  *poised to say next* there is a generic response opener, and that is
+  exactly what token lenses read out. One token of boilerplate.
 - The NLA was **trained on activations at precisely this position**, and
   it decodes the *content* of the state, not the next token. Single-token
   readout vs multi-token content is the whole difference between the
   instruments, and this cell is that difference made visible.
 
-And a live confabulation catch: for the Italy/Euro prompt our NLA said
-"peso, Argentina" — response *frame* right (currency question, direct
-declarative answer), entities filled from the decoder prior. Notebook
-01's hash-map→"C#" lesson, happening in real time. The layer sweep below
-shows the residual stream itself DOES carry the right answer (欧元/euros
-from ~L21 on the raw prompt) — so the wrong entity came from the NLA
-decoder, not from the model being wrong. (Caveat: the sweep reads the
+Note the NLA here actually names Italy — read from clean base
+activations (we capture under `disable_adapter`), it does not confabulate
+the entity on this prompt. Confabulation is real but depth- and
+prompt-dependent; the depth ladder in notebook 01 shows exactly where it
+kicks in. The layer sweep below confirms the residual stream carries the
+euro answer from ~L21 on the raw prompt. (Caveat: the sweep reads the
 raw-prompt position, the NLA read the chat position — evidence, not
 proof.)"""),
 
@@ -289,8 +309,11 @@ since both lenses see the same forward pass). Top-1 token per layer,
 Jacobian vs vanilla logit lens:"""),
 
     code("""SWEEP_PROMPT = "Fact: the currency used in the country shaped like a boot is"
-jl_log, model_log, _ = lens.apply(jm, SWEEP_PROMPT, positions=[-1])
-ll_log, _, _ = lens.apply(jm, SWEEP_PROMPT, positions=[-1], use_jacobian=False)
+# disable_adapter: lens.apply runs the model forward, and jm/base share modules
+# with the AV-LoRA — we want the CLEAN Qwen the lens was fitted on
+with model.disable_adapter():
+    jl_log, model_log, _ = lens.apply(jm, SWEEP_PROMPT, positions=[-1])
+    ll_log, _, _ = lens.apply(jm, SWEEP_PROMPT, positions=[-1], use_jacobian=False)
 
 print(f"{'layer':>5s} {'logit lens':>15s} {'J-lens':>15s}")
 for L in sorted(jl_log):
@@ -303,25 +326,24 @@ print(f"model's actual next token: {tok.decode([model_log[0].argmax()])!r}")""")
 
 ```
 layer      logit lens          J-lens
-   19         bellion          stdarg
-   20               ℠          stdarg
-   21         bellion        currency
-   22          called        currency
+   20               ℠               勠
+   21          called        currency
+   22          called              叫做
    23        currency        currency
-   24              欧元              欧元
-   25              欧元           euros
-   26             the           euros
-model's actual next token: ' the'
+   24          called              欧元
+   25            Euro            euro
+   26          called           euros
+model's actual next token: ' euros'
 ```
 
-The J-lens locks onto *currency* at L21 and the concrete answer (欧元 =
-euro) by L24, while the logit lens is noise ('bellion, ℠) until L23.
-That snap at ~L21-23 of 28 (~75-80% depth) is the "ignition" the
-workspace paper describes — and it is the same band where our NLA
-readouts historically become interpretable. Two independent instruments,
-same boundary. Note the final row: the model's actual next token is
-plain " the" — the *answer* lives in the residual stream layers before
-it ever reaches the output."""),
+The J-lens locks onto *currency* at L21 while the logit lens is still
+returning "called"/noise, and by L24-26 both carry the concrete answer
+(欧元 = euro). That snap around L21-24 of 28 (~75-85% depth) is the
+"ignition" the workspace paper describes — the same band where our NLA
+readouts become interpretable. Two independent instruments, one
+boundary. The J-lens has *currency* three layers before the logit lens
+does and four before the model emits " euros": the content is in the
+stream well before it reaches the output."""),
 
     md("""## Try your own prompt
 
@@ -363,9 +385,14 @@ def rank_curves(pairs):
     import math
     acc = {}
     for prompt, answer in pairs:
-        aid = tok.encode(answer, add_special_tokens=False)[0]
-        jl, _, _ = lens.apply(jm, prompt, positions=[-1])
-        ll, _, _ = lens.apply(jm, prompt, positions=[-1], use_jacobian=False)
+        ans_ids = tok.encode(answer, add_special_tokens=False)
+        assert len(ans_ids) == 1, (
+            f"{answer!r} is {len(ans_ids)} tokens; this stat ranks a single "
+            "answer token — pick a single-token answer or score continuations")
+        aid = ans_ids[0]
+        with model.disable_adapter():   # clean Qwen: the lens's home
+            jl, _, _ = lens.apply(jm, prompt, positions=[-1])
+            ll, _, _ = lens.apply(jm, prompt, positions=[-1], use_jacobian=False)
         for L in jl:
             r_ll = int((ll[L][0] > ll[L][0][aid]).sum()) + 1
             r_jl = int((jl[L][0] > jl[L][0][aid]).sum()) + 1
@@ -391,19 +418,20 @@ the logit-lens column is still in the thousands, the answer is present
 in the stream but not yet rotated into the output basis.
 
 **What our run actually showed** (GB10, bf16 — your numbers should be
-close): RECALL behaves exactly as advertised — J-lens rank falls to
-~350 by L9 and ignites (≤10) at L21 while the logit lens is still in
-the thousands. COPY does something more interesting than our naive
+close): RECALL behaves as advertised — J-lens rank falls to ~285 by L9
+and snaps to single digits at L22 while the logit lens is still in the
+thousands until L21. COPY does something more interesting than our naive
 prediction: the induction answer is J-visible MUCH earlier than recall
-(rank ~1200 at L6 — induction heads move the token around early), but
-the final snap-to-top comes two layers LATER (L23 vs L21). So the clean
-"automatic processing skips the workspace" selectivity effect did NOT
-reproduce at this toy scale — both trajectories ignite, they just have
-different shapes. Could be scale (7B vs frontier), could be our prompt
-design, could be that single-token induction still has to route through
-the same output machinery. We report it as measured; if you design a
-better automatic-vs-flexible contrast, that's a genuinely useful
-contribution — the paper's §selectivity has the criteria."""),
+(rank ~1000 at L6 — induction heads move the token around early), yet it
+snaps to the top at the SAME layer, L22. So the clean "automatic
+processing skips the workspace" selectivity effect did NOT reproduce at
+this toy scale — both trajectories ignite in the same band, they just
+approach it differently (copy enters the J-space early and coasts;
+recall arrives late and jumps). Could be scale (7B vs frontier), could
+be our prompt design, could be that single-token induction still routes
+through the same output machinery. We report it as measured; if you
+design a better automatic-vs-flexible contrast, that's a genuinely
+useful contribution — the paper's §selectivity has the criteria."""),
 
     md("""## Negative controls — how easily this can fool you
 
@@ -419,9 +447,11 @@ def _hook(mod, inpt, out):
     hh = out[0] if isinstance(out, tuple) else out
     grab["h"] = hh[:, -1, :].detach()
 handle = get_layers(model)[L_NC].register_forward_hook(_hook)
-with model.disable_adapter(), torch.no_grad():
-    model(**tok(PROMPT_NC, return_tensors="pt").to(device))
-handle.remove()
+try:
+    with model.disable_adapter(), torch.no_grad():
+        model(**tok(PROMPT_NC, return_tensors="pt").to(device))
+finally:
+    handle.remove()
 h21 = grab["h"].squeeze(0).float()
 
 # (a) a RANDOM vector with the same norm, through the same lens
@@ -451,28 +481,42 @@ is. (Same reason the three-readings cell up top looked "broken" for the
 token lenses: chat-template position, outside the lens's home
 distribution. Position and distribution are part of the measurement.)"""),
 
-    md("""## First-order causality — subtract the direction, change the words
+    md("""## Subtract the direction, change the words
 
-The J-lens claims `h` at L21 is *poised to cause* euro-talk. Poised-to-
-cause is a causal claim, so test it causally: build the h-space
-direction whose transport hits the " Euro" token (first order: `v =
-J̄ᵀ·u_euro`), project it OUT of the residual at L21 on every forward
-pass, and let the model answer the question again."""),
+The J-lens says `h` around L21 is *poised to cause* euro-talk. Test that
+by intervention: build the h-space span whose transport lands on the
+answer tokens (" Euro"/"euro"/"欧元", first order `v = J̄ᵀ·u`), and
+project it OUT of the residual and generate again.
+
+Be precise about what the cell does — it's a real intervention, not the
+minimal one. It removes that span from EVERY position on EVERY forward
+across a range of layers, not just the single L21 vector. So read the
+result as "the model's answer is causally sensitive to this
+J-lens-derived direction," not "we surgically flipped one number." The
+proper controls for a strong claim — projecting out an equal-rank random
+subspace, or an unrelated token's direction — are a good exercise left
+in the cell's comments; here we show the effect and name its limits."""),
 
     code("""PROMPT_C = "Fact: the currency used in the country shaped like a boot is"
 ANSWER_TOKENS = [" Euro", " euro", " euros", "欧元"]   # surface forms of the answer
 
-def euro_span(layer):
+def euro_span(layer, tol=1e-4):
     \"\"\"Orthonormal basis of the h-space span whose transport (1st order)
-    lands on the answer-token logits at `layer`: v_i = J̄_layerᵀ · w_i.\"\"\"
+    lands on the answer-token logits at `layer`: v_i = J̄_layerᵀ · w_i.
+    SVD with a singular-value floor (not bare QR): if the answer directions
+    are near-collinear, QR would still hand back full-rank orthogonal columns
+    and the ablation would remove more than it should. We keep only the
+    directions the data actually spans, and print the retained rank.\"\"\"
     J = lens.jacobians[layer].float()
     W = base.get_output_embeddings().weight
     dirs = []
     for t in ANSWER_TOKENS:
         tid = tok.encode(t, add_special_tokens=False)[0]
         dirs.append(J.T @ W[tid].float().cpu())
-    Q, _ = torch.linalg.qr(torch.stack(dirs, dim=1))
-    return Q.to(device)                                 # d x n_dirs
+    M = torch.stack(dirs, dim=1)                         # d x n_tokens
+    U, S, _ = torch.linalg.svd(M, full_matrices=False)
+    keep = int((S > S.max() * tol).sum())
+    return U[:, :keep].to(device), keep                 # (d x rank, rank)
 
 def make_projector(Q):
     def hook(mod, inp, out):
@@ -483,8 +527,10 @@ def make_projector(Q):
     return hook
 
 def generate_with_edit(layers):
+    spans = {L: euro_span(L) for L in layers}
+    print("retained rank per layer:", {L: r for L, (_, r) in spans.items()})
     handles = [get_layers(model)[L].register_forward_hook(
-                   make_projector(euro_span(L))) for L in layers]
+                   make_projector(spans[L][0])) for L in layers]
     try:
         with model.disable_adapter(), torch.no_grad():
             out = model.generate(**inp, max_new_tokens=15, do_sample=False,
@@ -562,9 +608,11 @@ def mean_act(texts, layer):
             hh = o[0] if isinstance(o, tuple) else o
             g["h"] = hh[:, -1, :].detach()
         hd = get_layers(model)[layer].register_forward_hook(hook)
-        with model.disable_adapter(), torch.no_grad():
-            model(**tok(t, return_tensors="pt").to(device))
-        hd.remove()
+        try:
+            with model.disable_adapter(), torch.no_grad():
+                model(**tok(t, return_tensors="pt").to(device))
+        finally:
+            hd.remove()
         acts.append(g["h"].squeeze(0).float())
     return torch.stack(acts).mean(0)
 
