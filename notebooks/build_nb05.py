@@ -46,9 +46,10 @@ cells = [
 
     md("""# 05 · Three lenses on one activation ⚠️ EXPERIMENTAL
 
-**Status: authored 2026-07-06, NOT yet executed on a Colab GPU.** Unlike
-notebooks 01-04 this one needs an external artifact (a fitted Jacobian
-lens, see below) and an A100/L4 runtime is recommended; expect rough edges.
+**Status: the full code path was executed end-to-end on a GB10 (bf16)
+on 2026-07-07 — outputs quoted below are real. The Colab 4-bit variant
+of THIS notebook is still untested** (the same 4-bit load pattern is
+proven by notebooks 01-04). A100/L4 runtime recommended.
 
 We take **one residual-stream vector** `h` — Qwen 2.5 7B, layer 20 (71%
 depth), last prompt token — and read it three ways:
@@ -182,13 +183,14 @@ print("helpers ready")"""),
 `J₂₀` is a 3584×3584 matrix — the input-output Jacobian of Qwen 2.5 7B
 averaged over web-text prompts. Fitting needs backward passes through the
 full model (**not** feasible on a free T4; ours was fitted with the repo's
-`fit_qwen25_7b.py` on a GB10). Upload the artifact via the Files pane, or
-point `LENS_PATH` at a Drive mount."""),
+`fit_qwen25_7b.py` on a GB10, wikitext-103 prompts) and is published at
+[anicka/jlens-qwen2.5-7b-instruct](https://huggingface.co/anicka/jlens-qwen2.5-7b-instruct)
+— the cell below downloads it (~700 MB)."""),
 
-    code("""LENS_PATH = "qwen2.5-7b-instruct_jlens.pt"   # <- upload this file first
-
-import jlens
-lens = jlens.JacobianLens.load(LENS_PATH)
+    code("""import jlens
+lens = jlens.JacobianLens.from_pretrained(
+    "anicka/jlens-qwen2.5-7b-instruct",
+    filename="qwen2.5-7b-instruct_jlens.pt")
 jm = jlens.from_hf(base, tok)          # wraps the SAME loaded model (norm+unembed reuse)
 print(lens)
 assert LAYER in lens.source_layers, f"lens not fitted at layer {LAYER}: {lens.source_layers}"
@@ -232,19 +234,32 @@ PROMPTS = [
 for p in PROMPTS:
     three_readings(p)"""),
 
-    md("""### How to read the disagreements
+    md("""### What actually happens here (real output, GB10 run 2026-07-07)
 
-- **Currency prompt:** logit lens at L20 often shows syntax/filler; the
-  J-lens should already show *lira/euro/currency* — content en route.
-- **Hash map:** notebook 01 showed the NLA sometimes says "C#" though
-  nothing in the corpus pins it — the decoder prior fills unpinned entity
-  slots. Now look at the J-lens top-k: if *C#* is absent there too, you
-  have instrument-level evidence the entity came from the NLA decoder,
-  not from `h`. If it IS there, the confabulation story needs revising.
-  One vector, adjudicated by an untrained lens.
-- **Elephants:** the paper reports suppressed concepts still load. Does
-  *elephant* appear in the J-lens read while the model's actual reply
-  talks about beaches — and does the NLA mention the suppression?"""),
+Both token lenses return near-noise at this position — for the currency
+prompt the logit lens top-5 was `['The', 'Ũ', 'arbe', '抱歉', 'answer']`
+and the J-lens no better — while the NLA reads full content ("factual
+geography and economics… direct declarative answer"). That is NOT a
+failure of the lenses; it is the **position lesson**:
+
+- `read_activation` grabs `h` at the last token of the CHAT-TEMPLATED
+  prompt — i.e. right after `<|im_start|>assistant`. What the model is
+  *poised to say next* there is a generic response opener ("The…"), and
+  that is exactly what token lenses read out. One token of boilerplate.
+- The NLA was **trained on activations at precisely this position**, and
+  it decodes the *content* of the state, not the next token. Single-token
+  readout vs multi-token content is the whole difference between the
+  instruments, and this cell is that difference made visible.
+
+And a live confabulation catch: for the Italy/Euro prompt our NLA said
+"peso, Argentina" — response *frame* right (currency question, direct
+declarative answer), entities filled from the decoder prior. Notebook
+01's hash-map→"C#" lesson, happening in real time. The layer sweep below
+shows the residual stream itself DOES carry the right answer (欧元/euros
+from ~L21 on the raw prompt) — so the wrong entity came from the NLA
+decoder, not from the model being wrong. (Caveat: the sweep reads the
+raw-prompt position, the NLA read the chat position — evidence, not
+proof.)"""),
 
     md("""## Layer sweep — where does each lens start seeing?
 
@@ -264,12 +279,29 @@ for L in sorted(jl_log):
     print(f"{L:5d} {t_ll:>15s} {t_jl:>15s}")
 print(f"model's actual next token: {tok.decode([model_log[0].argmax()])!r}")"""),
 
-    md("""Expected shape (untested here, from the paper): the logit-lens column
-is noise until late layers; the J-lens column locks onto the answer much
-earlier — and somewhere around the workspace band you should see the
-"ignition" where the readable content snaps into place. That band is also
-where our NLA readouts historically become interpretable. Two independent
-instruments, same boundary."""),
+    md("""Real output from the GB10 run (excerpt):
+
+```
+layer      logit lens          J-lens
+   19         bellion          stdarg
+   20               ℠          stdarg
+   21         bellion        currency
+   22          called        currency
+   23        currency        currency
+   24              欧元              欧元
+   25              欧元           euros
+   26             the           euros
+model's actual next token: ' the'
+```
+
+The J-lens locks onto *currency* at L21 and the concrete answer (欧元 =
+euro) by L24, while the logit lens is noise ('bellion, ℠) until L23.
+That snap at ~L21-23 of 28 (~75-80% depth) is the "ignition" the
+workspace paper describes — and it is the same band where our NLA
+readouts historically become interpretable. Two independent instruments,
+same boundary. Note the final row: the model's actual next token is
+plain " the" — the *answer* lives in the residual stream layers before
+it ever reaches the output."""),
 
     md("""## SELF-CHECK"""),
 
