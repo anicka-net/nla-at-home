@@ -57,6 +57,29 @@ for 02 and 03. NB03 attaches a second adapter (the reconstructor) to the
    version), the corpus on HF, and the universal Phi-4 NLA (every depth, not
    just 71%).
 
+## Beyond the workshop: experimental notebooks (05–06)
+
+Two research-grade notebooks that go past the click-to-run core. They depend
+on an **external artifact** — Anthropic's `jacobian-lens` (Apache-2.0), plus a
+J-lens we fitted and published — so they are for the people who want to go
+deeper, not the whole room. Quoted outputs are real runs on a GB10 in 4-bit
+NF4 (the same load path the notebook uses); a different Colab GPU may shift the
+exact tokens and layers.
+
+| # | File | What it does |
+|---|------|--------------|
+| 05 | `05_three_lenses.ipynb` | one activation, three readings — logit lens vs **Jacobian lens** vs NLA. Where they disagree is "workspace ignition": content is in the stream before the model says it. Adds a layer sweep, a causal ablation, and concept injection (push *orange* into the stream, watch a red-fruit answer bend to *tangerine*). |
+| 06 | `06_confabulation_detector.ipynb` | cross-check the NLA's entities against the J-lens. A word the verbalizer emits that appears in **no** layer's J-lens top-k is a candidate confabulation. Honest split: the grounded side is a solid, prompt-specific confirmer; a controlled-contamination read visibly un-grounds. Builds on 05. |
+
+**One install gotcha (both):** the setup cell installs the lens with
+`pip install -e jacobian-lens --no-deps`. That flag is load-bearing — jlens
+pins `transformers>=5.5` but imports no transformers API of its own, and
+letting it upgrade Colab's transformers pulls a build whose 4-bit load fills a
+T4 with fp16 shards and OOMs. `--no-deps` keeps Colab's working transformers.
+
+Both are generated the same way as the core set — edit the source, not the JSON:
+`python3 notebooks/build_nb05.py` and `python3 notebooks/build_nb06.py`.
+
 ## Pre-flight (do once, before the room)
 
 ```
