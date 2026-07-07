@@ -52,7 +52,11 @@ def _src(text):
 # ---------------------------------------------------------------------------
 SETUP_INSTALL = """%pip -q install -U bitsandbytes peft accelerate
 !git clone -q https://github.com/anthropics/jacobian-lens
-%pip -q install -e jacobian-lens
+# --no-deps is load-bearing: jlens pins transformers>=5.5 but imports no
+# transformers API of its own; letting it upgrade Colab's transformers pulls
+# a build whose 4-bit loading fills a T4 with fp16 shards and OOMs. Keep
+# Colab's transformers (what cells below rely on); install jlens alone.
+%pip -q install -e jacobian-lens --no-deps
 import sys
 sys.path.insert(0, "jacobian-lens")   # avoid a kernel restart after pip -e"""
 
