@@ -385,8 +385,9 @@ Phi-4 14B universal: ~10 hours AV + AR on GB10.
    breaking injection and all cosine-based geometry. Fix: center +
    drop-top-PC before injection. Supervised accuracy is unaffected (the
    class signal lives in the angular residual). Full analysis in
-   `gemma-outlier-geometry.md` (seventh repo). Status: measured on 1B,
-   hypothesized for larger Gemma models, not yet confirmed.
+   `gemma-outlier-geometry.md` (companion analysis notes, not in this
+   repo). Status: measured on 1B, hypothesized for larger Gemma models,
+   not yet confirmed.
 
 2. **Stdout buffering during training** — When running training with
    output redirected to a file (`> /tmp/train.log`), Python uses full

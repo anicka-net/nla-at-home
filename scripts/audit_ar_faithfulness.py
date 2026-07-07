@@ -35,7 +35,7 @@ Readouts (all reported in BOTH raw and centered cosine):
 Honest-use rules: run on texts the AR did NOT train on (--ids-file with its
 val split); refuses to run without one unless --allow-any-texts (loud).
 
-Usage (pondermatic / any CUDA box with the repo + data synced):
+Usage (any CUDA box with the repo + data synced):
   python3 scripts/audit_ar_faithfulness.py \
     --ar-checkpoint output/nla-qwen25-7b-universal-ar \
     --activations corpus/activations/qwen25-7b_all_layers.pt \
