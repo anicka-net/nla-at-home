@@ -9,8 +9,9 @@ prior, so it can name an entity that isn't in the activation — it fills the
 slot. The Jacobian lens has no trained decoder: it reads the model's own
 output-poised geometry. Cross-check one against the other.
 
-The markdown below quotes REAL outputs from a GB10 (bf16) run on
-2026-07-07 — including the ways the detector half-works. Do not "clean
+The markdown below quotes REAL outputs from a GB10 run on 2026-07-07,
+4-bit NF4 — the same load path as this notebook — including the ways the
+detector half-works. Do not "clean
 them up": the honest result is that the grounded side is a solid,
 prompt-specific confirmer, while separating an entity claim from the NLA's
 own meta-commentary in free prose is an open sub-problem. Both are shown.
@@ -168,10 +169,11 @@ cells = [
 
     md("""# 06 · A confabulation detector from two witnesses ⚠️ EXPERIMENTAL
 
-**Status: executed end-to-end on a GB10 (bf16) — quoted outputs are real,
-including the parts where the detector only half-works. The Colab 4-bit
-path is untested** (same load pattern as 01-05). Do notebook **05**
-first; this reuses its setup and assumes you've seen the J-lens.
+**Status: executed end-to-end on a GB10, 4-bit NF4 (the same load path
+as this notebook) — quoted outputs are real, including the parts where the
+detector only half-works. A different Colab GPU may shift the exact tokens
+and layers** (same load pattern as 01-05). Do notebook **05** first; this
+reuses its setup and assumes you've seen the J-lens.
 
 Notebook 01 showed the NLA verbalizer naming an entity that isn't in the
 activation — the hash-map→"C#" slot-fill. The NLA is a *trained decoder*:
@@ -221,9 +223,9 @@ What the cells below actually establish on Qwen 2.5 7B:
 Out of scope: any claim this is calibrated, that a flag rate is a
 probability, or that "not in the stream" proves "the model doesn't know
 it." The J-lens reads one basis at single-token granularity; absence there
-is evidence, not proof. Numbers are bf16 anchors from one GB10 run — judge
-the pattern (grounded matches own prompt, contamination un-grounds the
-read), not the digits."""),
+is evidence, not proof. Numbers are 4-bit NF4 anchors from one GB10 run —
+judge the pattern (grounded matches own prompt, contamination un-grounds
+the read), not the digits."""),
 
     md("## Setup\n\nSame as notebook 05."),
     code(SETUP_INSTALL),
@@ -262,9 +264,10 @@ under `disable_adapter`."""),
 
 _v, _fs = jlens_vocab("Fact: the currency used in the country shaped like a boot is")
 hits = [w for w in ("euro", "euros", "currency", "lira", "coins") if w in _v]
+first_layers = {w: _fs[w] for w in hits}
 print(f"vocab size (union over layers x positions): {len(_v)}")
 print(f"currency-ish tokens present: {hits}")
-print(f"  first layer each appears: {{w: _fs[w] for w in hits}}")'''),
+print(f"  first layer each appears: {first_layers}")'''),
 
     md("""Real output:
 
@@ -290,7 +293,14 @@ Read the next cell's `META`/`STOP` sets as a *best effort*, not a
 solution. The NLA doesn't only name entities — it narrates its own answer
 ("Response strategy…", "Tension between…"), and no stopword list cleanly
 removes that. This is the flag side's core weakness, visible in the output
-two cells down."""),
+two cells down.
+
+A second, narrower gap: the extractor is `[A-Za-z]` words of length ≥3, so
+acronyms and symbol/number entities — `UK`, `EU`, `C#`, `AI`, a year —
+never enter the comparison at all. That includes notebook 01's `C#`: if it
+reappeared it would be *dropped*, not flagged. Fixing that means a real
+tokenizer-aware entity extractor (a POS/NER pass on the readout); we leave
+it as the obvious next step rather than pretend a regex covers it."""),
 
     code('''import re
 
@@ -405,17 +415,18 @@ against: capture the SAME vector with the adapter left **on**, so the
 AV-LoRA perturbs the activation before we read it back. Then describe both
 captures and check each against the clean euro-stream."""),
 
-    code('''h_clean, _  = read_activation("Fact: the currency used in the country shaped like a boot is",
-                             contaminated=False)
-h_dirty, _  = read_activation("Fact: the currency used in the country shaped like a boot is",
-                             contaminated=True)
-print("CLEAN  read ->", describe(h_clean)[:220])
+    code('''PROMPT_CUR = "Fact: the currency used in the country shaped like a boot is"
+h_clean, _ = read_activation(PROMPT_CUR, contaminated=False)
+h_dirty, _ = read_activation(PROMPT_CUR, contaminated=True)
+clean_txt = describe(h_clean)          # generate ONCE per vector (greedy, but pin it)
+dirty_txt = describe(h_dirty)
+print("CLEAN  read ->", clean_txt[:220])
 print()
-print("DIRTY  read ->", describe(h_dirty)[:220])
+print("DIRTY  read ->", dirty_txt[:220])
 
 # spotlight the entities each names, against the clean euro-stream
-v_cur, fs_cur = jlens_vocab("Fact: the currency used in the country shaped like a boot is")
-for name, txt in [("CLEAN", describe(h_clean)), ("DIRTY", describe(h_dirty))]:
+v_cur, fs_cur = jlens_vocab(PROMPT_CUR)
+for name, txt in [("CLEAN", clean_txt), ("DIRTY", dirty_txt)]:
     ents = [w for w in re.findall(r"[A-Za-z][A-Za-z'\\-]+", txt)
             if w.lower() in {"italy","spain","greece","euro","euros","currency",
                              "coins","lira","pound","coin","capital","britain","uk"}]
@@ -489,9 +500,11 @@ other axis: meta-vocabulary, which isn't an entity at all."""),
 
     md("""## Try your own
 
-Anything where you can independently judge the answer. Prompts that name a
-specific person, place, language, or number are the interesting ones — the
-NLA's prior has strong opinions about those. Read the **grounded** line;
+Anything where you can independently judge the answer. Prompts whose answer
+is a specific person, place, or language spelled as an ordinary word are the
+interesting ones — the NLA's prior has strong opinions about those.
+(Acronyms, symbols, and bare numbers fall through the alphabetic extractor,
+per the note above, so don't lean on those.) Read the **grounded** line;
 treat the flag line as a rough pile to eyeball, not a verdict."""),
 
     code('''detect("YOUR PROMPT HERE — e.g. Who wrote the Iliad?")'''),
