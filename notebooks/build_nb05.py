@@ -79,35 +79,25 @@ Where the three *disagree* is where it gets interesting:
   or the content is real but not output-adjacent. The J-lens is exactly
   the instrument that separates those two cases."""),
 
-    md("""## What you will and will not see here
+    md("""## Scope
 
-Worth stating before any cell runs, because the paper this builds on is
-having a moment, and moments breed claims.
+Every cell below is a measurement you can rerun and edit. Together they
+establish four things on Qwen 2.5 7B:
 
-**You WILL see, with your own eyes, on your own prompts:**
-- content present in the residual stream many layers before the model
-  says it (and readable by a *linearization of the model itself*, with
-  zero trained probe parameters);
-- a fairly sharp depth band where that content rotates into the output
-  vocabulary basis ("ignition");
-- the band behaving *selectively* — recall-like computation ignites it,
-  copy-like computation much less;
-- first-order causality: subtracting a J-lens direction from the stream
-  changes what the model says (or fails to — run it and find out).
+- content appears in the residual stream layers before the model says
+  it, and a linearization of the model itself reads it out — no trained
+  probe;
+- the readable band has a sharp onset (~L21 of 28 on our recall
+  prompts);
+- recall and copying reach that band along different trajectories;
+- editing the stream along a J-lens direction changes the model's
+  answer (nine layers needed; one is not enough).
 
-**You will NOT see, and this notebook does not claim:**
-- consciousness, experience, or anything phenomenal — "global workspace"
-  here names a statistical structure of an averaged Jacobian, not a
-  subject;
-- introspection — the model reports nothing about its stream; *we* read
-  it from outside with math;
-- a magic content-reader — see the negative-control cells below for how
-  easily a readable-looking output can mean nothing.
-
-If you want to claim more than the first list, the burden is a new
-measurement, not a stronger adjective. That cuts both ways: dismissing
-the first list also requires a measurement. Everything here is
-re-runnable — argue with the cells, not with the vibes."""),
+Out of scope because nothing here measures it: consciousness,
+introspection, experience. "Workspace" in this notebook is a property
+of an averaged Jacobian. The negative controls below show what a
+readout looks like when there is nothing behind it — run them before
+trusting any single pretty table, including ours."""),
 
     md("""## Setup
 
@@ -455,13 +445,11 @@ J_21 on h_21   : ['currency', '货币', 'coins', 'currency', 'Currency']
 ```
 
 Only the matched condition (c) reads *currency* — in three languages.
-Readable output is not evidence of meaning; only the CONTRAST between
-matched and mismatched conditions is. This is the eyeball-trap that eats
-interpretability demos, and it applies to every screenshot of this paper
-you'll see this week — including ours. (It's also why the three-readings
-cell up top looked "broken" for the token lenses: chat-template position,
-out of the lens's home distribution. Position and distribution are part
-of the measurement.)"""),
+The unembedding returns a top-5 whatever you feed it, so a readable
+readout by itself is not evidence; the matched-vs-mismatched contrast
+is. (Same reason the three-readings cell up top looked "broken" for the
+token lenses: chat-template position, outside the lens's home
+distribution. Position and distribution are part of the measurement.)"""),
 
     md("""## First-order causality — subtract the direction, change the words
 
@@ -534,23 +522,113 @@ remove the euro-ward push and the next-best currency association
 surfaces, coherent and correct-for-its-era. Not noise — a different
 right answer.
 
-(If your run only changes at the multi-layer edit, or not at all, that's
-your model/seed — report what you see. The escalation from 1 to 9 layers
-is the measurement of how much redundancy stood in the way.)
+(If your run only changes at the multi-layer edit, or not at all,
+report what you see — the escalation from 1 to 9 layers is itself the
+measurement of how much redundancy stood in the way.)"""),
 
-Notice what just happened either way: you moved from screenshot-consumer
-to experimenter in one cell."""),
+    md("""## Put a concept INTO the stream
 
-    md("""## Scale disclaimer
+Reading works. The other direction works too: build a direction for a
+concept the prompt never mentions, add it to the residual during
+generation, and ask a question that pulls the other way.
+
+Direction construction matters more than dose. Our first attempt used
+orange sentences minus unrelated neutral sentences: the difference
+carries syntax and topic along with the concept, and the sweep went
+straight from no-effect to word salad. Twin sentences — identical except
+apple↔orange — cancel everything shared and leave fruit identity. The
+twin direction has a quarter of the raw norm and works at a quarter of
+the dose."""),
+
+    code("""L_LAYERS = [12, 14, 16]      # distribute the push across the middle of the stack
+ORANGE = ["She peeled an orange for breakfast.",
+          "He bought a bag of oranges at the market.",
+          "The orange trees bloomed in the grove.",
+          "Fresh orange juice filled the glass.",
+          "An orange rolled off the kitchen table.",
+          "The child asked for a slice of orange."]
+APPLE  = ["She peeled an apple for breakfast.",
+          "He bought a bag of apples at the market.",
+          "The apple trees bloomed in the grove.",
+          "Fresh apple juice filled the glass.",
+          "An apple rolled off the kitchen table.",
+          "The child asked for a slice of apple."]
+
+def mean_act(texts, layer):
+    acts = []
+    for t in texts:
+        g = {}
+        def hook(mod, i, o):
+            hh = o[0] if isinstance(o, tuple) else o
+            g["h"] = hh[:, -1, :].detach()
+        hd = get_layers(model)[layer].register_forward_hook(hook)
+        with model.disable_adapter(), torch.no_grad():
+            model(**tok(t, return_tensors="pt").to(device))
+        hd.remove()
+        acts.append(g["h"].squeeze(0).float())
+    return torch.stack(acts).mean(0)
+
+V = {}
+for L in L_LAYERS:
+    d = mean_act(ORANGE, L) - mean_act(APPLE, L)
+    V[L] = d / d.norm()
+
+def steered(prompt, alpha):
+    handles = []
+    if alpha:
+        def mk(L):
+            def hook(mod, i, o):
+                hh = o[0] if isinstance(o, tuple) else o
+                hh_new = hh + (alpha * V[L]).to(hh.dtype)
+                return (hh_new,) + o[1:] if isinstance(o, tuple) else hh_new
+            return hook
+        handles = [get_layers(model)[L].register_forward_hook(mk(L)) for L in L_LAYERS]
+    chat = tok.apply_chat_template([{"role": "user", "content": prompt}],
+                                   tokenize=False, add_generation_prompt=True)
+    enc = tok(chat, return_tensors="pt").to(device)
+    try:
+        with model.disable_adapter(), torch.no_grad():
+            out = model.generate(**enc, max_new_tokens=12, do_sample=False,
+                                 pad_token_id=tok.eos_token_id)
+    finally:
+        for h_ in handles:
+            h_.remove()
+    return tok.decode(out[0][enc.input_ids.shape[1]:], skip_special_tokens=True)
+
+Q = "Name one red fruit, one word only."
+for a in [0, 10, 20, 30, 45, 65]:
+    print(f"alpha {a:2d}: {steered(Q, a)}")"""),
+
+    md("""Our run, and it's better than a clean flip:
+
+```
+alpha  0: Strawberry
+alpha 10: Strawberry
+alpha 20: Tomato
+alpha 30: Tangerine.
+alpha 45: Tanger. Cut the peel with a knife. ...
+alpha 65: yellow, cob like my out_ jut_Qu
+```
+
+The model doesn't snap from "red fruit" to "orange" — it negotiates the
+conflict. Strawberry (red, no push) → Tomato (still red, edging toward
+orange) → **Tangerine** (a citrus that satisfies both the red-fruit
+request and the orange push) → then the dose overwhelms coherence. The
+intermediate answers trace a path through fruit/color space; the
+dose-response curve is the result, not any single word. Reading located
+the concept; writing shows it is the same handle the model computes on.
+
+Close the loop by hand: capture a steered activation and run
+`three_readings` on it — the injected concept turns up in the J-lens
+readout, the write-side twin of notebook 03's round-trip cosine."""),
+
+    md("""## Scale
 
 Our lens: 50 wikitext prompts, one evening, one home GPU, a 7B model.
 The paper: 1000+ prompts on much larger models, plus experiments
-(report manipulation, workspace ablation, POV analysis) that this
-notebook does not attempt. Nothing here validates or falsifies those —
-it only makes the *mechanism* touchable. The right conclusion from this
-notebook is not "the paper is right about everything" but "the core
-instrument is real, cheap to replicate, and here is exactly what it
-does and doesn't show at hobby scale"."""),
+(report manipulation, workspace ablation, POV analysis) this notebook
+does not attempt — nothing here validates or falsifies those. Total
+cost to reproduce everything above: one GPU-evening."""),
 
     md("""## SELF-CHECK"""),
 
