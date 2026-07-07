@@ -79,6 +79,36 @@ Where the three *disagree* is where it gets interesting:
   or the content is real but not output-adjacent. The J-lens is exactly
   the instrument that separates those two cases."""),
 
+    md("""## What you will and will not see here
+
+Worth stating before any cell runs, because the paper this builds on is
+having a moment, and moments breed claims.
+
+**You WILL see, with your own eyes, on your own prompts:**
+- content present in the residual stream many layers before the model
+  says it (and readable by a *linearization of the model itself*, with
+  zero trained probe parameters);
+- a fairly sharp depth band where that content rotates into the output
+  vocabulary basis ("ignition");
+- the band behaving *selectively* — recall-like computation ignites it,
+  copy-like computation much less;
+- first-order causality: subtracting a J-lens direction from the stream
+  changes what the model says (or fails to — run it and find out).
+
+**You will NOT see, and this notebook does not claim:**
+- consciousness, experience, or anything phenomenal — "global workspace"
+  here names a statistical structure of an averaged Jacobian, not a
+  subject;
+- introspection — the model reports nothing about its stream; *we* read
+  it from outside with math;
+- a magic content-reader — see the negative-control cells below for how
+  easily a readable-looking output can mean nothing.
+
+If you want to claim more than the first list, the burden is a new
+measurement, not a stronger adjective. That cuts both ways: dismissing
+the first list also requires a measurement. Everything here is
+re-runnable — argue with the cells, not with the vibes."""),
+
     md("""## Setup
 
 Same 4-bit Qwen + NLA adapter as notebooks 01-04, plus the jacobian-lens
@@ -302,6 +332,225 @@ readouts historically become interpretable. Two independent instruments,
 same boundary. Note the final row: the model's actual next token is
 plain " the" — the *answer* lives in the residual stream layers before
 it ever reaches the output."""),
+
+    md("""## Try your own prompt
+
+The whole point is that you don't have to take our word for anything:"""),
+
+    code("""# Edit and run. Things worth probing: a fact the model surely knows; a fact
+# it surely doesn't; a suppression ("don't mention X"); a prompt in your
+# own language; something where you EXPECT the NLA to confabulate entities.
+three_readings("YOUR PROMPT HERE — what is the sound of one hand clapping?")"""),
+
+    md("""## Ignition as a statistic, not an anecdote
+
+One pretty table proves nothing — it could be cherry-picked (ours
+above wasn't, but you can't know that). So: a batch of factual-recall
+prompts with known single-token answers, and for each layer the RANK of
+the correct answer token under both lenses. And a second batch of
+COPY/pattern prompts (induction: "zebra apple mango. zebra apple →
+mango"), where the paper's selectivity claim predicts much less
+workspace involvement — the J-lens advantage should shrink."""),
+
+    code("""RECALL = [
+    ("Fact: the capital of France is", " Paris"),
+    ("Fact: the chemical symbol for gold is", " Au"),
+    ("Fact: the largest planet in our solar system is", " Jupiter"),
+    ("Fact: the currency used in Japan is called the", " yen"),
+    ("Fact: the author of Romeo and Juliet is William", " Shakespeare"),
+    ("Fact: the number of legs on a spider is", " eight"),
+]
+COPY = [
+    ("zebra apple mango. zebra apple", " mango"),
+    ("blue red green. blue red", " green"),
+    ("north south east west. north south east", " west"),
+    ("one two three four. one two three", " four"),
+]
+
+def rank_curves(pairs):
+    \"\"\"answer-token rank per layer, {layer: (logit_lens_rank, jlens_rank)}
+    averaged over prompts (geometric mean — ranks are heavy-tailed).\"\"\"
+    import math
+    acc = {}
+    for prompt, answer in pairs:
+        aid = tok.encode(answer, add_special_tokens=False)[0]
+        jl, _, _ = lens.apply(jm, prompt, positions=[-1])
+        ll, _, _ = lens.apply(jm, prompt, positions=[-1], use_jacobian=False)
+        for L in jl:
+            r_ll = int((ll[L][0] > ll[L][0][aid]).sum()) + 1
+            r_jl = int((jl[L][0] > jl[L][0][aid]).sum()) + 1
+            acc.setdefault(L, []).append((math.log(r_ll), math.log(r_jl)))
+    out = {}
+    for L, pairs_ in acc.items():
+        n = len(pairs_)
+        out[L] = (math.exp(sum(a for a, _ in pairs_) / n),
+                  math.exp(sum(b for _, b in pairs_) / n))
+    return out
+
+for name, pairs in [("RECALL", RECALL), ("COPY", COPY)]:
+    curves = rank_curves(pairs)
+    print(f"\\n{name}: geometric-mean rank of the answer token")
+    print(f"{'layer':>5s} {'logit lens':>12s} {'J-lens':>12s}")
+    for L in sorted(curves):
+        r_ll, r_jl = curves[L]
+        mark = "  <-- ignition" if r_jl <= 10 and curves.get(L - 1, (9e9, 9e9))[1] > 10 else ""
+        print(f"{L:5d} {r_ll:12.0f} {r_jl:12.0f}{mark}")"""),
+
+    md("""How to read it: where the J-lens column drops to single digits while
+the logit-lens column is still in the thousands, the answer is present
+in the stream but not yet rotated into the output basis.
+
+**What our run actually showed** (GB10, bf16 — your numbers should be
+close): RECALL behaves exactly as advertised — J-lens rank falls to
+~350 by L9 and ignites (≤10) at L21 while the logit lens is still in
+the thousands. COPY does something more interesting than our naive
+prediction: the induction answer is J-visible MUCH earlier than recall
+(rank ~1200 at L6 — induction heads move the token around early), but
+the final snap-to-top comes two layers LATER (L23 vs L21). So the clean
+"automatic processing skips the workspace" selectivity effect did NOT
+reproduce at this toy scale — both trajectories ignite, they just have
+different shapes. Could be scale (7B vs frontier), could be our prompt
+design, could be that single-token induction still has to route through
+the same output machinery. We report it as measured; if you design a
+better automatic-vs-flexible contrast, that's a genuinely useful
+contribution — the paper's §selectivity has the criteria."""),
+
+    md("""## Negative controls — how easily this can fool you
+
+Two ways to get plausible-looking output that means nothing. Run them
+before you trust any single pretty readout, ours included:"""),
+
+    code("""# capture h at the RAW prompt's last token (no chat template — the lens's
+# home distribution), at L21 where the recall sweep ignites
+PROMPT_NC = "Fact: the currency used in the country shaped like a boot is"
+L_NC = 21
+grab = {}
+def _hook(mod, inpt, out):
+    hh = out[0] if isinstance(out, tuple) else out
+    grab["h"] = hh[:, -1, :].detach()
+handle = get_layers(model)[L_NC].register_forward_hook(_hook)
+with model.disable_adapter(), torch.no_grad():
+    model(**tok(PROMPT_NC, return_tensors="pt").to(device))
+handle.remove()
+h21 = grab["h"].squeeze(0).float()
+
+# (a) a RANDOM vector with the same norm, through the same lens
+rand = torch.randn_like(h21)
+rand = rand / rand.norm() * h21.norm()
+print("random vector  :", topk_toks(jm.unembed(lens.transport(rand.unsqueeze(0), L_NC))[0]))
+
+# (b) the REAL vector, transported with the WRONG layer's Jacobian
+print("J_5  on h_21   :", topk_toks(jm.unembed(lens.transport(h21.unsqueeze(0), 5))[0]))
+
+# (c) the matched reading, for contrast
+print("J_21 on h_21   :", topk_toks(jm.unembed(lens.transport(h21.unsqueeze(0), L_NC))[0]))"""),
+
+    md("""(a) and (b) both produce *tokens* — the unembedding always returns a
+top-5, garbage in or not. Our run:
+
+```
+random vector  : ['来看看吧', '侵略', '.contentSize', 'inition', '.descripcion']
+J_5  on h_21   : ['.', '.', '->', '?', 'коло']
+J_21 on h_21   : ['currency', '货币', 'coins', 'currency', 'Currency']
+```
+
+Only the matched condition (c) reads *currency* — in three languages.
+Readable output is not evidence of meaning; only the CONTRAST between
+matched and mismatched conditions is. This is the eyeball-trap that eats
+interpretability demos, and it applies to every screenshot of this paper
+you'll see this week — including ours. (It's also why the three-readings
+cell up top looked "broken" for the token lenses: chat-template position,
+out of the lens's home distribution. Position and distribution are part
+of the measurement.)"""),
+
+    md("""## First-order causality — subtract the direction, change the words
+
+The J-lens claims `h` at L21 is *poised to cause* euro-talk. Poised-to-
+cause is a causal claim, so test it causally: build the h-space
+direction whose transport hits the " Euro" token (first order: `v =
+J̄ᵀ·u_euro`), project it OUT of the residual at L21 on every forward
+pass, and let the model answer the question again."""),
+
+    code("""PROMPT_C = "Fact: the currency used in the country shaped like a boot is"
+ANSWER_TOKENS = [" Euro", " euro", " euros", "欧元"]   # surface forms of the answer
+
+def euro_span(layer):
+    \"\"\"Orthonormal basis of the h-space span whose transport (1st order)
+    lands on the answer-token logits at `layer`: v_i = J̄_layerᵀ · w_i.\"\"\"
+    J = lens.jacobians[layer].float()
+    W = base.get_output_embeddings().weight
+    dirs = []
+    for t in ANSWER_TOKENS:
+        tid = tok.encode(t, add_special_tokens=False)[0]
+        dirs.append(J.T @ W[tid].float().cpu())
+    Q, _ = torch.linalg.qr(torch.stack(dirs, dim=1))
+    return Q.to(device)                                 # d x n_dirs
+
+def make_projector(Q):
+    def hook(mod, inp, out):
+        hh = out[0] if isinstance(out, tuple) else out
+        coef = hh.float() @ Q                            # ... x n_dirs
+        hh_new = hh - (coef @ Q.T).to(hh.dtype)
+        return (hh_new,) + out[1:] if isinstance(out, tuple) else hh_new
+    return hook
+
+def generate_with_edit(layers):
+    handles = [get_layers(model)[L].register_forward_hook(
+                   make_projector(euro_span(L))) for L in layers]
+    try:
+        with model.disable_adapter(), torch.no_grad():
+            out = model.generate(**inp, max_new_tokens=15, do_sample=False,
+                                 pad_token_id=tok.eos_token_id)
+    finally:
+        for h_ in handles:
+            h_.remove()
+    return tok.decode(out[0][inp.input_ids.shape[1]:], skip_special_tokens=True)
+
+inp = tok(PROMPT_C, return_tensors="pt").to(device)
+with model.disable_adapter(), torch.no_grad():
+    base_out = model.generate(**inp, max_new_tokens=15, do_sample=False,
+                              pad_token_id=tok.eos_token_id)
+print("baseline          :", tok.decode(
+    base_out[0][inp.input_ids.shape[1]:], skip_special_tokens=True))
+print("edit @ L21        :", generate_with_edit([21]))
+print("edit @ L18-L26    :", generate_with_edit(list(range(18, 27))))"""),
+
+    md("""All outcomes are informative, and they escalate. **Our run landed on
+the most striking one:**
+
+```
+baseline       :  euros. ...
+edit @ L21     :  euros. ...              <- one layer: content survives
+edit @ L18-L26 :  the lira. ...           <- nine layers: answer changes
+```
+
+Single-layer surgery did nothing — the euro content is redundantly
+carried across depths, so one cut can't sever it (the "we can read it ≠
+we can control it" caveat, made concrete). But projecting the answer
+direction out of the residual across L18-L26 didn't just break the
+output — the model fell back to **"the lira"**, Italy's *pre-euro*
+currency. That is first-order causality you can see with your own eyes:
+remove the euro-ward push and the next-best currency association
+surfaces, coherent and correct-for-its-era. Not noise — a different
+right answer.
+
+(If your run only changes at the multi-layer edit, or not at all, that's
+your model/seed — report what you see. The escalation from 1 to 9 layers
+is the measurement of how much redundancy stood in the way.)
+
+Notice what just happened either way: you moved from screenshot-consumer
+to experimenter in one cell."""),
+
+    md("""## Scale disclaimer
+
+Our lens: 50 wikitext prompts, one evening, one home GPU, a 7B model.
+The paper: 1000+ prompts on much larger models, plus experiments
+(report manipulation, workspace ablation, POV analysis) that this
+notebook does not attempt. Nothing here validates or falsifies those —
+it only makes the *mechanism* touchable. The right conclusion from this
+notebook is not "the paper is right about everything" but "the core
+instrument is real, cheap to replicate, and here is exactly what it
+does and doesn't show at hobby scale"."""),
 
     md("""## SELF-CHECK"""),
 
