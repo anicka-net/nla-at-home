@@ -323,6 +323,93 @@ python3 scripts/audit_ar_faithfulness.py \
   --layers 4,9,14,19,24,27 --n-per-layer 150
 ```
 
+### Cross-AR validation (2026-07-08)
+
+The audit above cleared the reward AR of convention-keying, but one
+worry survived it: the GRPO round-trip gain (0.628 vs 0.508 over SFT)
+is *measured by the same AR that produced the reward*. If GRPO taught
+the AV to exploit idiosyncrasies of that specific AR, the gain would
+be real on the scoreboard and fake in the descriptions.
+
+`scripts/eval_roundtrip_cross_ar.py` re-scores the same GRPO and SFT
+descriptions (286 holdout texts, L20) with an **independent witness**:
+the single-layer `nla-qwen25-7b-L20-ar-v2` value-head AR — different
+architecture (frozen truncated backbone + linear head vs. LoRA'd full
+model), trained in a different era on a different split, never touched
+by this GRPO run. The script refuses to emit a verdict unless the
+witness itself passes a matched-vs-wrong-text guard on the spot
+(here: matched 0.261 vs wrong 0.087 centered, P(A>D) = 0.85, n = 60 —
+passed).
+
+| scorer | SFT baseline | GRPO | edge |
+|---|---|---|---|
+| original (reward) AR | 0.615 | 0.731 | +0.116 |
+| independent AR | 0.188 | 0.281 | **+0.093** |
+
+GRPO wins on **76% of texts** under the independent AR. The edge
+survives an AR that the training loop never saw → the gain is a
+property of the *descriptions*, not reward hacking. (Absolute values
+under the witness are much lower — it is a weaker, single-layer
+reader; only the edge and win rate are meaningful. Per-text
+correlation between the two ARs is ~0.27–0.30, i.e. they largely
+disagree about *which* texts are easy — two witnesses, not one.)
+
+Rerun:
+
+```bash
+python3 scripts/eval_roundtrip_universal.py --model qwen25-7b \
+  --av-adapter output/nla-qwen25-7b-av-grpo \
+  --av-baseline output/nla-qwen25-7b-universal-av \
+  --ar-checkpoint output/nla-qwen25-7b-universal-ar \
+  --activations corpus/activations/qwen25-7b_all_layers.pt \
+  --holdout output/nla-qwen25-7b-av-grpo/eval_holdout_ids.json \
+  --output working-docs/rt_cross.json
+python3 scripts/eval_roundtrip_cross_ar.py \
+  --records working-docs/rt_cross.records.jsonl \
+  --ar-dir output/nla-qwen25-7b-L20-ar-v2 --layer 20
+```
+
+### Role-binding probe: the keyword-bag ceiling is the substrate's (2026-07-08)
+
+Audit finding 4 (word order costs nothing) left an attribution
+question: is the keyword-bag ceiling the **AR's** failure (fixable
+with a relational corpus category + order-swap negatives) or the
+**substrate's** (last-token residual + cosine simply doesn't encode
+role binding at this grain, so no AR fix can recover it)?
+
+`scripts/probe_role_binding.py` decides it with 36 hand-written
+scenario triples: *original* ("the dog chased the cat"), *role-swap*
+(same words, roles exchanged), *passive paraphrase* (surface order of
+the swap, meaning of the original). If activations encode roles,
+the passive — which *means* the same — should sit closer to the
+original than the swap does: `role_index = cos(orig, passive) −
+cos(orig, swap) > 0`. Probe texts live in `working-docs/`,
+deliberately outside `corpus/generated/`, so they can never leak into
+training.
+
+Result: **negative at all 28 layers.** role_index is −0.02…−0.07
+everywhere; P(passive beats swap) is 0.00 in shallow layers and peaks
+at 0.33 around L21 — the shared-words swap is *always* closer than
+the meaning-preserving paraphrase, at every depth.
+
+Consequences (this closes the joint-training question):
+
+1. The BoW ceiling is inherited from the last-token+cosine substrate,
+   not introduced by the AR. A relational corpus category is **not
+   built** — there is nothing there for the AR to learn at this grain.
+2. Joint AV+AR training is **rejected**. It could only fix the ceiling
+   by co-evolving a private order-code between AV and AR —
+   steganography, not faithfulness — and it would destroy the one
+   structural safeguard the audit relies on: the AR as an independent
+   witness that never saw the AV's outputs during its own training.
+3. Caveats: cosine is a coarse instrument; one extraction position.
+   Role information may exist linearly elsewhere (probeable with a
+   trained linear readout, not with cosine geometry).
+
+Rerun: `python3 scripts/probe_role_binding.py --make-texts`, extract
+activations for the emitted file with `--output-suffix _rolebind`,
+then `--analyze`.
+
 ## Design decisions
 
 See previous section — these are intentional, not bugs:
