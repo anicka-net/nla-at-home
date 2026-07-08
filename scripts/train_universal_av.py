@@ -405,6 +405,10 @@ def main():
     parser.add_argument("--force-holdout-json", default="",
                         help="path to a JSON list of text ids to FORCE into the val "
                              "split (never trained on); keeps an eval holdout leak-free")
+    parser.add_argument("--init-adapter", default="",
+                        help="warm-start LoRA weights from a saved adapter dir "
+                             "(continue-from-checkpoint after an interrupted run; "
+                             "same --lora-r/--lora-alpha required)")
     parser.add_argument("--strict", action="store_true",
                         help="Only load descriptions matching exact suffix (no fallback)")
     parser.add_argument("--mix", action="store_true",
@@ -487,6 +491,24 @@ def main():
         task_type="CAUSAL_LM",
     )
     model = get_peft_model(model, lora_config)
+    if args.init_adapter:
+        # Warm start: load previously saved LoRA weights into the fresh
+        # adapter (same r/alpha required). Optimizer state is NOT resumed —
+        # this is continue-training-from-best, not exact resume. The split
+        # is reproducible (fixed seed), but pass --force-holdout-json with
+        # the prior run's val_text_ids.json as a guarantee against drift.
+        from safetensors.torch import load_file
+        try:
+            from peft import set_peft_model_state_dict
+        except ImportError:
+            from peft.utils import set_peft_model_state_dict
+        sd = load_file(str(Path(args.init_adapter) / "adapter_model.safetensors"))
+        result = set_peft_model_state_dict(model, sd)
+        unexpected = getattr(result, "unexpected_keys", [])
+        if unexpected:
+            raise SystemExit(f"--init-adapter: {len(unexpected)} unexpected "
+                             f"keys (r/alpha mismatch?): {list(unexpected)[:3]}")
+        print(f"  warm start from {args.init_adapter}")
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     total = sum(p.numel() for p in model.parameters())
     print(f"  LoRA: {trainable:,} trainable / {total:,} total ({trainable/total:.2%})")
