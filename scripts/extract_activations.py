@@ -174,6 +174,8 @@ def main():
     parser.add_argument("--output-suffix", type=str, default="",
                         help="Suffix for output filename (e.g. '_orig' → qwen25-7b_L20_orig.pt)")
     parser.add_argument("--device", default="cuda")
+    parser.add_argument("--force", action="store_true",
+                        help="allow overwriting an existing activations file")
     args = parser.parse_args()
 
     global device
@@ -200,12 +202,26 @@ def main():
     n_layers = len(blocks)
     ACTIVATIONS_DIR.mkdir(parents=True, exist_ok=True)
 
+    # Overwrite guard BEFORE any extraction compute. 2026-07-08: the
+    # all-layers path used to ignore --output-suffix — a probe extraction
+    # silently overwrote the main 5857-text corpus file (recovered from an
+    # off-host copy). Fail in seconds, not after an hour of GPU work.
+    out_name = (f"{args.model}_all_layers{args.output_suffix}.pt"
+                if args.all_layers
+                else f"{args.model}_L{args.layer}{args.output_suffix}.pt")
+    planned_out = ACTIVATIONS_DIR / out_name
+    if planned_out.exists() and planned_out.stat().st_size > 0 and not args.force:
+        raise SystemExit(
+            f"REFUSING to overwrite existing {planned_out} "
+            f"({planned_out.stat().st_size / 1e6:.0f} MB). Pass --force if "
+            f"you really mean it, or use --output-suffix.")
+
     if args.all_layers:
         print(f"  {n_layers} layers, extracting ALL")
         print(f"Extracting activations at all {n_layers} layers...")
         layer_acts, ids = extract_all_layers(model, tokenizer, texts, args.model)
 
-        out_path = ACTIVATIONS_DIR / f"{args.model}_all_layers.pt"
+        out_path = planned_out
         torch.save({
             "activations": {l: layer_acts[l] for l in range(n_layers)},
             "ids": ids,
@@ -226,7 +242,7 @@ def main():
         print(f"Extracting activations...")
         acts, ids = extract(model, tokenizer, texts, args.layer, args.model)
 
-        out_path = ACTIVATIONS_DIR / f"{args.model}_L{args.layer}{args.output_suffix}.pt"
+        out_path = planned_out
         torch.save({
             "activations": acts,
             "ids": ids,
