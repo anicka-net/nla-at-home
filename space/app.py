@@ -9,14 +9,20 @@ import torch
 import gradio as gr
 import yaml
 import json
+import sys
 from pathlib import Path
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 
-MODEL_NAME = "microsoft/Phi-4-mini-instruct"
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
+from nla_lib import (  # noqa: E402
+    get_model, make_av_prompt, nearest_depth_pct, normalize_activation,
+)
+
+_SPEC = get_model("phi4-mini")
+MODEL_NAME = _SPEC.hf_id
 AV_ADAPTER = "anicka/nla-phi4-mini-universal-av"  # will publish after training
-INJECTION_CHAR = "★"
-INJECTION_SCALE = 150.0
+INJECTION_CHAR = _SPEC.injection_char
 LAYERS_TO_SHOW = [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 31]
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -43,26 +49,8 @@ def load_models():
     av_model.eval()
 
 
-def normalize_activation(v, scale):
-    norm = v.float().norm().clamp_min(1e-12)
-    return v * (scale / norm)
-
-
 def get_universal_prompt(depth_pct):
-    return (
-        "You are a meticulous AI researcher conducting an important investigation "
-        "into activation vectors from a language model. Your overall task is to "
-        "describe the semantic content of that activation vector.\n\n"
-        "We will pass the vector enclosed in <concept> tags into your context, "
-        "along with the network depth where it was extracted. "
-        "You must then produce an explanation for the vector, enclosed within "
-        "<explanation> tags. The explanation consists of 2-3 text snippets "
-        "describing that vector.\n\n"
-        f"Here is the vector from depth {depth_pct}% of the network:\n\n"
-        f"<concept>{INJECTION_CHAR}</concept>\n\n"
-        "Please provide an explanation.\n\n"
-        "<explanation>"
-    )
+    return make_av_prompt(depth_pct, INJECTION_CHAR)
 
 
 def extract_activations(prompt_text, layers):
@@ -96,7 +84,7 @@ def generate_description(activation, depth_pct):
     input_ids = torch.tensor([prompt_tokens], dtype=torch.long, device=device)
     embeddings = embed_layer(input_ids)
     embeddings[0, inject_pos, :] = normalize_activation(
-        activation.to(device), INJECTION_SCALE).to(embeddings.dtype)
+        activation.to(device)).to(embeddings.dtype)
 
     with torch.no_grad():
         output = av_model.generate(
@@ -132,7 +120,7 @@ def analyze_prompt(prompt_text):
 
     results = []
     for layer in LAYERS_TO_SHOW:
-        depth_pct = round(layer * 100 / n_layers)
+        depth_pct = nearest_depth_pct(layer, n_layers)
         desc = generate_description(activations[layer], depth_pct)
         results.append(f"**Layer {layer} ({depth_pct}%)**\n{desc}")
 

@@ -8,6 +8,7 @@ center+drop-top-PC repairs the geometry without deleting the signal.
 import sys
 from pathlib import Path
 
+import pytest
 import torch
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
@@ -69,3 +70,24 @@ def test_single_vector_apply_matches_batch():
     batch = sink_fix.apply(params, 0, X[:3])
     single = torch.stack([sink_fix.apply(params, 0, X[i]) for i in range(3)])
     assert torch.allclose(batch, single, atol=1e-5)
+
+
+def test_load_for_adapter_requires_declared_sidecar(tmp_path):
+    (tmp_path / "nla_meta.yaml").write_text(
+        "extraction:\n"
+        "  sink_fix:\n"
+        "    sidecar: sink_fix.pt\n")
+    with pytest.raises(FileNotFoundError, match="requires sink preprocessing"):
+        sink_fix.load_for_adapter(tmp_path)
+
+
+def test_load_for_adapter_returns_declared_params(tmp_path):
+    X = torch.randn(20, 4)
+    params = sink_fix.fit([X])
+    sink_fix.save(params, tmp_path / "sink_fix.pt")
+    (tmp_path / "nla_meta.yaml").write_text(
+        "extraction:\n"
+        "  sink_fix:\n"
+        "    sidecar: sink_fix.pt\n")
+    loaded = sink_fix.load_for_adapter(tmp_path)
+    assert loaded["drop_top_pc"] == 1

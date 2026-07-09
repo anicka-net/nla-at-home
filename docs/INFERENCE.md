@@ -20,8 +20,9 @@ pipeline (AV + AR), or 14GB+ for AV-only mode.
 # AV-only (faster, no confidence scores) — needs ~14GB VRAM
 python3 scripts/brain_in_jar_phi4.py --skip-ar
 
-# Full pipeline with AR confidence — needs ~28GB VRAM (loads model twice)
-python3 scripts/brain_in_jar_phi4.py
+# Full pipeline with centered AR confidence — needs ~28GB VRAM
+python3 scripts/brain_in_jar_phi4.py \
+  --activations corpus/activations/phi4_all_layers.pt
 
 # Single prompt (non-interactive)
 python3 scripts/brain_in_jar_phi4.py --skip-ar "What is equanimity?"
@@ -45,10 +46,10 @@ Each layer shows what Phi-4 is computing at that depth:
   tokens of the reply. Safety/hedging circuitry fires here when
   triggered.
 
-AR confidence (when enabled) measures how well the AR network can
-reconstruct the original activation from the description. Higher =
-the description carries more geometric information. Values above 0.6
-are strong; below 0.4 the description may be confabulating.
+AR confidence (when enabled) is mean-subtracted cosine between the AR
+reconstruction and original activation. The activation file supplies the
+per-layer means; raw cosine is not reported because the shared residual-stream
+mean inflates it.
 
 ## Adapters on HuggingFace
 
@@ -131,7 +132,10 @@ with torch.no_grad():
         pad_token_id=tokenizer.eos_token_id,
         return_dict_in_generate=True)
 
-text = tokenizer.decode(output.sequences[0], skip_special_tokens=True)
+seq = output.sequences[0]
+prefix = seq[:min(len(tokens), seq.shape[0])].tolist()
+gen_ids = seq[len(tokens):] if prefix == tokens[:len(prefix)] and seq.shape[0] > len(tokens) else seq
+text = tokenizer.decode(gen_ids, skip_special_tokens=True)
 description = text.split("</explanation>")[0].strip()
 print(description)
 ```

@@ -12,19 +12,20 @@ Usage:
   python3 brain_in_jar.py --av-adapter ./av-adapter --ar-checkpoint ./ar-checkpoint --prompt "Tell me about yourself"
 """
 import torch
-import yaml
 import argparse
-import sys
 from pathlib import Path
 from safetensors import safe_open
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
+from generation_utils import decode_generated
 
-BASE_MODEL = "microsoft/Phi-4-mini-instruct"
-INJECTION_CHAR = "★"
-INJECTION_SCALE = 150.0
-from nla_lib import DEPTH_PCTS  # frozen grid — import, never re-type
-N_LAYERS = 32
+from nla_lib import (
+    DEPTH_PCTS, INJECTION_SCALE, get_model, nearest_depth_pct,
+)
+_SPEC = get_model("phi4-mini")
+BASE_MODEL = _SPEC.hf_id
+INJECTION_CHAR = _SPEC.injection_char
+N_LAYERS = _SPEC.n_layers
 
 COLORS = {
     "reset": "\033[0m",
@@ -43,7 +44,7 @@ def c(text, color):
 
 
 def layer_to_depth_pct(layer_idx, n_layers=32):
-    return round(100 * (layer_idx + 0.5) / n_layers)
+    return nearest_depth_pct(layer_idx, n_layers)
 
 
 def depth_color(pct):
@@ -141,7 +142,10 @@ def generate_output(model, tokenizer, prompt, device, max_tokens=200):
 def verbalize_layer(av_model, tokenizer, activation, depth_pct,
                     injection_token_id, device, max_tokens=100):
     prompt_text = _av_prompt(depth_pct)
-    tokens = tokenizer.encode(prompt_text, add_special_tokens=True)
+    chat = tokenizer.apply_chat_template(
+        [{"role": "user", "content": prompt_text}],
+        tokenize=False, add_generation_prompt=True)
+    tokens = tokenizer.encode(chat, add_special_tokens=False)
 
     inject_pos = None
     for i, tid in enumerate(tokens):
@@ -159,20 +163,12 @@ def verbalize_layer(av_model, tokenizer, activation, depth_pct,
     with torch.no_grad():
         output = av_model.generate(
             inputs_embeds=embeddings,
+            attention_mask=torch.ones_like(input_ids),
             max_new_tokens=max_tokens,
             do_sample=False,
             pad_token_id=tokenizer.eos_token_id)
 
-    seq = output[0]
-    if seq.shape[0] > len(tokens):
-        gen_ids = seq[len(tokens):]
-    else:
-        gen_ids = seq
-
-    text = tokenizer.decode(gen_ids, skip_special_tokens=True)
-    if "</explanation>" in text:
-        text = text.split("</explanation>")[0]
-    return text.strip()
+    return decode_generated(output, tokens, tokenizer)
 
 
 def ar_confidence(ar_backbone, value_heads, ar_tokenizer, description,

@@ -26,7 +26,10 @@ semantic rather than a sink (e.g. Qwen), dropping it would DELETE signal:
 check `report()` (top-PC energy share) before enabling on a new model.
 """
 
+from pathlib import Path
+
 import torch
+import yaml
 
 
 def fit(layer_acts, drop_top_pc=1, sample_cap=4096, seed=0):
@@ -76,6 +79,27 @@ def save(params, path):
 
 def load(path):
     return torch.load(path, map_location="cpu", weights_only=True)
+
+
+def load_for_adapter(adapter_path):
+    """Load required sink preprocessing for an adapter, or return None."""
+    adapter_path = Path(adapter_path)
+    meta_path = adapter_path / "nla_meta.yaml"
+    if not meta_path.exists():
+        return None
+    meta = yaml.safe_load(meta_path.read_text()) or {}
+    config = meta.get("extraction", {}).get("sink_fix")
+    if not config:
+        return None
+    sidecar = adapter_path / config.get("sidecar", "sink_fix.pt")
+    if not sidecar.exists():
+        raise FileNotFoundError(
+            f"{adapter_path} requires sink preprocessing but {sidecar} is missing")
+    return load(sidecar)
+
+
+def apply_if_present(params, layer, h):
+    return apply(params, layer, h) if params is not None else h
 
 
 def report(params):

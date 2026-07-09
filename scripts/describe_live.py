@@ -37,6 +37,7 @@ from train_universal_grpo_hard import (  # noqa: E402
     INJECTION_CHARS, INJECTION_SCALE, MODELS, make_av_prompt,
     nearest_depth_pct, normalize_activation, strip_generated_row)
 import av_policy  # noqa: E402
+import sink_fix  # noqa: E402
 
 from transformers import AutoModelForCausalLM, AutoTokenizer  # noqa: E402
 from peft import PeftModel  # noqa: E402
@@ -116,6 +117,7 @@ def main():
     model = AutoModelForCausalLM.from_pretrained(
         base_name, torch_dtype=torch.bfloat16).to(device).eval()
     model = PeftModel.from_pretrained(model, args.av_adapter).eval()
+    sink_params = sink_fix.load_for_adapter(args.av_adapter)
     n_layers = model.config.num_hidden_layers
     blocks = get_blocks(model)
     embed = model.get_input_embeddings()
@@ -171,6 +173,7 @@ def main():
         tokens, inject_pos = prompt_cache[pct]
         ids = torch.tensor([tokens], dtype=torch.long, device=device)
         emb = embed(ids)
+        act = sink_fix.apply_if_present(sink_params, L, act)
         emb[0, inject_pos, :] = normalize_activation(
             act.to(device), INJECTION_SCALE).to(emb.dtype)
         with torch.no_grad():
@@ -199,6 +202,7 @@ def main():
         tokens, inject_pos = prompt_cache[pct]
         ids = torch.tensor([tokens], dtype=torch.long, device=device)
         emb = embed(ids)
+        act = sink_fix.apply_if_present(sink_params, L, act)
         emb[0, inject_pos, :] = normalize_activation(
             act.to(device), INJECTION_SCALE).to(emb.dtype)
         embN = emb.expand(n, -1, -1).contiguous()

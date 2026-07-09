@@ -34,6 +34,7 @@ from nla_lib import (
     normalize_activation, make_av_prompt, nearest_depth_pct,
     detect_ar_format, load_ar_lora_sl, AR_FORMAT_LORA_SL,
 )
+import sink_fix
 
 
 def build_prompt_cache(tokenizer, injection_char, layers, n_layers):
@@ -98,11 +99,12 @@ def run_av(adapter_path, tag, base_model_name, tokenizer, prompt_cache,
         trust_remote_code=trust_remote).to(device)
     model = PeftModel.from_pretrained(base, adapter_path)
     model.eval()
+    sink_params = sink_fix.load_for_adapter(adapter_path)
 
     descs = {}
     for L in layers:
         prompt_tokens, inject_pos = prompt_cache[L]
-        acts = hold_acts[L]
+        acts = sink_fix.apply_if_present(sink_params, L, hold_acts[L])
         layer_descs = []
         t0 = time.time()
         for s in range(0, acts.shape[0], batch):

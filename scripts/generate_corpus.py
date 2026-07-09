@@ -102,6 +102,7 @@ def generate_category(client, cat, model_name="deepseek-chat", force=False):
     for batch_idx, batch in enumerate(cat["batches"]):
         user_msg = f"{cat['preamble'].strip()}\n\n{batch['instruction']}"
 
+        items = None
         for attempt in range(3):
             try:
                 resp = client.chat.completions.create(
@@ -126,6 +127,18 @@ def generate_category(client, cat, model_name="deepseek-chat", force=False):
             except Exception as e:
                 print(f"  {cat['id']} batch {batch_idx}: {e}, retrying...")
                 time.sleep(3)
+        if items is None:
+            raise RuntimeError(
+                f"{cat['id']} batch {batch_idx} failed after 3 attempts; "
+                f"refusing to write an incomplete category")
+        if not isinstance(items, list) or not all(isinstance(x, str) for x in items):
+            raise ValueError(
+                f"{cat['id']} batch {batch_idx} returned non-string items")
+
+    if len(all_texts) != cat["count"]:
+        raise ValueError(
+            f"{cat['id']} expected {cat['count']} texts, got {len(all_texts)}; "
+            f"refusing to write an incomplete category")
 
     result = []
     for i, text in enumerate(all_texts):

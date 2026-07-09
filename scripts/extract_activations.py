@@ -187,13 +187,16 @@ def main():
     print(f"  {len(texts)} texts")
 
     print(f"Loading {model_name}...")
-    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+    trust_remote = get_model(args.model).trust_remote_code
+    tokenizer = AutoTokenizer.from_pretrained(
+        model_name, trust_remote_code=trust_remote)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
-    trust_remote = get_model(args.model).trust_remote_code
     model = AutoModelForCausalLM.from_pretrained(
-        model_name, torch_dtype=torch.bfloat16, device_map="auto",
+        model_name,
+        torch_dtype=torch.float32 if device.type == "cpu" else torch.bfloat16,
+        device_map={"": str(device)},
         trust_remote_code=trust_remote
     )
     model.eval()

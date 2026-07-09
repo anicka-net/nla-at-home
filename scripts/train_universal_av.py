@@ -471,7 +471,9 @@ def main():
         tokenizer.pad_token = tokenizer.eos_token
 
     model = AutoModelForCausalLM.from_pretrained(
-        model_name, torch_dtype=torch.bfloat16, device_map={"": 0},
+        model_name,
+        torch_dtype=torch.float32 if device.type == "cpu" else torch.bfloat16,
+        device_map={"": str(device)},
         trust_remote_code=trust_remote
     )
 

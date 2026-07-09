@@ -141,7 +141,7 @@ for exact sizes and depths). Skip straight to training:
 pip install torch transformers peft huggingface_hub pyyaml
 
 # Download corpus + activations + train
-python3 scripts/quickstart.py --train qwen25-7b
+python3 scripts/quickstart.py --train gemma3-1b
 ```
 
 Or step by step:

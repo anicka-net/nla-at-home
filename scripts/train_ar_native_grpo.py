@@ -199,10 +199,13 @@ def main():
         ar_sl = load_ar_lora_sl(
             args.ar_checkpoint, base_model_name, device, trust_remote,
             n_layers, injection_char)
+        ar_min_layer = ar_sl.min_layer
         ar_model, ar_value_heads, ar_tokenizer = (
-            ar_sl.model, {L: None for L in range(n_layers)}, ar_sl.tokenizer)
+            ar_sl.model,
+            {L: None for L in range(ar_min_layer, n_layers)},
+            ar_sl.tokenizer)
         print(f"  AR: lora_sl (self-layer) adapter from {args.ar_checkpoint}, "
-              f"no value heads, {n_layers} layers")
+              f"no value heads, layers {ar_min_layer}..{n_layers - 1}")
     else:
         ar_sl = None
         ar_model, ar_value_heads, ar_tokenizer = load_ar(

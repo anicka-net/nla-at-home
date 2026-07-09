@@ -33,7 +33,7 @@ GENERATED_DIR = REPO_ROOT / "corpus" / "generated"
 # Single source of truth is nla_lib; names re-exported for importers.
 from nla_lib import (  # noqa: E402
     INJECTABLE_MODELS_HF as MODELS, INJECTION_CHARS, DEPTH_PCTS,
-    nearest_depth_pct, AR_TEMPLATE_DEPTH_SL,
+    nearest_depth_pct, AR_TEMPLATE_DEPTH_SL, encode_ar_prompt, get_model,
 )
 
 
@@ -42,15 +42,17 @@ def make_ar_template(depth_pct, injection_char):
         "{inj}", injection_char)
 
 
-def load_descriptions(suffix="_tokenpred_gpt4o_clean", allow_verbose=False):
+def load_descriptions(suffix="_tokenpred_gpt4o_clean", allow_verbose=False,
+                      strict=False):
     descs = {}
     used_sources = []
     for pct in DEPTH_PCTS:
-        candidates = [
-            GENERATED_DIR / f"descriptions_L{pct}pct{suffix}.json",
-            GENERATED_DIR / f"descriptions_L{pct}pct_merged.json",
-            GENERATED_DIR / f"descriptions_L{pct}pct.json",
-        ]
+        candidates = [GENERATED_DIR / f"descriptions_L{pct}pct{suffix}.json"]
+        if not strict:
+            candidates += [
+                GENERATED_DIR / f"descriptions_L{pct}pct_merged.json",
+                GENERATED_DIR / f"descriptions_L{pct}pct.json",
+            ]
         path = None
         for c in candidates:
             if c.exists():
@@ -73,25 +75,12 @@ def load_descriptions(suffix="_tokenpred_gpt4o_clean", allow_verbose=False):
 class LayerARDataset(Dataset):
     """Dataset for a single layer's examples — pre-tokenized."""
     def __init__(self, examples, tokenizer, injection_char, max_length=512):
-        inject_id = tokenizer.encode(injection_char, add_special_tokens=False)
-        assert len(inject_id) == 1
-        inject_id = inject_id[0]
-
         self.items = []
         for ex in examples:
             template = make_ar_template(ex["depth_pct"], injection_char)
-            prompt = template.replace("{explanation}", ex["description"])
-            tokens = tokenizer.encode(prompt, add_special_tokens=False)
-            if len(tokens) > max_length:
-                tokens = tokens[:max_length]
-
-            inject_pos = None
-            for i, t in enumerate(tokens):
-                if t == inject_id:
-                    inject_pos = i
-                    break
-            if inject_pos is None:
-                inject_pos = len(tokens) - 1
+            tokens, inject_pos = encode_ar_prompt(
+                tokenizer, template, ex["description"], injection_char,
+                max_length)
 
             self.items.append({
                 "input_ids": torch.tensor(tokens, dtype=torch.long),
@@ -418,10 +407,15 @@ def main():
     parser.add_argument("--allow-verbose", action="store_true",
                         help="Bypass the clean-data guard and train on verbose/"
                              "raw prose. You almost never want this.")
+    parser.add_argument("--strict", action="store_true",
+                        help="Only load the exact --desc-suffix; do not fall "
+                             "back to merged or unsuffixed descriptions")
     parser.add_argument("--device", default="cuda")
     args = parser.parse_args()
 
     device = torch.device(args.device)
+    if args.mean_subtract and args.pca_whiten:
+        parser.error("--mean-subtract and --pca-whiten are mutually exclusive")
 
     injection_char = INJECTION_CHARS.get(args.model)
     if injection_char is None:
@@ -429,7 +423,8 @@ def main():
 
     print(f"Loading descriptions (suffix='{args.desc_suffix}', allow_verbose={args.allow_verbose})...")
     descriptions = load_descriptions(suffix=args.desc_suffix,
-                                     allow_verbose=args.allow_verbose)
+                                     allow_verbose=args.allow_verbose,
+                                     strict=args.strict)
 
     print(f"\nLoading activations from {args.activations}...")
     act_data = torch.load(args.activations, weights_only=True)
@@ -483,14 +478,17 @@ def main():
     print(f"  Saved val split to {args.output}/val_text_ids.json")
 
     model_name = MODELS[args.model]
+    trust_remote = get_model(args.model).trust_remote_code
     print(f"\nLoading {model_name}...")
-    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(
+        model_name, trust_remote_code=trust_remote)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
     model = AutoModelForCausalLM.from_pretrained(
-        model_name, torch_dtype=torch.bfloat16, device_map="auto",
-        trust_remote_code=True)
+        model_name,
+        torch_dtype=torch.float32 if device.type == "cpu" else torch.bfloat16,
+        device_map={"": str(device)}, trust_remote_code=trust_remote)
 
     lora_config = LoraConfig(
         r=args.lora_r,
@@ -536,6 +534,11 @@ def main():
                 injection_char, add_special_tokens=False)[0]),
         },
         "depth_percentages": DEPTH_PCTS,
+        "prompt_templates": {
+            "ar": AR_TEMPLATE_DEPTH_SL.replace(
+                "{depth}", "{depth_pct}").replace(
+                "{inj}", "{injection_char}"),
+        },
         "training": {
             "method": "lora_sl",
             "lora_r": args.lora_r,

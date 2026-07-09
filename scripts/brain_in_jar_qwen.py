@@ -11,16 +11,15 @@ Usage:
 """
 import torch
 import argparse
+import yaml
 from pathlib import Path
-from safetensors import safe_open
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 
 from nla_lib import (
-    get_model, INJECTION_SCALE, normalize_activation,
-    make_av_prompt as _nla_make_av_prompt,
-    AR_TEMPLATE_RECONSTRUCT as AR_TEMPLATE,
+    get_model, normalize_activation, nearest_depth_pct,
 )
+from generation_utils import decode_generated
 
 _SPEC = get_model("qwen25-7b")
 BASE_MODEL = _SPEC.hf_id
@@ -39,18 +38,27 @@ COLORS = {
     "magenta": "\033[35m",
 }
 
+
+def resolve_av_interface(meta, injection_char, depth_pct):
+    template = meta["prompt_templates"]["av"]
+    prompt = template.replace(
+        "{injection_char}", injection_char).replace(
+        "{depth_pct}", str(depth_pct))
+    mode = meta.get("training", {}).get("injection_mode")
+    if mode is None:
+        mode = "normalize" if "{depth_pct}" in template else "multiply"
+    return prompt, mode
+
+
 def c(text, color):
     return f"{COLORS.get(color, '')}{text}{COLORS['reset']}"
 
 
-def _av_prompt(depth_pct):
-    return _nla_make_av_prompt(depth_pct, INJECTION_CHAR)
-
-
 def load_models(av_path, ar_path, device, skip_ar=False):
     print("Loading Qwen 2.5 7B...", end=" ", flush=True)
+    dtype = torch.float32 if torch.device(device).type == "cpu" else torch.bfloat16
     base = AutoModelForCausalLM.from_pretrained(
-        BASE_MODEL, torch_dtype=torch.bfloat16, trust_remote_code=_SPEC.trust_remote_code)
+        BASE_MODEL, torch_dtype=dtype, trust_remote_code=_SPEC.trust_remote_code)
     tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL, trust_remote_code=_SPEC.trust_remote_code)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
@@ -66,43 +74,34 @@ def load_models(av_path, ar_path, device, skip_ar=False):
         raise ValueError(f"Injection char encodes to {len(injection_id)} tokens, need 1")
     injection_token_id = injection_id[0]
 
-    ar_backbone = None
-    ar_head = None
+    av_meta = yaml.safe_load((Path(av_path) / "nla_meta.yaml").read_text())
+    av_template = av_meta["prompt_templates"]["av"]
+    _, injection_mode = resolve_av_interface(
+        av_meta, INJECTION_CHAR, nearest_depth_pct(LAYER, N_LAYERS))
+    use_chat_template = bool(
+        av_meta.get("training", {}).get("chat_template", False))
+
+    ar_model = None
+    ar_template = None
+    ar_tokenizer = None
     if not skip_ar:
-        print("Loading AR backbone...", end=" ", flush=True)
-        ar_backbone = AutoModelForCausalLM.from_pretrained(
-            BASE_MODEL, torch_dtype=torch.bfloat16, trust_remote_code=_SPEC.trust_remote_code)
-        inner = ar_backbone.model if hasattr(ar_backbone, "model") else ar_backbone
-        for attr in ("norm", "final_layernorm", "ln_f"):
-            if hasattr(inner, attr):
-                setattr(inner, attr, torch.nn.Identity())
-                break
-        ar_backbone.lm_head = torch.nn.Identity()
-        for p in ar_backbone.parameters():
+        print("Loading AR adapter...", end=" ", flush=True)
+        ar_meta = yaml.safe_load((Path(ar_path) / "nla_meta.yaml").read_text())
+        ar_template = ar_meta["prompt_templates"]["ar"]
+        ar_tokenizer = AutoTokenizer.from_pretrained(ar_path)
+        if ar_tokenizer.pad_token is None:
+            ar_tokenizer.pad_token = ar_tokenizer.eos_token
+        ar_base = AutoModelForCausalLM.from_pretrained(
+            BASE_MODEL, torch_dtype=dtype,
+            trust_remote_code=_SPEC.trust_remote_code)
+        ar_model = PeftModel.from_pretrained(ar_base, ar_path).to(device).eval()
+        for p in ar_model.parameters():
             p.requires_grad = False
-        ar_backbone = ar_backbone.to(device).eval()
         print("done")
 
-        print("Loading AR head...", end=" ", flush=True)
-        ar_dir = Path(ar_path)
-        for fname in ["ar_head.safetensors", "ar_head.pt"]:
-            fpath = ar_dir / fname
-            if fpath.exists():
-                if fname.endswith(".safetensors"):
-                    with safe_open(str(fpath), framework="pt") as f:
-                        w = f.get_tensor(list(f.keys())[0])
-                else:
-                    w = torch.load(str(fpath), weights_only=True)
-                ar_head = torch.nn.Linear(w.shape[1], w.shape[0], bias=False, dtype=w.dtype)
-                ar_head.weight = torch.nn.Parameter(w)
-                ar_head = ar_head.to(device).eval()
-                break
-        if ar_head is None:
-            print("not found, skipping AR")
-        else:
-            print("done")
-
-    return av_model, tokenizer, injection_token_id, ar_backbone, ar_head
+    return (av_model, tokenizer, injection_token_id, av_template,
+            injection_mode, use_chat_template, ar_model, ar_tokenizer,
+            ar_template)
 
 
 def extract_layer_activation(model, tokenizer, prompt, layer, device):
@@ -120,7 +119,7 @@ def extract_layer_activation(model, tokenizer, prompt, layer, device):
     inner = base.model if hasattr(base, "model") else base
     handle = inner.layers[layer].register_forward_hook(hook)
 
-    with torch.no_grad():
+    with model.disable_adapter(), torch.no_grad():
         output = model.generate(
             **inputs, max_new_tokens=200, do_sample=False,
             pad_token_id=tokenizer.eos_token_id)
@@ -132,9 +131,17 @@ def extract_layer_activation(model, tokenizer, prompt, layer, device):
 
 
 def verbalize(av_model, tokenizer, activation, depth_pct,
-              injection_token_id, device, max_tokens=120):
-    prompt_text = _av_prompt(depth_pct)
-    tokens = tokenizer.encode(prompt_text, add_special_tokens=True)
+              injection_token_id, device, prompt_template, injection_mode,
+              use_chat_template, max_tokens=120):
+    prompt_text, _ = resolve_av_interface(
+        {"prompt_templates": {"av": prompt_template},
+         "training": {"injection_mode": injection_mode}},
+        INJECTION_CHAR, depth_pct)
+    if use_chat_template:
+        prompt_text = tokenizer.apply_chat_template(
+            [{"role": "user", "content": prompt_text}],
+            tokenize=False, add_generation_prompt=True)
+    tokens = tokenizer.encode(prompt_text, add_special_tokens=False)
 
     inject_pos = None
     for i, tid in enumerate(tokens):
@@ -146,37 +153,38 @@ def verbalize(av_model, tokenizer, activation, depth_pct,
 
     input_ids = torch.tensor([tokens], device=device)
     embeddings = av_model.get_input_embeddings()(input_ids).clone()
-    embeddings[0, inject_pos, :] = normalize_activation(
-        activation.to(embeddings.dtype), INJECTION_SCALE)
+    injected = (
+        normalize_activation(activation.to(embeddings.dtype))
+        if injection_mode == "normalize"
+        else activation.to(embeddings.dtype) * 150.0
+    )
+    embeddings[0, inject_pos, :] = injected
 
     with torch.no_grad():
         output = av_model.generate(
             inputs_embeds=embeddings,
+            attention_mask=torch.ones_like(input_ids),
             max_new_tokens=max_tokens,
             do_sample=False,
             pad_token_id=tokenizer.eos_token_id)
 
-    seq = output[0]
-    gen_ids = seq[len(tokens):] if seq.shape[0] > len(tokens) else seq
-    text = tokenizer.decode(gen_ids, skip_special_tokens=True)
-    if "</explanation>" in text:
-        text = text.split("</explanation>")[0]
-    return text.strip()
+    return decode_generated(output, tokens, tokenizer)
 
 
-def ar_score(ar_backbone, ar_head, tokenizer, description,
-             actual_activation, device):
-    prompt = AR_TEMPLATE.replace("{explanation}", description)
-    tokens = tokenizer.encode(prompt, add_special_tokens=True)
+def ar_score(ar_model, tokenizer, prompt_template, description,
+             actual_activation, depth_pct, device):
+    prompt = prompt_template.replace(
+        "{explanation}", description).replace(
+        "{injection_char}", INJECTION_CHAR).replace(
+        "{depth_pct}", str(depth_pct))
+    tokens = tokenizer.encode(prompt, add_special_tokens=False)
     input_ids = torch.tensor([tokens], device=device)
 
-    inner = ar_backbone.model if hasattr(ar_backbone, "model") else ar_backbone
     with torch.no_grad():
-        outputs = inner(input_ids=input_ids, use_cache=False,
-                       output_hidden_states=True)
+        outputs = ar_model(
+            input_ids=input_ids, use_cache=False, output_hidden_states=True)
         hidden = outputs.hidden_states[LAYER + 1]
-        last_h = hidden[0, -1]
-        reconstructed = ar_head(last_h.unsqueeze(0)).squeeze(0)
+        reconstructed = hidden[0, -1]
 
     cos = torch.nn.functional.cosine_similarity(
         reconstructed.float().cpu().unsqueeze(0),
@@ -192,9 +200,10 @@ def confidence_bar(cos, width=20):
 
 
 def run(av_model, tokenizer, injection_token_id,
-        ar_backbone, ar_head, prompt, device, skip_ar):
+        av_template, injection_mode, use_chat_template, ar_model,
+        ar_tokenizer, ar_template, prompt, device, skip_ar):
 
-    depth_pct = round(100 * (LAYER + 0.5) / N_LAYERS)
+    depth_pct = nearest_depth_pct(LAYER, N_LAYERS)
     sep = c("=" * 70, "bold")
     dim_sep = c("-" * 70, "dim")
 
@@ -213,13 +222,15 @@ def run(av_model, tokenizer, injection_token_id,
           end=" ", flush=True)
     description = verbalize(
         av_model, tokenizer, activation, depth_pct,
-        injection_token_id, device)
+        injection_token_id, device, av_template, injection_mode,
+        use_chat_template)
     print("done")
 
-    if not skip_ar and ar_backbone is not None and ar_head is not None:
+    if not skip_ar and ar_model is not None:
         print(f"  {c('Computing AR confidence...', 'dim')}", end=" ", flush=True)
-        cos = ar_score(ar_backbone, ar_head, tokenizer, description,
-                       activation, device)
+        cos = ar_score(
+            ar_model, ar_tokenizer, ar_template, description,
+            activation, depth_pct, device)
         print("done")
         conf_str = f" {confidence_bar(cos)} {c('%.3f' % cos, 'dim')}"
     else:
@@ -241,16 +252,16 @@ def main():
     parser.add_argument("--ar-checkpoint", required=True)
     parser.add_argument("--prompt", default=None)
     parser.add_argument("--skip-ar", action="store_true")
+    parser.add_argument("--device", default="cpu")
     args = parser.parse_args()
 
-    device = "cpu"
+    device = args.device
 
-    av_model, tokenizer, injection_token_id, ar_backbone, ar_head = load_models(
+    loaded = load_models(
         args.av_adapter, args.ar_checkpoint, device, args.skip_ar)
 
     if args.prompt:
-        run(av_model, tokenizer, injection_token_id,
-            ar_backbone, ar_head, args.prompt, device, args.skip_ar)
+        run(*loaded, args.prompt, device, args.skip_ar)
     else:
         print(f"\n{c('Brain in a Jar', 'bold')} — Qwen 7B L20 NLA (84% top-1, GRPO)")
         print(f"Type a prompt. {c('Ctrl+C to exit.', 'dim')}\n")
@@ -259,8 +270,7 @@ def main():
                 prompt = input(c("prompt> ", "cyan"))
                 if not prompt.strip():
                     continue
-                run(av_model, tokenizer, injection_token_id,
-                    ar_backbone, ar_head, prompt, device, args.skip_ar)
+                run(*loaded, prompt, device, args.skip_ar)
             except (EOFError, KeyboardInterrupt):
                 print(f"\n{c('Goodbye.', 'dim')}")
                 break

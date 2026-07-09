@@ -20,15 +20,19 @@ from pathlib import Path
 from safetensors import safe_open
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
+from generation_utils import decode_generated
+from nla_lib import (
+    AR_TEMPLATE_NODEPTH as AR_TEMPLATE, DEPTH_PCTS, get_model,
+    nearest_depth_pct, normalize_activation, make_av_prompt,
+)
 
 REPO = Path(__file__).resolve().parent.parent
 
 # Phi-4 14B config
-BASE_MODEL = "microsoft/phi-4"
-N_LAYERS = 40
-D_MODEL = 5120
-INJECTION_CHAR = "★"
-INJECTION_SCALE = 150.0
+_SPEC = get_model("phi4")
+BASE_MODEL = _SPEC.hf_id
+N_LAYERS = _SPEC.n_layers
+INJECTION_CHAR = _SPEC.injection_char
 
 # Default adapters
 DEFAULT_AV = str(REPO / "output/nla-phi4-av-arnative-grpo")
@@ -36,12 +40,6 @@ DEFAULT_AR = str(REPO / "output/nla-phi4-universal-ar-v2")
 
 # AR layers (from nla_meta.yaml)
 AR_LAYERS = [4, 10, 16, 19, 25, 32, 38]
-
-# Depth percentages for display
-from nla_lib import DEPTH_PCTS  # frozen grid — import, never re-type
-
-# AR prompt template
-from nla_lib import AR_TEMPLATE_NODEPTH as AR_TEMPLATE
 
 COLORS = {
     "reset": "\033[0m", "bold": "\033[1m", "dim": "\033[2m",
@@ -53,7 +51,7 @@ def c(text, color):
     return f"{COLORS.get(color, '')}{text}{COLORS['reset']}"
 
 def layer_to_depth_pct(layer_idx):
-    return round(100 * (layer_idx + 0.5) / N_LAYERS)
+    return nearest_depth_pct(layer_idx, N_LAYERS)
 
 def depth_color(pct):
     if pct <= 20: return "blue"
@@ -62,15 +60,19 @@ def depth_color(pct):
     elif pct <= 85: return "yellow"
     else: return "red"
 
-from nla_lib import normalize_activation
-from nla_lib import make_av_prompt as _nla_make_av_prompt
-
 def _av_prompt(depth_pct):
-    return _nla_make_av_prompt(depth_pct, INJECTION_CHAR)
+    return make_av_prompt(depth_pct, INJECTION_CHAR)
+
+
+def centered_cosine(reconstructed, actual, mean):
+    return torch.nn.functional.cosine_similarity(
+        (reconstructed.float() - mean).unsqueeze(0),
+        (actual.float() - mean).unsqueeze(0)).item()
 
 
 class BrainInJar:
-    def __init__(self, av_path, ar_path, device="cuda", skip_ar=False):
+    def __init__(self, av_path, ar_path, device="cuda", skip_ar=False,
+                 activations_path=None):
         self.device = device
         self.skip_ar = skip_ar
 
@@ -92,6 +94,15 @@ class BrainInJar:
 
         # Load AR (backbone + LoRA adapter + value heads)
         if not skip_ar:
+            if not activations_path:
+                raise ValueError(
+                    "AR confidence requires --activations for centered cosine")
+            act_data = torch.load(
+                activations_path, map_location="cpu", weights_only=True)
+            self.layer_means = {
+                L: act_data["activations"][L].float().mean(0).to(device)
+                for L in AR_LAYERS
+            }
             print(c("Loading AR backbone + LoRA + value heads...", "dim"), flush=True)
             ar_base = AutoModelForCausalLM.from_pretrained(
                 BASE_MODEL, torch_dtype=torch.bfloat16, device_map=device)
@@ -121,6 +132,7 @@ class BrainInJar:
         else:
             self.ar_backbone = None
             self.value_heads = None
+            self.layer_means = None
 
     def extract_hidden_states(self, prompt):
         messages = [{"role": "user", "content": prompt}]
@@ -168,7 +180,7 @@ class BrainInJar:
         with torch.no_grad():
             embeddings = embed_layer(input_ids).clone()
             embeddings[0, inject_pos, :] = normalize_activation(
-                activation.to(embeddings.dtype), INJECTION_SCALE).to(embeddings.dtype)
+                activation.to(embeddings.dtype)).to(embeddings.dtype)
             output = self.av_model.generate(
                 inputs_embeds=embeddings,
                 attention_mask=torch.ones_like(input_ids),
@@ -177,10 +189,7 @@ class BrainInJar:
                 pad_token_id=self.tokenizer.eos_token_id,
                 return_dict_in_generate=True)
 
-        text = self.tokenizer.decode(output.sequences[0], skip_special_tokens=True)
-        if "</explanation>" in text:
-            text = text.split("</explanation>")[0].strip()
-        return text
+        return decode_generated(output, tokens, self.tokenizer)
 
     def ar_confidence(self, description, actual_activation, layer_idx):
         if self.ar_backbone is None:
@@ -197,10 +206,8 @@ class BrainInJar:
             last_h = hidden[0, -1]
             reconstructed = self.value_heads[layer_idx](last_h.unsqueeze(0)).squeeze(0)
 
-        cos = torch.nn.functional.cosine_similarity(
-            reconstructed.float().unsqueeze(0),
-            actual_activation.float().unsqueeze(0)).item()
-        return cos
+        mean = self.layer_means[layer_idx]
+        return centered_cosine(reconstructed, actual_activation, mean)
 
     def run(self, prompt, layers=None):
         print(f"\n{c('═' * 72, 'bold')}")
@@ -286,10 +293,16 @@ def main():
     parser.add_argument("--skip-ar", action="store_true",
                         help="Skip AR confidence (faster, AV descriptions only)")
     parser.add_argument("--device", default="cuda")
+    parser.add_argument("--activations",
+                        help="Phi-4 all-layers activation file used to compute "
+                             "per-layer means for centered AR confidence")
     args = parser.parse_args()
 
-    brain = BrainInJar(args.av_adapter, args.ar_checkpoint,
-                       device=args.device, skip_ar=args.skip_ar)
+    if not args.skip_ar and not args.activations:
+        parser.error("--activations is required unless --skip-ar is used")
+    brain = BrainInJar(
+        args.av_adapter, args.ar_checkpoint, device=args.device,
+        skip_ar=args.skip_ar, activations_path=args.activations)
 
     if args.layers:
         layers = [int(x) for x in args.layers.split(",")]

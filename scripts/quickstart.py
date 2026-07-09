@@ -37,31 +37,34 @@ def download_corpus():
         sys.exit(1)
 
     corpus_path = hf_hub_download(
-        repo_id=HF_DATASET, filename="nla_corpus.json", repo_type="dataset")
-    texts_path = hf_hub_download(
-        repo_id=HF_DATASET, filename="texts.json", repo_type="dataset")
-
-    corpus = json.loads(Path(corpus_path).read_text())
-    texts = json.loads(Path(texts_path).read_text())
-    print(f"  {len(corpus)} description rows, {len(texts)} texts")
+        repo_id=HF_DATASET, filename="corpus_v2.jsonl", repo_type="dataset")
+    corpus = [json.loads(line) for line in Path(corpus_path).read_text().splitlines()
+              if line.strip()]
+    texts = list({row["id"]: {
+        "id": row["id"], "text": row["text"],
+        "category": row["category"], "group": row["group"],
+    } for row in corpus}.values())
+    print(f"  {len(corpus)} clean description rows, {len(texts)} texts")
 
     GENERATED_DIR.mkdir(parents=True, exist_ok=True)
 
     # Write per-depth description files (the format training scripts expect)
     by_depth = {}
     for row in corpus:
-        pct = row["depth_pct"]
+        pct = row["layer_pct"]
         if pct not in by_depth:
             by_depth[pct] = []
         by_depth[pct].append(row)
 
     for pct in DEPTH_PCTS:
-        out = GENERATED_DIR / f"descriptions_L{pct}pct_merged.json"
+        out = GENERATED_DIR / f"descriptions_L{pct}pct_twin_clean.json"
         if out.exists():
             existing = json.loads(out.read_text())
             print(f"  L{pct}%: already exists ({len(existing)} entries), skipping")
             continue
         rows = by_depth.get(pct, [])
+        if not rows:
+            continue
         out.write_text(json.dumps(rows, indent=1))
         print(f"  L{pct}%: wrote {len(rows)} descriptions")
 
@@ -132,6 +135,7 @@ def train(model, activations_path, device):
         "--activations", activations_path,
         "--output", str(output_av),
         "--epochs", "5", "--lr", "8e-6",
+        "--desc-suffix", "_twin_clean", "--strict",
         "--device", device,
     ], check=True)
 
@@ -143,6 +147,7 @@ def train(model, activations_path, device):
         "--activations", activations_path,
         "--output", str(output_ar),
         "--epochs", "5", "--lr", "7e-5",
+        "--desc-suffix", "_twin_clean", "--strict",
         "--device", device,
     ], check=True)
 
@@ -151,7 +156,7 @@ def main():
     parser = argparse.ArgumentParser(
         description="Download NLA corpus and optionally train adapters")
     parser.add_argument("--train", metavar="MODEL",
-                        choices=["gemma3-1b", "qwen25-7b", "qwen3-4b"],
+                        choices=sorted(ACTIVATION_URLS),
                         help="Train adapters for this model after downloading")
     parser.add_argument("--device", default="cuda",
                         help="Training device (default: cuda)")

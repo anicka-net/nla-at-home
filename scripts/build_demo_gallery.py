@@ -19,6 +19,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 from generation_utils import decode_generated
 from extract_activations import get_blocks
+import sink_fix
 
 REPO_ROOT = Path(__file__).parent.parent
 ACTIVATIONS_DIR = REPO_ROOT / "corpus" / "activations"
@@ -27,14 +28,17 @@ device = torch.device("cuda")
 
 from nla_lib import (  # noqa: E402
     INJECTABLE_MODELS_HF as MODELS, INJECTION_CHARS, get_model,
-    normalize_activation,
+    normalize_activation, nearest_depth_pct,
 )
 from nla_lib import make_av_prompt as get_universal_prompt  # noqa: E402
 
 def generate_trace(model, tokenizer, activation, depth_pct, inject_id,
                     injection_char, max_new_tokens=150):
     prompt_text = get_universal_prompt(depth_pct, injection_char)
-    prompt_tokens = tokenizer.encode(prompt_text, add_special_tokens=False)
+    chat = tokenizer.apply_chat_template(
+        [{"role": "user", "content": prompt_text}],
+        tokenize=False, add_generation_prompt=True)
+    prompt_tokens = tokenizer.encode(chat, add_special_tokens=False)
     
     inject_pos = next(i for i, t in enumerate(prompt_tokens) if t == inject_id)
     
@@ -98,6 +102,7 @@ def main():
     )
     model = PeftModel.from_pretrained(base_model, args.adapter)
     model.eval()
+    sink_params = sink_fix.load_for_adapter(args.adapter)
 
     gallery_items = []
 
@@ -132,6 +137,10 @@ def main():
             for h in handles: h.remove()
 
         # Generate traces
+        fixed_acts = {
+            l: sink_fix.apply_if_present(sink_params, l, prompt_acts[l])
+            for l in range(n_layers)
+        }
         layers_data = []
         i = 0
         while i < n_layers:
@@ -140,8 +149,8 @@ def main():
             if not args.no_collapse:
                 while j + 1 < n_layers:
                     sim = torch.nn.functional.cosine_similarity(
-                        prompt_acts[j].unsqueeze(0), 
-                        prompt_acts[j+1].unsqueeze(0)
+                        fixed_acts[j].unsqueeze(0),
+                        fixed_acts[j+1].unsqueeze(0)
                     ).item()
                     
                     # Only collapse early/mid layers, or if extremely redundant
@@ -150,11 +159,11 @@ def main():
                     else:
                         break
             
-            depth_pct = int(i * 100 / (n_layers - 1))
+            depth_pct = nearest_depth_pct(i, n_layers)
             layer_label = f"{i}-{j}" if i != j else f"{i}"
             print(f"  Layer {layer_label}: generating description...")
             
-            desc = generate_trace(model, tokenizer, prompt_acts[i], depth_pct,
+            desc = generate_trace(model, tokenizer, fixed_acts[i], depth_pct,
                                  inject_id, injection_char)
             
             layer_entry = {

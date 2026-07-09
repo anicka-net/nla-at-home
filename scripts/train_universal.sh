@@ -56,6 +56,7 @@ case "$STAGE" in
       --model "$MODEL" \
       --activations "$ACTS" \
       --desc-suffix _tokenpred_gpt4o_clean \
+      --strict \
       --output "output/nla-${MODEL}-universal-ar" \
       --epochs 5 --lr 7e-5 --contrastive-weight 1.0 --contrastive-temp 20 \
       "$@"

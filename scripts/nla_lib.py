@@ -170,6 +170,29 @@ def make_ar_prompt_depth_sl(explanation, depth_pct, injection_char):
         explanation=explanation, depth=depth_pct, inj=injection_char)
 
 
+def encode_ar_prompt(tokenizer, template, explanation, injection_char,
+                     max_length):
+    """Tokenize an AR prompt while preserving its trailing readout token."""
+    prefix, marker, suffix = template.partition("{explanation}")
+    if not marker:
+        raise ValueError("AR template is missing {explanation}")
+    prefix_tokens = tokenizer.encode(prefix, add_special_tokens=False)
+    suffix_tokens = tokenizer.encode(suffix, add_special_tokens=False)
+    if len(prefix_tokens) + len(suffix_tokens) > max_length:
+        raise ValueError("AR prompt framing exceeds max_length")
+    desc_tokens = tokenizer.encode(explanation, add_special_tokens=False)
+    room = max_length - len(prefix_tokens) - len(suffix_tokens)
+    tokens = prefix_tokens + desc_tokens[:room] + suffix_tokens
+    inject_id = tokenizer.encode(injection_char, add_special_tokens=False)
+    if len(inject_id) != 1:
+        raise ValueError("AR injection character must encode to one token")
+    positions = [i for i, token in enumerate(tokens) if token == inject_id[0]]
+    if len(positions) != 1:
+        raise ValueError(
+            f"expected one AR injection token, got {len(positions)}")
+    return tokens, positions[0]
+
+
 # ---------------------------------------------------------------------------
 # Injection
 # ---------------------------------------------------------------------------
@@ -231,26 +254,48 @@ class LoraSLReward:
 
     MAX_LEN = 512
 
-    def __init__(self, model, tokenizer, n_layers, injection_char):
+    def __init__(self, model, tokenizer, n_layers, injection_char,
+                 layer_means=None, min_layer=0):
         self.model = model
         self.tokenizer = tokenizer
         self.n_layers = n_layers
         self.injection_char = injection_char
+        self.layer_means = layer_means
+        self.min_layer = min_layer
 
     def reconstruct(self, descriptions, layers, device):
         import torch
         recons = {}
         for L in layers:
+            if L < self.min_layer:
+                raise ValueError(
+                    f"AR was trained only for layers >= {self.min_layer}; "
+                    f"cannot reconstruct layer {L}")
             depth = nearest_depth_pct(L, self.n_layers)
-            prompts = [make_ar_prompt_depth_sl(d, depth, self.injection_char)
-                       for d in descriptions]
-            enc = self.tokenizer(
-                prompts, return_tensors="pt", padding=True, truncation=True,
-                max_length=self.MAX_LEN, add_special_tokens=False).to(device)
+            template = AR_TEMPLATE_DEPTH_SL.replace(
+                "{depth}", str(depth)).replace("{inj}", self.injection_char)
+            rows = [
+                encode_ar_prompt(
+                    self.tokenizer, template, d, self.injection_char,
+                    self.MAX_LEN)[0]
+                for d in descriptions
+            ]
+            width = max(map(len, rows))
+            pad_id = self.tokenizer.pad_token_id
+            input_ids = torch.full(
+                (len(rows), width), pad_id, dtype=torch.long, device=device)
+            attention_mask = torch.zeros_like(input_ids)
+            for i, row in enumerate(rows):
+                input_ids[i, -len(row):] = torch.tensor(row, device=device)
+                attention_mask[i, -len(row):] = 1
             with torch.no_grad():
-                out = self.model(**enc, output_hidden_states=True,
-                                 use_cache=False)
-            recons[L] = out.hidden_states[L + 1][:, -1, :].float()
+                out = self.model(
+                    input_ids=input_ids, attention_mask=attention_mask,
+                    output_hidden_states=True, use_cache=False)
+            recon = out.hidden_states[L + 1][:, -1, :].float()
+            if self.layer_means is not None:
+                recon = recon + self.layer_means[L].to(recon.device)
+            recons[L] = recon
         return recons
 
 
@@ -261,16 +306,17 @@ def load_ar_lora_sl(ar_checkpoint, base_model_name, device, trust_remote,
     from transformers import AutoModelForCausalLM, AutoTokenizer
     from peft import PeftModel
 
-    # A mean-subtracted AR predicts (act - layer_mean); LoraSLReward returns
-    # hidden states as raw activation space and consumers center them again.
-    # Until someone adds the mean-add-back path, refuse rather than silently
-    # score in the wrong space.
     meta = read_nla_meta(ar_checkpoint)
-    if meta and meta.get("training", {}).get("mean_subtract"):
-        raise NotImplementedError(
-            f"AR at {ar_checkpoint} was trained with --mean-subtract; "
-            f"LoraSLReward does not support mean-subtracted checkpoints yet "
-            f"(reconstructions would be centered twice)")
+    training = (meta or {}).get("training", {})
+    layer_means = None
+    if training.get("mean_subtract"):
+        means_path = Path(ar_checkpoint) / "layer_means.pt"
+        if not means_path.exists():
+            raise FileNotFoundError(
+                f"mean-subtracted AR is missing {means_path}")
+        layer_means = torch.load(
+            means_path, map_location="cpu", weights_only=True)
+    min_layer = int(training.get("min_layer", 0))
 
     tokenizer = AutoTokenizer.from_pretrained(
         ar_checkpoint, trust_remote_code=trust_remote)
@@ -286,4 +332,6 @@ def load_ar_lora_sl(ar_checkpoint, base_model_name, device, trust_remote,
     model.eval()
     for p in model.parameters():
         p.requires_grad = False
-    return LoraSLReward(model, tokenizer, n_layers, injection_char)
+    return LoraSLReward(
+        model, tokenizer, n_layers, injection_char,
+        layer_means=layer_means, min_layer=min_layer)
