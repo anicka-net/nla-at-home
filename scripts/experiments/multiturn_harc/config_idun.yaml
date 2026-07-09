@@ -1,0 +1,47 @@
+# Multi-turn HARC for Qwen 2.5 7B on idun (M4 Max, 64 GB, MPS)
+#
+# Key differences from stock HARC:
+# - Multi-turn conversations from geometry-of-harmfulness dataset
+# - Same coupling loss, but context now encodes full conversation history
+# - Smaller batches / LoRA rank for MPS memory constraints
+# - float16 (MPS-safe) instead of bfloat16
+
+model_id: Qwen/Qwen2.5-7B-Instruct
+out_dir: runs/multiturn_harc
+data_dir: data
+
+# batch — conservative for 2x 7B float16 in 64 GB
+micro_batch_harmful: 2
+micro_batch_benign: 2
+grad_accum: 4       # effective batch = 16
+
+# optim
+lr: 5.0e-5          # lower than stock HARC (1e-4) — multi-turn harder
+warmup: 100
+max_steps: 2000
+
+# lora — r=16 instead of 32 to save memory
+lora_r: 16
+lora_alpha: 32
+
+# losses
+coupling_margin: 0.5
+lambda_couple: 1.0
+lambda_kl: 10.0
+lambda_ce: 1.0
+
+# directions
+n_extract: 200
+extract_batch_size: 4
+extract_max_len: 256
+recompute_every: 500
+beta_ema: 0.3
+
+# layers — from our brainscope analysis:
+# harm peaks L14-17, valence L20-25
+# HARC paper uses L21-24 for Qwen
+active_layers: [21, 22, 23, 24]
+
+# sequence lengths — conservative for MPS memory
+max_context_len: 768     # full conversation history (truncated from left)
+max_response_len: 128    # final assistant response
