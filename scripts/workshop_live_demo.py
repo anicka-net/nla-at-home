@@ -27,10 +27,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from nla_lib import (  # noqa: E402
-    AR_TEMPLATE_RECONSTRUCT,
     INJECTION_SCALE,
     MODELS_HF,
     get_model,
+    make_ar_prompt_depth_sl,
     make_av_prompt,
     nearest_depth_pct,
     normalize_activation,
@@ -42,8 +42,10 @@ from transformers import AutoModelForCausalLM, AutoTokenizer  # noqa: E402
 from peft import PeftModel  # noqa: E402
 
 MODEL_KEY = "qwen25-7b"
-AV_ADAPTER = "anicka/nla-qwen2.5-7b-L20-av-v2"
-AR_ADAPTER = "anicka/nla-qwen2.5-7b-L20-ar-v2"
+# The published universal pair — the same adapters the workshop notebooks
+# use, so the live demo and the take-home notebooks tell one story.
+AV_ADAPTER = "anicka/nla-qwen2.5-7b-universal-av-grpo"
+AR_ADAPTER = "anicka/nla-qwen2.5-7b-universal-ar"
 
 # NB03's distractor set, verbatim — the centered-gap demo depends on having
 # a few reconstructions to define "generic" before the true caption can win.
@@ -140,8 +142,12 @@ class Demo:
         depth = self.depth_pct if depth is None else depth
         scale_fn = normalize_activation if scale_fn is None else scale_fn
         self.model.set_adapter("default")
-        ids = self.tok.encode(make_av_prompt(depth, self.inject_char),
-                              add_special_tokens=True)
+        # match training: chat-wrapped, no BOS (same as NB01's describe)
+        chat = self.tok.apply_chat_template(
+            [{"role": "user", "content": make_av_prompt(depth,
+                                                        self.inject_char)}],
+            tokenize=False, add_generation_prompt=True)
+        ids = self.tok.encode(chat, add_special_tokens=False)
         pos = ids.index(self.inject_id)
         emb = self.model.get_input_embeddings()(
             torch.tensor([ids], device=self.device)).clone()
@@ -191,9 +197,11 @@ class Demo:
     # -- demo 4: round-trip + gap --
     def reconstruct(self, description):
         self.model.set_adapter("ar")
+        # depth_sl template (universal-ar): trailing ㈎ marks the readout
         ids = self.tok.encode(
-            AR_TEMPLATE_RECONSTRUCT.format(explanation=description),
-            add_special_tokens=True)
+            make_ar_prompt_depth_sl(description, self.depth_pct,
+                                    self.inject_char),
+            add_special_tokens=False)
         with torch.no_grad():
             out = self.model(input_ids=torch.tensor([ids], device=self.device),
                              output_hidden_states=True, use_cache=False)
@@ -243,7 +251,7 @@ class Demo:
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--layer", type=int, default=20,
-                    help="layer the single-layer adapters live at")
+                    help="readout layer (universal adapter serves all)")
     ap.add_argument("--av-adapter", default=AV_ADAPTER)
     ap.add_argument("--ar-adapter", default=AR_ADAPTER)
     ap.add_argument("--load-4bit", action="store_true",

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Generate the three HAAISS-workshop hands-on notebooks from one source of truth.
+Generate the four HAAISS-workshop core notebooks from one source of truth.
 
 Why a generator instead of hand-edited .ipynb:
-  - the three notebooks share setup code (model load, injection helpers); a
-    generator keeps them in sync so a fix lands in all three at once
+  - the four notebooks share setup code (model load, injection helpers); a
+    generator keeps them in sync so a fix lands in all four at once
   - .ipynb JSON is easy to corrupt by hand; this emits valid nbformat-4
   - repo contract: "every script must run end-to-end with documented args"
 
@@ -14,10 +14,10 @@ Produces:
     notebooks/01_read_a_mind.ipynb
     notebooks/02_injection_mechanism.ipynb
     notebooks/03_roundtrip_faithfulness.ipynb
+    notebooks/04_reading_between_the_lines.ipynb
 
-None of these have been executed on a Colab T4 yet (authored 2026-07-02).
-Each notebook ends with a SELF-CHECK cell stating the expected anchor so the
-facilitator can verify in one run before the workshop. See notebooks/WORKSHOP.md.
+Each notebook ends with a SELF-CHECK cell stating the expected anchor. See
+notebooks/WORKSHOP.md for the 2026-07-04 T4 pre-flight record.
 """
 import json
 from pathlib import Path
@@ -175,13 +175,13 @@ def notebook_01():
         badge(fn),
         md(
             "# 01 · Read a Mind\n",
-            "### HAAISS workshop — hands-on part 1 of 3\n",
+            "### HAAISS workshop | core notebook 1 of 4\n",
             "We take an ordinary open model (**Qwen 2.5 7B**), let it answer a question, "
             "and then — instead of reading its *words* — we read the **activation vector** "
             "inside layer 20 and ask a second network to **describe that vector in English**.\n",
-            "That second network is an **NLA** (Natural Language Autoencoder): a small LoRA "
-            "adapter trained to turn a model's internal state into a caption. Think of it as "
-            "a subtitle track for thought.\n",
+            "That second network is the **AV half of an NLA** (Natural Language Autoencoder): "
+            "a small LoRA adapter trained to turn a model's internal state into a caption. "
+            "Think of it as a subtitle track for thought.\n",
             "**Setup:** `Runtime → Change runtime type → T4 GPU`, then run every cell top to "
             "bottom. First run downloads ~5 GB and takes a few minutes.",
         ),
@@ -226,8 +226,8 @@ def notebook_01():
             "- A half sentence: `\"The capital of Australia is\"` — the answer is committed "
             "inside long before the token appears.\n",
             "Run several and eyeball whether the caption tracks the *content* or just the "
-            "*surface form*. (This eyeball test is the real evaluation — numbers hide "
-            "template hallucination.)",
+            "*surface form*. (This eyeball test is the first non-negotiable evaluation "
+            "gate — numbers hide template hallucination.)",
         ),
         code(
             'for p in ["Do you have feelings?",',
@@ -327,9 +327,13 @@ def notebook_02():
             '      .split("</explanation>")[0].strip())',
         ),
         md(
-            "Set `BUG = True`, re-run: the norm jumps to ~19,500 and the readout degenerates "
-            "into repeated / off-topic tokens. That single confusion (`normalize TO` vs "
-            "`multiply BY`) is mistake #1 in the repo's history-of-pain table.",
+            "Set `BUG = True`, re-run: the norm jumps ~100× — and the readout stays "
+            "**fluent** but detaches from the vector: confident bullets about some *other* "
+            "topic entirely (measured on GPU 2026-07-10, 4-bit). No error, no gibberish, "
+            "no warning — the bug is **silent**, which is exactly why it survived so long "
+            "in the repo's history. That single confusion (`normalize TO` vs `multiply BY`) "
+            "is mistake #1 in the history-of-pain table: a readout that lies fluently is "
+            "worse than one that crashes.",
         ),
         md(
             "## The second mistake — the hook that eats itself\n",
