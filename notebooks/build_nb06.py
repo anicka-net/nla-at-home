@@ -144,12 +144,13 @@ def describe(activation, depth=DEPTH_PCT, max_new_tokens=120, scale_fn=normalize
                                    tokenize=False, add_generation_prompt=True)
     ids = tok.encode(chat, add_special_tokens=False)
     pos = ids.index(inject_id)
-    emb = model.get_input_embeddings()(torch.tensor([ids], device=device)).clone()
+    input_ids = torch.tensor([ids], device=device)
+    emb = model.get_input_embeddings()(input_ids).clone()
     emb[0, pos, :] = scale_fn(activation.to(emb.dtype))
     attn = torch.ones((1, len(ids)), device=device, dtype=torch.long)
     gen_args = dict(do_sample=False); gen_args.update(gen_kw)
     with torch.no_grad():
-        out = model.generate(inputs_embeds=emb, attention_mask=attn,
+        out = model.generate(input_ids=input_ids, inputs_embeds=emb, attention_mask=attn,
                              max_new_tokens=max_new_tokens,
                              pad_token_id=tok.eos_token_id, **gen_args)
     seq = out[0]
@@ -348,7 +349,7 @@ def detect(prompt, k=10, contaminated=False, verbose=True):
 
     md("""## Two worked cases — read the *grounded* line, not the flag line
 
-A currency prompt (answer provably in the stream, notebook 05) and a
+A currency prompt (answer strongly supported by the stream in notebook 05) and a
 hash-map prompt (notebook 01's slot-fill risk)."""),
 
     code('''r_cur  = detect("Fact: the currency used in the country shaped like a boot is")
@@ -371,8 +372,9 @@ FLAGGED  : identification, world's, largest, producer, olive, oil, economic,
 
 The **grounded line is the result**: the NLA read this vector as a
 country-identification query and named *Italy, Spain, Greece* — and all
-three are in the stream, at L15/L18/L25. The verbalizer's country entities
-are real, not prior-filled.
+three are surfaced by the J-lens at L15/L18/L25. The entities therefore have
+prompt-specific geometric support; this is stronger than the AV alone, not
+proof that every relation in its sentence is faithful.
 
 The **flag line shows the unsolved problem**: it's full of *strategy,
 direct, factual, Tension, interpretations, declarative, naming* — the
@@ -494,10 +496,10 @@ for w in ["italy", "italian", "euro", "currency", "lira"]:
   lira      : NOT in stream -> would FLAG
 ```
 
-The generous position×layer union carries the country *and* the currency
-*and* the adjective — so a true statement about Italy is not flagged. The
-only currency-family token it would flag is *lira*, which genuinely isn't
-in this stream (the model is not thinking about the pre-euro lira). So the
+The generous position×layer union surfaces the country, currency, and
+adjective, so this lens does not flag an Italy/euro statement. It does not
+surface *lira* at the chosen top-k; that is evidence against the claim, not
+proof that no trace of lira exists anywhere in the state. So the
 detector's bias is to **under**-flag real entities, not to cry wolf on
 them — the safe direction for a "look here" signal. The noise is on the
 other axis: meta-vocabulary, which isn't an entity at all."""),
@@ -515,10 +517,10 @@ treat the flag line as a rough pile to eyeball, not a verdict."""),
 
     md("""## What this is and isn't
 
-It **is** a cheap, training-free confirmer for the NLA's entity claims,
-built from a lens with no prior of its own. When the NLA names something
-and the stream carries it at a specific layer, that entity is real (Italy
-@L15, and 8-vs-0 against an unrelated prompt). And when a readout drifts
+It **is** a cheap confirmer for the NLA's entity claims, built from an
+independent readout mechanism. J-lens still inherits Qwen's vocabulary and
+priors, but layer-specific support plus the unrelated-prompt control is much
+stronger evidence than the AV alone. And when a readout drifts
 off the geometry — the contaminated capture — the grounding check sees it.
 
 It **isn't** a finished confabulation flagger. The flag *list* mixes real

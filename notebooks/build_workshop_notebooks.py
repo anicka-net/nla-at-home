@@ -114,8 +114,7 @@ def get_layers(m):
     return inner.layers
 
 def read_activation(prompt, layer=LAYER, max_new_tokens=128):
-    """Run the model on `prompt` and grab the residual-stream vector at `layer`,
-    at the last prompt token (the position that decides the next word)."""
+    """Grab the clean base-model residual at the last prompt token."""
     chat = tok.apply_chat_template([{"role": "user", "content": prompt}],
                                    tokenize=False, add_generation_prompt=True)
     inp = tok(chat, return_tensors="pt").to(device)
@@ -126,10 +125,12 @@ def read_activation(prompt, layer=LAYER, max_new_tokens=128):
         if "h" not in grab:                 # FIRST forward pass only — otherwise
             grab["h"] = h[:, -1, :].detach() # every generated token overwrites it
     handle = get_layers(model)[layer].register_forward_hook(hook)
-    with torch.no_grad():
-        out = model.generate(**inp, max_new_tokens=max_new_tokens, do_sample=False,
-                             pad_token_id=tok.eos_token_id)
-    handle.remove()
+    try:
+        with model.disable_adapter(), torch.no_grad():
+            out = model.generate(**inp, max_new_tokens=max_new_tokens, do_sample=False,
+                                 pad_token_id=tok.eos_token_id)
+    finally:
+        handle.remove()
     reply = tok.decode(out[0][inp.input_ids.shape[1]:], skip_special_tokens=True)
     return grab["h"].squeeze(0), reply
 
@@ -158,10 +159,13 @@ def describe(activation, depth=DEPTH_PCT, max_new_tokens=120, scale_fn=normalize
     embedding with the (rescaled) activation, let the model narrate."""
     ids = tok.encode(av_prompt(depth), add_special_tokens=True)
     pos = ids.index(inject_id)
-    emb = model.get_input_embeddings()(torch.tensor([ids], device=device)).clone()
+    input_ids = torch.tensor([ids], device=device)
+    emb = model.get_input_embeddings()(input_ids).clone()
     emb[0, pos, :] = scale_fn(activation.to(emb.dtype))
+    attn = torch.ones((1, len(ids)), device=device, dtype=torch.long)
     with torch.no_grad():
-        out = model.generate(inputs_embeds=emb, max_new_tokens=max_new_tokens,
+        out = model.generate(input_ids=input_ids, inputs_embeds=emb, attention_mask=attn,
+                             max_new_tokens=max_new_tokens,
                              do_sample=False, pad_token_id=tok.eos_token_id)
     seq = out[0]
     gen = seq[len(ids):] if seq.shape[0] > len(ids) else seq  # embeds path returns new-only
@@ -319,8 +323,10 @@ def notebook_02():
             '',
             'emb2 = emb.clone()',
             'emb2[0, pos, :] = injected',
+            'attn = torch.ones((1, len(ids)), device=device, dtype=torch.long)',
             'with torch.no_grad():',
-            '    out = model.generate(inputs_embeds=emb2, max_new_tokens=120,',
+            '    out = model.generate(input_ids=torch.tensor([ids], device=device),',
+            '                         inputs_embeds=emb2, attention_mask=attn, max_new_tokens=120,',
             '                         do_sample=False, pad_token_id=tok.eos_token_id)',
             'seq = out[0]; gen = seq[len(ids):] if seq.shape[0] > len(ids) else seq',
             'print("\\nreadout:\\n ", tok.decode(gen, skip_special_tokens=True)',
@@ -352,10 +358,12 @@ def notebook_02():
             '        h = o[0] if isinstance(o, tuple) else o',
             '        grab["h"] = h[:, -1, :].detach()   # NO guard: overwritten every step',
             '    handle = get_layers(model)[layer].register_forward_hook(hook)',
-            '    with torch.no_grad():',
-            '        model.generate(**inp, max_new_tokens=40, do_sample=False,',
-            '                       pad_token_id=tok.eos_token_id)',
-            '    handle.remove()',
+            '    try:',
+            '        with model.disable_adapter(), torch.no_grad():',
+            '            model.generate(**inp, max_new_tokens=40, do_sample=False,',
+            '                           pad_token_id=tok.eos_token_id)',
+            '    finally:',
+            '        handle.remove()',
             '    return grab["h"].squeeze(0)',
             '',
             'p = "Explain how a hash map handles collisions."',
@@ -561,9 +569,11 @@ def grab_activation(prompt, layer=LAYER):
         h = o[0] if isinstance(o, tuple) else o
         grab["h"] = h[:, -1, :].detach()
     hd = get_layers(model)[layer].register_forward_hook(hook)
-    with torch.no_grad():
-        model(**inp)
-    hd.remove()
+    try:
+        with model.disable_adapter(), torch.no_grad():
+            model(**inp)
+    finally:
+        hd.remove()
     return grab["h"].squeeze(0)
 
 def logit_lens(prompt, layer=LAYER, k=8):
@@ -572,7 +582,7 @@ def logit_lens(prompt, layer=LAYER, k=8):
     chat = tok.apply_chat_template([{"role": "user", "content": prompt}],
                                    tokenize=False, add_generation_prompt=True)
     inp = tok(chat, return_tensors="pt").to(device)
-    with torch.no_grad():
+    with model.disable_adapter(), torch.no_grad():
         out = model(**inp, output_hidden_states=True)
     h = out.hidden_states[layer + 1][0, -1]
     base = model.base_model.model if hasattr(model, "base_model") else model
@@ -754,9 +764,7 @@ def notebook_04():
 
 
 if __name__ == "__main__":
-    notebook_01()
-    notebook_02()
-    notebook_03()
-    notebook_04()
-    print("\nAll four notebooks written to", HERE)
-    print("Pre-flight: open 01 on a T4, Run all, confirm the self-check cells.")
+    raise SystemExit(
+        "This generator is stale and must not overwrite the reviewed notebooks. "
+        "Edit the committed .ipynb files directly."
+    )

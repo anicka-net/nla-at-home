@@ -111,16 +111,13 @@ above the assert.
 
 ## Regenerating / editing the notebooks
 
-The three `.ipynb` are generated — **edit the source, not the JSON**:
+Edit the committed `.ipynb` files directly. `build_workshop_notebooks.py`
+belongs to an older workshop configuration and now exits without writing
+anything so it cannot silently overwrite the reviewed notebooks.
 
-```
-python3 notebooks/build_workshop_notebooks.py
-```
-
-Shared setup (model load, injection helpers) lives once in
-`build_workshop_notebooks.py` and is copied into all three, so a fix to the
-injection code lands everywhere. The generator emits valid nbformat-4 and the
-build is checked with a JSON + Python-syntax pass.
+After editing, parse every notebook as JSON and syntax-check its Python cells.
+The regression tests in `tests/test_review_fixes.py` also enforce clean
+base-model activation capture and hook cleanup.
 
 ## What's deliberately simplified for teaching
 

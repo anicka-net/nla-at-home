@@ -58,7 +58,7 @@ depth), last prompt token — and read it three ways:
 |---|---|---|---|
 | **logit lens** | what the model would say *if this were the last layer* | `unembed(h)` | free |
 | **Jacobian lens** | what `h` is *poised to make the model say* | `unembed(J₂₀·h)`, `J` = averaged Jacobian | fit once (~100 prompts, GPU-hours) |
-| **NLA** | what `h` *contains*, in sentences | trained verbalizer adapter, activation injected as a token | train once (this repo) |
+| **NLA** | a candidate description of `h`, in sentences | trained verbalizer adapter, activation injected as a token | train once (this repo) |
 
 The Jacobian lens is from Anthropic's *"Verbalizable Representations Form
 a Global Workspace in Language Models"* (July 2026,
@@ -66,8 +66,9 @@ a Global Workspace in Language Models"* (July 2026,
 [code](https://github.com/anthropics/jacobian-lens), Apache-2.0). It
 linearly transports `h` into the final-layer basis with the corpus-averaged
 Jacobian, then decodes with the model's own unembedding — so unlike the
-logit lens it works at early/mid layers, and unlike the NLA it uses **no
-trained decoder at all**: nothing between you and the model's own geometry.
+logit lens it works at early/mid layers, and unlike the NLA it uses no
+separately trained language decoder. It still inherits Qwen's vocabulary,
+unembedding, and the fitted average Jacobian.
 
 Where the three *disagree* is where it gets interesting:
 - logit lens ✗, J-lens ✓ → content is en route to output but not yet in
@@ -76,8 +77,9 @@ Where the three *disagree* is where it gets interesting:
   contributes real multi-token content.
 - NLA says something the J-lens top-k *never* shows → either the NLA
   decoder's prior is filling slots (notebook 01's hash-map→"C#" lesson!)
-  or the content is real but not output-adjacent. The J-lens is exactly
-  the instrument that separates those two cases."""),
+  or the content is present but not surfaced by this top-k lens. J-lens
+  provides independent evidence; absence from its top-k is not proof of
+  absence."""),
 
     md("""## Scope
 
@@ -207,13 +209,14 @@ def describe(activation, depth=DEPTH_PCT, max_new_tokens=120, scale_fn=normalize
                                    tokenize=False, add_generation_prompt=True)
     ids = tok.encode(chat, add_special_tokens=False)  # match training: chat-wrapped, no BOS
     pos = ids.index(inject_id)
-    emb = model.get_input_embeddings()(torch.tensor([ids], device=device)).clone()
+    input_ids = torch.tensor([ids], device=device)
+    emb = model.get_input_embeddings()(input_ids).clone()
     emb[0, pos, :] = scale_fn(activation.to(emb.dtype))
     attn = torch.ones((1, len(ids)), device=device, dtype=torch.long)  # explicit, per repo protocol
     gen_args = dict(do_sample=False)
     gen_args.update(gen_kw)
     with torch.no_grad():
-        out = model.generate(inputs_embeds=emb, attention_mask=attn,
+        out = model.generate(input_ids=input_ids, inputs_embeds=emb, attention_mask=attn,
                              max_new_tokens=max_new_tokens,
                              pad_token_id=tok.eos_token_id, **gen_args)
     seq = out[0]
