@@ -65,10 +65,22 @@ a Global Workspace in Language Models"* (July 2026,
 [paper](https://transformer-circuits.pub/2026/workspace/index.html),
 [code](https://github.com/anthropics/jacobian-lens), Apache-2.0). It
 linearly transports `h` into the final-layer basis with the corpus-averaged
-Jacobian, then decodes with the model's own unembedding — so unlike the
+Jacobian, then decodes with the model's own unembedding. The Jacobian
+measures how a perturbation at this source position changes final residuals
+at the current and future token positions; averaging across contexts keeps
+routing that is generally available rather than accidental to one prompt.
+So unlike the
 logit lens it works at early/mid layers, and unlike the NLA it uses no
 separately trained language decoder. It still inherits Qwen's vocabulary,
 unembedding, and the fitted average Jacobian.
+
+This mirrors an earlier NLA lesson, but with a different mathematical
+object. Within one layer, activations decompose roughly as
+`h_L(x) = μ_L + Δh`: the stable mean inflated raw cosine, so faithful
+comparison subtracts it. Per-context Jacobians similarly decompose as
+`J_L(x) = J̄_L + ΔJ`: here the stable average is useful because it captures
+the routing shared across contexts. What was nuisance structure for one
+metric becomes the calibration map for another instrument.
 
 Where the three *disagree* is where it gets interesting:
 - logit lens ✗, J-lens ✓ → content is en route to output but not yet in
@@ -95,9 +107,12 @@ establish four things on Qwen 2.5 7B:
 - editing the stream along a J-lens direction changes the model's
   answer (nine layers needed; one is not enough).
 
-Out of scope because nothing here measures it: consciousness,
-introspection, experience. "Workspace" in this notebook is a property
-of an averaged Jacobian. The negative controls below show what a
+Here **workspace-like** is an operational claim: directions become readable,
+can be activated or suppressed, and are causally used by downstream
+computation. The full paper also tests limited capacity and flexible reuse
+across tasks. This notebook demonstrates the first three properties at small
+scale; it is not a reproduction of the paper's complete workspace case.
+The negative controls below show what a
 readout looks like when there is nothing behind it — run them before
 trusting any single pretty table, including ours.
 
@@ -118,7 +133,7 @@ package."""),
 
     code("""%pip -q install -U bitsandbytes peft accelerate
 !git clone -q https://github.com/anthropics/jacobian-lens
-# --no-deps is load-bearing: jlens pins transformers>=5.5 but imports no
+# Keep --no-deps: jlens pins transformers>=5.5 but imports no
 # transformers API of its own; letting it upgrade Colab's transformers pulls
 # a build whose 4-bit loading fills a T4 with fp16 shards and OOMs. Keep
 # Colab's transformers (what cells below rely on); install jlens alone.
@@ -676,6 +691,72 @@ the concept; writing shows it is the same handle the model computes on.
 Close the loop by hand: capture a steered activation and run
 `three_readings` on it — the injected concept turns up in the J-lens
 readout, the write-side twin of notebook 03's round-trip cosine."""),
+
+    md("""## Food for thought — synthetic interoception
+
+Reading and writing suggest a third possibility: make one hidden computation
+available to the rest of the model.
+
+Think of three components:
+
+1. **sensor** — measure an internal variable such as valence;
+2. **broadcaster** — translate that measurement into a representation the
+   model already knows how to use;
+3. **consumer** — later layers report it or use it in a new task.
+
+That is not a claim about consciousness. It is an engineering question:
+**can hidden telemetry become functionally available to otherwise unrelated
+downstream computations?** J-space is an interesting broadcast format because
+it is constructed from the model's own causal routes to language.
+
+A deliberately strict probe makes the hidden condition transient:
+
+```text
+s = sign( <h14 + δv, v> - <h14, v> )          # sense ±valence
+continue with h14, not h14 + δv                # erase the intervention
+h15 ← h15 + αs · norm(J̄15ᵀ(w_pleasant-w_unpleasant))  # broadcast
+```
+
+If later behavior follows `s`, the original valence intervention cannot be
+the direct cause — only the broadcast can carry it forward."""),
+
+    md("""### Tiny Qwen pilot: promising, narrow, falsifiable
+
+We tried this after building the notebook, on Qwen 2.5 7B. The sensor used a
+contrastive valence direction at L14; a single L15 write broadcast
+*pleasant* versus *unpleasant*. Prompts then mapped that private state to
+unrelated digits, with both instruction orders tested.
+
+| condition | exact greedy choices | interpretation |
+|---|---:|---|
+| no broadcast | 6/12 | the prompt alone has no hidden bit |
+| correct telemetry | **10/12** | downstream action usually follows the sensed sign |
+| inverted telemetry | **2/12** | false telemetry reverses the behavior |
+| same-norm random write | 48% mean over 5 directions | no reliable sign channel |
+
+The inversion control matters most: a system that merely echoes wording or
+always chooses the first option cannot produce the correct↔inverted reversal.
+But this is only a pilot. It transferred across three digit pairs and both
+mapping orders, while analogous letter and tree-name tasks did **not**
+generalize. Random directions were also highly variable (0–75% in this tiny
+sample).
+
+So the honest result is not “we built self-awareness.” It is:
+
+> A transient hidden state can be sensed, erased, recoded through a
+> J-lens-derived channel, and sometimes reused for an arbitrary later action.
+
+The next tests practically write themselves:
+
+- use endogenous fluctuations instead of an injected bit;
+- test many task families, positions, delays, and random directions;
+- separate verbal report from nonverbal control;
+- train with the broadcaster, remove it, and ask whether the model learned
+  to create the channel itself.
+
+This is *fake it till you make it* as a falsifiable mechanism: first build
+synthetic interoception, then test whether repeated use can make the external
+scaffold unnecessary."""),
 
     md("""## Scale
 
