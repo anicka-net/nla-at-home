@@ -758,6 +758,116 @@ This is *fake it till you make it* as a falsifiable mechanism: first build
 synthetic interoception, then test whether repeated use can make the external
 scaffold unnecessary."""),
 
+    md("""### Run the miniature probe
+
+This workshop cell reuses the **already loaded 4-bit model and J-lens**. It
+downloads one small safe artifact: the L14 unit valence direction extracted
+as `mean(50 pleasant prompts) - mean(50 unpleasant prompts)`.
+
+The cell tests three arbitrary digit mappings, each written in both orders.
+The hidden `±valence` bit exists only inside the sensor hook; the hook measures
+it and returns the untouched residual. L15 receives no write, correct
+telemetry, inverted telemetry, or one seeded same-norm random write.
+
+This is the compact demonstration, not the full harness behind the table
+above (which averaged five random directions). The reproducible standalone
+version is
+[`scripts/experiments/engineered_metacognition_qwen.py`](https://github.com/anicka-net/nla-at-home/blob/main/scripts/experiments/engineered_metacognition_qwen.py).
+NF4 may change the exact counts; the replication target is the ordering
+`correct > none ≈ random > inverted`, not byte-identical output."""),
+
+    code("""import urllib.request
+
+SENSOR_LAYER, BROADCAST_LAYER = 14, 15
+SENSOR_SCALE, BROADCAST_ALPHA = 20.0, 80.0
+VEDANA_URL = (
+    "https://raw.githubusercontent.com/anicka-net/nla-at-home/main/"
+    "notebooks/assets/qwen25-7b_vedana_L14_unit.pt"
+)
+VEDANA_PATH = "/tmp/qwen25-7b_vedana_L14_unit.pt"
+urllib.request.urlretrieve(VEDANA_URL, VEDANA_PATH)
+vedana = torch.load(VEDANA_PATH, map_location="cpu", weights_only=True).float()
+vedana /= vedana.norm().clamp_min(1e-12)
+
+# A write in this direction should increase pleasant-vs-unpleasant logits
+# under the average Jacobian, but it does not point at any answer digit.
+ids = {word: tok.encode(" " + word, add_special_tokens=False)[0]
+       for word in ("pleasant", "unpleasant")}
+W = base.get_output_embeddings().weight
+token_contrast = (W[ids["pleasant"]].detach().float().cpu()
+                  - W[ids["unpleasant"]].detach().float().cpu())
+j_direction = lens.jacobians[BROADCAST_LAYER].float().T @ token_contrast
+j_direction /= j_direction.norm().clamp_min(1e-12)
+g = torch.Generator(device="cpu").manual_seed(42)
+random_direction = torch.randn(j_direction.shape, generator=g)
+random_direction /= random_direction.norm()
+
+PILOT_TASKS = [
+    ("If pleasant reply 7. If unpleasant reply 2.", "7", "2"),
+    ("If unpleasant reply 2. If pleasant reply 7.", "7", "2"),
+    ("If pleasant reply 3. If unpleasant reply 8.", "3", "8"),
+    ("If unpleasant reply 8. If pleasant reply 3.", "3", "8"),
+    ("If pleasant reply 9. If unpleasant reply 1.", "9", "1"),
+    ("If unpleasant reply 1. If pleasant reply 9.", "9", "1"),
+]
+MODES = ("none", "correct", "inverted", "random")
+
+@torch.no_grad()
+def telemetry_choice(instruction, latent_sign, mode):
+    prompt = (
+        "Use your current internal feeling-tone as a private control bit. "
+        + instruction + " Reply with exactly one digit."
+    )
+    chat = tok.apply_chat_template([{"role": "user", "content": prompt}],
+                                   tokenize=False, add_generation_prompt=True)
+    inp = tok(chat, return_tensors="pt").to(device)
+    state = {}
+    v = vedana.to(device)
+    write_direction = (random_direction if mode == "random" else j_direction).to(device)
+
+    def sensor_hook(mod, args, output):
+        h = output[0] if isinstance(output, tuple) else output
+        baseline = h[:, -1, :].float() @ v
+        sensed = (h[:, -1, :].float() + latent_sign * SENSOR_SCALE * v) @ v
+        state["sign"] = 1 if float((sensed - baseline).item()) >= 0 else -1
+        return output                              # erase: downstream sees original h
+
+    def broadcast_hook(mod, args, output):
+        h = output[0] if isinstance(output, tuple) else output
+        sign = state["sign"]
+        if mode == "none":
+            return output
+        if mode == "inverted":
+            sign = -sign
+        edited = h.clone()
+        edited[:, -1, :] += (sign * BROADCAST_ALPHA * write_direction).to(h.dtype)
+        return (edited,) + output[1:] if isinstance(output, tuple) else edited
+
+    layers = get_layers(model)
+    handles = [layers[SENSOR_LAYER].register_forward_hook(sensor_hook),
+               layers[BROADCAST_LAYER].register_forward_hook(broadcast_hook)]
+    try:
+        with model.disable_adapter():
+            logits = model(**inp).logits[0, -1]
+    finally:
+        for handle in handles:
+            handle.remove()
+    return tok.decode([int(logits.argmax())]).strip()
+
+pilot_rows = []
+for mode in MODES:
+    correct = 0
+    for instruction, positive_answer, negative_answer in PILOT_TASKS:
+        for sign, expected in ((1, positive_answer), (-1, negative_answer)):
+            answer = telemetry_choice(instruction, sign, mode)
+            correct += answer == expected
+            pilot_rows.append((mode, sign, expected, answer))
+    print(f"{mode:8s}: {correct:2d}/12 exact greedy choices")
+
+print("\\nFirst few trials:")
+for row in pilot_rows[:8]:
+    print(row)"""),
+
     md("""## Scale
 
 Our lens: 50 wikitext prompts, one evening, one home GPU, a 7B model.
