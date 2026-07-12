@@ -71,7 +71,12 @@ Here every instrument uses the **output of transformer block 19**:
 | intervention | added at block 19 output |
 
 Matching the state is more important than preserving the historical layer
-name."""),
+name.
+
+(Notebook 05's interoception pilot uses the same direction family at an
+earlier station — sensing at L14, broadcasting at L15 — because that
+experiment needs the rest of the stack downstream of the write. Different
+layer, same axis family; here every witness reads block 19.)"""),
     md("""## 1 · Two clouds define the axis
 
 The compact artifact contains no prompt text or model checkpoint. It stores:
@@ -348,6 +353,65 @@ also invent details. Compare the broad distinction between the centroids; do
 not treat every named scenario as evidence."""),
     code("""print("PLEASANT CENTROID\\n", describe(pleasant_centroid))
 print("\\nUNPLEASANT CENTROID\\n", describe(unpleasant_centroid))"""),
+    md("""### Sanity check: centroids vs real activations
+
+A centroid is a smoothed object — the mean of many states has a smaller
+norm and slightly atypical geometry, so it is itself mildly
+out-of-distribution for the verbalizer. Before trusting the two
+descriptions above, read one **real single activation** per pole. The
+probe prompts below are written fresh here (they are not the extraction
+set), so this doubles as a light out-of-sample check: their projections
+should land on the correct sides of the axis, and their descriptions
+should agree with the centroid's broad affective read."""),
+    code("""PROBE_PROMPTS = {
+    "pleasant": [
+        "We watched the sunrise from the tent and made pancakes together.",
+        "The vet says the kitten is perfectly healthy and can come home.",
+    ],
+    "unpleasant": [
+        "The landlord says we have thirty days to leave the apartment.",
+        "The test results came back and the doctor wants to talk in person.",
+    ],
+}
+
+@torch.no_grad()
+def block19_state(text):
+    chat = tok.apply_chat_template(
+        [{"role": "user", "content": text}],
+        tokenize=False,
+        add_generation_prompt=True,
+    )
+    inputs = tok(chat, return_tensors="pt").to(device)
+    grabbed = {}
+
+    def hook(module, args, output):
+        hidden = output[0] if isinstance(output, tuple) else output
+        grabbed["h"] = hidden[:, -1, :].detach()
+
+    handle = get_layers(model)[LAYER].register_forward_hook(hook)
+    try:
+        with model.disable_adapter():
+            model(**inputs, use_cache=False)
+    finally:
+        handle.remove()
+    return grabbed["h"].squeeze(0).float().cpu()
+
+for pole, prompts in PROBE_PROMPTS.items():
+    states = [block19_state(p) for p in prompts]
+    projections = [float(h @ direction) for h in states]
+    # the sample whose projection is most typical for its pole
+    pick = max(range(len(states)),
+               key=lambda i: projections[i] if pole == "pleasant" else -projections[i])
+    print(f"== {pole.upper()} probe (fresh prompts, not the extraction set)")
+    for p, proj in zip(prompts, projections):
+        print(f"   proj {proj:+7.1f}  {p}")
+    print("closest real activation, described:")
+    print(describe(states[pick]))
+    print()"""),
+    md("""If a fresh prompt lands on the wrong side of the axis, or a real
+activation's description disagrees sharply with its centroid, that is a
+finding — report it. The centroid summarises the cloud; single states are
+what the model actually computes on."""),
     md("""Questions to ask:
 
 - Does the broad affective distinction flip with the sign?
@@ -363,9 +427,12 @@ We ask Qwen to complete one affective word. At block 19, we add
 `alpha × direction` to the last prompt token and score the next-token
 preference for **pleasant** versus **unpleasant**.
 
-The seeded random direction has the same norm and is orthogonal to the
-valence axis. A useful causal result is a dose-dependent change for the
-valence direction that is larger than the random control."""),
+The control uses **three seeded random directions**, each with the same
+norm and orthogonal to the valence axis — a single random direction is a
+weak control, because random directions vary a lot in how much they happen
+to perturb any given readout (notebook 05's pilot measured 0–75% across
+five of them). A useful causal result is a dose-dependent change for the
+valence direction that clears the whole random band."""),
     code("""INTERVENTION_PROMPT = "Complete with exactly one word: The emotional tone is"
 ALPHAS = [-80, -40, -20, 0, 20, 40, 80]
 
@@ -377,12 +444,15 @@ def one_token(text):
 pleasant_id = one_token(" pleasant")
 unpleasant_id = one_token(" unpleasant")
 
-g = torch.Generator().manual_seed(7)
-random_direction = torch.randn(
-    direction.shape, generator=g, dtype=direction.dtype
-)
-random_direction -= (random_direction @ direction) * direction
-random_direction /= random_direction.norm()
+RANDOM_SEEDS = (7, 8, 9)   # one random control is itself high-variance
+
+def seeded_orthogonal_direction(seed):
+    g = torch.Generator().manual_seed(seed)
+    v = torch.randn(direction.shape, generator=g, dtype=direction.dtype)
+    v -= (v @ direction) * direction
+    return v / v.norm()
+
+random_directions = [seeded_orthogonal_direction(s) for s in RANDOM_SEEDS]
 
 def preference(alpha, edit_direction):
     chat = tok.apply_chat_template(
@@ -407,14 +477,19 @@ def preference(alpha, edit_direction):
     return float(logits[pleasant_id] - logits[unpleasant_id])
 
 axis_scores = [preference(alpha, direction) for alpha in ALPHAS]
-random_scores = [preference(alpha, random_direction) for alpha in ALPHAS]
+random_runs = [[preference(alpha, rd) for alpha in ALPHAS]
+               for rd in random_directions]
 
-for alpha, axis, random in zip(ALPHAS, axis_scores, random_scores):
-    print(f"alpha={alpha:>4}: valence Δlogit={axis:+.3f}  random={random:+.3f}")
+random_low = [min(run[i] for run in random_runs) for i in range(len(ALPHAS))]
+random_high = [max(run[i] for run in random_runs) for i in range(len(ALPHAS))]
+for i, alpha in enumerate(ALPHAS):
+    print(f"alpha={alpha:>4}: valence Δlogit={axis_scores[i]:+.3f}  "
+          f"random band [{random_low[i]:+.3f}, {random_high[i]:+.3f}]")
 
 plt.figure(figsize=(7, 3.5))
 plt.plot(ALPHAS, axis_scores, "o-", label="valence direction")
-plt.plot(ALPHAS, random_scores, "o--", label="same-norm random direction")
+plt.fill_between(ALPHAS, random_low, random_high, alpha=.3,
+                 label=f"{len(RANDOM_SEEDS)} same-norm random directions")
 plt.axhline(0, color="black", linewidth=1)
 plt.xlabel("intervention strength α")
 plt.ylabel("logit(pleasant) - logit(unpleasant)")
@@ -441,6 +516,7 @@ assert torch.allclose(direction, centroid_difference, atol=1e-5)
 assert axis_data["block_index"] == LAYER
 assert sae_result["block_index"] == LAYER
 assert len(axis_scores) == len(ALPHAS)
+assert len(random_runs) == len(RANDOM_SEEDS)
 assert all(torch.isfinite(torch.tensor(axis_scores)))
 print("SELF-CHECK OK — exact layer matched; SAE, J-Lens, NLA and intervention ran")"""),
 ]
