@@ -57,36 +57,35 @@ depth), last prompt token — and read it three ways:
 | lens | reads out | mechanism | cost |
 |---|---|---|---|
 | **logit lens** | what the model would say *if this were the last layer* | `unembed(h)` | free |
-| **Jacobian lens** | what `h` is *poised to make the model say* | `unembed(J₂₀·h)`, `J` = averaged Jacobian | fit once (~100 prompts, GPU-hours) |
+| **Jacobian lens** | words that later layers can produce from `h` | estimate the later-layer effect, then `unembed` | fit once (~100 prompts, GPU-hours) |
 | **NLA** | a candidate description of `h`, in sentences | trained verbalizer adapter, activation injected as a token | train once (this repo) |
 
 The Jacobian lens is from Anthropic's *"Verbalizable Representations Form
 a Global Workspace in Language Models"* (July 2026,
 [paper](https://transformer-circuits.pub/2026/workspace/index.html),
 [code](https://github.com/anthropics/jacobian-lens), Apache-2.0). It
-linearly transports `h` into the final-layer basis with the corpus-averaged
-Jacobian, then decodes with the model's own unembedding. The Jacobian
-measures how a perturbation at this source position changes final residuals
-at the current and future token positions; averaging across contexts keeps
-routing that is generally available rather than accidental to one prompt.
-So unlike the
-logit lens it works at early/mid layers, and unlike the NLA it uses no
-separately trained language decoder. It still inherits Qwen's vocabulary,
-unembedding, and the fitted average Jacobian.
+asks a local question: **if this vector changed slightly, how would that
+change flow through the remaining layers toward the output?** The Jacobian
+is a matrix approximating that input→output effect. We average it over
+ordinary prompts, then use Qwen's own output vocabulary to show which words
+the vector supports.
 
-This mirrors an earlier NLA lesson, but with a different mathematical
-object. Within one layer, activations decompose roughly as
-`h_L(x) = μ_L + Δh`: the stable mean inflated raw cosine, so faithful
-comparison subtracts it. Per-context Jacobians similarly decompose as
-`J_L(x) = J̄_L + ΔJ`: here the stable average is useful because it captures
-the routing shared across contexts. What was nuisance structure for one
-metric becomes the calibration map for another instrument.
+That is why J-lens can help at early and middle layers, where directly
+applying the output head often gives noise. Unlike the NLA, it does not
+train another language model to explain the vector. It is still only a
+linear approximation, and the average can miss routes used only in a
+particular context.
+
+Why average at all? One prompt's Jacobian contains prompt-specific quirks.
+The average keeps routes that recur across many prompts. Earlier we
+subtracted the mean activation because it obscured comparisons; here the
+shared routing is exactly what we want to estimate.
 
 Where the three *disagree* is where it gets interesting:
-- logit lens ✗, J-lens ✓ → content is en route to output but not yet in
-  the output basis (the paper's "workspace ignition").
-- J-lens ✓ (single tokens), NLA adds structure/relations → the verbalizer
-  contributes real multi-token content.
+- logit lens ✗, J-lens ✓ → later layers can already turn the state into
+  relevant words, even though the state is not yet ready for the output head.
+- J-lens ✓ (single words), NLA adds structure/relations → the verbalizer
+  may be combining several real clues into a sentence.
 - NLA says something the J-lens top-k *never* shows → either the NLA
   decoder's prior is filling slots (notebook 01's hash-map→"C#" lesson!)
   or the content is present but not surfaced by this top-k lens. J-lens
@@ -98,23 +97,20 @@ Where the three *disagree* is where it gets interesting:
 Every cell below is a measurement you can rerun and edit. Together they
 establish four things on Qwen 2.5 7B:
 
-- content appears in the residual stream layers before the model says
-  it, and a linearization of the model itself reads it out — no trained
-  probe;
-- the readable band has a sharp onset (~L21-22 of 28 on our recall
-  prompts);
-- recall and copying reach that band along different trajectories;
-- editing the stream along a J-lens direction changes the model's
-  answer (nine layers needed; one is not enough).
+- the model begins carrying answer-related information several layers
+  before that information reaches its output;
+- J-lens exposes some of that information without training a new decoder;
+- on our recall prompts, its answer-token ranking improves sharply around
+  layers 21-22 of 28;
+- removing a J-lens-derived answer direction across several layers changes
+  the generated answer. Removing it at one layer is not enough.
 
-Here **workspace-like** is an operational claim: directions become readable,
-can be activated or suppressed, and are causally used by downstream
-computation. The full paper also tests limited capacity and flexible reuse
-across tasks. This notebook demonstrates the first three properties at small
-scale; it is not a reproduction of the paper's complete workspace case.
-The negative controls below show what a
-readout looks like when there is nothing behind it — run them before
-trusting any single pretty table, including ours.
+Here **workspace-like** has a narrow meaning: information becomes readable,
+we can add or remove it, and later computation uses it. The full paper tests
+more, including limited capacity and reuse across tasks. This notebook does
+not reproduce that full case. It demonstrates a smaller subset on Qwen 7B.
+The negative controls show how easily meaningless vectors can still produce
+plausible-looking token lists.
 
 **Numbers quoted in this notebook are bf16 anchors** from one GB10 run.
 Colab loads the model in 4-bit (nf4), so your exact ranks, ignition
@@ -243,11 +239,13 @@ print("helpers ready")"""),
     md("""## The fitted lens
 
 `J₂₀` is a 3584×3584 matrix — the input-output Jacobian of Qwen 2.5 7B
-averaged over web-text prompts. Fitting needs backward passes through the
-full model (**not** feasible on a free T4; ours was fitted with the repo's
-`fit_qwen25_7b.py` on a GB10, wikitext-103 prompts) and is published at
-[anicka/jlens-qwen2.5-7b-instruct](https://huggingface.co/anicka/jlens-qwen2.5-7b-instruct)
-— the cell below downloads it (~700 MB)."""),
+    averaged over web-text prompts. In plain language: it estimates how a small
+    change at layer 20 usually affects the model's final state. Fitting it needs
+    backward passes through the full model (**not** feasible on a free T4; ours
+    was fitted with the repo's `fit_qwen25_7b.py` on a GB10, wikitext-103 prompts)
+    and is published at
+    [anicka/jlens-qwen2.5-7b-instruct](https://huggingface.co/anicka/jlens-qwen2.5-7b-instruct)
+    — the cell below downloads it (~700 MB)."""),
 
     code("""import jlens
 lens = jlens.JacobianLens.from_pretrained(
@@ -261,10 +259,10 @@ assert LAYER in lens.source_layers, f"lens not fitted at layer {LAYER}: {lens.so
     md("""## Three readings of one vector
 
 `jm.unembed` is the model's own final-norm + unembedding, so the logit
-lens and the Jacobian lens differ in exactly ONE thing: whether `h` is
-transported by `J₂₀` first. Any difference between their outputs is the
-transport, nothing else. The NLA reads the *same* `h` through the trained
-verbalizer."""),
+    lens reads `h` directly. J-lens first uses `J₂₀` to estimate what later
+    layers will do with `h`, then applies the same output head. That one extra
+    step is the only difference between the two token lenses. The NLA reads the
+    same `h` through its trained prose decoder."""),
 
     code("""def topk_toks(logits, k=5):
     return [tok.decode([i]).strip() or repr(tok.decode([i]))
@@ -303,16 +301,14 @@ prompt the logit lens top-5 was `['anál', '换句话', 'The', '说到这里',
 '视听节目']` and the J-lens no better — while the NLA reads full content
 ("country identification query… confident factual answer naming a
 specific country (likely Italy)"). That is NOT a failure of the lenses;
-it is the **position lesson**:
+it means we asked them about the wrong token position:
 
 - `read_activation` grabs `h` at the last token of the CHAT-TEMPLATED
-  prompt — i.e. right after `<|im_start|>assistant`. What the model is
-  *poised to say next* there is a generic response opener, and that is
-  exactly what token lenses read out. One token of boilerplate.
+  prompt — right after `<|im_start|>assistant`. The immediate next token
+  there is usually a generic response opener. Token lenses focus on that
+  immediate output and therefore return little about the full answer.
 - The NLA was **trained on activations at precisely this position**, and
-  it decodes the *content* of the state, not the next token. Single-token
-  readout vs multi-token content is the whole difference between the
-  instruments, and this cell is that difference made visible.
+  it was trained to describe broader content, not merely predict one token.
 
 Note the NLA here actually names Italy — read from clean base
 activations (we capture under `disable_adapter`), it does not confabulate
@@ -358,14 +354,14 @@ layer      logit lens          J-lens
 model's actual next token: ' euros'
 ```
 
-The J-lens locks onto *currency* at L21 while the logit lens is still
-returning "called"/noise, and by L24-26 both carry the concrete answer
-(欧元 = euro). That snap around L21-24 of 28 (~75-85% depth) is the
-"ignition" the workspace paper describes — the same band where our NLA
-readouts become interpretable. Two independent instruments, one
-boundary. The J-lens has *currency* three layers before the logit lens
-does and four before the model emits " euros": the content is in the
-stream well before it reaches the output."""),
+At L21, J-lens already returns *currency* while the direct logit lens still
+returns "called" or noise. By L24-26, both lenses show the concrete answer
+(欧元 = euro), and the model then emits " euros".
+
+The paper calls this sharp transition **ignition**: information that was
+hard to read suddenly becomes easy to route toward words. Here J-lens sees
+the answer category several layers before the direct output head does. The
+model is already preparing the answer before it says it."""),
 
     md("""## Try your own prompt
 
@@ -383,8 +379,9 @@ above wasn't, but you can't know that). So: a batch of factual-recall
 prompts with known single-token answers, and for each layer the RANK of
 the correct answer token under both lenses. And a second batch of
 COPY/pattern prompts (induction: "zebra apple mango. zebra apple →
-mango"), where the paper's selectivity claim predicts much less
-workspace involvement — the J-lens advantage should shrink."""),
+mango"). The paper predicts that simple copying should need less of the
+shared verbal routing than factual recall, so the J-lens advantage may be
+smaller."""),
 
     code("""RECALL = [
     ("Fact: the capital of France is", " Paris"),
@@ -435,25 +432,24 @@ for name, pairs in [("RECALL", RECALL), ("COPY", COPY)]:
         mark = "  <-- ignition" if r_jl <= 10 and curves.get(L - 1, (9e9, 9e9))[1] > 10 else ""
         print(f"{L:5d} {r_ll:12.0f} {r_jl:12.0f}{mark}")"""),
 
-    md("""How to read it: where the J-lens column drops to single digits while
-the logit-lens column is still in the thousands, the answer is present
-in the stream but not yet rotated into the output basis.
+    md("""How to read it: rank 1 means the correct answer token is the lens's top
+    choice. When J-lens gives the answer a low rank while the direct logit lens
+    still ranks it in the thousands, later layers can already recover the answer
+    from the state, but the output head cannot yet read it directly.
 
 **What our run actually showed** (GB10, bf16 — your numbers should be
 close): RECALL behaves as advertised — J-lens rank falls to ~285 by L9
 and snaps to single digits at L22 while the logit lens is still in the
 thousands until L21. COPY does something more interesting than our naive
-prediction: the induction answer is J-visible MUCH earlier than recall
-(rank ~1000 at L6 — induction heads move the token around early), yet it
-snaps to the top at the SAME layer, L22. So the clean "automatic
-processing skips the workspace" selectivity effect did NOT reproduce at
-this toy scale — both trajectories ignite in the same band, they just
-approach it differently (copy enters the J-space early and coasts;
-recall arrives late and jumps). Could be scale (7B vs frontier), could
-be our prompt design, could be that single-token induction still routes
-through the same output machinery. We report it as measured; if you
-design a better automatic-vs-flexible contrast, that's a genuinely
-useful contribution — the paper's §selectivity has the criteria."""),
+prediction: J-lens begins ranking the copied token better much earlier
+(about rank 1000 at L6), but both copying and recall reach the top ranks
+around L22. We therefore did **not** reproduce the paper's clean
+selectivity result at this scale.
+
+Possible reasons include model size, our prompts, or the fact that even
+simple copying still uses the same output machinery. A better comparison
+between automatic copying and flexible recall would be a useful follow-up,
+not something this notebook has already established."""),
 
     md("""## Negative controls — how easily this can fool you
 
@@ -497,27 +493,27 @@ J_21 on h_21   : ['currency', '货币', 'coins', 'currency', 'Currency']
 ```
 
 Only the matched condition (c) reads *currency* — in three languages.
-The unembedding returns a top-5 whatever you feed it, so a readable
-readout by itself is not evidence; the matched-vs-mismatched contrast
-is. (Same reason the three-readings cell up top looked "broken" for the
-token lenses: chat-template position, outside the lens's home
-distribution. Position and distribution are part of the measurement.)"""),
+The output head always returns a top-5, even for nonsense. A plausible token
+list is therefore not evidence by itself. The matched layer must beat the
+random-vector and wrong-layer controls. The earlier chat-position example
+made the same point: where and how you measure matters."""),
 
-    md("""## Subtract the direction, change the words
+        md("""## Subtract the direction, change the words
 
-The J-lens says `h` around L21 is *poised to cause* euro-talk. Test that
-by intervention: build the h-space span whose transport lands on the
-answer tokens (" Euro"/"euro"/"欧元", first order `v = J̄ᵀ·u`), and
-project it OUT of the residual and generate again.
+    J-lens suggests that part of the layer-21 state supports the answer
+    "euro". We turn that suggestion into a causal test:
 
-Be precise about what the cell does — it's a real intervention, not the
-minimal one. It removes that span from EVERY position on EVERY forward
-across a range of layers, not just the single L21 vector. So read the
-result as "the model's answer is causally sensitive to this
-J-lens-derived direction," not "we surgically flipped one number." The
-proper controls for a strong claim — projecting out an equal-rank random
-subspace, or an unrelated token's direction — are a good exercise left
-in the cell's comments; here we show the effect and name its limits."""),
+    1. start with output directions for "Euro", "euro" and "欧元";
+    2. use `J̄ᵀ` to map them back to directions at the chosen hidden layer;
+    3. remove those directions from the residual stream;
+    4. generate the answer again.
+
+    This is a broad intervention. It removes the directions at every token
+    position and generation step across the selected layers, not from one
+    isolated vector. A changed answer therefore shows that generation depends
+    on this J-lens-derived signal. It does not show that we found one unique
+    "euro neuron". Equal-rank random and unrelated-token removals are the next
+    controls to add."""),
 
     code("""PROMPT_C = "Fact: the currency used in the country shaped like a boot is"
 ANSWER_TOKENS = [" Euro", " euro", " euros", "欧元"]   # surface forms of the answer
@@ -580,15 +576,15 @@ edit @ L21     :  euros. ...              <- one layer: content survives
 edit @ L18-L26 :  the lira. ...           <- nine layers: answer changes
 ```
 
-Single-layer surgery did nothing — the euro content is redundantly
-carried across depths, so one cut can't sever it (the "we can read it ≠
-we can control it" caveat, made concrete). But projecting the answer
-direction out of the residual across L18-L26 didn't just break the
-output — the model fell back to **"the lira"**, Italy's *pre-euro*
-currency. That is first-order causality you can see with your own eyes:
-remove the euro-ward push and the next-best currency association
-surfaces, coherent and correct-for-its-era. Not noise — a different
-right answer.
+Removing the direction at one layer did nothing. The answer is carried
+across several layers, so later layers could recover it. Removing the
+direction across L18-L26 changed the answer to **"the lira"**, Italy's
+pre-euro currency.
+
+That is stronger than a readable token list: changing the measured signal
+changed the model's answer. The replacement was coherent rather than random,
+which suggests the edit weakened "euro" enough for another learned currency
+association to win.
 
 (If your run only changes at the multi-layer edit, or not at all,
 report what you see — the escalation from 1 to 9 layers is itself the
@@ -680,24 +676,23 @@ alpha 45: Tanger. Cut the peel with a knife. ...
 alpha 65: yellow, cob like my out_ jut_Qu
 ```
 
-The model doesn't snap from "red fruit" to "orange" — it negotiates the
-conflict. Strawberry (red, no push) → Tomato (still red, edging toward
-orange) → **Tangerine** (a citrus that satisfies both the red-fruit
-request and the orange push) → then the dose overwhelms coherence. The
-intermediate answers trace a path through fruit/color space; the
-dose-response curve is the result, not any single word. Reading located
-the concept; writing shows it is the same handle the model computes on.
+The model does not jump directly from "red fruit" to "orange". As the added
+signal grows, the answers move from strawberry to tomato to **tangerine**,
+then become incoherent. Tangerine partly satisfies both pressures: it is
+close to orange, but still fits the fruit question better than "orange"
+itself. The gradual change matters more than any one answer.
 
 Close the loop by hand: capture a steered activation and run
 `three_readings` on it — the injected concept turns up in the J-lens
-readout, the write-side twin of notebook 03's round-trip cosine."""),
+readout too."""),
 
     md("""## Food for thought — synthetic interoception
 
-Reading and writing suggest a third possibility: make one hidden computation
-available to the rest of the model.
+    Reading and writing suggest a third experiment: measure one hidden state,
+    erase the original perturbation, then send only the measurement forward.
+    Can later layers use that new signal?
 
-Think of three components:
+    Think of three components:
 
 1. **sensor** — measure an internal variable such as valence;
 2. **broadcaster** — translate that measurement into a representation the
@@ -741,10 +736,10 @@ mapping orders, while analogous letter and tree-name tasks did **not**
 generalize. Random directions were also highly variable (0–75% in this tiny
 sample).
 
-So the honest result is not “we built self-awareness.” It is:
+So the honest result is not “we built self-awareness.” It is much narrower:
 
 > A transient hidden state can be sensed, erased, recoded through a
-> J-lens-derived channel, and sometimes reused for an arbitrary later action.
+> J-lens-derived channel, and sometimes influence a later choice.
 
 The next tests practically write themselves:
 
@@ -754,9 +749,9 @@ The next tests practically write themselves:
 - train with the broadcaster, remove it, and ask whether the model learned
   to create the channel itself.
 
-This is *fake it till you make it* as a falsifiable mechanism: first build
-synthetic interoception, then test whether repeated use can make the external
-scaffold unnecessary."""),
+First we build this artificial internal signal. A later experiment can ask
+whether training lets the model create or use a similar channel without the
+external scaffold."""),
 
     md("""### Run the miniature probe
 
