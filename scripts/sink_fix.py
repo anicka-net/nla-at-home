@@ -82,14 +82,25 @@ def load(path):
 
 
 def load_for_adapter(adapter_path):
-    """Load required sink preprocessing for an adapter, or return None."""
+    """Load required sink preprocessing for an adapter, or return None.
+
+    Loud on BOTH inconsistent states: meta declares the fix but the sidecar
+    is missing (FileNotFoundError), and a sidecar exists but the meta does
+    not declare it (RuntimeError — typically a stale nla_meta.yaml left in
+    the output dir by an older run; silently skipping the fix would feed the
+    verbalizer a space it was never trained on)."""
     adapter_path = Path(adapter_path)
     meta_path = adapter_path / "nla_meta.yaml"
-    if not meta_path.exists():
-        return None
-    meta = yaml.safe_load(meta_path.read_text()) or {}
-    config = meta.get("extraction", {}).get("sink_fix")
+    meta = (yaml.safe_load(meta_path.read_text()) or {}) if meta_path.exists() else {}
+    config = (meta.get("extraction") or {}).get("sink_fix")
     if not config:
+        stray = adapter_path / "sink_fix.pt"
+        if stray.exists():
+            raise RuntimeError(
+                f"{adapter_path} contains a sink_fix.pt sidecar but its "
+                "nla_meta.yaml does not declare extraction.sink_fix — "
+                "inconsistent adapter dir (stale meta from an older run?). "
+                "Refusing to guess; fix the meta before inference.")
         return None
     sidecar = adapter_path / config.get("sidecar", "sink_fix.pt")
     if not sidecar.exists():

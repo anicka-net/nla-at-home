@@ -91,3 +91,20 @@ def test_load_for_adapter_returns_declared_params(tmp_path):
         "    sidecar: sink_fix.pt\n")
     loaded = sink_fix.load_for_adapter(tmp_path)
     assert loaded["drop_top_pc"] == 1
+
+
+def test_stray_sidecar_with_silent_meta_is_loud(tmp_path):
+    """Stale nla_meta.yaml next to a real sidecar must not silently skip
+    the transform (the 2026-05 leftover-meta scenario in the gemma dir)."""
+    X = torch.randn(20, 4)
+    sink_fix.save(sink_fix.fit([X]), tmp_path / "sink_fix.pt")
+    (tmp_path / "nla_meta.yaml").write_text("extraction:\n  mse_scale: 59.87\n")
+    with pytest.raises(RuntimeError, match="does not declare"):
+        sink_fix.load_for_adapter(tmp_path)
+
+
+def test_stray_sidecar_without_any_meta_is_loud(tmp_path):
+    X = torch.randn(20, 4)
+    sink_fix.save(sink_fix.fit([X]), tmp_path / "sink_fix.pt")
+    with pytest.raises(RuntimeError, match="does not declare"):
+        sink_fix.load_for_adapter(tmp_path)

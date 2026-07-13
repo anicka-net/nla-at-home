@@ -35,6 +35,7 @@ from nla_lib import (
     nearest_depth_pct,
     normalize_activation,
 )
+import sink_fix
 
 
 def load_source_texts(corpus_dir):
@@ -99,6 +100,11 @@ def main():
     model = PeftModel.from_pretrained(base, args.adapter).eval()
     device = next(model.parameters()).device
 
+    sink_params = sink_fix.load_for_adapter(args.adapter)
+    if sink_params is not None:
+        print(f"sink_fix sidecar active (drop_top_pc="
+              f"{sink_params['drop_top_pc']}) — applied before normalize")
+
     inject_ids = tok.encode(injection_char, add_special_tokens=False)
     assert len(inject_ids) == 1, f"injection char -> {inject_ids}"
     inject_id = inject_ids[0]
@@ -127,6 +133,7 @@ def main():
             tid = sample_ids[k % len(sample_ids)]
             k += 1
             act = act_data["activations"][layer][id_to_idx[tid]]
+            act = sink_fix.apply_if_present(sink_params, layer, act.float())
             emb = model.get_input_embeddings()(
                 torch.tensor([tokens], device=device)).clone()
             emb[0, pos, :] = normalize_activation(
