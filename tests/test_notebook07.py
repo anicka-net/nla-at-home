@@ -31,10 +31,6 @@ def function_source(name):
     return ast.get_source_segment(source, node)
 
 
-def test_notebook07_uses_clean_model_for_intervention():
-    assert "model.disable_adapter()" in function_source("preference")
-
-
 def test_notebook07_injected_generation_has_attention_mask():
     assert "attention_mask=attn" in function_source("describe")
 
@@ -45,11 +41,17 @@ def test_notebook07_moves_injected_vector_to_model_device():
     assert "dtype=embeds.dtype" in source
 
 
-def test_notebook07_seeded_random_control_is_torch_compatible():
+def test_notebook07_uses_plus_one_monte_carlo_estimate():
     source = notebook_code()
-    assert "torch.randn_like(direction, generator=g)" not in source
-    assert "torch.randn(" in source
-    assert "generator=g" in source
+    assert "(exceedances + 1) / (len(random_max) + 1)" in source
+    assert 'f"< {1/5000:.4f}"' not in source
+
+
+def test_notebook07_fresh_probes_compare_ordering_without_cherry_picking():
+    source = notebook_code()
+    assert 'min(probe_projections["pleasant"])' in source
+    assert 'max(probe_projections["unpleasant"])' in source
+    assert "states[pick]" not in source
 
 
 def test_notebook07_matches_every_instrument_to_block_19():

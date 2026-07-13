@@ -242,8 +242,8 @@ def notebook_01():
             '    print("   readout:", describe(act))',
             '    print()',
         ),
-        md("---\n### ✅ Self-check (run before you trust it)\n"
-           "This notebook was authored but not yet executed on a T4. Expected anchors:\n"
+        md("---\n### ✅ Self-check\n"
+           "Verified T4 anchors:\n"
            "- the model loads without OOM on a **free T4** (4-bit uses ~5–6 GB),\n"
            "- for `\"Explain how a hash map...\"` the readout is **coherent English bullets "
            "about data structures / hashing / lookup**, not `SpongeBob` / `Bahamas` / random "

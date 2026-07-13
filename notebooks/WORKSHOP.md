@@ -1,13 +1,13 @@
 # NLA hands-on workshop — facilitator guide
 
-Practical part of the HAAISS NLA tutorial. Three Colab notebooks that go from
+Practical part of the HAAISS NLA tutorial. Four core Colab notebooks go from
 "click run, watch a model's mind get captioned" to "build the injection
-yourself" to "catch a hallucination with a cosine". All three run on a **free
+yourself" to "catch a hallucination with a cosine". All four run on a **free
 Colab T4** off the **public** adapters — no local checkout, no GPU of your own
 required by the audience.
 
-> Status: authored 2026-07-02, **not yet executed on a T4**. Run the pre-flight
-> (below) once before the session — each notebook ends in a self-check cell.
+> Status: all seven notebooks have been executed end-to-end in Colab. Each
+> notebook ends in a self-check cell.
 
 ## What the audience can actually do
 
@@ -57,28 +57,29 @@ for 02 and 03. NB03 attaches a second adapter (the reconstructor) to the
    version), the corpus on HF, and the universal Phi-4 NLA (every depth, not
    just 71%).
 
-## Beyond the workshop: experimental notebooks (05–06)
+## Beyond the workshop: experimental notebooks (05–07)
 
-Two research-grade notebooks that go past the click-to-run core. They depend
+Three research-grade notebooks that go past the click-to-run core. They depend
 on an **external artifact** — Anthropic's `jacobian-lens` (Apache-2.0), plus a
 J-lens we fitted and published — so they are for the people who want to go
-deeper, not the whole room. Quoted outputs are real runs on a GB10 in 4-bit
-NF4 (the same load path the notebook uses); a different Colab GPU may shift the
-exact tokens and layers.
+deeper, not the whole room. All three have run end-to-end in Colab; exact
+tokens and layers can shift across GPUs.
 
 | # | File | What it does |
 |---|------|--------------|
 | 05 | `05_three_lenses.ipynb` | one activation, three readings — logit lens vs **Jacobian lens** vs NLA. Where they disagree is "workspace ignition": content is in the stream before the model says it. Adds a layer sweep, a causal ablation, and concept injection (push *orange* into the stream, watch a red-fruit answer bend to *tangerine*). |
 | 06 | `06_confabulation_detector.ipynb` | cross-check the NLA's entities against the J-lens. A word the verbalizer emits that appears in **no** layer's J-lens top-k is a candidate confabulation. Honest split: the grounded side is a solid, prompt-specific confirmer; a controlled-contamination read visibly un-grounds. Builds on 05. |
+| 07 | `07_validate_one_axis.ipynb` | follow one Qwen valence direction through an SAE, J-Lens, and NLA, with fresh-prompt controls and explicit failure modes for each witness. |
 
-**One install gotcha (both):** the setup cell installs the lens with
-`pip install -e jacobian-lens --no-deps`. That flag is load-bearing — jlens
+**One install gotcha (all three):** the setup cell installs the lens with
+`pip install -e jacobian-lens --no-deps`. That flag is required here — jlens
 pins `transformers>=5.5` but imports no transformers API of its own, and
 letting it upgrade Colab's transformers pulls a build whose 4-bit load fills a
 T4 with fp16 shards and OOMs. `--no-deps` keeps Colab's working transformers.
 
-Both are generated the same way as the core set — edit the source, not the JSON:
-`python3 notebooks/build_nb05.py` and `python3 notebooks/build_nb06.py`.
+All three are generated — edit the source, not the JSON:
+`python3 notebooks/build_nb05.py`, `python3 notebooks/build_nb06.py`, and
+`python3 notebooks/build_nb07.py`.
 
 ## Pre-flight (do once, before the room)
 

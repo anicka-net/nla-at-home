@@ -4,8 +4,7 @@ Generate notebook 05 — EXPERIMENTAL: three lenses on one activation.
 
 Companion to the workshop set (01-04) but deliberately separate: it depends
 on an external artifact (a fitted Jacobian lens from Anthropic's
-jacobian-lens reference implementation, Apache-2.0) and has NOT been
-executed on Colab. Built as a generator for the same reasons as
+jacobian-lens reference implementation, Apache-2.0). Built as a generator for the same reasons as
 build_workshop_notebooks.py (valid nbformat, shared conventions).
 
 Conventions are copied from the SHIPPED notebooks (01_read_a_mind.ipynb),
@@ -46,10 +45,9 @@ cells = [
 
     md("""# 05 · Three lenses on one activation ⚠️ EXPERIMENTAL
 
-**Status: the full code path was executed end-to-end on a GB10 (bf16)
-on 2026-07-07 — outputs quoted below are real. The Colab 4-bit variant
-of THIS notebook is still untested** (the same 4-bit load pattern is
-proven by notebooks 01-04). A100/L4 runtime recommended.
+**Status: executed end-to-end in Colab with the 4-bit model and on a GB10
+in bf16.** Outputs quoted below are measured; exact tokens can shift across
+GPU and precision. A100/L4 runtime recommended.
 
 We take **one residual-stream vector** `h` — Qwen 2.5 7B, layer 20 (71%
 depth), last prompt token — and read it three ways:

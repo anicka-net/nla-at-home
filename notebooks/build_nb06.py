@@ -174,10 +174,10 @@ cells = [
 
     md("""# 06 · A confabulation detector from two witnesses ⚠️ EXPERIMENTAL
 
-**Status: executed end-to-end on a GB10, 4-bit NF4 (the same load path
-as this notebook) — quoted outputs are real, including the parts where the
-detector only half-works. A different Colab GPU may shift the exact tokens
-and layers** (same load pattern as 01-05). Do notebook **05** first; this
+**Status: executed end-to-end in Colab and on a GB10 with 4-bit NF4.**
+Quoted outputs are measured, including the parts where the detector only
+half-works; exact tokens and layers can shift across GPUs. Do notebook
+**05** first; this
 reuses its setup and assumes you've seen the J-lens.
 
 Notebook 01 showed the NLA verbalizer naming an entity that isn't in the
