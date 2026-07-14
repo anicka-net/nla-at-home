@@ -72,9 +72,10 @@ def centered_cosine(reconstructed, actual, mean):
 
 class BrainInJar:
     def __init__(self, av_path, ar_path, device="cuda", skip_ar=False,
-                 activations_path=None):
+                 activations_path=None, full=False):
         self.device = device
         self.skip_ar = skip_ar
+        self.full = full
 
         # Load base + AV adapter
         print(c("Loading Phi-4 + GRPO AV adapter...", "dim"), flush=True)
@@ -217,7 +218,8 @@ class BrainInJar:
         # Generate normal output
         print(f"\n  {c('Generating...', 'dim')}", flush=True)
         reply = self.generate_output(prompt)
-        print(f"  {c('OUTPUT:', 'bold')} {reply[:600]}")
+        visible_reply = reply if self.full else reply[:600]
+        print(f"  {c('OUTPUT:', 'bold')}\n{visible_reply}")
 
         # Extract hidden states
         print(f"\n  {c('Extracting hidden states...', 'dim')}", flush=True)
@@ -233,7 +235,7 @@ class BrainInJar:
             print(f"  {'':>14}  {'AR confidence':>22}  Description")
         else:
             print(f"  {'':>14}  Description")
-        print(f"  {c('─' * 68, 'dim')}")
+        print(f"  {c('-' * 68, 'dim')}")
 
         for layer_idx in layers:
             depth_pct = layer_to_depth_pct(layer_idx)
@@ -253,26 +255,28 @@ class BrainInJar:
             pct_str = c(f"L{layer_idx:02d} ({depth_pct:3d}%)", dc)
 
             desc_lines = description.split("\n")
-            first_line = desc_lines[0][:90] if desc_lines else ""
+            clip = (lambda s: s) if self.full else (lambda s: s[:90])
+            first_line = clip(desc_lines[0]) if desc_lines else ""
 
             if not self.skip_ar:
                 print(f"  {pct_str}  {conf_bar} {cos_str}  {first_line}")
             else:
                 print(f"  {pct_str}  {first_line}")
 
-            for line in desc_lines[1:3]:
-                line = line.strip()[:90]
+            tail = desc_lines[1:] if self.full else desc_lines[1:3]
+            for line in tail:
+                line = clip(line.strip())
                 if line:
                     pad = 42 if not self.skip_ar else 16
                     print(f"  {'':>{pad}}  {c(line, 'dim')}")
 
-        print(f"  {c('─' * 68, 'dim')}\n")
+        print(f"  {c('-' * 68, 'dim')}\n")
 
 
 def confidence_bar(cos, width=20):
     filled = int(cos * width)
     filled = max(0, min(width, filled))
-    bar = "█" * filled + "░" * (width - filled)
+    bar = "#" * filled + "-" * (width - filled)  # ASCII: survives screen/UTF-8
     if cos >= 0.7: col = "green"
     elif cos >= 0.5: col = "yellow"
     else: col = "red"
@@ -293,6 +297,8 @@ def main():
     parser.add_argument("--skip-ar", action="store_true",
                         help="Skip AR confidence (faster, AV descriptions only)")
     parser.add_argument("--device", default="cuda")
+    parser.add_argument("--full", action="store_true",
+                        help="Show complete output and layer descriptions")
     parser.add_argument("--activations",
                         help="Phi-4 all-layers activation file used to compute "
                              "per-layer means for centered AR confidence")
@@ -302,7 +308,8 @@ def main():
         parser.error("--activations is required unless --skip-ar is used")
     brain = BrainInJar(
         args.av_adapter, args.ar_checkpoint, device=args.device,
-        skip_ar=args.skip_ar, activations_path=args.activations)
+        skip_ar=args.skip_ar, activations_path=args.activations,
+        full=args.full)
 
     if args.layers:
         layers = [int(x) for x in args.layers.split(",")]
