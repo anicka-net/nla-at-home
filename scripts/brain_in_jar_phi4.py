@@ -205,7 +205,9 @@ class BrainInJar:
                                        output_hidden_states=True)
             hidden = outputs.hidden_states[layer_idx + 1]
             last_h = hidden[0, -1]
-            reconstructed = self.value_heads[layer_idx](last_h.unsqueeze(0)).squeeze(0)
+            vh = self.value_heads[layer_idx]
+            last_h = last_h.to(vh.weight.dtype)  # backbone bf16 vs head fp32
+            reconstructed = vh(last_h.unsqueeze(0)).squeeze(0)
 
         mean = self.layer_means[layer_idx]
         return centered_cosine(reconstructed, actual_activation, mean)
