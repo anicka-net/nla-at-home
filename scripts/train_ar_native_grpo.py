@@ -78,6 +78,7 @@ from train_universal_grpo_hard import (
     AR_TEMPLATE, AR_MAX_LEN,
 )
 from av_policy import compass_target
+import sink_fix
 
 faulthandler.register(signal.SIGUSR1)
 
@@ -168,6 +169,11 @@ def main():
     # Specificity reward params
     parser.add_argument("--spec-norm", choices=["raw", "log", "sqrt"], default="sqrt",
                         help="How to transform the specificity norm. sqrt dampens outliers.")
+    parser.add_argument("--reward-space", choices=["raw", "whitened"], default="raw",
+                        help="Space for the cosine+specificity reward. 'whitened' "
+                             "loads pca_transforms.pt from the AR dir and scores in "
+                             "the AR's own (PCA-whitened, top-PC-dropped) training "
+                             "space; requires an AR trained with --pca-whiten.")
     parser.add_argument("--layers", default=None,
                         help="Comma-separated layers (default: all AR∩compass∩activation layers)")
     parser.add_argument("--device", default="cuda")
@@ -228,6 +234,36 @@ def main():
     layer_means = {L: acts_by_layer[L].float().mean(0) for L in train_layers}
     layer_means_dev = {L: m.to(device) for L, m in layer_means.items()}
 
+    # Optional: score the reward in the AR's own whitened space
+    pca_transforms, pca_drop_top = None, 0
+    if args.reward_space == "whitened":
+        from nla_lib import pca_whiten_vectors, read_nla_meta
+        pca_path = Path(args.ar_checkpoint) / "pca_transforms.pt"
+        if not pca_path.exists():
+            raise FileNotFoundError(
+                f"--reward-space whitened requires {pca_path} (AR trained "
+                "with --pca-whiten)")
+        ar_meta = read_nla_meta(args.ar_checkpoint) or {}
+        ar_training = ar_meta.get("training") or {}
+        if not ar_training.get("pca_whiten"):
+            raise RuntimeError(
+                f"--reward-space whitened but {args.ar_checkpoint} nla_meta "
+                "does not declare training.pca_whiten — refusing to guess")
+        pca_drop_top = int(ar_training.get("pca_drop_top", 0))
+        pca_transforms = torch.load(pca_path, weights_only=True,
+                                    map_location="cpu")
+        pca_transforms = {
+            L: {k: v.to(device) for k, v in t.items()}
+            for L, t in pca_transforms.items() if L in set(train_layers)}
+        missing_pca = set(train_layers) - set(pca_transforms)
+        if missing_pca:
+            raise ValueError(
+                f"pca_transforms.pt lacks layers {sorted(missing_pca)}")
+        print(f"  reward space: WHITENED (drop_top={pca_drop_top}, "
+              f"{len(pca_transforms)} layers)")
+    else:
+        print("  reward space: raw (centered cosine)")
+
     # Compute specificity normalization: what's the typical ‖AR(desc) - μ‖?
     # We'll normalize by the median to keep the reward scale stable.
     # (Computed lazily on first epoch.)
@@ -243,6 +279,12 @@ def main():
 
     # --- Load AV (policy model — trainable) ---
     print("Loading AV from %s..." % args.av_adapter)
+    # Sink preprocessing is part of the AV's frozen input interface: an
+    # adapter whose meta declares extraction.sink_fix was trained on
+    # center+drop-PC vectors and must never see raw ones (loud loader).
+    sink_params = sink_fix.load_for_adapter(args.av_adapter)
+    if sink_params is not None:
+        print("  sink_fix sidecar active (declared in nla_meta.yaml)")
     av_tokenizer = AutoTokenizer.from_pretrained(
         base_model_name, trust_remote_code=trust_remote)
     if av_tokenizer.pad_token is None:
@@ -339,7 +381,9 @@ def main():
                 input_ids = torch.tensor([prompt_tokens] * G,
                                          dtype=torch.long, device=device)
                 embeddings = embed_layer(input_ids)
-                inj = normalize_activation(act.to(device), INJECTION_SCALE)
+                act_inj = sink_fix.apply_if_present(
+                    sink_params, layer_idx, act.to(device))
+                inj = normalize_activation(act_inj, INJECTION_SCALE)
                 embeddings[:, inject_pos, :] = inj.to(embeddings.dtype)
 
                 with torch.no_grad():
@@ -374,12 +418,25 @@ def main():
                 recon = recons[layer_idx]  # [G, d_model]
                 mean_L = layer_means_dev[layer_idx]
 
-                # Direction: centered cosine (same as before)
-                cos_scores = centered_cosine(recon, act.to(device), mean_L)  # [G]
-
-                # Specificity: ‖reconstruction − layer_mean‖ (how opinionated)
-                centered_recon = recon - mean_L.unsqueeze(0)
-                spec_norms = centered_recon.norm(dim=1)  # [G]
+                if pca_transforms is not None:
+                    # AR's own training space: whitening centers + drops the
+                    # top PC(s), so plain cosine there == centered cosine
+                    # sans sink; specificity = whitened (Mahalanobis) norm.
+                    from nla_lib import pca_whiten_vectors
+                    rec_w = pca_whiten_vectors(
+                        recon.float(), pca_transforms[layer_idx], pca_drop_top)
+                    act_w = pca_whiten_vectors(
+                        act.to(device).unsqueeze(0),
+                        pca_transforms[layer_idx], pca_drop_top)
+                    cos_scores = torch.nn.functional.cosine_similarity(
+                        rec_w, act_w.expand_as(rec_w), dim=1)  # [G]
+                    spec_norms = rec_w.norm(dim=1)  # [G]
+                else:
+                    # Direction: centered cosine (same as before)
+                    cos_scores = centered_cosine(recon, act.to(device), mean_L)  # [G]
+                    # Specificity: ‖reconstruction − layer_mean‖ (how opinionated)
+                    centered_recon = recon - mean_L.unsqueeze(0)
+                    spec_norms = centered_recon.norm(dim=1)  # [G]
                 spec_weights = spec_transform(spec_norms, layer_idx)
 
                 # REWARD = direction × specificity

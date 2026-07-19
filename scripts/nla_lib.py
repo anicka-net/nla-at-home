@@ -209,6 +209,49 @@ def normalize_activation(v, target_scale=INJECTION_SCALE):
 
 
 # ---------------------------------------------------------------------------
+# PCA whitening (AR training space; sidecar pca_transforms.pt)
+# ---------------------------------------------------------------------------
+# An AR trained with --pca-whiten optimized its loss in this space; any
+# consumer that scores against such an AR (reward, eval) must be able to
+# reproduce the exact transform. Moved here from train_universal_ar.py so
+# scripts never re-declare it (single-source rule).
+
+def compute_pca_transforms(act_data, min_layer=0, drop_top=1):
+    import torch
+    layer_acts = act_data["activations"]
+    n_layers = act_data["n_layers"]
+    transforms = {}
+    for layer_idx in range(min_layer, n_layers):
+        acts = layer_acts[layer_idx].float()
+        mean = acts.mean(dim=0)
+        centered = acts - mean
+        U, S, Vh = torch.linalg.svd(centered, full_matrices=False)
+        eigenvalues = S**2 / (acts.shape[0] - 1)
+        transforms[layer_idx] = {
+            "mean": mean,
+            "components": Vh,
+            "eigenvalues": eigenvalues,
+        }
+        total_var = eigenvalues.sum()
+        top_var = eigenvalues[:drop_top].sum()
+        print(f"  L{layer_idx}: top-{drop_top} PCs explain "
+              f"{100*top_var/total_var:.1f}% variance")
+    return transforms
+
+
+def pca_whiten_vectors(vectors, pca_transform, drop_top):
+    mean = pca_transform["mean"].to(vectors.device)
+    components = pca_transform["components"].to(vectors.device)
+    eigenvalues = pca_transform["eigenvalues"].to(vectors.device)
+    centered = vectors - mean
+    projected = centered @ components.T
+    projected = projected[:, drop_top:]
+    eig = eigenvalues[drop_top:]
+    scale = eig.sqrt().clamp_min(1e-12)
+    return projected / scale.unsqueeze(0)
+
+
+# ---------------------------------------------------------------------------
 # Adapter format detection + loading
 # ---------------------------------------------------------------------------
 

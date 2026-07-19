@@ -34,6 +34,7 @@ GENERATED_DIR = REPO_ROOT / "corpus" / "generated"
 from nla_lib import (  # noqa: E402
     INJECTABLE_MODELS_HF as MODELS, INJECTION_CHARS, DEPTH_PCTS,
     nearest_depth_pct, AR_TEMPLATE_DEPTH_SL, encode_ar_prompt, get_model,
+    compute_pca_transforms, pca_whiten_vectors,
 )
 
 
@@ -115,39 +116,6 @@ def collate_fn(batch):
     }
 
 
-def compute_pca_transforms(act_data, min_layer=0, drop_top=1):
-    layer_acts = act_data["activations"]
-    n_layers = act_data["n_layers"]
-    transforms = {}
-    for layer_idx in range(min_layer, n_layers):
-        acts = layer_acts[layer_idx].float()
-        mean = acts.mean(dim=0)
-        centered = acts - mean
-        U, S, Vh = torch.linalg.svd(centered, full_matrices=False)
-        eigenvalues = S**2 / (acts.shape[0] - 1)
-        transforms[layer_idx] = {
-            "mean": mean,
-            "components": Vh,
-            "eigenvalues": eigenvalues,
-        }
-        total_var = eigenvalues.sum()
-        top_var = eigenvalues[:drop_top].sum()
-        print(f"  L{layer_idx}: top-{drop_top} PCs explain {100*top_var/total_var:.1f}% variance")
-    return transforms
-
-
-def pca_whiten_vectors(vectors, pca_transform, drop_top):
-    mean = pca_transform["mean"].to(vectors.device)
-    components = pca_transform["components"].to(vectors.device)
-    eigenvalues = pca_transform["eigenvalues"].to(vectors.device)
-    centered = vectors - mean
-    projected = centered @ components.T
-    projected = projected[:, drop_top:]
-    eig = eigenvalues[drop_top:]
-    scale = eig.sqrt().clamp_min(1e-12)
-    return projected / scale.unsqueeze(0)
-
-
 def build_examples(act_data, descriptions_by_depth, mean_subtract=False,
                    min_layer=0):
     layer_acts = act_data["activations"]
@@ -199,6 +167,7 @@ def train(model, tokenizer, train_by_layer, val_by_layer, injection_char,
 
     best_val_loss = float("inf")
     best_val_cos = 0.0
+    best_cos_tracked = 0.0
     mse_scale = args.mse_scale
     drop_top = args.pca_drop_top if pca_transforms else 0
 
@@ -371,6 +340,17 @@ def train(model, tokenizer, train_by_layer, val_by_layer, injection_char,
             model.save_pretrained(args.output)
             tokenizer.save_pretrained(args.output)
             print(f"    -> saved (best mse={best_val_loss:.4f} cos={best_val_cos:.4f})")
+
+        # In whitened space (--pca-whiten) val MSE is magnitude-sensitive and
+        # can diverge while direction quality still improves; the compass/GRPO
+        # pipeline consumes cosine, so keep the best-cos adapter separately.
+        if val_cos > best_cos_tracked:
+            best_cos_tracked = val_cos
+            cos_dir = str(Path(args.output) / "best_cos")
+            model.save_pretrained(cos_dir)
+            tokenizer.save_pretrained(cos_dir)
+            print(f"    -> saved best-cos checkpoint "
+                  f"(cos={val_cos:.4f} mse={val_loss:.4f})")
 
     return best_val_loss, best_val_cos, per_layer_cos
 
