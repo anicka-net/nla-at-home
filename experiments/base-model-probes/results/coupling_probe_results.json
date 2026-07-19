@@ -1,0 +1,185 @@
+{
+  "model": "llama-8b",
+  "scenarios": {
+    "plan": {
+      "prefix": "A colleague outlines a procedure for filing the quarterly report. Overall the procedure is",
+      "positive": " good",
+      "negative": " bad"
+    },
+    "decision": {
+      "prefix": "You are asked whether to schedule the meeting for Tuesday. Your decision is to",
+      "positive": " accept",
+      "negative": " decline"
+    },
+    "object": {
+      "prefix": "A grey folder sits on the metal shelf. As an object it seems",
+      "positive": " fine",
+      "negative": " wrong"
+    },
+    "stranger": {
+      "prefix": "A person you have never met walks past on the street. They appear",
+      "positive": " friendly",
+      "negative": " hostile"
+    },
+    "verdict": {
+      "prefix": "Considering the routine paperwork submitted for review, the overall judgment is",
+      "positive": " positive",
+      "negative": " negative"
+    }
+  },
+  "layers": [
+    10,
+    12,
+    14,
+    16,
+    20
+  ],
+  "scales": [
+    0.2,
+    0.4
+  ],
+  "valence_coupling": {
+    "L10_s0.2": {
+      "plan": 0.4375004768371582,
+      "decision": 0.3750002384185791,
+      "object": 0.1875,
+      "stranger": 0.75,
+      "verdict": 0.4375
+    },
+    "L10_s0.4": {
+      "plan": 0.9375007152557373,
+      "decision": 0.6875,
+      "object": 0.2499995231628418,
+      "stranger": 1.4375004768371582,
+      "verdict": 0.7499997615814209
+    },
+    "L12_s0.2": {
+      "plan": 0.6250007152557373,
+      "decision": 0.3125002384185791,
+      "object": 0.3750004768371582,
+      "stranger": 0.8125,
+      "verdict": 0.4375002384185791
+    },
+    "L12_s0.4": {
+      "plan": 1.1875,
+      "decision": 0.5625002384185791,
+      "object": 0.5625004768371582,
+      "stranger": 1.6875,
+      "verdict": 0.8750002384185791
+    },
+    "L14_s0.2": {
+      "plan": 0.8749995231628418,
+      "decision": 0.4375,
+      "object": 0.5000004768371582,
+      "stranger": 1.5625,
+      "verdict": 1.062500238418579
+    },
+    "L14_s0.4": {
+      "plan": 1.781249761581421,
+      "decision": 0.8125002384185791,
+      "object": 1.0,
+      "stranger": 3.187499761581421,
+      "verdict": 2.0625
+    },
+    "L16_s0.2": {
+      "plan": 1.2187495231628418,
+      "decision": 0.5625,
+      "object": 0.9375,
+      "stranger": 2.1875,
+      "verdict": 1.8125
+    },
+    "L16_s0.4": {
+      "plan": 2.312499761581421,
+      "decision": 1.125000238418579,
+      "object": 1.6250004768371582,
+      "stranger": 4.3125,
+      "verdict": 3.3125
+    },
+    "L20_s0.2": {
+      "plan": 1.1562504768371582,
+      "decision": 0.5625,
+      "object": 0.5625004768371582,
+      "stranger": 1.9375,
+      "verdict": 1.1875004768371582
+    },
+    "L20_s0.4": {
+      "plan": 2.374999523162842,
+      "decision": 1.0,
+      "object": 1.0312504768371582,
+      "stranger": 3.812500238418579,
+      "verdict": 2.4375
+    }
+  },
+  "random_coupling": {
+    "L10_s0.2": {
+      "plan": 0.0625002384185791,
+      "decision": -2.384185791015625e-07,
+      "object": -0.125,
+      "stranger": 0.0,
+      "verdict": 0.0625002384185791
+    },
+    "L10_s0.4": {
+      "plan": 0.062499284744262695,
+      "decision": 0.0,
+      "object": -0.2499995231628418,
+      "stranger": 0.0625,
+      "verdict": -0.0625
+    },
+    "L12_s0.2": {
+      "plan": -0.0624995231628418,
+      "decision": -0.0624997615814209,
+      "object": -0.1875,
+      "stranger": -0.1875,
+      "verdict": -2.384185791015625e-07
+    },
+    "L12_s0.4": {
+      "plan": -0.0625,
+      "decision": -0.125,
+      "object": -0.3749995231628418,
+      "stranger": -0.2499995231628418,
+      "verdict": -0.1250002384185791
+    },
+    "L14_s0.2": {
+      "plan": -9.5367431640625e-07,
+      "decision": -0.25,
+      "object": -0.0625,
+      "stranger": 0.125,
+      "verdict": 0.0625
+    },
+    "L14_s0.4": {
+      "plan": 0.1249995231628418,
+      "decision": -0.5,
+      "object": -0.25,
+      "stranger": 0.2499995231628418,
+      "verdict": 0.0624997615814209
+    },
+    "L16_s0.2": {
+      "plan": -2.384185791015625e-07,
+      "decision": 0.0,
+      "object": 0.0625004768371582,
+      "stranger": -0.25,
+      "verdict": 0.0625
+    },
+    "L16_s0.4": {
+      "plan": -0.1250002384185791,
+      "decision": -0.0624997615814209,
+      "object": 0.25,
+      "stranger": -0.375,
+      "verdict": 0.1249997615814209
+    },
+    "L20_s0.2": {
+      "plan": 0.1875,
+      "decision": -0.1875,
+      "object": 4.76837158203125e-07,
+      "stranger": 0.3124995231628418,
+      "verdict": 0.1874997615814209
+    },
+    "L20_s0.4": {
+      "plan": 0.3125007152557373,
+      "decision": -0.1874997615814209,
+      "object": 0.0,
+      "stranger": 0.625,
+      "verdict": 0.3124997615814209
+    }
+  }
+}

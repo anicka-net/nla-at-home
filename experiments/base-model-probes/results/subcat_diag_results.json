@@ -1,0 +1,226 @@
+[
+  {
+    "layer": 0,
+    "within_private": 0.1903996467590332,
+    "within_future": 0.1976041942834854,
+    "cross_private_future": 0.12885859608650208,
+    "loo_future_mean": 0.2574696938196818
+  },
+  {
+    "layer": 1,
+    "within_private": 0.17578966915607452,
+    "within_future": 0.16189049184322357,
+    "cross_private_future": 0.11000961810350418,
+    "loo_future_mean": 0.21313877900441489
+  },
+  {
+    "layer": 2,
+    "within_private": 0.24941442906856537,
+    "within_future": 0.2668784260749817,
+    "cross_private_future": 0.18633848428726196,
+    "loo_future_mean": 0.3358495732148488
+  },
+  {
+    "layer": 3,
+    "within_private": 0.27611300349235535,
+    "within_future": 0.27673786878585815,
+    "cross_private_future": 0.16947680711746216,
+    "loo_future_mean": 0.34738966822624207
+  },
+  {
+    "layer": 4,
+    "within_private": 0.23595023155212402,
+    "within_future": 0.25471165776252747,
+    "cross_private_future": 0.16679798066616058,
+    "loo_future_mean": 0.3240765333175659
+  },
+  {
+    "layer": 5,
+    "within_private": 0.178742453455925,
+    "within_future": 0.21628338098526,
+    "cross_private_future": 0.137358158826828,
+    "loo_future_mean": 0.27970751623312634
+  },
+  {
+    "layer": 6,
+    "within_private": 0.12688378989696503,
+    "within_future": 0.1854415386915207,
+    "cross_private_future": 0.09407144039869308,
+    "loo_future_mean": 0.24282226463158926
+  },
+  {
+    "layer": 7,
+    "within_private": 0.12015540152788162,
+    "within_future": 0.16887979209423065,
+    "cross_private_future": 0.07816676795482635,
+    "loo_future_mean": 0.22203627725442251
+  },
+  {
+    "layer": 8,
+    "within_private": 0.0928836390376091,
+    "within_future": 0.1778852939605713,
+    "cross_private_future": 0.0801338329911232,
+    "loo_future_mean": 0.2326124608516693
+  },
+  {
+    "layer": 9,
+    "within_private": 0.0660124272108078,
+    "within_future": 0.15885286033153534,
+    "cross_private_future": 0.0869978815317154,
+    "loo_future_mean": 0.20939421653747559
+  },
+  {
+    "layer": 10,
+    "within_private": 0.08273600786924362,
+    "within_future": 0.1507522165775299,
+    "cross_private_future": 0.08913490176200867,
+    "loo_future_mean": 0.19918222725391388
+  },
+  {
+    "layer": 11,
+    "within_private": 0.07342737168073654,
+    "within_future": 0.14489978551864624,
+    "cross_private_future": 0.07704164832830429,
+    "loo_future_mean": 0.19156102339426676
+  },
+  {
+    "layer": 12,
+    "within_private": 0.09475383162498474,
+    "within_future": 0.1553211808204651,
+    "cross_private_future": 0.07973989099264145,
+    "loo_future_mean": 0.20436655978361765
+  },
+  {
+    "layer": 13,
+    "within_private": 0.09482208639383316,
+    "within_future": 0.1815098375082016,
+    "cross_private_future": 0.08138790726661682,
+    "loo_future_mean": 0.23616009453932443
+  },
+  {
+    "layer": 14,
+    "within_private": 0.05667927488684654,
+    "within_future": 0.17527824640274048,
+    "cross_private_future": 0.09223520755767822,
+    "loo_future_mean": 0.22900338967641196
+  },
+  {
+    "layer": 15,
+    "within_private": 0.010968208312988281,
+    "within_future": 0.21032418310642242,
+    "cross_private_future": 0.09934593737125397,
+    "loo_future_mean": 0.2707453668117523
+  },
+  {
+    "layer": 16,
+    "within_private": 0.01589118503034115,
+    "within_future": 0.21555209159851074,
+    "cross_private_future": 0.09774348884820938,
+    "loo_future_mean": 0.2774592339992523
+  },
+  {
+    "layer": 17,
+    "within_private": 0.007561335805803537,
+    "within_future": 0.21504347026348114,
+    "cross_private_future": 0.10195830464363098,
+    "loo_future_mean": 0.27688755095005035
+  },
+  {
+    "layer": 18,
+    "within_private": -0.018821746110916138,
+    "within_future": 0.23761814832687378,
+    "cross_private_future": 0.09536710381507874,
+    "loo_future_mean": 0.30283279220263165
+  },
+  {
+    "layer": 19,
+    "within_private": -0.016900986433029175,
+    "within_future": 0.23592619597911835,
+    "cross_private_future": 0.0959341749548912,
+    "loo_future_mean": 0.3006155292193095
+  },
+  {
+    "layer": 20,
+    "within_private": -0.022431552410125732,
+    "within_future": 0.21222595870494843,
+    "cross_private_future": 0.08592259883880615,
+    "loo_future_mean": 0.27338791886965436
+  },
+  {
+    "layer": 21,
+    "within_private": -0.0035134751815348864,
+    "within_future": 0.19263391196727753,
+    "cross_private_future": 0.0835956409573555,
+    "loo_future_mean": 0.2505263686180115
+  },
+  {
+    "layer": 22,
+    "within_private": -0.01087824534624815,
+    "within_future": 0.1874944567680359,
+    "cross_private_future": 0.07624056190252304,
+    "loo_future_mean": 0.2439465473095576
+  },
+  {
+    "layer": 23,
+    "within_private": -0.012603660114109516,
+    "within_future": 0.18112242221832275,
+    "cross_private_future": 0.07171501219272614,
+    "loo_future_mean": 0.23630370199680328
+  },
+  {
+    "layer": 24,
+    "within_private": -0.017879724502563477,
+    "within_future": 0.17221985757350922,
+    "cross_private_future": 0.06747068464756012,
+    "loo_future_mean": 0.22561697165171304
+  },
+  {
+    "layer": 25,
+    "within_private": -0.014157404191792011,
+    "within_future": 0.17022155225276947,
+    "cross_private_future": 0.06705836951732635,
+    "loo_future_mean": 0.22343425452709198
+  },
+  {
+    "layer": 26,
+    "within_private": -0.026919066905975342,
+    "within_future": 0.17560376226902008,
+    "cross_private_future": 0.06463387608528137,
+    "loo_future_mean": 0.2297275811433792
+  },
+  {
+    "layer": 27,
+    "within_private": -0.03529958054423332,
+    "within_future": 0.17714256048202515,
+    "cross_private_future": 0.06243938207626343,
+    "loo_future_mean": 0.2313333104054133
+  },
+  {
+    "layer": 28,
+    "within_private": -0.03503531217575073,
+    "within_future": 0.166286438703537,
+    "cross_private_future": 0.061434075236320496,
+    "loo_future_mean": 0.2182696412007014
+  },
+  {
+    "layer": 29,
+    "within_private": -0.01611419953405857,
+    "within_future": 0.17091059684753418,
+    "cross_private_future": 0.06150444224476814,
+    "loo_future_mean": 0.22389447192351022
+  },
+  {
+    "layer": 30,
+    "within_private": -0.00757165253162384,
+    "within_future": 0.18056784570217133,
+    "cross_private_future": 0.0677308738231659,
+    "loo_future_mean": 0.23567766944567362
+  },
+  {
+    "layer": 31,
+    "within_private": 0.015849530696868896,
+    "within_future": 0.1706688553094864,
+    "cross_private_future": 0.07460261136293411,
+    "loo_future_mean": 0.22407165666421255
+  }
+]

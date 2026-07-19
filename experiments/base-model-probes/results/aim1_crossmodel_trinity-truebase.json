@@ -1,0 +1,3113 @@
+{
+  "model": "trinity-truebase",
+  "n_layers": 60,
+  "selected_layer": 21,
+  "sweep": {
+    "15": 0.0,
+    "18": -0.0625,
+    "21": 0.125,
+    "24": 0.125,
+    "26": 0.0,
+    "29": -0.1875,
+    "33": -0.125,
+    "39": 0.125
+  },
+  "surviving_tasks": [
+    "direct",
+    "letters",
+    "letters_reversed",
+    "letters_paraphrase",
+    "letters_paraphrase_reversed",
+    "colors",
+    "colors_reversed",
+    "trees",
+    "trees_reversed"
+  ],
+  "excluded_tasks": [],
+  "per_task_delta": {
+    "direct": -0.25,
+    "letters": 0.125,
+    "letters_reversed": 0.125,
+    "letters_paraphrase": 0.12500011920928955,
+    "letters_paraphrase_reversed": 0.12500011920928955,
+    "colors": 0.0,
+    "colors_reversed": 0.0,
+    "trees": -0.3125,
+    "trees_reversed": -0.0624995231628418
+  },
+  "valence_remap_mean": 0.015625089406967163,
+  "null_remap_means": [
+    -0.07812507450580597,
+    -0.05468752980232239,
+    -0.054687514901161194,
+    -0.02343754470348358,
+    -0.023437514901161194,
+    -0.015624955296516418,
+    -0.015624955296516418,
+    -0.007812559604644775,
+    0.007812529802322388,
+    0.03124995529651642,
+    0.03906252980232239,
+    0.04687507450580597,
+    0.05468747019767761,
+    0.05468757450580597,
+    0.07812497019767761,
+    0.09375
+  ],
+  "p_rank": 0.47058823529411764,
+  "heldout_remap_mean": -0.02343745529651642,
+  "verdict": "PARTIAL",
+  "prereg_sha256": "26df7eec386a0328d2a12567bcbcfd9e24c942d69f5fedaa06561ee36cfb6554",
+  "sweep_rows": [
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 15,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.3125
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 15,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 15,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.3125
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 15,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 15,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 15,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 18,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.5
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 18,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.375
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 18,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 18,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 18,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 18,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.1875
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.4375
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.125
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.0
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 24,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.25
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 24,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.375
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 24,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 24,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.375
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 24,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 24,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.0
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 26,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.25
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 26,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.3125
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 26,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 26,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 26,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 26,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 29,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.3125
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 29,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.25
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 29,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.375
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 29,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.125
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 29,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 29,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 33,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.75
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 33,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.1875
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 33,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 33,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.125
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 33,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 33,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 39,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -1.0625
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 39,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.4375
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 39,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.125
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 39,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 39,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 39,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.0
+    }
+  ],
+  "rows": [
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.1875
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.4375
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.125
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.0
+    },
+    {
+      "direction": "valence",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.7499998807907104
+    },
+    {
+      "direction": "valence",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.875
+    },
+    {
+      "direction": "valence",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.2499998807907104
+    },
+    {
+      "direction": "valence",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.375
+    },
+    {
+      "direction": "valence",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.125
+    },
+    {
+      "direction": "valence",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.125
+    },
+    {
+      "direction": "valence",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.625
+    },
+    {
+      "direction": "valence",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.625
+    },
+    {
+      "direction": "valence",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "valence",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.9375
+    },
+    {
+      "direction": "valence",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.874999523162842
+    },
+    {
+      "direction": "valence",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.8125
+    },
+    {
+      "direction": "valence",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.0,
+      "sign": 1,
+      "margin": -0.375
+    },
+    {
+      "direction": "valence",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.0,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "valence",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.0,
+      "sign": 1,
+      "margin": 1.625
+    },
+    {
+      "direction": "valence",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.0,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "valence",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.0,
+      "sign": 1,
+      "margin": 2.25
+    },
+    {
+      "direction": "valence",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.0,
+      "sign": 1,
+      "margin": 2.125
+    },
+    {
+      "direction": "valence",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.0,
+      "sign": 1,
+      "margin": 0.5
+    },
+    {
+      "direction": "valence",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.0,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "valence",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.0,
+      "sign": 1,
+      "margin": 2.5625
+    },
+    {
+      "direction": "null_1",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.0625
+    },
+    {
+      "direction": "null_1",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.375
+    },
+    {
+      "direction": "null_1",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_1",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_1",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0
+    },
+    {
+      "direction": "null_1",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.0
+    },
+    {
+      "direction": "null_1",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.7500001192092896
+    },
+    {
+      "direction": "null_1",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.6250001192092896
+    },
+    {
+      "direction": "null_1",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.375
+    },
+    {
+      "direction": "null_1",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.1249998807907104
+    },
+    {
+      "direction": "null_1",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_1",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_1",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_1",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_1",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.1875
+    },
+    {
+      "direction": "null_1",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.125
+    },
+    {
+      "direction": "null_1",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.75
+    },
+    {
+      "direction": "null_1",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.812499523162842
+    },
+    {
+      "direction": "null_2",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.125
+    },
+    {
+      "direction": "null_2",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.375
+    },
+    {
+      "direction": "null_2",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_2",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_2",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0
+    },
+    {
+      "direction": "null_2",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.0
+    },
+    {
+      "direction": "null_2",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.75
+    },
+    {
+      "direction": "null_2",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.75
+    },
+    {
+      "direction": "null_2",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.25
+    },
+    {
+      "direction": "null_2",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.1249998807907104
+    },
+    {
+      "direction": "null_2",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_2",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_2",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.75
+    },
+    {
+      "direction": "null_2",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_2",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0625
+    },
+    {
+      "direction": "null_2",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.9375
+    },
+    {
+      "direction": "null_2",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.6875
+    },
+    {
+      "direction": "null_2",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.937500476837158
+    },
+    {
+      "direction": "null_3",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.3125
+    },
+    {
+      "direction": "null_3",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.125
+    },
+    {
+      "direction": "null_3",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_3",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_3",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_3",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_3",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.7499998807907104
+    },
+    {
+      "direction": "null_3",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.6250001192092896
+    },
+    {
+      "direction": "null_3",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.3749998807907104
+    },
+    {
+      "direction": "null_3",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_3",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_3",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_3",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_3",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.75
+    },
+    {
+      "direction": "null_3",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_3",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.1875
+    },
+    {
+      "direction": "null_3",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.8125
+    },
+    {
+      "direction": "null_3",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.625
+    },
+    {
+      "direction": "null_4",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.4375
+    },
+    {
+      "direction": "null_4",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.1875
+    },
+    {
+      "direction": "null_4",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_4",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.375
+    },
+    {
+      "direction": "null_4",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_4",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_4",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.6250001192092896
+    },
+    {
+      "direction": "null_4",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.75
+    },
+    {
+      "direction": "null_4",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_4",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.2499998807907104
+    },
+    {
+      "direction": "null_4",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_4",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_4",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.75
+    },
+    {
+      "direction": "null_4",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.5
+    },
+    {
+      "direction": "null_4",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0625
+    },
+    {
+      "direction": "null_4",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_4",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.625
+    },
+    {
+      "direction": "null_4",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.9375
+    },
+    {
+      "direction": "null_5",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.125
+    },
+    {
+      "direction": "null_5",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.4375
+    },
+    {
+      "direction": "null_5",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.375
+    },
+    {
+      "direction": "null_5",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_5",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0
+    },
+    {
+      "direction": "null_5",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.0
+    },
+    {
+      "direction": "null_5",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.75
+    },
+    {
+      "direction": "null_5",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.625
+    },
+    {
+      "direction": "null_5",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.25
+    },
+    {
+      "direction": "null_5",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.1249998807907104
+    },
+    {
+      "direction": "null_5",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_5",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_5",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_5",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_5",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.9375
+    },
+    {
+      "direction": "null_5",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.125
+    },
+    {
+      "direction": "null_5",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.625
+    },
+    {
+      "direction": "null_5",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.75
+    },
+    {
+      "direction": "null_6",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.375
+    },
+    {
+      "direction": "null_6",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.3125
+    },
+    {
+      "direction": "null_6",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_6",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.375
+    },
+    {
+      "direction": "null_6",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_6",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.0
+    },
+    {
+      "direction": "null_6",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.6249998807907104
+    },
+    {
+      "direction": "null_6",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.625
+    },
+    {
+      "direction": "null_6",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_6",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.25
+    },
+    {
+      "direction": "null_6",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_6",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_6",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_6",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_6",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.1875
+    },
+    {
+      "direction": "null_6",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.0625
+    },
+    {
+      "direction": "null_6",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.75
+    },
+    {
+      "direction": "null_6",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.750000476837158
+    },
+    {
+      "direction": "null_7",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.3125
+    },
+    {
+      "direction": "null_7",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.5625
+    },
+    {
+      "direction": "null_7",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.375
+    },
+    {
+      "direction": "null_7",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_7",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_7",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_7",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.7500001192092896
+    },
+    {
+      "direction": "null_7",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.625
+    },
+    {
+      "direction": "null_7",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.2500001192092896
+    },
+    {
+      "direction": "null_7",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.25
+    },
+    {
+      "direction": "null_7",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_7",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.25
+    },
+    {
+      "direction": "null_7",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_7",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.75
+    },
+    {
+      "direction": "null_7",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.9375
+    },
+    {
+      "direction": "null_7",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.125
+    },
+    {
+      "direction": "null_7",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.6875
+    },
+    {
+      "direction": "null_7",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.8125
+    },
+    {
+      "direction": "null_8",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.25
+    },
+    {
+      "direction": "null_8",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.375
+    },
+    {
+      "direction": "null_8",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_8",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_8",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0
+    },
+    {
+      "direction": "null_8",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.0
+    },
+    {
+      "direction": "null_8",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.75
+    },
+    {
+      "direction": "null_8",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.6250001192092896
+    },
+    {
+      "direction": "null_8",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.25
+    },
+    {
+      "direction": "null_8",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.25
+    },
+    {
+      "direction": "null_8",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_8",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_8",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_8",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_8",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.8125
+    },
+    {
+      "direction": "null_8",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_8",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.812499523162842
+    },
+    {
+      "direction": "null_8",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.8125
+    },
+    {
+      "direction": "null_9",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.375
+    },
+    {
+      "direction": "null_9",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.375
+    },
+    {
+      "direction": "null_9",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_9",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_9",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_9",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.0
+    },
+    {
+      "direction": "null_9",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.625
+    },
+    {
+      "direction": "null_9",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.7499998807907104
+    },
+    {
+      "direction": "null_9",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.2500001192092896
+    },
+    {
+      "direction": "null_9",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.2499998807907104
+    },
+    {
+      "direction": "null_9",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_9",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_9",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_9",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_9",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_9",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_9",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.6875
+    },
+    {
+      "direction": "null_9",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.8125
+    },
+    {
+      "direction": "null_10",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.3125
+    },
+    {
+      "direction": "null_10",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.25
+    },
+    {
+      "direction": "null_10",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_10",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_10",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_10",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_10",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.7500001192092896
+    },
+    {
+      "direction": "null_10",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.75
+    },
+    {
+      "direction": "null_10",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.25
+    },
+    {
+      "direction": "null_10",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.1250001192092896
+    },
+    {
+      "direction": "null_10",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_10",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_10",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.75
+    },
+    {
+      "direction": "null_10",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_10",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0625
+    },
+    {
+      "direction": "null_10",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.1875
+    },
+    {
+      "direction": "null_10",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.6875
+    },
+    {
+      "direction": "null_10",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.874999523162842
+    },
+    {
+      "direction": "null_11",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.375
+    },
+    {
+      "direction": "null_11",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.0625
+    },
+    {
+      "direction": "null_11",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_11",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.125
+    },
+    {
+      "direction": "null_11",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0
+    },
+    {
+      "direction": "null_11",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.0
+    },
+    {
+      "direction": "null_11",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.7499998807907104
+    },
+    {
+      "direction": "null_11",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.75
+    },
+    {
+      "direction": "null_11",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.25
+    },
+    {
+      "direction": "null_11",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_11",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_11",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_11",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.75
+    },
+    {
+      "direction": "null_11",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.375
+    },
+    {
+      "direction": "null_11",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0
+    },
+    {
+      "direction": "null_11",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.1875
+    },
+    {
+      "direction": "null_11",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.687500476837158
+    },
+    {
+      "direction": "null_11",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.9375
+    },
+    {
+      "direction": "null_12",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.375
+    },
+    {
+      "direction": "null_12",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_12",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.1875
+    },
+    {
+      "direction": "null_12",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_12",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0
+    },
+    {
+      "direction": "null_12",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_12",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.75
+    },
+    {
+      "direction": "null_12",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.7500001192092896
+    },
+    {
+      "direction": "null_12",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.25
+    },
+    {
+      "direction": "null_12",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.1250001192092896
+    },
+    {
+      "direction": "null_12",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.875
+    },
+    {
+      "direction": "null_12",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_12",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_12",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_12",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.9375
+    },
+    {
+      "direction": "null_12",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.0625
+    },
+    {
+      "direction": "null_12",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.6875
+    },
+    {
+      "direction": "null_12",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.875
+    },
+    {
+      "direction": "null_13",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.25
+    },
+    {
+      "direction": "null_13",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.375
+    },
+    {
+      "direction": "null_13",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_13",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_13",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_13",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_13",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.625
+    },
+    {
+      "direction": "null_13",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.75
+    },
+    {
+      "direction": "null_13",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.25
+    },
+    {
+      "direction": "null_13",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.1249998807907104
+    },
+    {
+      "direction": "null_13",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.25
+    },
+    {
+      "direction": "null_13",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_13",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_13",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.75
+    },
+    {
+      "direction": "null_13",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.1875
+    },
+    {
+      "direction": "null_13",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_13",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.75
+    },
+    {
+      "direction": "null_13",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.75
+    },
+    {
+      "direction": "null_14",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.25
+    },
+    {
+      "direction": "null_14",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.3125
+    },
+    {
+      "direction": "null_14",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.375
+    },
+    {
+      "direction": "null_14",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.2499998807907104
+    },
+    {
+      "direction": "null_14",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_14",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.0
+    },
+    {
+      "direction": "null_14",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.75
+    },
+    {
+      "direction": "null_14",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.7499998807907104
+    },
+    {
+      "direction": "null_14",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.2499998807907104
+    },
+    {
+      "direction": "null_14",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.2499998807907104
+    },
+    {
+      "direction": "null_14",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_14",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_14",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_14",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_14",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.375
+    },
+    {
+      "direction": "null_14",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.8125
+    },
+    {
+      "direction": "null_14",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.625
+    },
+    {
+      "direction": "null_14",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 3.0
+    },
+    {
+      "direction": "null_15",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.375
+    },
+    {
+      "direction": "null_15",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.3125
+    },
+    {
+      "direction": "null_15",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_15",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_15",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_15",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_15",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.7499998807907104
+    },
+    {
+      "direction": "null_15",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.75
+    },
+    {
+      "direction": "null_15",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_15",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.2500001192092896
+    },
+    {
+      "direction": "null_15",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_15",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.0
+    },
+    {
+      "direction": "null_15",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.75
+    },
+    {
+      "direction": "null_15",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.625
+    },
+    {
+      "direction": "null_15",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0625
+    },
+    {
+      "direction": "null_15",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.375
+    },
+    {
+      "direction": "null_15",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.75
+    },
+    {
+      "direction": "null_15",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.625
+    },
+    {
+      "direction": "null_16",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.3125
+    },
+    {
+      "direction": "null_16",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.1875
+    },
+    {
+      "direction": "null_16",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_16",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "null_16",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_16",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "null_16",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.75
+    },
+    {
+      "direction": "null_16",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.75
+    },
+    {
+      "direction": "null_16",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.125
+    },
+    {
+      "direction": "null_16",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.875
+    },
+    {
+      "direction": "null_16",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.375
+    },
+    {
+      "direction": "null_16",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.25
+    },
+    {
+      "direction": "null_16",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.5
+    },
+    {
+      "direction": "null_16",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.75
+    },
+    {
+      "direction": "null_16",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0625
+    },
+    {
+      "direction": "null_16",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.0625
+    },
+    {
+      "direction": "null_16",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.75
+    },
+    {
+      "direction": "null_16",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.625
+    },
+    {
+      "direction": "heldout",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": -0.3125
+    },
+    {
+      "direction": "heldout",
+      "task": "direct",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": -0.1875
+    },
+    {
+      "direction": "heldout",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.125
+    },
+    {
+      "direction": "heldout",
+      "task": "letters",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.25
+    },
+    {
+      "direction": "heldout",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.875
+    },
+    {
+      "direction": "heldout",
+      "task": "letters_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "heldout",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.625
+    },
+    {
+      "direction": "heldout",
+      "task": "letters_paraphrase",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 1.75
+    },
+    {
+      "direction": "heldout",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.1250001192092896
+    },
+    {
+      "direction": "heldout",
+      "task": "letters_paraphrase_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.25
+    },
+    {
+      "direction": "heldout",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.125
+    },
+    {
+      "direction": "heldout",
+      "task": "colors",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.125
+    },
+    {
+      "direction": "heldout",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 0.625
+    },
+    {
+      "direction": "heldout",
+      "task": "colors_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.5
+    },
+    {
+      "direction": "heldout",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 1.0625
+    },
+    {
+      "direction": "heldout",
+      "task": "trees",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 0.875
+    },
+    {
+      "direction": "heldout",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": -1,
+      "margin": 2.875
+    },
+    {
+      "direction": "heldout",
+      "task": "trees_reversed",
+      "layer": 21,
+      "scale": 0.4,
+      "sign": 1,
+      "margin": 2.625000476837158
+    }
+  ]
+}
