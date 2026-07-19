@@ -50,7 +50,7 @@ notes; write us if you want them.
 
 ## Credits
 
-Pilot protocol and harness co-designed with GPT-5.5; boundary probes
+Pilot protocol and harness co-designed with GPT-5.6; boundary probes
 G5–G7 were designed from objections raised by an adversarial review
-panel (GPT-5.5, Claude). Experiments and analysis run with Claude
+panel (GPT-5.6, Claude). Experiments and analysis run with Claude
 (Fable 5).
