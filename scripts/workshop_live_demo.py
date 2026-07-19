@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Workshop live-demo driver — demos 2-4 of the HAAISS run-of-show in ONE
+Workshop live-demo driver — the fast NB02/NB03 beats in ONE
 warm session (load the model once, keep it in tmux, survive an ssh drop).
 
 Mirrors the *tested* notebook code paths (NB01-NB03), but imports every
@@ -8,10 +8,10 @@ constant/template from nla_lib instead of carrying copies:
 
   read <sentence>   capture the clean-base activation at --layer, show the
                     model's own reply next to the NLA caption   (demo 2)
-  depth             the same vector read at several claimed depths (demo 2/3)
-  bug               normalize-TO-150 vs multiply-BY-150, side by side (demo 3)
+  bug               normalize-TO-150 vs multiply-BY-150, side by side (NB02)
   gap               round-trip + curry-recipe gap: naive (fails) then
-                    centered ranking over distractors               (demo 4)
+                    centered ranking over distractors               (NB03)
+  depth             optional slow extra: one vector, four claimed depths
   help / quit
 
 Run on any CUDA box (bf16 default; --load-4bit mirrors the Colab T4 path):
@@ -88,7 +88,7 @@ class Demo:
                 hf_id, quantization_config=bnb, device_map={"": 0})
         else:
             base = AutoModelForCausalLM.from_pretrained(
-                hf_id, torch_dtype=torch.bfloat16, device_map={"": 0})
+                hf_id, dtype=torch.bfloat16, device_map={"": 0})
         self.model = PeftModel.from_pretrained(base, args.av_adapter).eval()
         self.model.load_adapter(args.ar_adapter, adapter_name="ar")
         self.model.set_adapter("default")
@@ -122,11 +122,14 @@ class Demo:
                 grab["h"] = h[:, -1, :].detach()
 
         handle = get_layers(self.model)[self.layer].register_forward_hook(hook)
-        with torch.no_grad(), self.model.disable_adapter():
-            out = self.model.generate(
-                **inp, max_new_tokens=max_new_tokens, do_sample=False,
-                pad_token_id=self.tok.eos_token_id)
-        handle.remove()
+        try:
+            with torch.no_grad(), self.model.disable_adapter():
+                out = self.model.generate(
+                    **inp, max_new_tokens=max_new_tokens, do_sample=False,
+                    temperature=None, top_p=None, top_k=None,
+                    pad_token_id=self.tok.eos_token_id)
+        finally:
+            handle.remove()
         reply = self.tok.decode(out[0][inp.input_ids.shape[1]:],
                                 skip_special_tokens=True)
         self.activation = grab["h"].squeeze(0)
@@ -149,13 +152,16 @@ class Demo:
             tokenize=False, add_generation_prompt=True)
         ids = self.tok.encode(chat, add_special_tokens=False)
         pos = ids.index(self.inject_id)
-        emb = self.model.get_input_embeddings()(
-            torch.tensor([ids], device=self.device)).clone()
+        input_ids = torch.tensor([ids], device=self.device)
+        emb = self.model.get_input_embeddings()(input_ids).clone()
         emb[0, pos, :] = scale_fn(activation.to(emb.dtype))
+        attn = torch.ones_like(input_ids)
         with torch.no_grad():
             out = self.model.generate(
-                inputs_embeds=emb, max_new_tokens=max_new_tokens,
-                do_sample=False, pad_token_id=self.tok.eos_token_id)
+                input_ids=input_ids, inputs_embeds=emb, attention_mask=attn,
+                max_new_tokens=max_new_tokens, do_sample=False,
+                temperature=None, top_p=None, top_k=None,
+                pad_token_id=self.tok.eos_token_id)
         seq = out[0]
         gen = seq[len(ids):] if seq.shape[0] > len(ids) else seq
         return (self.tok.decode(gen, skip_special_tokens=True)
@@ -202,10 +208,13 @@ class Demo:
             make_ar_prompt_depth_sl(description, self.depth_pct,
                                     self.inject_char),
             add_special_tokens=False)
-        with torch.no_grad():
-            out = self.model(input_ids=torch.tensor([ids], device=self.device),
-                             output_hidden_states=True, use_cache=False)
-        self.model.set_adapter("default")
+        try:
+            with torch.no_grad():
+                out = self.model(
+                    input_ids=torch.tensor([ids], device=self.device),
+                    output_hidden_states=True, use_cache=False)
+        finally:
+            self.model.set_adapter("default")
         return out.hidden_states[self.layer + 1][0, -1].float().cpu()
 
     def gap(self):

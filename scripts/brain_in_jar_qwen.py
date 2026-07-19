@@ -105,29 +105,45 @@ def load_models(av_path, ar_path, device, skip_ar=False):
 
 
 def extract_layer_activation(model, tokenizer, prompt, layer, device):
+    acts, reply = extract_layers_activations(
+        model, tokenizer, prompt, [layer], device)
+    return acts[layer], reply
+
+
+def extract_layers_activations(model, tokenizer, prompt, layers, device):
+    """Same trusted single-generate / first-forward / last-prompt-token method
+    as the single-layer path, but with one hook per requested layer captured in
+    the SAME generate() call (no new extraction path to differential-test)."""
     messages = [{"role": "user", "content": prompt}]
     chat_str = tokenizer.apply_chat_template(
         messages, tokenize=False, add_generation_prompt=True)
     inputs = tokenizer(chat_str, return_tensors="pt").to(device)
 
     activation = {}
-    def hook(mod, inp, out):
-        h = out[0] if isinstance(out, tuple) else out
-        if "h" not in activation:
-            activation["h"] = h[:, -1, :].detach()
+    handles = []
     base = model.base_model.model if hasattr(model, "base_model") else model
     inner = base.model if hasattr(base, "model") else base
-    handle = inner.layers[layer].register_forward_hook(hook)
+
+    def make_hook(layer):
+        def hook(mod, inp, out):
+            h = out[0] if isinstance(out, tuple) else out
+            if layer not in activation:              # FIRST (prompt) forward only
+                activation[layer] = h[:, -1, :].detach().squeeze(0)
+        return hook
+
+    for layer in layers:
+        handles.append(inner.layers[layer].register_forward_hook(make_hook(layer)))
 
     with model.disable_adapter(), torch.no_grad():
         output = model.generate(
             **inputs, max_new_tokens=200, do_sample=False,
             pad_token_id=tokenizer.eos_token_id)
-    handle.remove()
+    for handle in handles:
+        handle.remove()
 
     reply = tokenizer.decode(
         output[0][inputs.input_ids.shape[1]:], skip_special_tokens=True)
-    return activation["h"].squeeze(0), reply
+    return activation, reply
 
 
 def verbalize(av_model, tokenizer, activation, depth_pct,
@@ -172,7 +188,7 @@ def verbalize(av_model, tokenizer, activation, depth_pct,
 
 
 def ar_score(ar_model, tokenizer, prompt_template, description,
-             actual_activation, depth_pct, device):
+             actual_activation, depth_pct, layer, device):
     prompt = prompt_template.replace(
         "{explanation}", description).replace(
         "{injection_char}", INJECTION_CHAR).replace(
@@ -183,7 +199,7 @@ def ar_score(ar_model, tokenizer, prompt_template, description,
     with torch.no_grad():
         outputs = ar_model(
             input_ids=input_ids, use_cache=False, output_hidden_states=True)
-        hidden = outputs.hidden_states[LAYER + 1]
+        hidden = outputs.hidden_states[layer + 1]
         reconstructed = hidden[0, -1]
 
     cos = torch.nn.functional.cosine_similarity(
@@ -194,16 +210,15 @@ def ar_score(ar_model, tokenizer, prompt_template, description,
 
 def confidence_bar(cos, width=20):
     filled = max(0, min(width, int(cos * width)))
-    bar = "█" * filled + "░" * (width - filled)
+    bar = "#" * filled + "-" * (width - filled)  # ASCII: survives screen/UTF-8
     col = "green" if cos >= 0.9 else "yellow" if cos >= 0.7 else "red"
     return c(bar, col)
 
 
 def run(av_model, tokenizer, injection_token_id,
         av_template, injection_mode, use_chat_template, ar_model,
-        ar_tokenizer, ar_template, prompt, device, skip_ar):
+        ar_tokenizer, ar_template, prompt, device, skip_ar, layers):
 
-    depth_pct = nearest_depth_pct(LAYER, N_LAYERS)
     sep = c("=" * 70, "bold")
     dim_sep = c("-" * 70, "dim")
 
@@ -212,65 +227,71 @@ def run(av_model, tokenizer, injection_token_id,
     print(sep)
 
     print(f"\n  {c('Running model...', 'dim')}", end=" ", flush=True)
-    activation, reply = extract_layer_activation(
-        av_model, tokenizer, prompt, LAYER, device)
+    activations, reply = extract_layers_activations(
+        av_model, tokenizer, prompt, layers, device)
     print("done")
 
     print(f"\n  {c('OUTPUT:', 'bold')} {reply[:500]}")
 
-    print(f"\n  {c('Verbalizing layer %d (%d%% depth)...' % (LAYER, depth_pct), 'dim')}",
-          end=" ", flush=True)
-    description = verbalize(
-        av_model, tokenizer, activation, depth_pct,
-        injection_token_id, device, av_template, injection_mode,
-        use_chat_template)
-    print("done")
-
-    if not skip_ar and ar_model is not None:
-        print(f"  {c('Computing AR confidence...', 'dim')}", end=" ", flush=True)
-        cos = ar_score(
-            ar_model, ar_tokenizer, ar_template, description,
-            activation, depth_pct, device)
+    for layer in layers:
+        depth_pct = nearest_depth_pct(layer, N_LAYERS)
+        print(f"\n  {c('Verbalizing layer %d (%d%% depth)...' % (layer, depth_pct), 'dim')}",
+              end=" ", flush=True)
+        description = verbalize(
+            av_model, tokenizer, activations[layer], depth_pct,
+            injection_token_id, device, av_template, injection_mode,
+            use_chat_template)
         print("done")
-        conf_str = f" {confidence_bar(cos)} {c('%.3f' % cos, 'dim')}"
-    else:
-        conf_str = ""
 
-    print(f"\n  {c('LAYER %d (%d%% depth):%s' % (LAYER, depth_pct, conf_str), 'cyan')}")
-    print(f"  {dim_sep}")
-    for line in description.split("\n"):
-        line = line.strip()
-        if line:
-            print(f"  {line}")
-    print(f"  {dim_sep}")
+        if not skip_ar and ar_model is not None:
+            cos = ar_score(
+                ar_model, ar_tokenizer, ar_template, description,
+                activations[layer], depth_pct, layer, device)
+            conf_str = f" {confidence_bar(cos)} {c('%.3f' % cos, 'dim')}"
+        else:
+            conf_str = ""
+
+        print(f"\n  {c('LAYER %d (%d%% depth):%s' % (layer, depth_pct, conf_str), 'cyan')}")
+        print(f"  {dim_sep}")
+        for line in description.split("\n"):
+            line = line.strip()
+            if line:
+                print(f"  {line}")
+        print(f"  {dim_sep}")
     print()
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Brain in a Jar — Qwen 7B single-layer NLA")
+    parser = argparse.ArgumentParser(description="Brain in a Jar — Qwen 7B NLA")
     parser.add_argument("--av-adapter", required=True)
     parser.add_argument("--ar-checkpoint", required=True)
     parser.add_argument("--prompt", default=None)
     parser.add_argument("--skip-ar", action="store_true")
     parser.add_argument("--device", default="cpu")
+    parser.add_argument("--layers", default="20",
+                        help="comma-separated layers to read (default 20 = "
+                             "published single-layer; e.g. 4,10,16,20,24 for a "
+                             "depth ladder with the universal adapter)")
     args = parser.parse_args()
 
     device = args.device
+    layers = [int(x) for x in args.layers.split(",")]
 
     loaded = load_models(
         args.av_adapter, args.ar_checkpoint, device, args.skip_ar)
 
+    ladder = f" — depth ladder L{','.join(map(str, layers))}" if len(layers) > 1 else " L20"
     if args.prompt:
-        run(*loaded, args.prompt, device, args.skip_ar)
+        run(*loaded, args.prompt, device, args.skip_ar, layers)
     else:
-        print(f"\n{c('Brain in a Jar', 'bold')} — Qwen 7B L20 NLA (84% top-1, GRPO)")
+        print(f"\n{c('Brain in a Jar', 'bold')} — Qwen 7B NLA{ladder}")
         print(f"Type a prompt. {c('Ctrl+C to exit.', 'dim')}\n")
         while True:
             try:
                 prompt = input(c("prompt> ", "cyan"))
                 if not prompt.strip():
                     continue
-                run(*loaded, prompt, device, args.skip_ar)
+                run(*loaded, prompt, device, args.skip_ar, layers)
             except (EOFError, KeyboardInterrupt):
                 print(f"\n{c('Goodbye.', 'dim')}")
                 break

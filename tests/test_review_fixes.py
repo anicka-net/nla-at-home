@@ -1,4 +1,5 @@
 import json
+import re
 import sys
 import types
 from pathlib import Path
@@ -133,7 +134,7 @@ def test_qwen_ar_prompt_replaces_depth(monkeypatch):
     brain_in_jar_qwen.ar_score(
         Model(), Tokenizer(),
         "depth {depth_pct}: {explanation} {injection_char}",
-        "desc", torch.zeros(2), 71, "cpu")
+        "desc", torch.zeros(2), 71, 20, "cpu")
     assert captured["prompt"] == "depth 71: desc ㈎"
 
 
@@ -222,6 +223,120 @@ def test_ar_strict_mode_does_not_fall_back(tmp_path, monkeypatch):
     descs = train_universal_ar.load_descriptions(
         "_twin_clean", strict=True)
     assert descs == {4: {"x": "clean"}}
+
+
+def _notebook_code(name):
+    notebook = json.loads((REPO / "notebooks" / name).read_text())
+    return "\n".join(
+        "".join(cell["source"])
+        for cell in notebook["cells"]
+        if cell["cell_type"] == "code"
+    )
+
+
+def _function_source(code, name):
+    match = re.search(
+        rf"^def {re.escape(name)}\(.*?(?=^def |\Z)",
+        code,
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    assert match, f"function {name} not found"
+    return match.group(0)
+
+
+@pytest.mark.parametrize("name", [
+    "01_read_a_mind.ipynb",
+    "02_injection_mechanism.ipynb",
+    "03_roundtrip_faithfulness.ipynb",
+    "04_reading_between_the_lines.ipynb",
+    "05_three_lenses.ipynb",
+    "06_confabulation_detector.ipynb",
+])
+def test_notebook_activation_reader_defaults_to_clean_base(name):
+    source = _function_source(_notebook_code(name), "read_activation")
+    assert "model.disable_adapter()" in source
+    assert "finally:" in source
+    assert "handle.remove()" in source
+
+
+def test_notebook_unguarded_demo_has_only_intended_bug():
+    source = _function_source(
+        _notebook_code("02_injection_mechanism.ipynb"), "read_unguarded")
+    assert "model.disable_adapter()" in source
+    assert "finally:" in source
+    assert 'if "h" not in grab' not in source
+
+
+def test_notebook_geometry_helpers_use_clean_base():
+    source = _notebook_code("04_reading_between_the_lines.ipynb")
+    for helper in ("grab_activation", "logit_lens"):
+        assert "model.disable_adapter()" in _function_source(source, helper)
+
+
+def test_notebook_injected_generation_has_attention_mask():
+    for name in (
+        "01_read_a_mind.ipynb",
+        "02_injection_mechanism.ipynb",
+        "03_roundtrip_faithfulness.ipynb",
+        "04_reading_between_the_lines.ipynb",
+        "05_three_lenses.ipynb",
+        "06_confabulation_detector.ipynb",
+    ):
+        notebook_source = _notebook_code(name)
+        source = _function_source(notebook_source, "describe")
+        assert "attention_mask=attn" in source
+        assert "input_ids=input_ids" in source
+        assert "generate(inputs_embeds=" not in notebook_source
+
+
+def test_stale_notebook_generator_refuses_to_overwrite_reviewed_files():
+    source = (REPO / "notebooks" / "build_workshop_notebooks.py").read_text()
+    main = source[source.index('if __name__ == "__main__":'):]
+    assert "raise SystemExit" in main
+    assert "notebook_01()" not in main
+
+
+def test_workshop_live_demo_matches_injection_protocol():
+    source = (REPO / "scripts" / "workshop_live_demo.py").read_text()
+    assert "input_ids=input_ids, inputs_embeds=emb, attention_mask=attn" in source
+    assert "with torch.no_grad(), self.model.disable_adapter():" in source
+    assert "finally:\n            handle.remove()" in source
+    assert "finally:\n            self.model.set_adapter(\"default\")" in source
+
+
+def test_workshop_notebooks_do_not_restore_single_layer_claims():
+    source = "\n".join(
+        (REPO / "notebooks" / name).read_text()
+        for name in (
+            "01_read_a_mind.ipynb",
+            "02_injection_mechanism.ipynb",
+            "03_roundtrip_faithfulness.ipynb",
+            "04_reading_between_the_lines.ipynb",
+            "05_three_lenses.ipynb",
+            "06_confabulation_detector.ipynb",
+        )
+    )
+    for stale in (
+        "hands-on part 1 of 3",
+        "hands-on part 2 of 3",
+        "hands-on part 3 of 3",
+        "single-layer NLA lives at Qwen layer 20",
+        "universal Phi-4 NLA",
+        "this single-layer Qwen one",
+        "trained at thirteen",
+        "Both cosines land around **0.6**",
+        "the **naive** gap is ~0",
+        "lens with no prior of its own",
+    ):
+        assert stale not in source
+
+
+def test_notebook_two_renders_both_scale_paths_in_one_run():
+    source = _notebook_code("02_injection_mechanism.ipynb")
+    assert "for BUG in (False, True):" in source
+    assert "CORRECT: normalize TO 150" in source
+    assert "BUG: multiply BY 150" in source
+    assert "# === FLIP THIS ===" not in source
 
 
 @pytest.mark.parametrize("path", [
